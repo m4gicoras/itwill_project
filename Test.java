@@ -5,7 +5,7 @@ public class Test {
         String word = "ITWILL";
         for (char ch : word.toCharArray()) {
             System.out.print(ch);
-            Thread.sleep(450);
+            Thread.sleep(500);
         }
         System.out.println();
     }
