@@ -1,0 +1,13 @@
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata/
+
+# Maven
+target/
+*.log
+
+# OS별 임시 파일
+.DS_Store
+Thumbs.db

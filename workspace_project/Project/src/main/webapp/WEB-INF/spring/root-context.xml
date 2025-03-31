@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+<!-- HikariCP DataSource -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <!-- 실제 MySQL Connection URL -->
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/Project"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <!-- 풀 사이즈 등 추가 설정 -->
+        <property name="maximumPoolSize" value="10"/>
+        <!-- 필요시 다른 세부옵션도 추가 가능 -->
+    </bean>
+
+    <!-- MyBatis SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- MyBatis 설정파일 위치 (mybatis-config.xml) 지정 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!-- SqlSessionTemplate (DAO에서 주입받아 사용) -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- Spring JDBC Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    	<property name="basePackage" value="com.m4gi.mapper" />
+	</bean>
+   
+</beans>
