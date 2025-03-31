@@ -1,0 +1,12 @@
+package com.itwillbs.service;
+
+import com.itwillbs.domain.MemberVO;
+
+public class MemberServiceImpl implements MemberService {
+
+	@Override
+	public void MemberJoin(MemberVO vo) {
+		
+	}
+
+}

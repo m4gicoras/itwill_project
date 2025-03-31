@@ -1,0 +1,6 @@
+127.0.0.1 - - [31/Mar/2025:10:13:16 +0900] "GET / HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [31/Mar/2025:10:13:16 +0900] "GET /WEB-INF/classes/com/m4gi/controller/ProfileController.java HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [31/Mar/2025:10:13:16 +0900] "GET /favicon.ico HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [31/Mar/2025:10:13:19 +0900] "GET /profile HTTP/1.1" 200 663
+0:0:0:0:0:0:0:1 - - [31/Mar/2025:10:13:19 +0900] "GET /resources/images/default-profile.png HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [31/Mar/2025:10:13:28 +0900] "POST /profile/upload;jsessionid=8EAAA7D7158E0ACC43A26D0B86636009 HTTP/1.1" 200 656
