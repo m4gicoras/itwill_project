@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 	
 	// http://localhost:8088/web/mainPage
-	@GetMapping("/mainPage")
-	public String mainPage() {
-		return "mainPage";
+	@GetMapping("/main")
+	public String main() {
+		return "main";
 	}
 }

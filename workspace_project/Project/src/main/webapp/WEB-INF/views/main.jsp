@@ -50,7 +50,14 @@
             padding: 10px 20px;
             margin: 10px 5px;
         }
-
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+        .success-message {
+            color: green;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +72,14 @@
     <div class="login-container">
         <form action="<c:url value='/login'/>" method="post">
             <h2>로그인</h2>
+            <!-- 성공 메시지 출력 -->
+            <c:if test="${not empty success}">
+                <div class="success-message">${success}</div>
+            </c:if>
+            <!-- 에러 메시지 출력 -->
+            <c:if test="${not empty error}">
+                <div class="error-message">${error}</div>
+            </c:if>
             <input type="text" name="username" placeholder="아이디" required /><br/>
             <input type="password" name="password" placeholder="비밀번호" required /><br/>
 
@@ -79,7 +94,6 @@
 			
             <button type="submit">로그인</button>
             <button type="button" onclick="location.href='<c:url value="/signup"/>'">회원가입</button>
-
         </form>
     </div>
 
