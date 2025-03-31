@@ -1,0 +1,9 @@
+package com.m4gi.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class mainController {
+
+	
+}
