@@ -1,0 +1,15 @@
+package com.itwillbs.service;
+
+import java.util.List;
+
+import com.itwillbs.domain.MemberVO;
+
+public interface MemberService {
+	
+	public void MemberJoin(MemberVO vo);
+	public MemberVO memberLoginCheck(MemberVO loginVO);
+	public MemberVO memberInfo(String userid);
+	public int memberUpdate(MemberVO updateVO);
+	public int memberDelete(MemberVO updateVO);
+	public List<MemberVO> getMemberList();
+}
