@@ -1,0 +1,5 @@
+package com.m4gi.gcs;
+
+public class GCSUploadService {
+
+}
