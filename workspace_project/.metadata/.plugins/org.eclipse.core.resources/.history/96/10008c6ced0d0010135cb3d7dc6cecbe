@@ -1,0 +1,14 @@
+package com.m4gi.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class mainController {
+
+	@GetMapping("/mainPage")
+	public String mainPage(Model model) {
+		return "mainPage";
+	}
+}
