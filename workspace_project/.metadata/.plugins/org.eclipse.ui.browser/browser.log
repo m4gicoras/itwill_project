@@ -140,3 +140,7 @@
 3월 28, 2025 13:57:08.59 Created TensorFlow Lite XNNPACK delegate for CPU.
 3월 28, 2025 13:57:32.22 [3752:15788:0328/135732.223:ERROR:device_event_log_impl.cc(202)] [13:57:32.223] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
 3월 28, 2025 13:57:32.33 Created TensorFlow Lite XNNPACK delegate for CPU.
+
+3월 31, 2025 12:39:06.38 NEW SESSION
+3월 31, 2025 12:39:06.38 [13244:16856:0331/123906.381:ERROR:device_event_log_impl.cc(202)] [12:39:06.382] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+3월 31, 2025 12:39:06.44 Created TensorFlow Lite XNNPACK delegate for CPU.
