@@ -29,7 +29,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.9);
+            background: #9ACBD0;
             padding: 30px;
             border-radius: 10px;
             text-align: center;
