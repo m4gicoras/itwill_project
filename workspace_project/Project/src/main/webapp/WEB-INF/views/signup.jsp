@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+
+    <!-- 기본 스타일 설정 -->
     <style>
+        /* 전체 페이지 스타일 설정 */
         body {
             font-family: "맑은 고딕", sans-serif;
             background-color: #f7f8fa;
         }
 
+        /* 가운데 정렬된 가입 폼 박스 */
         .container {
             width: 460px;
             margin: 30px auto;
@@ -19,11 +23,13 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
+        /* 제목 스타일 */
         h2 {
             text-align: center;
             margin-bottom: 25px;
         }
 
+        /* 라벨 스타일 */
         label {
             display: block;
             margin: 12px 0 6px;
@@ -35,6 +41,7 @@
             margin-left: 4px;
         }
 
+        /* 입력창 공통 스타일 */
         input, select {
             width: 100%;
             padding: 6px 10px;
@@ -44,6 +51,7 @@
             margin-bottom: 12px;
         }
 
+        /* 섹션 구분 타이틀 */
         .section-title {
             margin-top: 25px;
             padding-bottom: 5px;
@@ -52,6 +60,7 @@
             border-bottom: 1px solid #ddd;
         }
 
+        /* 체크박스 그룹 스타일 */
         .checkbox-group {
             margin: 15px 0;
             font-size: 13px;
@@ -70,6 +79,7 @@
             cursor: pointer;
         }
 
+        /* 제출 버튼 스타일 */
         button {
             width: 100%;
             padding: 10px;
@@ -87,6 +97,7 @@
             color: #a69f0b;
         }
 
+        /* 주소 입력창 두 줄 정렬 */
         .address-row {
             display: flex;
             gap: 8px;
@@ -97,6 +108,7 @@
             flex: 1;
         }
 
+        /* 유효성 툴팁 스타일 */
         .tooltip {
             display: none;
             background-color: #fff4f4;
@@ -114,15 +126,17 @@
 </head>
 <body>
 
+<!-- 회원가입 폼 컨테이너 -->
 <div class="container">
     <h2><span style="color: #ffc107;">셀리티</span> 회원 가입</h2>
 
+    <!-- 폼 전송 시 POST 방식으로 서버에 전달 -->
     <form action="${pageContext.request.contextPath}/signup" method="post">
 
-        <!-- 사용자 정보 -->
+        <!-- 사용자 정보 입력 구역 -->
         <div class="section-title">사용자 정보</div>
 
-        <!-- 아이디 -->
+        <!-- 아이디 입력 및 중복 확인 버튼 -->
         <div style="position: relative;">
             <label>아이디<span class="required">*</span></label>
             <div style="display: flex; gap: 6px;">
@@ -133,7 +147,7 @@
             <div id="idCheckResult" style="font-size: 13px; margin-top: 6px;"></div>
         </div>
 
-        <!-- 비밀번호 -->
+        <!-- 비밀번호 입력 -->
         <div style="position: relative;">
             <label>비밀번호<span class="required">*</span></label>
             <input type="password" name="password" id="password" required>
@@ -145,10 +159,11 @@
         <input type="password" name="passwordCheck" id="passwordCheck" required>
         <div id="pwMatchMessage" style="font-size: 13px; color: red; margin-bottom: 10px; display: none;">비밀번호가 일치하지 않습니다.</div>
 
-        <!-- 기타 사용자 정보 -->
+        <!-- 닉네임 -->
         <label>닉네임</label>
         <input type="text" name="nickname">
 
+        <!-- 연락처: 세 칸 분할 입력 -->
         <label>연락처</label>
         <div style="display: flex; gap: 6px; margin-bottom: 12px;">
             <input type="text" name="phone1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'phone2')">
@@ -158,10 +173,11 @@
             <input type="text" name="phone3" maxlength="4" required style="flex:1;" id="phone3">
         </div>
 
+        <!-- 이메일 -->
         <label>이메일<span class="required">*</span></label>
         <input type="email" name="email" required>
 
-        <!-- 사업자 정보 -->
+        <!-- 사업자 정보 입력 구역 -->
         <div class="section-title">사업자 정보</div>
 
         <label>상호/법인명<span class="required">*</span></label>
@@ -170,8 +186,9 @@
         <label>대표자명</label>
         <input type="text" name="ceoName">
 
+        <!-- 사업자등록번호 3단 입력 -->
         <label>사업자등록번호<span class="required">*</span></label>
-        <div style="display: flex; gap: 6px; margin-bott om: 12px;">
+        <div style="display: flex; gap: 6px;">
             <input type="text" name="bizNum1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'bizNum2')">
             <span>-</span>
             <input type="text" name="bizNum2" maxlength="2" required style="flex:1;" id="bizNum2" oninput="moveToNext(this, 'bizNum3')">
@@ -179,10 +196,10 @@
             <input type="text" name="bizNum3" maxlength="5" required style="flex:1;" id="bizNum3">
         </div>
 
-
         <label>대표 전화</label>
         <input type="text" name="companyPhone">
 
+        <!-- 주소 입력 (카카오 주소 API 사용) -->
         <label>주소<span class="required">*</span></label>
         <div class="address-row">
             <input type="text" id="address" name="address" placeholder="기본 주소" required readonly>
@@ -190,6 +207,7 @@
         </div>
         <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)">
 
+        <!-- 취급 카테고리 선택 -->
         <label>취급상품 카테고리</label>
         <select name="category">
             <option value="">카테고리 선택</option>
@@ -199,7 +217,7 @@
             <option value="etc">기타</option>
         </select>
 
-        <!-- 약관 동의 -->
+        <!-- 약관 동의 체크 -->
         <div class="section-title">이용 약관</div>
         <div class="checkbox-group">
             <label><input type="checkbox" required> 서비스 이용 약관 동의<span class="required">*</span></label>
@@ -212,10 +230,10 @@
     </form>
 </div>
 
-<!-- 주소 API -->
+<!-- 주소 검색 API: 다음 카카오 우편번호 서비스 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    // 주소 검색 함수
+    // 다음 주소 검색 팝업 호출
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -226,14 +244,14 @@
         }).open();
     }
 
-    // 전화번호 입력 시 자동 이동
+    // 입력한 칸이 다 차면 다음 input으로 이동
     function moveToNext(current, nextId) {
         if (current.value.length === current.maxLength) {
             document.getElementById(nextId).focus();
         }
     }
 
-    // 아이디 중복 검사
+    // 아이디 중복 확인 (AJAX 요청)
     function checkUsername() {
         const username = document.getElementById("username").value.trim();
         const resultDiv = document.getElementById("idCheckResult");
@@ -262,11 +280,11 @@
             });
     }
 
-    // DOM 로드 후 이벤트 바인딩
+    // 페이지 로딩 후 실행
     document.addEventListener("DOMContentLoaded", function () {
         const inputs = Array.from(document.querySelectorAll("input, select"));
 
-        // 엔터 입력 시 다음 요소로 포커스
+        // 엔터 누르면 다음 input으로 이동
         inputs.forEach((input, index) => {
             input.addEventListener("keydown", function (e) {
                 if (e.key === "Enter") {
@@ -277,7 +295,7 @@
             });
         });
 
-        // 비밀번호 & 비밀번호 확인 일치 검사
+        // 비밀번호 확인 시 일치 여부 표시
         const passwordInput = document.getElementById("password");
         const passwordCheckInput = document.getElementById("passwordCheck");
         const pwMatchMessage = document.getElementById("pwMatchMessage");
@@ -286,7 +304,7 @@
             pwMatchMessage.style.display = (this.value !== passwordInput.value) ? "block" : "none";
         });
 
-        // 아이디 & 비밀번호 유효성 검사 툴팁
+        // 아이디 및 비밀번호 blur 시 유효성 툴팁 표시
         const idInput = document.getElementById("username");
         const pwTooltip = document.getElementById("pwTooltip");
         const idTooltip = document.getElementById("idTooltip");
@@ -301,6 +319,7 @@
             toggleTooltip(pwReg.test(passwordInput.value), pwTooltip, passwordInput);
         });
 
+        // 툴팁 표시/숨기기 함수
         function toggleTooltip(isValid, tooltip, input) {
             tooltip.style.display = isValid ? "none" : "block";
             if (!isValid) {
