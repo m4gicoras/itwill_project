@@ -10,7 +10,7 @@
 <!-- HikariCP DataSource -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <!-- 실제 MySQL Connection URL -->
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/Project"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/testdb"/>
         <property name="username" value="root"/>
         <property name="password" value="1234"/>
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
