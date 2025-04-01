@@ -1,6 +1,7 @@
 package com.m4gi.service;
 
 import com.m4gi.domain.User;
+import com.m4gi.dto.SiteUser;
 import com.m4gi.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,29 @@ public class UserService {
     private UserMapper userMapper;
 
     /**
-     * 로그인 기능: 사용자 아이디로 조회한 후 입력받은 비밀번호와 DB에 저장된 평문 비밀번호를 비교
-     * @param username 사용자가 입력한 아이디
-     * @param password 사용자가 입력한 비밀번호
-     * @return 인증 성공 시 true, 실패 시 false
+     * [🆕] 회원가입 기능: SiteUser → User 변환 후 DB 저장
      */
+    public void register(SiteUser siteUser) {
+        User user = new User();
+
+        user.setUsername(siteUser.getUsername());
+        user.setUser_pw(siteUser.getPassword()); // password → user_pw
+        user.setNickname(siteUser.getNickname());
+        user.setEmail(siteUser.getEmail());
+        user.setPhone(siteUser.getPhone());
+
+        user.setBreg_num(siteUser.getBizNumber());
+        user.setCompany_name(siteUser.getCompanyName());
+        user.setMaster_name(siteUser.getCeoName());
+        user.setCompany_addr(siteUser.getAddress() + " " + siteUser.getAddressDetail());
+
+        userMapper.insertUser(user); // DB 저장!
+        System.out.println("✅ 회원가입 성공! DB 저장 완료됨!");
+    }
+
+    // 기존 로그인 로직 그대로 유지
     public boolean login(String username, String password) {
         User user = userMapper.selectUserByUsername(username);
-        if (user != null) {
-            return password.equals(user.getUser_pw());
-        }
-        return false;
+        return user != null && password.equals(user.getUser_pw());
     }
 }
