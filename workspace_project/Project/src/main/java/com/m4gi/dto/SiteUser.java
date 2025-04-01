@@ -6,10 +6,14 @@ public class SiteUser {
     private String passwordCheck;
 
     private String nickname;
-    private String phone;
+    private String phone1; // 연락처 3개로 전달받음
+    private String phone2;
+    private String phone3;
     private String email;
 
-    private String bizNumber;       // 사업자등록번호
+    private String bizNum1;  // 사업자등록번호 3개로 전달
+    private String bizNum2;
+    private String bizNum3;       
     private String companyName;     // 상호명
     private String ceoName;         // 대표자명
     private String companyPhone;    // 대표 전화
@@ -31,14 +35,23 @@ public class SiteUser {
     public String getNickname() { return nickname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getPhone1() { return phone1; }
+    public void setPhone1(String phone1) { this.phone1 = phone1; }
+    public String getPhone2() { return phone2; }
+    public void setPhone2(String phone2) { this.phone2 = phone2; }
+    public String getPhone3() { return phone3; }
+    public void setPhone3(String phone3) { this.phone3 = phone3; }
+
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getBizNumber() { return bizNumber; }
-    public void setBizNumber(String bizNumber) { this.bizNumber = bizNumber; }
+    public String getBizNum1() { return bizNum1; }
+    public void setBizNum1(String bizNum1) { this.bizNum1 = bizNum1; }
+    public String getBizNum2() { return bizNum2; }
+    public void setBizNum2(String bizNum2) { this.bizNum2 = bizNum2; }
+    public String getBizNum3() { return bizNum3; }
+    public void setBizNum3(String bizNum3) { this.bizNum3 = bizNum3; }
 
     public String getCompanyName() { return companyName; }
     public void setCompanyName(String companyName) { this.companyName = companyName; }
