@@ -2,6 +2,10 @@ package com.m4gi.controller;
 
 import com.m4gi.dto.SiteUser;
 import com.m4gi.service.UserService;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +27,24 @@ public class UserController {
     public String handleSignup(@ModelAttribute SiteUser siteUser) {
         userService.register(siteUser);
         return "redirect:/main";
+    }
+   
+    
+    // 로그인 처리
+    @PostMapping("/main")
+    @ResponseBody
+    public Map<String, String> login(@RequestParam("username") String username,
+                                     @RequestParam("password") String password) {
+        Map<String, String> response = new HashMap<>();
+        // service의 login 메서드를 호출하여 로그인 여부 판단
+        if (userService.login(username, password)) {
+            response.put("message", "로그인 성공");
+            response.put("messageType", "success-message");
+        } else {
+            response.put("message", "로그인 실패");
+            response.put("messageType", "error-message");
+        }
+        return response;
     }
     
     @GetMapping("/isDuplicateUsername")
