@@ -9,4 +9,6 @@ public interface UserService {
 
     // 로그인 로직
     public boolean login(String username, String password);
+    
+    public int isDuplicateUsername(String username);
 }

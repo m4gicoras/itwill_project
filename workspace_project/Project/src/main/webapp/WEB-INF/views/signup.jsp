@@ -51,6 +51,11 @@
             margin-bottom: 12px;
         }
 
+        /* 긴 입력창 추가 스타일 */
+        input.long-input {
+            width: 440px;
+        }
+
         /* 섹션 구분 타이틀 */
         .section-title {
             margin-top: 25px;
@@ -90,6 +95,9 @@
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:hover {
@@ -141,30 +149,30 @@
             <label>아이디<span class="required">*</span></label>
             <div style="display: flex; gap: 6px;">
                 <input type="text" name="username" id="username" required style="flex: 1;">
-                <button type="button" onclick="checkUsername()" style="width: 110px;">중복 확인</button>
+                <button type="button" onclick="checkUsername()" style="width: 110px; height: 30px;">중복 확인</button>
             </div>
-            <div id="idTooltip" class="tooltip">영문 소문자/숫자/_ 포함 6~12자 입력해주세요.</div>
+            <div id="idTooltip" class="tooltip">6~12자의 영문 소문자, 숫자와 특수문자 '_'만 사용 가능합니다.</div>
             <div id="idCheckResult" style="font-size: 13px; margin-top: 6px;"></div>
         </div>
 
         <!-- 비밀번호 입력 -->
         <div style="position: relative;">
             <label>비밀번호<span class="required">*</span></label>
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" class="long-input" required>
             <div id="pwTooltip" class="tooltip">8~20자, 특수문자 1개 이상 포함해주세요.</div>
         </div>
 
         <!-- 비밀번호 확인 -->
         <label>비밀번호 확인<span class="required">*</span></label>
-        <input type="password" name="passwordCheck" id="passwordCheck" required>
+        <input type="password" name="passwordCheck" id="passwordCheck" class="long-input" required>
         <div id="pwMatchMessage" style="font-size: 13px; color: red; margin-bottom: 10px; display: none;">비밀번호가 일치하지 않습니다.</div>
 
         <!-- 닉네임 -->
         <label>닉네임</label>
-        <input type="text" name="nickname">
+        <input type="text" name="nickname" class="long-input">
 
         <!-- 연락처: 세 칸 분할 입력 -->
-        <label>연락처</label>
+        <label>연락처<span class="required">*</span></label>
         <div style="display: flex; gap: 6px; margin-bottom: 12px;">
             <input type="text" name="phone1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'phone2')">
             <span>-</span>
@@ -175,16 +183,16 @@
 
         <!-- 이메일 -->
         <label>이메일<span class="required">*</span></label>
-        <input type="email" name="email" required>
+        <input type="email" name="email" class="long-input" required>
 
         <!-- 사업자 정보 입력 구역 -->
         <div class="section-title">사업자 정보</div>
 
         <label>상호/법인명<span class="required">*</span></label>
-        <input type="text" name="companyName" required>
+        <input type="text" name="companyName" class="long-input" required>
 
         <label>대표자명</label>
-        <input type="text" name="ceoName">
+        <input type="text" name="ceoName" class="long-input">
 
         <!-- 사업자등록번호 3단 입력 -->
         <label>사업자등록번호<span class="required">*</span></label>
@@ -197,15 +205,15 @@
         </div>
 
         <label>대표 전화</label>
-        <input type="text" name="companyPhone">
+        <input type="text" name="companyPhone" class="long-input">
 
         <!-- 주소 입력 (카카오 주소 API 사용) -->
         <label>주소<span class="required">*</span></label>
         <div class="address-row">
             <input type="text" id="address" name="address" placeholder="기본 주소" required readonly>
-            <button type="button" onclick="execDaumPostcode()" style="width: 120px;">주소 검색</button>
+            <button type="button" onclick="execDaumPostcode()" style="width: 120px; height: 30px;">주소 검색</button>
         </div>
-        <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)">
+        <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="long-input">
 
         <!-- 취급 카테고리 선택 -->
         <label>취급상품 카테고리</label>
@@ -262,10 +270,13 @@
             return;
         }
 
-        fetch("${pageContext.request.contextPath}/checkUsername?username=" + encodeURIComponent(username))
+        const url = "${pageContext.request.contextPath}/isDuplicateUsername?username=" + encodeURIComponent(username);
+        console.log("요청 URL: ", url);
+
+        fetch(url)
             .then(res => res.text())
             .then(data => {
-                if (data === "duplicate") {
+            	if (parseInt(data) > 0) {
                     resultDiv.style.color = "red";
                     resultDiv.textContent = "이미 사용 중인 아이디입니다.";
                 } else {

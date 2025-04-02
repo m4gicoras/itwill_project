@@ -24,6 +24,13 @@ public class UserController {
         userService.register(siteUser);
         return "redirect:/main";
     }
-
-
+    
+    @GetMapping("/isDuplicateUsername")
+    @ResponseBody
+    public String isDuplicateUsername(@RequestParam("username") String username) {
+        int count = userService.isDuplicateUsername(username);
+        // 로그로 확인
+        System.out.println("중복 확인 요청: " + username + ", count: " + count);
+        return String.valueOf(count);
+    }
 }

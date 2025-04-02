@@ -43,7 +43,12 @@ public class UserServiceImpl implements UserService{
 
     // 로그인 로직
     public boolean login(String username, String password) {
-        User user = userMapper.selectUserByUsername(username);
+        User user = userMapper.checkUsername(username);
         return user != null && password.equals(user.getUser_pw());
     }
+
+	@Override
+	public int isDuplicateUsername(String username) {
+		return userMapper.isDuplicateUsername(username);
+	}
 }

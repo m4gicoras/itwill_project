@@ -6,7 +6,7 @@
 <mapper namespace="com.m4gi.mapper.UserMapper">
 
     <insert id="insertUser" parameterType="com.m4gi.domain.User">
-        INSERT INTO user (
+        INSERT INTO users (
         username, user_pw, nickname, user_img, email, phone,
         breg_num, company_name, master_name, company_addr
         ) VALUES (
@@ -15,10 +15,16 @@
         )
     </insert>
 
-    <select id="selectUserByUsername" parameterType="string" resultType="com.m4gi.domain.User">
+    <select id="checkUsername" parameterType="string" resultType="com.m4gi.domain.User">
         SELECT username, user_pw
-        FROM user
+        FROM users
         WHERE username = #{username}
     </select>
+    
+    <select id="isDuplicateUsername" parameterType="string" resultType="int">
+	    SELECT COUNT(*)
+	    FROM users
+	    WHERE username = #{username}
+	</select>
 
 </mapper>
