@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.m4gi.mapper.UserMapper">
-    <select id="selectUserByUsername" parameterType="string" resultType="com.m4gi.domain.User">
+
+    <insert id="insertUser" parameterType="com.m4gi.domain.User">
+        INSERT INTO users (
+        username, user_pw, nickname, user_img, email, phone,
+        breg_num, company_name, master_name, company_addr
+        ) VALUES (
+        #{username}, #{user_pw}, #{nickname}, #{user_img}, #{email}, #{phone},
+        #{breg_num}, #{company_name}, #{master_name}, #{company_addr}
+        )
+    </insert>
+
+    <select id="checkUsername" parameterType="string" resultType="com.m4gi.domain.User">
         SELECT username, user_pw
         FROM users
         WHERE username = #{username}
     </select>
+    
+    <select id="isDuplicateUsername" parameterType="string" resultType="int">
+	    SELECT COUNT(*)
+	    FROM users
+	    WHERE username = #{username}
+	</select>
+
 </mapper>
