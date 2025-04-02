@@ -20,7 +20,9 @@ public class SiteUser {
 
     private String companyName;
     private String ceoName;
-    private String companyPhone;
+    private String companyPhone1;
+    private String companyPhone2;
+    private String companyPhone3;
 
     private String address;
     private String addressDetail;
