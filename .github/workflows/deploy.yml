@@ -29,9 +29,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: echo "SSH 연결 성공"
 
-      - name: 디렉토리 구조 디버그
-        run: find . -name "*.war" -type f    
-
       - name: Copy WAR to Server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -44,6 +41,7 @@ jobs:
           target: "/home/kitsune950907/"
           overwrite: true
           debug: true
+          strip_components: 3
 
       - name: Deploy WAR on Tomcat
         uses: appleboy/ssh-action@v0.1.7
