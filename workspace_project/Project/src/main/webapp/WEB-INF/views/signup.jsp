@@ -82,6 +82,7 @@
             width: 18px;
             height: 18px;
             cursor: pointer;
+            margin-top: 12px;
         }
 
         /* 제출 버튼 스타일 */
