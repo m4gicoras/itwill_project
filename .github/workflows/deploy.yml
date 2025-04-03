@@ -54,6 +54,6 @@ jobs:
           script: |
             sudo systemctl stop tomcat9
             sudo rm -rf /var/lib/tomcat9/webapps/web /var/lib/tomcat9/webapps/web.war
-            sudo cp /home/kitsune950907/web.war /var/lib/tomcat9/webapps/web.war
+            sudo mv /home/kitsune950907/web.war /var/lib/tomcat9/webapps/web.war
             sudo chown tomcat:tomcat /var/lib/tomcat9/webapps/web.war
             sudo systemctl start tomcat9
