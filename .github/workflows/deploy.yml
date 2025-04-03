@@ -1,0 +1,48 @@
+name: CI/CD Deploy to GCP Tomcat
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+        working-directory: workspace_project/Project
+
+      - name: Copy WAR to Server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+
+          source: "workspace_project/Project/target/web.war"
+          target: "/home/kitsune950907/"
+          overwrite: true
+          strip_components: 3
+
+      - name: Deploy WAR on Tomcat
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo systemctl stop tomcat9
+            sudo rm -rf /var/lib/tomcat9/webapps/web /var/lib/tomcat9/webapps/web.war
+            sudo mv /home/kitsune950907/web.war /var/lib/tomcat9/webapps/web.war
+            sudo chown tomcat:tomcat /var/lib/tomcat9/webapps/web.war
+            sudo systemctl start tomcat9
