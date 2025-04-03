@@ -29,17 +29,19 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: echo "SSH 연결 성공"
 
-      # 1. 임시 전송 위치(/home/kitsune950907/)의 기존 WAR 파일 삭제
-      - name: Cleanup remote temp WAR file
+      # ⚠️ 중요: SCP 실행 전 기존 파일 모두 삭제하기 (먼저 해야 함)
+      - name: Cleanup ALL existing WAR files (BEFORE SCP)
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            sudo systemctl stop tomcat9
+            sudo rm -rf /var/lib/tomcat9/webapps/web /var/lib/tomcat9/webapps/web.war
             rm -rf /home/kitsune950907/web.war
 
-      # 2. WAR 파일을 임시 전송 위치에 복사
+      # 그 다음 WAR 파일을 서버로 복사 (충돌 발생 불가능)
       - name: Copy WAR to Server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -51,19 +53,9 @@ jobs:
           target: "/home/kitsune950907/"
           overwrite: true
           debug: true
-
-      # 3. 기존 배포 파일(폴더 및 WAR)을 삭제하여 깨끗한 상태로 만듦
-      - name: Cleanup existing deployed WAR on Tomcat
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo systemctl stop tomcat9
-            sudo rm -rf /var/lib/tomcat9/webapps/web /var/lib/tomcat9/webapps/web.war
-
-      # 4. 임시 위치에 복사된 WAR 파일을 Tomcat 배포 경로로 이동 후 권한 변경 및 Tomcat 재시작
+          strip_components: 3
+        
+      # WAR파일을 Tomcat 경로로 이동하고 Tomcat 재시작
       - name: Deploy WAR on Tomcat
         uses: appleboy/ssh-action@v0.1.7
         with:
