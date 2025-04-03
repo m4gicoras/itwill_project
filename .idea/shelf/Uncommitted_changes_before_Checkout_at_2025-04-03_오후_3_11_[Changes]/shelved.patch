@@ -1,0 +1,32 @@
+Index: workspace_project/logs/localhost_access_log.2025-04-03.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:42:12 +0900] \"GET /web HTTP/1.1\" 404 721\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:42:12 +0900] \"GET /favicon.ico HTTP/1.1\" 404 721\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:42:14 +0900] \"GET /web/main HTTP/1.1\" 404 721\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:27 +0900] \"GET /web HTTP/1.1\" 302 -\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:27 +0900] \"GET /web/ HTTP/1.1\" 404 721\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:30 +0900] \"GET /web/main HTTP/1.1\" 200 3742\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:30 +0900] \"GET /web/resources/forest.mp4 HTTP/1.1\" 206 8192\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:30 +0900] \"GET /web/resources/forest.mp4 HTTP/1.1\" 206 8192\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:31 +0900] \"GET /web/signup HTTP/1.1\" 200 13121\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:36 +0900] \"GET /web/ HTTP/1.1\" 404 721\n0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:37 +0900] \"GET /web/resources/forest.mp4 HTTP/1.1\" 206 2097152\n
+===================================================================
+diff --git a/workspace_project/logs/localhost_access_log.2025-04-03.txt b/workspace_project/logs/localhost_access_log.2025-04-03.txt
+--- a/workspace_project/logs/localhost_access_log.2025-04-03.txt	(revision 0a4d3ad12bd1e2a0ce1b4f7deee118ff645e46ba)
++++ b/workspace_project/logs/localhost_access_log.2025-04-03.txt	(date 1743659810135)
+@@ -9,3 +9,7 @@
+ 0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:31 +0900] "GET /web/signup HTTP/1.1" 200 13121
+ 0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:36 +0900] "GET /web/ HTTP/1.1" 404 721
+ 0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:44:37 +0900] "GET /web/resources/forest.mp4 HTTP/1.1" 206 2097152
++0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:56:40 +0900] "GET /web HTTP/1.1" 302 -
++0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:56:40 +0900] "GET /web/ HTTP/1.1" 404 721
++0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:56:43 +0900] "GET /web/main HTTP/1.1" 200 3742
++0:0:0:0:0:0:0:1 - - [03/Apr/2025:14:56:43 +0900] "GET /web/resources/forest.mp4 HTTP/1.1" 206 8192
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"CompilerConfiguration\">\n    <annotationProcessing>\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\n        <outputRelativeToContentRoot value=\"true\" />\n        <module name=\"web\" />\n      </profile>\n    </annotationProcessing>\n  </component>\n  <component name=\"JavacSettings\">\n    <option name=\"ADDITIONAL_OPTIONS_OVERRIDE\">\n      <module name=\"web\" options=\"-Xlint:all\" />\n    </option>\n  </component>\n</project>
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision 0a4d3ad12bd1e2a0ce1b4f7deee118ff645e46ba)
++++ b/.idea/compiler.xml	(date 1743659793910)
+@@ -2,6 +2,7 @@
+ <project version="4">
+   <component name="CompilerConfiguration">
+     <annotationProcessing>
++      <profile default="true" name="Default" enabled="true" />
+       <profile name="Maven default annotation processors profile" enabled="true">
+         <sourceOutputDir name="target/generated-sources/annotations" />
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
