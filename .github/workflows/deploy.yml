@@ -19,7 +19,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package -DskipTests
-        working-directory: itwill_project/workspace_project/Project
+        working-directory: workspace_project/Project
 
       - name: Copy WAR to Server via SCP
         uses: appleboy/scp-action@v0.1.7
