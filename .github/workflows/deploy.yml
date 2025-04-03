@@ -29,7 +29,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           source: "workspace_project/Project/target/web-1.0.0-BUILD-SNAPSHOT.war"
-          target: "/home/ubuntu/web-1.0.0-BUILD-SNAPSHOT.war"
+          target: "/home/kitsune950907/web-1.0.0-BUILD-SNAPSHOT.war"
           overwrite: true
 
       - name: Deploy WAR on Tomcat
