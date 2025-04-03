@@ -31,7 +31,7 @@ public class UserController {
    
     
     // 로그인 처리
-    @PostMapping("/main")
+/*    @PostMapping("/main")
     @ResponseBody
     public Map<String, String> login(@RequestParam("username") String username,
                                      @RequestParam("password") String password) {
@@ -46,6 +46,7 @@ public class UserController {
         }
         return response;
     }
+*/
     
     @GetMapping("/isDuplicateUsername")
     @ResponseBody
