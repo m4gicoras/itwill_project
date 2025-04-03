@@ -45,13 +45,12 @@ public class UserController {
         }
         return response;
     }
-
     // 회원가입 폼 페이지
     @GetMapping("/test")
     public String showDashBoard() {
         return "test";
     }
-
+    
     @GetMapping("/isDuplicateUsername")
     @ResponseBody
     public String isDuplicateUsername(@RequestParam("username") String username) {
