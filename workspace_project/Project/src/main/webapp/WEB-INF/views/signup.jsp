@@ -52,7 +52,7 @@
         }
 
         /* 긴 입력창 추가 스타일 */
-        .long-input {
+        input.long-input {
             width: 440px;
         }
 
@@ -216,7 +216,7 @@
         <!-- 주소 입력 (카카오 주소 API 사용) -->
         <label>주소<span class="required">*</span></label>
         <div class="line_with_button">
-            <input type="text" id="address" name="address" placeholder="기본 주소" style="flex: 1;" required readonly>
+            <input type="text" id="address" name="address" placeholder="기본 주소" required readonly>
             <button type="button" onclick="execDaumPostcode()" style="width: 120px; height: 30px;">주소 검색</button>
         </div>
         <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="long-input">
@@ -276,10 +276,13 @@
             return;
         }
 
-        fetch("${pageContext.request.contextPath}/checkUsername?username=" + encodeURIComponent(username))
+        const url = "${pageContext.request.contextPath}/isDuplicateUsername?username=" + encodeURIComponent(username);
+        console.log("요청 URL: ", url);
+
+        fetch(url)
             .then(res => res.text())
             .then(data => {
-                if (data === "duplicate") {
+            	if (parseInt(data) > 0) {
                     resultDiv.style.color = "red";
                     resultDiv.textContent = "이미 사용 중인 아이디입니다.";
                 } else {
