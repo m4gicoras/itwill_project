@@ -28,7 +28,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "itwill_project/workspace_project/Project/target/web-1.0.0-BUILD-SNAPSHOT.war"
+          source: "workspace_project/Project/target/web-1.0.0-BUILD-SNAPSHOT.war"
           target: "/home/ubuntu/web-1.0.0-BUILD-SNAPSHOT.war"
 
       - name: Deploy WAR on Tomcat
