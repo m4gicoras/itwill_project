@@ -40,7 +40,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
 
-          source: "workspace_project/Project/target/web.war"
+          source: "./workspace_project/Project/target/web.war"
           target: "/home/kitsune950907/web.war"
           overwrite: true
           debug: true
