@@ -106,9 +106,10 @@
             color: #a69f0b;
         }
 
-        /* 주소 입력창 두 줄 정렬 */
+        /* 버튼이 있는 줄 스타일 */
         .line_with_button {
             display: flex;
+            flex: 1;
             gap: 8px;
             margin-bottom: 10px;
         }
@@ -148,9 +149,9 @@
         <!-- 아이디 입력 및 중복 확인 버튼 -->
         <div style="position: relative;">
             <label>아이디<span class="required">*</span></label>
-            <div style="display: flex; gap: 6px;" class="line_with_button">
-                <input type="text" name="username" id="username" required style="flex: 1;">
-                <button type="button" onclick="checkUsername()" style="width: 120px; height: 30px;">중복 확인</button>
+            <div class="line_with_button">
+                <input type="text" name="username" id="username" required>
+                <button type="button" onclick="checkUsername()" style="width: 160px; height: 30px;">중복 확인</button>
             </div>
             <div id="idTooltip" class="tooltip">6~12자의 영문 소문자, 숫자와 특수문자 '_'만 사용 가능합니다.</div>
             <div id="idCheckResult" style="font-size: 13px; margin-top: 6px;"></div>
@@ -218,7 +219,7 @@
         <label>주소<span class="required">*</span></label>
         <div class="line_with_button">
             <input type="text" id="address" name="address" placeholder="기본 주소" required readonly>
-            <button type="button" onclick="execDaumPostcode()" style="width: 120px; height: 30px;">주소 검색</button>
+            <button type="button" onclick="execDaumPostcode()" style="width: 160px; height: 30px;">주소 검색</button>
         </div>
         <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="long-input">
 
