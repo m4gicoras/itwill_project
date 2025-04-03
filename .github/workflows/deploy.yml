@@ -21,6 +21,14 @@ jobs:
         run: mvn clean package -DskipTests
         working-directory: workspace_project/Project
 
+      - name: SSH 연결 테스트
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: echo "SSH 연결 성공"
+
       - name: Copy WAR to Server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -30,9 +38,12 @@ jobs:
           port: 22
 
           source: "workspace_project/Project/target/web.war"
-          target: "/home/kitsune950907/"
+          target: "/home/kitsune950907"
           overwrite: true
           debug: true
+
+      - name: 디렉토리 구조 디버그
+        run: find . -name "*.war" -type f
 
       - name: Deploy WAR on Tomcat
         uses: appleboy/ssh-action@v0.1.7
