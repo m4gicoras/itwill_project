@@ -28,13 +28,12 @@ public class UserController {
         userService.register(siteUser);
         return "redirect:/main";
     }
-   
-    
+
     // 로그인 처리
-/*    @PostMapping("/main")
+    @PostMapping("/main")
     @ResponseBody
     public Map<String, String> login(@RequestParam("username") String username,
-                                     @RequestParam("password") String password) {
+            @RequestParam("password") String password) {
         Map<String, String> response = new HashMap<>();
         // service의 login 메서드를 호출하여 로그인 여부 판단
         if (userService.login(username, password)) {
@@ -46,7 +45,11 @@ public class UserController {
         }
         return response;
     }
-*/
+    // 회원가입 폼 페이지
+    @GetMapping("/test")
+    public String showDashBoard() {
+        return "test";
+    }
     
     @GetMapping("/isDuplicateUsername")
     @ResponseBody
