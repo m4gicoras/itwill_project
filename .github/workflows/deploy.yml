@@ -19,6 +19,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package -DskipTests
+        working-directory: itwill_project/workspace_project/Project
 
       - name: Copy WAR to Server via SCP
         uses: appleboy/scp-action@v0.1.7
@@ -27,7 +28,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: "target/web-1.0.0-BUILD-SNAPSHOT.war"
+          source: ""itwill_project/workspace_project/Project/target/web-1.0.0-BUILD-SNAPSHOT.war""
           target: "/home/ubuntu/web-1.0.0-BUILD-SNAPSHOT.war"
 
       - name: Deploy WAR on Tomcat
