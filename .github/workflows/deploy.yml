@@ -29,6 +29,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: echo "SSH 연결 성공"
 
+      - name: 디렉토리 구조 디버그
+        run: find . -name "*.war" -type f    
+
       - name: Copy WAR to Server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -38,12 +41,9 @@ jobs:
           port: 22
 
           source: "workspace_project/Project/target/web.war"
-          target: "/home/kitsune950907"
+          target: "/home/kitsune950907/web.war"
           overwrite: true
           debug: true
-
-      - name: 디렉토리 구조 디버그
-        run: find . -name "*.war" -type f
 
       - name: Deploy WAR on Tomcat
         uses: appleboy/ssh-action@v0.1.7
@@ -54,6 +54,6 @@ jobs:
           script: |
             sudo systemctl stop tomcat9
             sudo rm -rf /var/lib/tomcat9/webapps/web /var/lib/tomcat9/webapps/web.war
-            sudo mv /home/kitsune950907/web.war /var/lib/tomcat9/webapps/web.war
+            sudo cp /home/kitsune950907/web.war /var/lib/tomcat9/webapps/web.war
             sudo chown tomcat:tomcat /var/lib/tomcat9/webapps/web.war
             sudo systemctl start tomcat9
