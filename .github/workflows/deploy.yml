@@ -32,6 +32,7 @@ jobs:
           source: "workspace_project/Project/target/web.war"
           target: "/home/kitsune950907/"
           overwrite: true
+          debug: true
 
       - name: Deploy WAR on Tomcat
         uses: appleboy/ssh-action@v0.1.7
