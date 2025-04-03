@@ -8,10 +8,10 @@
     <insert id="insertUser" parameterType="com.m4gi.domain.User">
         INSERT INTO users (
         username, user_pw, nickname, user_img, email, phone,
-        breg_num, company_name, master_name, company_addr
+        breg_num, company_name, master_name, company_addr, company_phone, product_category
         ) VALUES (
         #{username}, #{user_pw}, #{nickname}, #{user_img}, #{email}, #{phone},
-        #{breg_num}, #{company_name}, #{master_name}, #{company_addr}
+        #{breg_num}, #{company_name}, #{master_name}, #{company_addr}, #{company_phone}, #{product_category}
         )
     </insert>
 
