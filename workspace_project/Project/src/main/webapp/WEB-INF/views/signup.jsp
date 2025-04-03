@@ -52,7 +52,7 @@
         }
 
         /* 긴 입력창 추가 스타일 */
-        input.long-input {
+        .long-input {
             width: 440px;
         }
 
@@ -106,7 +106,7 @@
         }
 
         /* 주소 입력창 두 줄 정렬 */
-        .address-row {
+        .line_with_button {
             display: flex;
             gap: 8px;
             margin-bottom: 10px;
@@ -147,9 +147,9 @@
         <!-- 아이디 입력 및 중복 확인 버튼 -->
         <div style="position: relative;">
             <label>아이디<span class="required">*</span></label>
-            <div style="display: flex; gap: 6px;">
+            <div style="display: flex; gap: 6px;" class="line_with_button">
                 <input type="text" name="username" id="username" required style="flex: 1;">
-                <button type="button" onclick="checkUsername()" style="width: 110px; height: 30px;">중복 확인</button>
+                <button type="button" onclick="checkUsername()" style="width: 120px; height: 30px;">중복 확인</button>
             </div>
             <div id="idTooltip" class="tooltip">6~12자의 영문 소문자, 숫자와 특수문자 '_'만 사용 가능합니다.</div>
             <div id="idCheckResult" style="font-size: 13px; margin-top: 6px;"></div>
@@ -205,12 +205,18 @@
         </div>
 
         <label>대표 전화</label>
-        <input type="text" name="companyPhone" class="long-input">
+        <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+            <input type="text" name="companyPhone1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'companyPhone2')">
+            <span>-</span>
+            <input type="text" name="companyPhone2" maxlength="4" required style="flex:1;" id="companyPhone2" oninput="moveToNext(this, 'companyPhone3')">
+            <span>-</span>
+            <input type="text" name="companyPhone3" maxlength="4" required style="flex:1;" id="companyPhone3">
+        </div>
 
         <!-- 주소 입력 (카카오 주소 API 사용) -->
         <label>주소<span class="required">*</span></label>
-        <div class="address-row">
-            <input type="text" id="address" name="address" placeholder="기본 주소" required readonly>
+        <div class="line_with_button">
+            <input type="text" id="address" name="address" placeholder="기본 주소" style="flex: 1;" required readonly>
             <button type="button" onclick="execDaumPostcode()" style="width: 120px; height: 30px;">주소 검색</button>
         </div>
         <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="long-input">
@@ -270,13 +276,10 @@
             return;
         }
 
-        const url = "${pageContext.request.contextPath}/isDuplicateUsername?username=" + encodeURIComponent(username);
-        console.log("요청 URL: ", url);
-
-        fetch(url)
+        fetch("${pageContext.request.contextPath}/checkUsername?username=" + encodeURIComponent(username))
             .then(res => res.text())
             .then(data => {
-            	if (parseInt(data) > 0) {
+                if (data === "duplicate") {
                     resultDiv.style.color = "red";
                     resultDiv.textContent = "이미 사용 중인 아이디입니다.";
                 } else {
