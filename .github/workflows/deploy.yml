@@ -28,7 +28,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: ""itwill_project/workspace_project/Project/target/web-1.0.0-BUILD-SNAPSHOT.war""
+          source: "itwill_project/workspace_project/Project/target/web-1.0.0-BUILD-SNAPSHOT.war"
           target: "/home/ubuntu/web-1.0.0-BUILD-SNAPSHOT.war"
 
       - name: Deploy WAR on Tomcat
@@ -40,6 +40,6 @@ jobs:
           script: |
             sudo systemctl stop tomcat9
             sudo rm -rf /var/lib/tomcat9/webapps/myapp /var/lib/tomcat9/webapps/myapp.war
-            sudo mv /home/ubuntu/myapp.war /var/lib/tomcat9/webapps/myapp.war
+            sudo mv /home/ubuntu/web-1.0.0-BUILD-SNAPSHOT.war /var/lib/tomcat9/webapps/myapp.war
             sudo chown tomcat:tomcat /var/lib/tomcat9/webapps/myapp.war
             sudo systemctl start tomcat9
