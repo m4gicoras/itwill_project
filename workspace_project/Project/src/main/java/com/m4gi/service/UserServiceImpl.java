@@ -32,11 +32,15 @@ public class UserServiceImpl implements UserService{
         String bizNum = siteUser.getBizNum1() + "-" + siteUser.getBizNum2() + "-" + siteUser.getBizNum3();
         user.setBreg_num(bizNum);
 
+        // 대표 전화 조합
+        String companyPhone = siteUser.getCompanyPhone1() + "-" + siteUser.getCompanyPhone2() + "-" + siteUser.getCompanyPhone3();
+        user.setCompany_phone(companyPhone);
+
         // 회사 정보
         user.setCompany_name(siteUser.getCompanyName());
         user.setMaster_name(siteUser.getCeoName());
         user.setCompany_addr(siteUser.getAddress() + " " + siteUser.getAddressDetail());
-
+        user.setProduct_category(siteUser.getCategory());
         userMapper.insertUser(user);
         System.out.println("✅ 회원가입 성공! DB 저장 완료됨!");
     }
