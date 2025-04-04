@@ -15,7 +15,7 @@
       rel="stylesheet">
   </head>
 
-  <body class="bg-gray-100" style="font-family: 'Noto Sans KR', sans-serif;">
+  <body style="font-family: 'Noto Sans KR', sans-serif;">
 
     <div class="dark:bg-background-900 flex h-full w-full bg-white">
       <div
@@ -273,7 +273,7 @@
           <!-- 여기에 내용을 추가하세요 -->
           <div class="bg-white rounded shadow overflow-hidden">
             <table class="min-w-full text-gray-700">
-              <thead class="bg-gray-400 border-b border-gray-100">
+              <thead class="bg-gray-200 border-b border-gray-300">
                 <tr>
                   <th class="p-4 text-left">
                     <input type="checkbox">
@@ -292,7 +292,7 @@
               </thead>
               <tbody>
                 <!-- 예시 1: 정상 -->
-                <tr class="border-b hover:bg-gray-50">
+                <tr class="border-b hover:bg-gray-50 border-gray-300">
                   <td class="p-4">
                     <input type="checkbox">
                   </td>
@@ -320,7 +320,7 @@
                 </tr>
 
                 <!-- 예시 2: 재고없음 -->
-                <tr class="border-b hover:bg-gray-50">
+                <tr class="border-b hover:bg-gray-50 border-gray-300">
                   <td class="p-4">
                     <input type="checkbox">
                   </td>
@@ -332,8 +332,8 @@
                   <td class="p-4 text-center">2015-03-22</td>
                   <td class="pt-4 flex items-center">
                     <!-- 재고없음 배지 
-                                      <span
-                                          <class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">-->
+                                    <span
+                                        <class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">-->
                     <span
                       class="transform translate-x-4 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring inset-ring-yellow-500">
                       재고없음
@@ -351,8 +351,8 @@
                 </tr>
 
                 <!-- 예시 3: 단종 -->
-                <tr class="border-b hover:bg-gray-50">
-                  <td class="p-4 text-center">
+                <tr class="border-b hover:bg-gray-50 border-gray-300">
+                  <td class="p-4">
                     <input type="checkbox">
                   </td>
                   <td class="p-4 text-center">A-003</td>
@@ -363,8 +363,8 @@
                   <td class="p-4 text-center">2015-03-23</td>
                   <td class="pt-4 flex items-center">
                     <!-- 단종 배지 
-                                      <span
-                                          class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">-->
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">-->
                     <span
                       class="transform translate-x-4 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring">
                       단종
@@ -388,7 +388,6 @@
         </div>
       </div>
     </div>
-
   </body>
 
   </html>
