@@ -1,35 +1,42 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-    <title>알림 전송</title>
+    <!-- Tailwind 기반 디자인 적용 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f4f6;
+            background-color: #f4f6f8;
+            padding: 20px;
+            display: flex;
         }
 
-        .container {
-            display: flex;
+        .sidebar {
+            width: 220px;
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            padding: 30px 20px;
             height: 100vh;
         }
 
-        /* 사이드바 */
-        .sidebar {
-            width: 60px;
-            background-color: #ffffff;
-            border-right: 1px solid #ddd;
-            transition: width 0.3s ease;
-            overflow: hidden;
-        }
-
-        .sidebar:hover {
-            width: 200px;
+        .logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .sidebar ul {
@@ -37,143 +44,50 @@
             padding: 0;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0066cc;
-            text-align: center;
-            padding: 18px 0;
-        }
-
-        .sidebar:hover .logo {
-            text-align: left;
-            padding-left: 20px;
-        }
-
-        .logo a {
-            color: #0066cc;
-            text-decoration: none;
-            display: block;
-        }
-
         .sidebar li {
-            padding: 10px 0;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        .sidebar:hover li {
-            justify-content: flex-start;
-            padding-left: 20px;
-        }
-
-        .sidebar li a {
-            width: 100%;
             text-decoration: none;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
             color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease, color 0.3s ease, justify-content 0.3s ease;
+            transition: background-color 0.2s ease;
         }
 
-        .sidebar:hover li a {
-            justify-content: flex-start;
-        }
-
-        .sidebar li a:hover {
+        .sidebar a:hover {
             background-color: #e6f1ff;
-            color: #0066cc;
         }
 
-        .sidebar li a i {
-            width: 24px;
-            text-align: center;
-            font-style: normal;
-            margin-right: 0;
-            font-size: 18px;
+        .sidebar a.active {
+            background-color: #e6f1ff;
+            color: #2f54eb;
+            font-weight: bold;
         }
 
-        .sidebar:hover li a i {
-            margin-right: 10px;
-        }
-
-        .sidebar li a .text {
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .sidebar:hover li a .text {
-            opacity: 1;
-        }
-
-        /* 메인 콘텐츠 */
-        .main {
-            flex-grow: 1;
-            padding: 40px;
-        }
-
-        .title {
-            font-size: 28px;
-            color: #355c4d;
-            margin-bottom: 10px;
-        }
-
-        .desc {
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        ul.links {
-            list-style: disc;
-            padding-left: 20px;
-        }
-
-        ul.links li {
-            margin-bottom: 10px;
-        }
-
-        ul.links a {
-            color: #0066cc;
-            text-decoration: none;
-        }
-
-        ul.links a:hover {
-            text-decoration: underline;
+        .sidebar i {
+            margin-right: 8px;
         }
     </style>
+
+
 </head>
 <body>
-<div class="container">
-    <!-- 사이드바 -->
-    <div class="sidebar">
-        <!-- 로고 버튼 -->
-        <div class="logo">
-            <a href="${pageContext.request.contextPath}/admin/main">S</a>
-        </div>
-
-        <!-- 메뉴 -->
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/admin/product"><i>📦</i><span class="text">물품 관리</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/member"><i>👤</i><span class="text">회원 관리</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/notification"><i>📢</i><span class="text">알림 전송</span></a></li>
-            <li><a href="#"><i>⚙️</i><span class="text">설정</span></a></li>
-        </ul>
+<div class="sidebar">
+    <div class="logo">
+        <a href="${pageContext.request.contextPath}/admin/main">Sellity</a>
     </div>
-
-    <!-- 메인 콘텐츠 -->
-    <div class="main">
-        <div class="title">👩‍💼 알림 페이지</div>
-        <div class="desc">여기는 알림페이지 입니다. (수리중)</div>
-        <ul class="links">
-            <li><a href="${pageContext.request.contextPath}/admin/member">회원 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/product">물품 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/notification">알림 전송</a></li>
-        </ul>
-    </div>
+    <ul>
+        <li><a href="${pageContext.request.contextPath}/admin/product"><i></i> 물품 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/member"><i></i> 회원 관리</a></li>
+        <li><a class="active" href="${pageContext.request.contextPath}/admin/notification"><i></i> 알림 전송</a></li>
+        <li><a href="#"><i></i> 설정</a></li>
+    </ul>
 </div>
+
 </body>
 </html>

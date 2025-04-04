@@ -1,35 +1,42 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-    <title>물품 관리</title>
+    <!-- Tailwind 기반 디자인 적용 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f4f6;
+            background-color: #f4f6f8;
+            padding: 20px;
+            display: flex;
         }
 
-        .container {
-            display: flex;
+        .sidebar {
+            width: 220px;
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            padding: 30px 20px;
             height: 100vh;
         }
 
-        /* 사이드바 */
-        .sidebar {
-            width: 60px;
-            background-color: #ffffff;
-            border-right: 1px solid #ddd;
-            transition: width 0.3s ease;
-            overflow: hidden;
-        }
-
-        .sidebar:hover {
-            width: 200px;
+        .logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .sidebar ul {
@@ -37,143 +44,208 @@
             padding: 0;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0066cc;
-            text-align: center;
-            padding: 18px 0;
-        }
-
-        .sidebar:hover .logo {
-            text-align: left;
-            padding-left: 20px;
-        }
-
-        .logo a {
-            color: #0066cc;
-            text-decoration: none;
-            display: block;
-        }
-
         .sidebar li {
-            padding: 10px 0;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        .sidebar:hover li {
-            justify-content: flex-start;
-            padding-left: 20px;
-        }
-
-        .sidebar li a {
-            width: 100%;
             text-decoration: none;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
             color: #333;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #e6f1ff;
+        }
+
+        .sidebar a.active {
+            background-color: #e6f1ff;
+            color: #2f54eb;
+            font-weight: bold;
+        }
+
+        .sidebar i {
+            margin-right: 8px;
+        }
+
+        .main {
+            flex: 1;
+            padding: 30px 50px;
+        }
+
+        .search-bar {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            background-color: #d0e4fb;
+            border-radius: 9999px;
+            padding: 14px 20px;
+            margin: 0 auto 20px;
+            max-width: 1000px;
+            gap: 12px;
+        }
+
+        .search-bar input,
+        .search-bar select {
+            padding: 12px 14px;
+            border: 1px solid #ccc;
             border-radius: 6px;
-            transition: background-color 0.3s ease, color 0.3s ease, justify-content 0.3s ease;
+            font-size: 15px;
+            width: 220px;
         }
 
-        .sidebar:hover li a {
-            justify-content: flex-start;
+        .search-bar button {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #2f54eb;
         }
 
-        .sidebar li a:hover {
-            background-color: #e6f1ff;
-            color: #0066cc;
-        }
-
-        .sidebar li a i {
-            width: 24px;
-            text-align: center;
-            font-style: normal;
-            margin-right: 0;
+        .reset-btn {
+            margin-right: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
             font-size: 18px;
+            color: #1f4fa2;
+            filter: grayscale(20%);
         }
 
-        .sidebar:hover li a i {
-            margin-right: 10px;
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .sidebar li a .text {
-            opacity: 0;
-            transition: opacity 0.2s ease;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .sidebar:hover li a .text {
-            opacity: 1;
+        thead {
+            background-color: #eaf2ff;
         }
 
-        /* 메인 콘텐츠 */
-        .main {
-            flex-grow: 1;
-            padding: 40px;
+        thead th {
+            text-align: left;
+            padding: 12px 8px;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .title {
-            font-size: 28px;
-            color: #355c4d;
-            margin-bottom: 10px;
+        tbody td {
+            padding: 12px 8px;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .desc {
-            color: #555;
-            margin-bottom: 20px;
+        tbody tr:hover {
+            background-color: #f0f6ff;
+            cursor: pointer;
         }
 
-        ul.links {
-            list-style: disc;
-            padding-left: 20px;
-        }
-
-        ul.links li {
-            margin-bottom: 10px;
-        }
-
-        ul.links a {
+        .company-name {
             color: #0066cc;
-            text-decoration: none;
+            font-weight: bold;
         }
 
-        ul.links a:hover {
+        .company-name:hover {
             text-decoration: underline;
         }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination span {
+            margin: 0 5px;
+            cursor: pointer;
+        }
     </style>
+
+
 </head>
 <body>
-<div class="container">
-    <!-- 사이드바 -->
-    <div class="sidebar">
-        <!-- 로고 버튼 -->
-        <div class="logo">
-            <a href="${pageContext.request.contextPath}/admin/main">S</a>
+<div class="sidebar">
+    <div class="logo">
+        <a href="${pageContext.request.contextPath}/admin/main">Sellity</a>
+    </div>
+    <ul>
+        <li><a class="active" href="${pageContext.request.contextPath}/admin/product"><i></i> 물품 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/member"><i></i> 회원 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/notification"><i></i> 알림 전송</a></li>
+        <li><a href="#"><i></i> 설정</a></li>
+    </ul>
+</div>
+<div class="main">
+    <div class="search-bar">
+            <input type="text" placeholder="상품명 입력">
+            <input type="text" placeholder="기업명 입력">
+            <select>
+                <option>1개월 · 전체 · 최신순</option>
+                <option>최신순</option>
+                <option>오래된순</option>
+            </select>
+            <button>🔍</button>
         </div>
 
-        <!-- 메뉴 -->
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/admin/product"><i>📦</i><span class="text">물품 관리</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/member"><i>👤</i><span class="text">회원 관리</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/notification"><i>📢</i><span class="text">알림 전송</span></a></li>
-            <li><a href="#"><i>⚙️</i><span class="text">설정</span></a></li>
-        </ul>
+    <div class="card">
+        <table class="member-list">
+            <thead>
+            <tr>
+                <th id="defaultSort" onclick="sortTable(0, this)" style="text-align: center;">
+                  회원번호 <span class="sort-arrow"></span>
+                </th>
+
+                <th>기업명 </th>
+                <th>상품명 </th>
+                <th>수량 </th>
+                <th>등록일 </th>
+                <th>상태 </th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:choose>
+                <c:when test="${not empty companyList}">
+                    <c:forEach var="user" items="${companyList}">
+                        <tr onclick="openPopup('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '${user.regDate}')">
+
+                            <td style="text-align: center;">${user.userId}</td>
+                            <td class="company-name">㈜ ${user.companyName}</td>
+                            <td>${empty user.ceoName ? '-' : user.ceoName}</td>
+                            <td>${empty user.phone ? '-' : user.phone}</td>
+                            <td>${empty user.email ? '-' : user.email}</td>
+                            <td><fmt:formatDate value="${user.regDate}" pattern="yyyy-MM-dd"/></td>
+                        </tr>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <tr><td colspan="6" class="no-data">공사중</td></tr>
+                </c:otherwise>
+            </c:choose>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>...<span>52</span>
+        </div>
     </div>
 
-    <!-- 메인 콘텐츠 -->
-    <div class="main">
-        <div class="title">👩‍💼 물품 페이지</div>
-        <div class="desc">여기는 물품 페이지 입니다. (수리중)</div>
-        <ul class="links">
-            <li><a href="${pageContext.request.contextPath}/admin/member">회원 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/product">물품 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/notification">알림 전송</a></li>
-        </ul>
-    </div>
+
 </div>
 </body>
 </html>
