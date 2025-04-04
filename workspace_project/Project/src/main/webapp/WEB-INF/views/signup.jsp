@@ -179,7 +179,7 @@
             <span>-</span>
             <input type="text" name="phone2" maxlength="4" required style="flex:1;" id="phone2" oninput="validateAndMove(this, 'phone3', 4)">
             <span>-</span>
-            <input type="text" name="phone3" maxlength="4" required style="flex:1;" id="phone3" oninput="validateAndMove(this, 'phone3', 4)">
+            <input type="text" name="phone3" maxlength="4" required style="flex:1;" id="phone3" oninput="validateAndMove(this, null, 4)">
         </div>
 
         <!-- 이메일 -->
@@ -271,7 +271,8 @@
         }
     }
 
-    // 아이디 중복 확인 (AJAX 요청)
+    // 아이디 중복 확인 (AJAX 요청) -> 중복 확인 유무 isUsernameValid
+    let isUsernameValid = false;
     function checkUsername() {
         const username = document.getElementById("username").value.trim();
         const resultDiv = document.getElementById("idCheckResult");
@@ -279,6 +280,7 @@
         if (!/^[a-z0-9_]{6,12}$/.test(username)) {
             resultDiv.style.color = "red";
             resultDiv.textContent = "아이디 형식이 올바르지 않습니다.";
+            isUsernameValid = false;
             return;
         }
 
@@ -291,21 +293,27 @@
             	if (parseInt(data) > 0) {
                     resultDiv.style.color = "red";
                     resultDiv.textContent = "이미 사용 중인 아이디입니다.";
+                    isUsernameValid = false;
                 } else {
                     resultDiv.style.color = "green";
                     resultDiv.textContent = "사용 가능한 아이디입니다!";
+                    isUsernameValid = true;
                 }
             })
             .catch(err => {
                 console.error(err);
                 resultDiv.style.color = "red";
                 resultDiv.textContent = "서버 오류가 발생했습니다.";
+                isUsernameValid = false;
             });
     }
 
     // 페이지 로딩 후 실행
     document.addEventListener("DOMContentLoaded", function () {
         const inputs = Array.from(document.querySelectorAll("input, select"));
+
+        const idReg = /^[a-z0-9_]{6,12}$/;
+        const pwReg = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
 
         // 엔터 누르면 다음 input으로 이동
         inputs.forEach((input, index) => {
@@ -333,12 +341,10 @@
         const idTooltip = document.getElementById("idTooltip");
 
         idInput.addEventListener("blur", () => {
-            const idReg = /^[a-z0-9_]{6,12}$/;
             toggleTooltip(idReg.test(idInput.value), idTooltip, idInput);
         });
 
         passwordInput.addEventListener("blur", () => {
-            const pwReg = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
             toggleTooltip(pwReg.test(passwordInput.value), pwTooltip, passwordInput);
         });
 
@@ -350,16 +356,26 @@
                 tooltip.style.left = input.offsetLeft + "px";
             }
         }
-    });
 
         // 폼 제출 전 전체 유효성 검사
         const form = document.querySelector("form");
         form.addEventListener("submit", function(e) {
+            const resultDiv = document.getElementById("idCheckResult");
+
             // 비밀번호 & 비밀번호 확인 일치 여부 검사
             if(passwordInput.value !== passwordCheckInput.value) {
                 e.preventDefault();
                 pwMatchMessage.style.display = "block";
                 passwordCheckInput.focus();
+                return;
+            }
+
+            // 아이디 중복 확인 실행 여부 체크
+            if(!isUsernameValid) {
+                e.preventDefault();
+                resultDiv.style.color = "red";
+                resultDiv.textContent = "아이디 중복 확인을 해주세요.";
+                idInput.focus();
                 return;
             }
 
@@ -369,6 +385,8 @@
                 idTooltip.style.display = "block";
                 idInput.focus();
                 return;
+            } else {
+                idTooltip.style.display = "none";
             }
 
             // 비밀번호 유효성 검사
@@ -378,8 +396,8 @@
                 passwordInput.focus();
                 return;
             }
-
         });
+    });
 </script>
 </body>
 </html>
