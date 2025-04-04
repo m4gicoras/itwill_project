@@ -48,7 +48,7 @@ public class MainController {
                 session.removeAttribute("savedUsername");
             }
 
-            return "redirect:/test"; // 로그인 성공시 대시보드로
+            return "redirect:/dashboard"; // 로그인 성공시 대시보드로
         } else {
             redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
             return "redirect:/main";
