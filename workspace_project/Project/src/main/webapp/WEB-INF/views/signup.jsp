@@ -108,6 +108,7 @@
         /* 버튼이 있는 div 스타일 */
         .line_with_button {
             display: flex;
+            flex: 1;
             gap: 8px;
             margin-bottom: 10px;
         }
@@ -174,11 +175,11 @@
         <!-- 연락처: 세 칸 분할 입력 -->
         <label>연락처<span class="required">*</span></label>
         <div style="display: flex; gap: 6px; margin-bottom: 12px;">
-            <input type="text" name="phone1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'phone2')">
+            <input type="text" name="phone1" maxlength="3" required style="flex:1;" oninput="validateAndMove(this, 'phone2', 3)">
             <span>-</span>
-            <input type="text" name="phone2" maxlength="4" required style="flex:1;" id="phone2" oninput="moveToNext(this, 'phone3')">
+            <input type="text" name="phone2" maxlength="4" required style="flex:1;" id="phone2" oninput="validateAndMove(this, 'phone3', 4)">
             <span>-</span>
-            <input type="text" name="phone3" maxlength="4" required style="flex:1;" id="phone3">
+            <input type="text" name="phone3" maxlength="4" required style="flex:1;" id="phone3" oninput="validateAndMove(this, 'phone3', 4)">
         </div>
 
         <!-- 이메일 -->
@@ -197,20 +198,20 @@
         <!-- 사업자등록번호 3단 입력 -->
         <label>사업자등록번호<span class="required">*</span></label>
         <div style="display: flex; gap: 6px;">
-            <input type="text" name="bizNum1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'bizNum2')">
+            <input type="text" name="bizNum1" maxlength="3" required style="flex:1;" oninput="validateAndMove(this, 'bizNum2', 3)">
             <span>-</span>
-            <input type="text" name="bizNum2" maxlength="2" required style="flex:1;" id="bizNum2" oninput="moveToNext(this, 'bizNum3')">
+            <input type="text" name="bizNum2" maxlength="2" required style="flex:1;" id="bizNum2" oninput="validateAndMove(this, 'bizNum3', 2)">
             <span>-</span>
-            <input type="text" name="bizNum3" maxlength="5" required style="flex:1;" id="bizNum3">
+            <input type="text" name="bizNum3" maxlength="5" required style="flex:1;" id="bizNum3" oninput="validateAndMove(this, null, 5)">
         </div>
 
         <label>대표 전화</label>
         <div style="display: flex; gap: 6px; margin-bottom: 12px;">
-            <input type="text" name="companyPhone1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'companyPhone2')">
+            <input type="text" name="companyPhone1" maxlength="3" required style="flex:1;" oninput="validateAndMove(this, 'companyPhone2', 3)">
             <span>-</span>
-            <input type="text" name="companyPhone2" maxlength="4" required style="flex:1;" id="companyPhone2" oninput="moveToNext(this, 'companyPhone3')">
+            <input type="text" name="companyPhone2" maxlength="4" required style="flex:1;" id="companyPhone2" oninput="validateAndMove(this, 'companyPhone3', 4)">
             <span>-</span>
-            <input type="text" name="companyPhone3" maxlength="4" required style="flex:1;" id="companyPhone3">
+            <input type="text" name="companyPhone3" maxlength="4" required style="flex:1;" id="companyPhone3" oninput="validateAndMove(this, null, 4)">
         </div>
 
         <!-- 주소 입력 (카카오 주소 API 사용) -->
@@ -258,10 +259,15 @@
         }).open();
     }
 
-    // 입력한 칸이 다 차면 다음 input으로 이동
-    function moveToNext(current, nextId) {
-        if (current.value.length === current.maxLength) {
-            document.getElementById(nextId).focus();
+    // 숫자만 입력 가능 + 입력한 칸이 다 차면 다음 input으로 이동
+    function validateAndMove(current, nextId, maxLength) {
+        current.value = current.value.replace(/[^0-9]/g, '');
+
+        if (current.value.length >= maxLength && nextId !== null) {
+            const nextInput = document.getElementById(nextId);
+            if (nextInput) {
+                nextInput.focus();
+            }
         }
     }
 
@@ -345,6 +351,35 @@
             }
         }
     });
+
+        // 폼 제출 전 전체 유효성 검사
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function(e) {
+            // 비밀번호 & 비밀번호 확인 일치 여부 검사
+            if(passwordInput.value !== passwordCheckInput.value) {
+                e.preventDefault();
+                pwMatchMessage.style.display = "block";
+                passwordCheckInput.focus();
+                return;
+            }
+
+            // 아이디 유효성 검사
+            if(!idReg.test(idInput.value)) {
+                e.preventDefault();
+                idTooltip.style.display = "block";
+                idInput.focus();
+                return;
+            }
+
+            // 비밀번호 유효성 검사
+            if(!pwReg.test(passwordInput.value)) {
+                e.preventDefault();
+                pwTooltip.style.display = "block";
+                passwordInput.focus();
+                return;
+            }
+
+        });
 </script>
 </body>
 </html>
