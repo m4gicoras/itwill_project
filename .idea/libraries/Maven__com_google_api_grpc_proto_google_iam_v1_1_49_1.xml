@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: com.google.api.grpc:proto-google-iam-v1:1.49.1" type="java-imported" external-system-id="Maven">
+    <properties groupId="com.google.api.grpc" artifactId="proto-google-iam-v1" version="1.49.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/api/grpc/proto-google-iam-v1/1.49.1/proto-google-iam-v1-1.49.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/api/grpc/proto-google-iam-v1/1.49.1/proto-google-iam-v1-1.49.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/api/grpc/proto-google-iam-v1/1.49.1/proto-google-iam-v1-1.49.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
