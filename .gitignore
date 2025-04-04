@@ -11,3 +11,7 @@ target/
 # OS별 임시 파일
 .DS_Store
 Thumbs.db
+
+# IntelliJ IDEA
+.idea/
+*.iml
