@@ -332,8 +332,8 @@
                   <td class="p-4 text-center">2015-03-22</td>
                   <td class="pt-4 flex items-center">
                     <!-- 재고없음 배지 
-                                    <span
-                                        <class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">-->
+                                      <span
+                                          <class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">-->
                     <span
                       class="transform translate-x-4 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring inset-ring-yellow-500">
                       재고없음
@@ -363,8 +363,8 @@
                   <td class="p-4 text-center">2015-03-23</td>
                   <td class="pt-4 flex items-center">
                     <!-- 단종 배지 
-                                    <span
-                                        class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">-->
+                                      <span
+                                          class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">-->
                     <span
                       class="transform translate-x-4 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring">
                       단종
@@ -388,10 +388,6 @@
         </div>
       </div>
     </div>
-
-
-
-
 
   </body>
 
