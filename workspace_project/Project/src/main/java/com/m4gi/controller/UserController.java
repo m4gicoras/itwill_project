@@ -28,10 +28,14 @@ public class UserController {
         userService.register(siteUser);
         return "redirect:/main";
     }
-   
-    
+
+    @GetMapping("/delete")
+    public String showDeleteForm() {
+        return "delete";
+    }
+
     // 로그인 처리
-/*    @PostMapping("/main")
+    /*    @PostMapping("/main")
     @ResponseBody
     public Map<String, String> login(@RequestParam("username") String username,
                                      @RequestParam("password") String password) {
