@@ -131,6 +131,7 @@
 
   .rememberId {
      margin-right: 3px; /* 체크박스와 텍스트 간격 조정 */
+     vertical-align: middle;
 
   }
 
