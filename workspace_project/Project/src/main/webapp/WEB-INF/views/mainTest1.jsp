@@ -114,6 +114,12 @@
       font-weight: 300;
   }
 
+  input:focus {
+      outline: none; /* 기본 outline 제거 */
+      border: 2px solid #aac8ff;  /* 색상 변경 가능 */
+      box-shadow: 0 0 5px rgba(170, 200, 255, 0.5);
+  }
+
   button.form-element {
       background-color: #4682B4;
       color: #fff;
