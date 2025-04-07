@@ -29,6 +29,7 @@ public class UserController {
         return "redirect:/main";
     }
 
+    /*
     // 로그인 처리
     @PostMapping("/main")
     @ResponseBody
@@ -45,7 +46,9 @@ public class UserController {
         }
         return response;
     }
-    // 회원가입 폼 페이지
+    */
+
+    // 대시보드 페이지
     @GetMapping("/test")
     public String showDashBoard() {
         return "test";

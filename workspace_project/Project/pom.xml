@@ -177,6 +177,7 @@
         <!--  외부 라이브러리 추가 끝  -->
     </dependencies>
     <build>
+        <finalName>web</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
@@ -197,8 +198,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.11</source>
-                    <target>1.11</target>
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
