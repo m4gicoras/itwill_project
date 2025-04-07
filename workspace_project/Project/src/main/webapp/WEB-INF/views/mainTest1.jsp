@@ -63,6 +63,9 @@
     text-align: center;
     padding: 2rem;
 
+    border: 2px solid rgba(255, 255, 255, 0.2);   /* 흐릿한 테두리 */
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2); /* 외곽에 연한 빛 번짐 */
+
   }
 
   .title {
@@ -70,6 +73,7 @@
     font-size: 2.5em;
     font-weight: bold;
     margin-bottom: 1em;
+    margin-top: 1em;
     user-select: none;
   }
 
@@ -142,6 +146,7 @@
     width: 80%;
 
     margin-bottom: 25px;
+    margin-top: 15px;
 
     padding-right: 10px;
 
@@ -188,7 +193,7 @@
   .find-links {
     margin-top: 1em;
     font-size: 0.9em;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
     font-weight:300;
 
   }
