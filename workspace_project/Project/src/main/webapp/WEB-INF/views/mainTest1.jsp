@@ -18,8 +18,16 @@
     font-style: normal;
   }
 
+  @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+  }
+
   body {
-    font-family: 'KIMM_Bold', sans-serif;
+    font-family: 'Pretendard-Regular';
+    font-weight: 300;
     height: 100vh;
     margin: 0;
     overflow: hidden;
@@ -30,7 +38,7 @@
   .background-blur {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('<%= request.getContextPath() %>/resources/images/SELLITY3.png');
+    background-image: url('<%= request.getContextPath() %>/resources/images/mainPage01.png');
     background-size: cover;
     background-position: center;
     filter: blur(8px);
@@ -58,6 +66,7 @@
   }
 
   .title {
+    font-family: 'KIMM_Bold', sans-serif;
     font-size: 2.5em;
     font-weight: bold;
     margin-bottom: 1em;
@@ -65,6 +74,7 @@
   }
 
   .subtitle {
+    font-family: 'KIMM_Bold', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,8 +85,8 @@
   }
 
   .subtitle .line {
-    flex: 1;
-    height: 1px;
+    flex: 0 0 110px;  /* grow:0, shrink:0, basis:40px */
+    height: 3px;
     background-color: white;
     margin: 0 10px;
     opacity: 0.5;
@@ -93,13 +103,15 @@
     height: 44px;
 
   }
-    input.form-element {
-      border: none;
-      background-color: #f5d3b4;
-    }
 
-    button.form-element {
-      background-color: #e5b288;
+  input.form-element {
+      border: none;
+      background-color: #F0F8FF;
+      font-weight: 300;
+  }
+
+  button.form-element {
+      background-color: #4682B4;
       color: #fff;
       border: none;
       font-weight: bold;
@@ -107,12 +119,18 @@
       transition: background-color 0.3s;
       margin-bottom: 5px;
       margin-top: 15px;
-    }
+  }
 
-    button.form-element:hover {
-      background-color: #c98e5e;
-    }
+  button.form-element:hover {
+      background-color: #3A6D99;
+      box-shadow: 0 0 6px rgba(100, 150, 255, 0.3);
 
+  }
+
+  input.form-element,
+  button.form-element {
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);  /* 아래 방향 부드러운 그림자 */
+  }
 
   .remember-container {
     user-select: none;
@@ -130,8 +148,8 @@
   }
 
   .rememberId {
-     margin-right: 3px; /* 체크박스와 텍스트 간격 조정 */
      vertical-align: middle;
+     margin-right: 5px; /* 체크박스와 텍스트 간격 조정 */
 
   }
 
@@ -141,10 +159,10 @@
 
      white-space: nowrap;
 
-     font-size: 12px; /* 텍스트 크기 조절 */
-     line-height: 1.0; /* 높낮이 균형 조절 */
+     font-size: 13px; /* 텍스트 크기 조절 */
+     line-height: normal; /* 높낮이 균형 조절 */
 
-}
+  }
 
   button { /* 페이지 안의 모든 버튼에 적용 */
     background-color: #e5b288;
@@ -171,13 +189,14 @@
     margin-top: 1em;
     font-size: 0.9em;
     margin-bottom: 2em;
+    font-weight:300;
 
   }
 
   .find-links a {
     color: #fff;
     text-decoration: none;
-    margin: 0 5px;
+    margin: 0 10px;
 
   }
 

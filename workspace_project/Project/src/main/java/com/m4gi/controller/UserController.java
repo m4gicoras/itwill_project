@@ -34,6 +34,11 @@ public class UserController {
         return "delete";
     }
 
+    @GetMapping("/mainTest1")
+    public String showmainTestForm() {
+        return "mainTest1";
+    }
+
     // 로그인 처리
     /*    @PostMapping("/main")
     @ResponseBody
