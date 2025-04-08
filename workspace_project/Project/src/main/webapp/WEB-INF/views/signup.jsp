@@ -13,7 +13,6 @@
     <style>
       body {
           font-family: 'Noto Sans KR', sans-serif;
-          background: #f8fafc;
       }
 
       /* 커스텀 bounce 애니메이션 (키프레임) */
@@ -77,8 +76,7 @@
           <label class="mt-3 mb-1.5 block text-sm font-medium">아이디<span class="ml-1 text-sm text-red-500">*</span></label>
           <div class="flex items-center gap-2.5">
             <input type="text" name="username" id="username" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
-            <button type="button" onclick="checkUsername()" class="group relative flex h-9 items-center justify-center overflow-hidden rounded-full bg-blue-500 px-10 font-medium ring-2 ring-blue-500/50 transition-all">
-              <span class="absolute bottom-0 left-0 h-full w-full -translate-x-full rounded-md bg-blue-600 transition-all delay-200 duration-500 ease-in-out group-hover:translate-x-0"></span>
+            <button type="button" onclick="checkUsername()" class="group relative flex h-9 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-blue-500 px-10 font-medium ring-2 ring-blue-500/10 transition-all">
               <span class="relative text-left text-sm font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">중복 확인</span>
             </button>
           </div>
@@ -165,9 +163,8 @@
           <label class="mt-3 mb-1.5 block text-sm font-medium">주소<span class="ml-1 text-sm text-red-500">*</span></label>
           <div class="flex items-center gap-2.5">
             <input type="text" id="address" name="address" placeholder="기본 주소" required readonly class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
-            <button type="button" onclick="execDaumPostcode()" class="group relative flex h-9 items-center justify-center overflow-hidden rounded-full bg-blue-500 px-10 font-medium ring-2 ring-blue-500/50 transition-all">
-              <span class="absolute bottom-0 left-0 h-full w-full -translate-x-full rounded-md bg-blue-600 transition-all delay-200 duration-500 ease-in-out group-hover:translate-x-0"></span>
-              <span class="relative text-left text-sm font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">주소 검색</span>
+            <button type="button" onclick="execDaumPostcode()" class="group relative flex h-9 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-blue-500 px-10 font-medium ring-2 ring-blue-500/10 transition-all">
+              <span class="relative cursor-pointer text-left text-sm font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">주소 검색</span>
             </button>
           </div>
           <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="mt-3 h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
@@ -190,7 +187,7 @@
         <div class="my-4 space-y-3 text-sm">
           <div class="flex align-middle">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="sr-only" />
+              <input type="checkbox" class="hidden" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -202,11 +199,11 @@
               </div>
             </label>
             <span class="ml-2.5">서비스 이용 약관 동의</span><span class="ml-1 text-sm text-red-500">*</span>
-            <div id="termTooltip" class="mt-0.5 pl-1 hidden text-[13px] text-red-500">필수 이용 약관에 동의해주세요.</div>
+            <div id="termTooltip" class="mt-0.5 hidden pl-1 text-[13px] text-red-500">필수 이용 약관에 동의해주세요.</div>
           </div>
           <div class="flex align-middle">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="sr-only" />
+              <input type="checkbox" class="hidden" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -221,7 +218,7 @@
           </div>
           <div class="flex align-middle">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="sr-only" />
+              <input type="checkbox" class="hidden" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -239,7 +236,7 @@
         <!-- 제출 버튼 -->
         <button type="submit" class="group relative mt-9 flex h-9 w-full items-center justify-center overflow-hidden rounded-full bg-blue-500 px-6 font-medium ring-2 ring-blue-500/50 transition-all">
           <span class="absolute bottom-0 left-0 h-full w-full -translate-x-full rounded-md bg-blue-600 transition-all delay-200 duration-500 ease-in-out group-hover:translate-x-0"></span>
-          <span class="relative text-left font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">회원 가입</span>
+          <span class="relative text-left text-sm font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">회원 가입</span>
         </button>
       </form>
     </div>
