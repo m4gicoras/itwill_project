@@ -82,6 +82,7 @@
             width: 18px;
             height: 18px;
             cursor: pointer;
+            margin-top: 12px;
         }
 
         /* 제출 버튼 스타일 */
@@ -105,10 +106,9 @@
             color: #a69f0b;
         }
 
-        /* 버튼이 있는 div 스타일 */
+        /* 주소 입력창 두 줄 정렬 */
         .line_with_button {
             display: flex;
-            flex: 1;
             gap: 8px;
             margin-bottom: 10px;
         }
@@ -148,7 +148,7 @@
         <!-- 아이디 입력 및 중복 확인 버튼 -->
         <div style="position: relative;">
             <label>아이디<span class="required">*</span></label>
-            <div class="line_with_button">
+            <div style="display: flex; gap: 6px;" class="line_with_button">
                 <input type="text" name="username" id="username" required style="flex: 1;">
                 <button type="button" onclick="checkUsername()" style="width: 120px; height: 30px;">중복 확인</button>
             </div>
@@ -175,11 +175,11 @@
         <!-- 연락처: 세 칸 분할 입력 -->
         <label>연락처<span class="required">*</span></label>
         <div style="display: flex; gap: 6px; margin-bottom: 12px;">
-            <input type="text" name="phone1" maxlength="3" required style="flex:1;" oninput="validateAndMove(this, 'phone2', 3)">
+            <input type="text" name="phone1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'phone2')">
             <span>-</span>
-            <input type="text" name="phone2" maxlength="4" required style="flex:1;" id="phone2" oninput="validateAndMove(this, 'phone3', 4)">
+            <input type="text" name="phone2" maxlength="4" required style="flex:1;" id="phone2" oninput="moveToNext(this, 'phone3')">
             <span>-</span>
-            <input type="text" name="phone3" maxlength="4" required style="flex:1;" id="phone3" oninput="validateAndMove(this, null, 4)">
+            <input type="text" name="phone3" maxlength="4" required style="flex:1;" id="phone3">
         </div>
 
         <!-- 이메일 -->
@@ -198,26 +198,26 @@
         <!-- 사업자등록번호 3단 입력 -->
         <label>사업자등록번호<span class="required">*</span></label>
         <div style="display: flex; gap: 6px;">
-            <input type="text" name="bizNum1" maxlength="3" required style="flex:1;" oninput="validateAndMove(this, 'bizNum2', 3)">
+            <input type="text" name="bizNum1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'bizNum2')">
             <span>-</span>
-            <input type="text" name="bizNum2" maxlength="2" required style="flex:1;" id="bizNum2" oninput="validateAndMove(this, 'bizNum3', 2)">
+            <input type="text" name="bizNum2" maxlength="2" required style="flex:1;" id="bizNum2" oninput="moveToNext(this, 'bizNum3')">
             <span>-</span>
-            <input type="text" name="bizNum3" maxlength="5" required style="flex:1;" id="bizNum3" oninput="validateAndMove(this, null, 5)">
+            <input type="text" name="bizNum3" maxlength="5" required style="flex:1;" id="bizNum3">
         </div>
 
         <label>대표 전화</label>
         <div style="display: flex; gap: 6px; margin-bottom: 12px;">
-            <input type="text" name="companyPhone1" maxlength="3" required style="flex:1;" oninput="validateAndMove(this, 'companyPhone2', 3)">
+            <input type="text" name="companyPhone1" maxlength="3" required style="flex:1;" oninput="moveToNext(this, 'companyPhone2')">
             <span>-</span>
-            <input type="text" name="companyPhone2" maxlength="4" required style="flex:1;" id="companyPhone2" oninput="validateAndMove(this, 'companyPhone3', 4)">
+            <input type="text" name="companyPhone2" maxlength="4" required style="flex:1;" id="companyPhone2" oninput="moveToNext(this, 'companyPhone3')">
             <span>-</span>
-            <input type="text" name="companyPhone3" maxlength="4" required style="flex:1;" id="companyPhone3" oninput="validateAndMove(this, null, 4)">
+            <input type="text" name="companyPhone3" maxlength="4" required style="flex:1;" id="companyPhone3">
         </div>
 
         <!-- 주소 입력 (카카오 주소 API 사용) -->
         <label>주소<span class="required">*</span></label>
         <div class="line_with_button">
-            <input type="text" id="address" name="address" placeholder="기본 주소" style="flex: 1;" required readonly>
+            <input type="text" id="address" name="address" placeholder="기본 주소" required readonly>
             <button type="button" onclick="execDaumPostcode()" style="width: 120px; height: 30px;">주소 검색</button>
         </div>
         <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="long-input">
@@ -259,20 +259,14 @@
         }).open();
     }
 
-    // 숫자만 입력 가능 + 입력한 칸이 다 차면 다음 input으로 이동
-    function validateAndMove(current, nextId, maxLength) {
-        current.value = current.value.replace(/[^0-9]/g, '');
-
-        if (current.value.length >= maxLength && nextId !== null) {
-            const nextInput = document.getElementById(nextId);
-            if (nextInput) {
-                nextInput.focus();
-            }
+    // 입력한 칸이 다 차면 다음 input으로 이동
+    function moveToNext(current, nextId) {
+        if (current.value.length === current.maxLength) {
+            document.getElementById(nextId).focus();
         }
     }
 
-    // 아이디 중복 확인 (AJAX 요청) -> 중복 확인 유무 isUsernameValid
-    let isUsernameValid = false;
+    // 아이디 중복 확인 (AJAX 요청)
     function checkUsername() {
         const username = document.getElementById("username").value.trim();
         const resultDiv = document.getElementById("idCheckResult");
@@ -280,7 +274,6 @@
         if (!/^[a-z0-9_]{6,12}$/.test(username)) {
             resultDiv.style.color = "red";
             resultDiv.textContent = "아이디 형식이 올바르지 않습니다.";
-            isUsernameValid = false;
             return;
         }
 
@@ -293,27 +286,21 @@
             	if (parseInt(data) > 0) {
                     resultDiv.style.color = "red";
                     resultDiv.textContent = "이미 사용 중인 아이디입니다.";
-                    isUsernameValid = false;
                 } else {
                     resultDiv.style.color = "green";
                     resultDiv.textContent = "사용 가능한 아이디입니다!";
-                    isUsernameValid = true;
                 }
             })
             .catch(err => {
                 console.error(err);
                 resultDiv.style.color = "red";
                 resultDiv.textContent = "서버 오류가 발생했습니다.";
-                isUsernameValid = false;
             });
     }
 
     // 페이지 로딩 후 실행
     document.addEventListener("DOMContentLoaded", function () {
         const inputs = Array.from(document.querySelectorAll("input, select"));
-
-        const idReg = /^[a-z0-9_]{6,12}$/;
-        const pwReg = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
 
         // 엔터 누르면 다음 input으로 이동
         inputs.forEach((input, index) => {
@@ -341,10 +328,12 @@
         const idTooltip = document.getElementById("idTooltip");
 
         idInput.addEventListener("blur", () => {
+            const idReg = /^[a-z0-9_]{6,12}$/;
             toggleTooltip(idReg.test(idInput.value), idTooltip, idInput);
         });
 
         passwordInput.addEventListener("blur", () => {
+            const pwReg = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
             toggleTooltip(pwReg.test(passwordInput.value), pwTooltip, passwordInput);
         });
 
@@ -356,47 +345,6 @@
                 tooltip.style.left = input.offsetLeft + "px";
             }
         }
-
-        // 폼 제출 전 전체 유효성 검사
-        const form = document.querySelector("form");
-        form.addEventListener("submit", function(e) {
-            const resultDiv = document.getElementById("idCheckResult");
-
-            // 비밀번호 & 비밀번호 확인 일치 여부 검사
-            if(passwordInput.value !== passwordCheckInput.value) {
-                e.preventDefault();
-                pwMatchMessage.style.display = "block";
-                passwordCheckInput.focus();
-                return;
-            }
-
-            // 아이디 중복 확인 실행 여부 체크
-            if(!isUsernameValid) {
-                e.preventDefault();
-                resultDiv.style.color = "red";
-                resultDiv.textContent = "아이디 중복 확인을 해주세요.";
-                idInput.focus();
-                return;
-            }
-
-            // 아이디 유효성 검사
-            if(!idReg.test(idInput.value)) {
-                e.preventDefault();
-                idTooltip.style.display = "block";
-                idInput.focus();
-                return;
-            } else {
-                idTooltip.style.display = "none";
-            }
-
-            // 비밀번호 유효성 검사
-            if(!pwReg.test(passwordInput.value)) {
-                e.preventDefault();
-                pwTooltip.style.display = "block";
-                passwordInput.focus();
-                return;
-            }
-        });
     });
 </script>
 </body>
