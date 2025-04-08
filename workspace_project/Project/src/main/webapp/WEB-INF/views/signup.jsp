@@ -190,7 +190,7 @@
         <div class="my-4 space-y-3 text-sm">
           <div class="flex align-middle">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="hidden" />
+              <input type="checkbox" class="sr-only" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -202,10 +202,11 @@
               </div>
             </label>
             <span class="ml-2.5">서비스 이용 약관 동의</span><span class="ml-1 text-sm text-red-500">*</span>
+            <div id="termTooltip" class="mt-0.5 pl-1 text-[13px] text-red-500">필수 이용 약관에 동의해주세요.</div>
           </div>
           <div class="flex align-middle">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="hidden" />
+              <input type="checkbox" class="sr-only" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -220,7 +221,7 @@
           </div>
           <div class="flex align-middle">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="hidden" />
+              <input type="checkbox" class="sr-only" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -333,11 +334,13 @@
               pwMatchMessage.style.display = (this.value !== passwordInput.value) ? "block" : "none";
           });
 
-          // 아이디 및 비밀번호 blur 시 유효성 툴팁 표시
+          // 아이디, 비밀번호, 이용 약관 관련 DOM 요소 가져오기
           const idInput = document.getElementById("username");
           const pwTooltip = document.getElementById("pwTooltip");
           const idTooltip = document.getElementById("idTooltip");
+          const termTooltip = document.getElementById("termTooltip");
 
+          // 아이디 및 비밀번호 blur 시 유효성 툴팁 표시
           idInput.addEventListener("blur", () => {
               toggleTooltip(idReg.test(idInput.value), idTooltip, idInput);
           });
@@ -389,8 +392,22 @@
                   pwTooltip.style.display = "block";
                   passwordInput.focus();
                   return;
+              } else {
+                  pwTooltip.style.display = "none";
+              }
+
+              // 첫번째 이용 약관 동의 여부
+              const termsCheckbox = document.querySelector('.ios-checkbox input[type="checkbox"]');
+              if(!termsCheckbox.checked){
+                e.preventDefault();
+                termTooltip.style.display = "block";
+                termsCheckbox.focus();
+                return;
+              } else {
+                  termTooltip.style.display = "none";
               }
           });
+
       });
     </script>
   </body>
