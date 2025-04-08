@@ -1,270 +1,374 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>셀리티 - 메인페이지</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Great+Vibes&family=Satisfy&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Great+Vibes&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Satisfy&display=swap" rel="stylesheet">
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
 
-    <style>
-    
-        header {
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TailwindCSS 4.0 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- 구글 폰트 embed 코드 추가 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap"
+      rel="stylesheet">
+
+        <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'KIMM_Bold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        body {
+            font-weight: 300;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ✅ 배경 블러 처리 영역 */
+        .background-blur {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            
-            color: #555555;
-            text-align: left;
-            padding: 45px;
-            font-size: 50px;
-            font-family: "Great Vibes", cursive;
-            font-weight: 600;
-            transition: all 0.3s ease-in-out;
-                
-        }
-                
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-            
-        #bg-video {
-            position: fixed;
             right: 0;
             bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
+            background-image: url('<%= request.getContextPath() %>/resources/images/mainPage01.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
             z-index: -1;
         }
 
         .login-container {
             position: absolute;
-            top: 50%; left: 50%; 
+
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #dbdbdb;
-            border-radius: 10px;
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+
+            border-radius: 12px;
+            color: white;
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+
+            /* 너무 넓어지지 않도록 최대 한도 지정 */
+            min-width: 250px;
+
+            /* 너무 좁아지지 않도록 최소 한도도 설정 가능 */
+            padding: 2rem;
+
+            /* rem은 전체적으로 일관된 크기 유지 */
             text-align: center;
-            transition: all 0.3s ease-in-out;
-            
+            padding: 2rem;
+
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            /* 흐릿한 테두리 */
+
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            /* 외곽에 연한 빛 번짐 */
+        }
+
+        .title {
+            font-family: 'KIMM_Bold', sans-serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 1em;
+            margin-top: 1em;
+            user-select: none;
+        }
+
+        .subtitle {
+            font-family: 'KIMM_Bold', sans-serif;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            
-        }
-                
-        @media (max-width: 768px) {
-          .login-container {
-            width: 70%;
-            padding: 20px;
-            
-          }
+            justify-content: center;
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+            color: white;
+            user-select: none;
         }
 
-
-       @media (max-width: 480px) {
-         .login-container {
-           width: 85%;
-           padding: 10px;
-           
-          }
+        .subtitle .line {
+            flex: 0 0 110px;
+            /* grow:0, shrink:0, basis:40px */
+            height: 3px;
+            background-color: white;
+            margin: 0 10px;
+            opacity: 0.5;
         }
 
-        .logo {
-            font-family: "Roboto Mono", monospace;
-          
-            font-size: 25px;
-            margin-bottom: 40px;
+        .form-element {
+            width: 90%;
+            padding: 12px;
+            font-size: 15px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            margin-bottom: 1em;
+            line-height: 1.2;
+            height: 44px;
         }
 
-        .input-field {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #dbdbdb;
-            border-radius: 3px;
-            background: #fafafa;
+        input.form-element {
+            border: none;
+            background-color: #ffffff;
+            font-weight: 300;
+            color: #222222;
         }
-        
+
+        input.form-element::placeholder {
+            color: #666;
+            /* 약간 더 밝은 회색 */
+        }
+
+        input:focus {
+            outline: none;
+            /* 기본 outline 제거 */
+            border: 2px solid #aac8ff;
+            /* 색상 변경 가능 */
+            box-shadow: 0 0 5px rgba(170, 200, 255, 0.5);
+        }
+
+        input.form-element,
+        button.form-element {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            /* 아래 방향 부드러운 그림자 */
+        }
+
         .remember-container {
-            
-            position: relative;
+            user-select: none;
+
             display: flex;
             align-items: center;
             justify-content: flex-end;
-          
-            width: 80%; 
-            font-size: 15px;
-            margin-bottom: 15px;
-            
+
+            width: 80%;
+
+            margin-bottom: 25px;
+            margin-top: 15px;
+
             padding-right: 10px;
+
         }
-        
+
         .rememberId {
-             margin-right: 2px; /* 체크박스와 텍스트 간격 조정 */       
-             
+            vertical-align: middle;
+            margin-right: 5px;
+            /* 체크박스와 텍스트 간격 조정 */
+
         }
-         
+
         .remember-container label {
-           position: relative;
-           right: -45px;  /* 비밀번호 입력칸의 끝과 정렬 조정 */
-           white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-    
-           font-size: 14px; /* 텍스트 크기 조절 */
-           line-height: 1.5; /* 높낮이 균형 조절 */
-        
+            position: relative;
+            right: -50px;
+
+            white-space: nowrap;
+
+            font-size: 13px;
+            /* 텍스트 크기 조절 */
+            line-height: normal;
+            /* 높낮이 균형 조절 */
+
         }
-       
-        .login-btn { /*로그인 버튼*/
-            width: 85%;
-            padding: 15px;
-            background-color: #0095f6;
+
+        .find-links {
+            margin-top: 1em;
+            font-size: 0.9em;
+            margin-bottom: 1.5em;
+            font-weight: 300;
+
+        }
+
+        .find-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .ios-checkbox {
+            --checkbox-size: 24px;
+            --checkbox-color: #3b82f6;
+            --checkbox-bg: #dbeafe;
+            --checkbox-border: #93c5fd;
+        }
+
+        /* Color Themes */
+        .ios-checkbox.blue {
+            --checkbox-color: #3b82f6;
+            --checkbox-bg: #dbeafe;
+            --checkbox-border: #93c5fd;
+        }
+
+        .ios-checkbox.green {
+            --checkbox-color: #10b981;
+            --checkbox-bg: #d1fae5;
+            --checkbox-border: #6ee7b7;
+        }
+
+        .ios-checkbox.purple {
+            --checkbox-color: #8b5cf6;
+            --checkbox-bg: #ede9fe;
+            --checkbox-border: #c4b5fd;
+        }
+
+        .ios-checkbox.red {
+            --checkbox-color: #ef4444;
+            --checkbox-bg: #fee2e2;
+            --checkbox-border: #fca5a5;
+        }
+
+        /* Checked State */
+        .ios-checkbox input:checked+.checkbox-wrapper .checkbox-bg {
+            background: var(--checkbox-color);
+            border-color: var(--checkbox-color);
             border: none;
-            color: white;
-            font-weight: bold;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-top: 10px;
         }
-                
-        .options { /*아이디, 비밀번호 찾기*/
-            /* display: flex;
-            justify-content: center; 
-            margin-top: 10px;
-            
-            gap: 50px; */
-            
-            margin-top: 10px;
-            font-size: 12px;
-            display : block;
+
+        .ios-checkbox input:checked+.checkbox-wrapper .checkbox-icon {
+            transform: scale(1);
         }
-        
-        .options a {
-            color: #555;
-            text-decoration: none; 
- 
-            
+
+        .ios-checkbox input:checked+.checkbox-wrapper .check-path {
+            stroke-dashoffset: 0;
         }
-        
-        .options a:first-child {
-             margin-right: 20px; /* 첫 번째 링크 오른쪽에 여백 추가 */
+
+        /* Focus Styles */
+        .ios-checkbox input:focus+.checkbox-wrapper .checkbox-bg {
+            box-shadow: 0 0 0 4px var(--checkbox-bg);
         }
-        
-        .signup-box { /*회원가입*/
-            width: 85%;
-            text-align: center;
-            border: none;
-            background: #C0C0C0;
-            padding: 13px;
-            margin-top: 10px;
-            border-radius:3px;
+
+        /* Animation */
+        .ios-checkbox input:checked+.checkbox-wrapper {
+            animation: bounce 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-  
-        
     </style>
-    
-</head>
-<body>
+    </head>
 
-    <header id="dynamic-header">Sellity</header>
+    <body style="font-family: 'Noto Sans KR', sans-serif;">
+        <!-- ✅ 배경 블러 처리된 영역 -->
+        <div class="background-blur"></div>
 
-    <video autoplay muted loop id="bg-video">
-        <source src="${pageContext.request.contextPath}/resources/forest.mp4" type="video/mp4">
-        브라우저가 비디오 태그를 지원하지 않습니다.
-    </video>
-
+        <!-- 로그인 폼 -->
         <div class="login-container">
-          <form id="loginForm" action="${pageContext.request.contextPath}/main" method="post">
-            <div class="logo">Sign in</div>
-            
-            <input type="text" class="input-field" placeholder="사용자 이름 또는 이메일">
-            <input type="password" class="input-field" placeholder="비밀번호">
-            </br>
-            
-            
-            <div class="remember-container">
-              <label>
-               <input type="checkbox" class="rememberId"> 아이디 저장
-              </label> 
-            </div>
-            
-            
-            <button type="submit" class="login-btn">로그인</button>
-            <button type="button" class="signup-box" onclick="location.href='${pageContext.request.contextPath}/signup'">회원가입</button>
-            
-            
-            <div class="options">
-                <a href="#">아이디 찾기</a>
-                <a href="#">비밀번호 찾기</a>
-            </div>
-            
+            <h1 class="title">SELLITY</h1>
+            <h2 class="subtitle">
+                <span class="line"></span>
+                Login
+                <span class="line"></span>
+            </h2>
+
+            <form id="login-form" class="login-form">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="ID" class="form-element">
+                </div>
+
+                <!-- 비밀번호 입력 필드 바로 아래에 에러 메시지 출력 영역 추가 -->
+				<div class="input-group relative">
+				  <input type="password" id="password" name="password" placeholder="Password" class="form-element">
+				  <!-- 에러 메시지가 삽입될 컨테이너 (처음에는 숨김 처리) -->
+				  <div id="password-error" class="hidden mt-2">
+				    <span class="text-red-500 text-sm">계정 정보가 일치하지 않습니다</span>
+				  </div>
+				</div>
+
+                <div class="remember-container flex items-center justify-between">
+  <!-- 회원가입 관련 영역 (텍스트 클릭 시 이동) -->
+  <div class="register mr-6 text-[13px] cursor-pointer"
+       onclick="location.href='${pageContext.request.contextPath}/signup'">
+    아이디가 없으신가요?
+  </div>
+  
+  <!-- 아이디 저장 체크박스 영역 -->
+  <label class="ios-checkbox blue inline-flex items-center cursor-pointer select-none">
+    <input type="checkbox" class="hidden" />
+    <div class="checkbox-wrapper relative rounded-[8px] transition-transform duration-200 ease hover:scale-105 active:scale-95"
+         style="width: var(--checkbox-size); height: var(--checkbox-size);">
+      <div class="checkbox-bg absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200 ease"
+           style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
+        <div class="checkbox-icon absolute m-auto text-white scale-none transition-all duration-200 ease"
+             style="width: 100%; height: 100%;">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path class="check-path [transition:stroke-dashoffset_0.3s_ease_0.1s] [stroke-dasharray:40] [stroke-dashoffset:40]" d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <span class="ml-2">아이디 저장</span>
+  </label>
+</div>
+
+                <button type="submit"
+        class="mx-auto w-[90%] shadow-xl/20 p-3 text-[15px] box-border mb-4 leading-[1.2] h-11 relative flex items-center px-6 py-3 overflow-hidden font-medium transition-all bg-blue-500 ring-2 ring-blue-500/10 rounded-full group">
+  <span
+    class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full bg-blue-600 rounded-md group-hover:translate-x-0"></span>
+  <span class="relative w-full cursor-pointer text-white transition-colors duration-200 ease-in-out group-hover:text-white">
+    로그인
+  </span>
+</button>
             </form>
-            
+
+            <div class="find-links">
+                <a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a>
+            </div>
         </div>
         
-        
-     <script>
-        document.getElementById("loginForm").addEventListener("submit", function(e) {
-            e.preventDefault(); // 기본 폼 제출 동작 방지
+        <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // 기본 폼 제출 방지
 
-            const form = e.target;
-            const formData = new FormData(form);
-            const params = new URLSearchParams(formData);
+      // 폼 데이터 수집
+      const formData = new FormData(this);
+      const username = formData.get('username');
+      const password = formData.get('password');
+      
+      console.log(username);
+      console.log(password);
 
-            fetch(form.action, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: params.toString()
-            })
-            .then(response => response.json())
-            .then(data => {
-                // 응답 받은 메시지와 타입에 따라 메시지 컨테이너 업데이트
-                const messageContainer = document.getElementById("messageContainer");
-                messageContainer.innerText = data.message;
-                messageContainer.className = data.messageType;
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-        });
+      // fetch()를 이용해 AJAX로 로그인 검증 요청 (URL은 실제 엔드포인트로 변경)
+      fetch('${pageContext.request.contextPath}/login', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // 로그인 성공 시 test.jsp(또는 성공 URL)로 이동
+          window.location.href = data.redirect;
+        } else {
+          // 로그인 실패 시 에러 메시지 표시 (TailwindCSS 클래스 활용)
+          document.getElementById('password-error').classList.remove('hidden');
+        }
+      })
+      .catch(error => {
+        console.error('로그인 요청 에러:', error);
+      });
+    });
+  });
+</script>
+    </body>
 
-    </script>   
-        
-     <script>
-     
-     //<script src="${pageContext.request.contextPath}/resources/js/script.js">
-     
-        function adjustHeader() {
-    	    let header = document.getElementById("dynamic-header");
-    	    let width = window.innerWidth;
-
-    	    if (width < 600) {
-    	        header.style.fontSize = "30px"; // 모바일 화면에서는 크기 줄이기
-    	        header.style.padding = "25px";
-    	    } else {
-    	        header.style.fontSize = "50px"; // PC 화면에서는 원래 크기로
-    	        header.style.padding = "45px";
-    	    }
-    	}
-        
-           document.addEventListener("DOMContentLoaded", adjustHeader);
-           window.addEventListener("resize", adjustHeader);
-        
-   </script>
-
-
-</body>
-</html>
+    </html>

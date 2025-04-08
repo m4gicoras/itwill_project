@@ -1,5 +1,8 @@
 package com.m4gi.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import com.m4gi.service.UserService;
@@ -23,35 +26,32 @@ public class MainController {
         if (savedUsername != null) {
             model.addAttribute("savedUsername", savedUsername);
         }
-		/* model.addAttribute("videoUrl", "/resources/videos/forest.mp4"); */
+        return "main";
+    }
+    
+    // GET 방식으로 로그인 페이지 요청 시
+    @GetMapping("/login")
+    public String showLoginPage(Model model) {
         return "main";
     }
 
-    // 로그인 처리
-    @PostMapping("/main")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        @RequestParam(value = "saveId", required = false) String saveId,
-                        HttpSession session,
-                        Model model,
-                        RedirectAttributes redirectAttributes) {
-
+    // POST 방식으로 로그인 페이지 요청 시
+    // 사용자 로그인
+    @PostMapping("/login")
+    @ResponseBody
+    public Map<String, Object> login(@RequestParam("username") String username,
+                                         @RequestParam("password") String password,
+                                         HttpSession session) {
+        Map<String, Object> result = new HashMap<>();
         boolean authenticated = userService.login(username, password);
-
         if (authenticated) {
-            session.setAttribute("username", username);  // 로그인세션 설정
-
-            // 아이디 저장 체크박스
-            if (saveId != null) {
-                session.setAttribute("savedUsername", username);
-            } else {
-                session.removeAttribute("savedUsername");
-            }
-
-            return "redirect:/dashboard"; // 로그인 성공시 대시보드로
+            session.setAttribute("username", username);
+            result.put("success", true);
+            // 필요에 따라 redirect할 페이지 URL을 지정
+            result.put("redirect", "test");
         } else {
-            redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            return "redirect:/main";
+            result.put("success", false);
         }
+        return result;
     }
 }
