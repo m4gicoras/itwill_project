@@ -76,10 +76,10 @@
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">아이디<span class="ml-1 text-sm text-red-500">*</span></label>
           <div class="flex items-center gap-2.5">
-            <input type="text" name="username" id="username" required class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="username" id="username" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <button type="button" onclick="checkUsername()" class="group relative flex h-9 items-center justify-center overflow-hidden rounded-full bg-blue-500 px-10 font-medium ring-2 ring-blue-500/50 transition-all">
               <span class="absolute bottom-0 left-0 h-full w-full -translate-x-full rounded-md bg-blue-600 transition-all delay-200 duration-500 ease-in-out group-hover:translate-x-0"></span>
-              <span class="relative text-left text-[15px] font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">중복 확인</span>
+              <span class="relative text-left text-sm font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">중복 확인</span>
             </button>
           </div>
           <div id="idTooltip" class="mt-1 hidden pl-1 text-[13px] text-red-500">6~12자의 영문 소문자, 숫자와 특수문자 '_'만 사용 가능합니다.</div>
@@ -89,39 +89,39 @@
         <!-- 비밀번호 입력 -->
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">비밀번호<span class="ml-1 text-sm text-red-500">*</span></label>
-          <input type="password" name="password" id="password" required class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+          <input type="password" name="password" id="password" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
           <div id="pwTooltip" class="mt-1 hidden pl-1 text-[13px] text-red-500">8~20자, 특수문자 1개 이상 포함해주세요.</div>
         </div>
 
         <!-- 비밀번호 확인 -->
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">비밀번호 확인<span class="ml-1 text-sm text-red-500">*</span></label>
-          <input type="password" name="passwordCheck" id="passwordCheck" required class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+          <input type="password" name="passwordCheck" id="passwordCheck" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
           <div id="pwMatchMessage" class="mt-1 hidden pl-1 text-[13px] text-red-500">비밀번호가 일치하지 않습니다.</div>
         </div>
 
         <!-- 닉네임 -->
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">닉네임</label>
-          <input type="text" name="nickname" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+          <input type="text" name="nickname" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <!-- 연락처: 세 칸 분할 입력 -->
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">연락처<span class="ml-1 text-sm text-red-500">*</span></label>
           <div class="flex items-center gap-1.5">
-            <input type="text" name="phone1" maxlength="3" required oninput="validateAndMove(this, 'phone2', 3)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="phone1" maxlength="3" required oninput="validateAndMove(this, 'phone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <span class="text-gray-500">-</span>
-            <input type="text" name="phone2" id="phone2" maxlength="4" required oninput="validateAndMove(this, 'phone3', 4)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="phone2" id="phone2" maxlength="4" required oninput="validateAndMove(this, 'phone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <span class="text-gray-500">-</span>
-            <input type="text" name="phone3" id="phone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="phone3" id="phone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
           </div>
         </div>
 
         <!-- 이메일 -->
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">이메일<span class="ml-1 text-sm text-red-500">*</span></label>
-          <input type="email" name="email" required class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+          <input type="email" name="email" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <!-- 사업자 정보 입력 구역 -->
@@ -129,34 +129,34 @@
 
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">상호/법인명<span class="ml-1 text-sm text-red-500">*</span></label>
-          <input type="text" name="companyName" required class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+          <input type="text" name="companyName" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">대표자명</label>
-          <input type="text" name="ceoName" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+          <input type="text" name="ceoName" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <!-- 사업자등록번호 3단 입력 -->
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">사업자등록번호<span class="ml-1 text-sm text-red-500">*</span></label>
           <div class="flex items-center gap-1.5">
-            <input type="text" name="bizNum1" maxlength="3" required oninput="validateAndMove(this, 'bizNum2', 3)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="bizNum1" maxlength="3" required oninput="validateAndMove(this, 'bizNum2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <span class="text-gray-500">-</span>
-            <input type="text" name="bizNum2" id="bizNum2" maxlength="2" required oninput="validateAndMove(this, 'bizNum3', 2)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="bizNum2" id="bizNum2" maxlength="2" required oninput="validateAndMove(this, 'bizNum3', 2)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <span class="text-gray-500">-</span>
-            <input type="text" name="bizNum3" id="bizNum3" maxlength="5" required oninput="validateAndMove(this, null, 5)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="bizNum3" id="bizNum3" maxlength="5" required oninput="validateAndMove(this, null, 5)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
           </div>
         </div>
 
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">대표 전화<span class="ml-1 text-sm text-red-500">*</span></label>
           <div class="flex items-center gap-1.5">
-            <input type="text" name="companyPhone1" maxlength="3" required oninput="validateAndMove(this, 'companyPhone2', 3)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="companyPhone1" maxlength="3" required oninput="validateAndMove(this, 'companyPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <span class="text-gray-500">-</span>
-            <input type="text" name="companyPhone2" id="companyPhone2" maxlength="4" required oninput="validateAndMove(this, 'companyPhone3', 4)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="companyPhone2" id="companyPhone2" maxlength="4" required oninput="validateAndMove(this, 'companyPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <span class="text-gray-500">-</span>
-            <input type="text" name="companyPhone3" id="companyPhone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" name="companyPhone3" id="companyPhone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
           </div>
         </div>
 
@@ -164,19 +164,19 @@
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">주소<span class="ml-1 text-sm text-red-500">*</span></label>
           <div class="flex items-center gap-2.5">
-            <input type="text" id="address" name="address" placeholder="기본 주소" required readonly class="h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+            <input type="text" id="address" name="address" placeholder="기본 주소" required readonly class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
             <button type="button" onclick="execDaumPostcode()" class="group relative flex h-9 items-center justify-center overflow-hidden rounded-full bg-blue-500 px-10 font-medium ring-2 ring-blue-500/50 transition-all">
               <span class="absolute bottom-0 left-0 h-full w-full -translate-x-full rounded-md bg-blue-600 transition-all delay-200 duration-500 ease-in-out group-hover:translate-x-0"></span>
-              <span class="relative text-left text-[15px] font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">주소 검색</span>
+              <span class="relative text-left text-sm font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">주소 검색</span>
             </button>
           </div>
-          <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="mt-3 h-9 w-full rounded-full border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+          <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="mt-3 h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <!-- 취급 카테고리 선택 -->
         <div class="mb-4">
           <label class="mt-3 mb-1.5 block text-sm font-medium">취급상품 카테고리</label>
-          <select name="category" class="h-9 w-full appearance-none rounded-full border border-gray-300 bg-white px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+          <select name="category" class="h-9 w-full appearance-none rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
             <option value="">카테고리 선택</option>
             <option value="digital">가전/디지털</option>
             <option value="fashion">패션</option>
@@ -202,7 +202,7 @@
               </div>
             </label>
             <span class="ml-2.5">서비스 이용 약관 동의</span><span class="ml-1 text-sm text-red-500">*</span>
-            <div id="termTooltip" class="mt-0.5 pl-1 text-[13px] text-red-500">필수 이용 약관에 동의해주세요.</div>
+            <div id="termTooltip" class="mt-0.5 pl-1 hidden text-[13px] text-red-500">필수 이용 약관에 동의해주세요.</div>
           </div>
           <div class="flex align-middle">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
