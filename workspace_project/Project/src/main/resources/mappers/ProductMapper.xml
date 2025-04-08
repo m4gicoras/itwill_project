@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바팉스 파싱 -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m4gi.mapper.ProductMapper">
+
+	<insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId">
+	    INSERT INTO products (company_id, product_name, product_desc, product_qtty, category, price, status)
+	    VALUES (#{companyId}, #{productName}, #{productDesc}, #{productQtty}, #{category}, #{price}, #{status})
+	</insert>
+	
+	<update id="updateHashId">
+	    UPDATE products
+	    SET hash_id = #{hashId}
+	    WHERE product_id = #{productId}
+	</update>
+	
+	<select id="selectProductListByCompanyId" resultType="com.m4gi.domain.Product">
+    	SELECT * FROM products WHERE company_id = #{companyId} ORDER BY created_at DESC
+	</select>
+	
+	
+	<select id="selectProductListByCompanyId" resultType="com.m4gi.domain.Product">
+	    SELECT * FROM products
+	    WHERE company_id = #{companyId}
+	    ORDER BY created_at DESC
+	</select>
+	
+
+</mapper>

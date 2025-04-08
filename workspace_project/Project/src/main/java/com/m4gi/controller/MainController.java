@@ -1,8 +1,12 @@
 package com.m4gi.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import com.m4gi.domain.Product;
 import com.m4gi.dto.LoginForm;
+import com.m4gi.service.ProductService;
 import com.m4gi.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ public class MainController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private ProductService productService;
     
     //http://localhost:8088/web/main
     @GetMapping("/main")
@@ -57,19 +64,26 @@ public class MainController {
                 session.removeAttribute("savedUsername");
             }
 
-            return "redirect:/test"; // 로그인 성공시 대시보드로
+            return "redirect:/dashboard"; // 로그인 성공시 대시보드로
         } else {
             redirectAttributes.addFlashAttribute("error", "입력하신 정보가 일치하지 않습니다.");
             return "redirect:/main";
         }
     } //login
     
-//    로그아웃 기능 더미용
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate(); // 모든 세션 제거
-//        return "redirect:/main";
-//    }
+    @GetMapping("/dashboard")
+    public String dashboard(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) return "redirect:/main";
+
+        Integer companyId = 1;
+        List<Product> products = productService.getProductListByCompany(companyId);
+
+        model.addAttribute("products", products);
+        return "dashboard";
+    }
+
+
 
     
 } // MainController

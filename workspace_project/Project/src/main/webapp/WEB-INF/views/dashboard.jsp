@@ -1,7 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
+	<title>대시보드</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- TailwindCSS 4.0 -->
@@ -36,6 +39,25 @@
                 </svg>
                 <span>상품 목록</span>
                 <span class="ml-auto bg-purple-900 text-xs px-2 py-1 rounded-full">5</span>
+                <c:forEach var="p" items="${products}">
+			    <tr class="border-b hover:bg-gray-50">
+				    <td class="p-4"><input type="checkbox" /></td>
+				    <td class="p-4">${p.hashId}</td>
+				    <td class="p-4">${p.productName}</td>
+				    <td class="p-4">${p.productQtty}</td>
+				    <td class="p-4">${p.price}</td>
+				    <td class="p-4">${p.productQtty}</td>
+				    <td class="p-4"><fmt:formatDate value="${p.createdAt}" pattern="yyyy-MM-dd"/></td>
+				    <td class="p-4">
+				      <c:choose>
+				        <c:when test="${p.status == 0}"><span class="text-green-600">정상</span></c:when>
+				        <c:when test="${p.status == 1}"><span class="text-yellow-600">재고없음</span></c:when>
+				        <c:when test="${p.status == 2}"><span class="text-orange-600">소진임박</span></c:when>
+				        <c:otherwise><span class="text-red-600">단종</span></c:otherwise>
+				      </c:choose>
+				    </td>
+				</tr>
+				</c:forEach>
               </a>
             </li>
             <li>
