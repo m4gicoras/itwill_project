@@ -183,10 +183,11 @@
 
         <!-- 약관 동의 체크 -->
         <div class="mt-9 text-lg font-semibold">이용 약관</div>
+        <p class="mt-1 text-sm text-gray-500">* 약관 내용을 먼저 확인해주세요.</p>
         <div class="my-4 space-y-3 text-sm">
           <div class="flex items-center">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="hidden" />
+              <input type="checkbox" class="hidden" id="termsCheckbox1" disabled />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -204,7 +205,7 @@
           </div>
           <div class="flex items-center">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="hidden" />
+              <input type="checkbox" class="hidden" id="termsCheckbox2" disabled/>
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -220,7 +221,7 @@
           </div>
           <div class="flex items-center">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
-              <input type="checkbox" class="hidden" />
+              <input type="checkbox" class="hidden" id="termsCheckbox3" disabled/>
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
                 <div class="checkbox-bg ease absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200" style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
                   <div class="checkbox-icon ease absolute m-auto scale-none text-white transition-all duration-200" style="width: 100%; height: 100%;">
@@ -237,7 +238,7 @@
         </div>
 
         <!-- 이용 약관 상세 정보 모달 -->
-        <div id="termsModal" class="fixed inset-0 z-50 flex hidden items-center justify-center">
+        <div id="termsModal" class="fixed inset-0 z-50 flex hidden items-center justify-center backdrop-blur-sm">
           <div role="dialog" aria-modal="true" class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
             <h2 id="modalTitle" class="mb-4 text-lg font-semibold">서비스 이용 약관</h2>
             <p id="modalContent" class="mb-3 max-h-60 overflow-y-auto rounded-md border border-gray-300 px-2.5 py-1.5 text-sm text-gray-500 shadow-sm">이용 약관 예시 입니다.</p>
@@ -324,10 +325,10 @@
       const termsData = {
         service: {
           title: "서비스 이용약관",
-          content: `본 약관은 셀리티(Sellity)가 제공하는 모든 서비스의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다. 
+          content: `본 약관은 셀리티(Sellity)가 제공하는 모든 서비스의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
         	    이용자는 본 약관에 동의함으로써 셀리티가 제공하는 다양한 서비스(예: 회원 가입, 콘텐츠 이용, 고객 지원 등)를 정상적으로 이용할 수 있습니다.
-        	    서비스 이용 중 발생할 수 있는 문제에 대해서는 본 약관을 기준으로 판단되며, 셀리티는 원활한 서비스 제공을 위해 사전 고지 없이 서비스를 일부 변경 또는 종료할 수 있습니다. 
-        	    단, 이로 인해 이용자에게 중대한 영향을 미칠 경우 사전에 공지합니다. 
+        	    서비스 이용 중 발생할 수 있는 문제에 대해서는 본 약관을 기준으로 판단되며, 셀리티는 원활한 서비스 제공을 위해 사전 고지 없이 서비스를 일부 변경 또는 종료할 수 있습니다.
+        	    단, 이로 인해 이용자에게 중대한 영향을 미칠 경우 사전에 공지합니다.
         	    본 약관에 동의하지 않는 경우, 서비스 이용이 제한될 수 있습니다.`
         },
         privacy: {
@@ -351,12 +352,11 @@
         const title = document.getElementById("modalTitle");
         const content = document.getElementById("modalContent");
 
-        // 내용 동적 변경
         title.textContent = termsData[contentType].title;
         content.textContent = termsData[contentType].content;
 
-        // 모달 열기
         modal.classList.remove("hidden");
+        clickOutsideOfModal(modalId);
       }
 
       function closeModal(modalId) {
@@ -365,6 +365,29 @@
 	   		modal.classList.add("hidden");
 	   	}
 	  }
+
+	  // 이용 약관 상세 정보 클릭 시 체크박스 체크 가능하도록
+	  document.getElementById('togglefromBtn1').addEventListener('click', function () {
+        document.getElementById('termsCheckbox1').disabled = false;
+      });
+      document.getElementById('togglefromBtn2').addEventListener('click', function () {
+        document.getElementById('termsCheckbox2').disabled = false;
+      });
+      document.getElementById('togglefromBtn3').addEventListener('click', function () {
+        document.getElementById('termsCheckbox3').disabled = false;
+      });
+
+      // 모달창 이외의 구역 클릭 시 닫기
+      function clickOutsideOfModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
+        window.addEventListener("click", function(event) {
+          if (event.target === modal) {
+            closeModal(modalId);
+          }
+        });
+      }
 
       // 페이지 로딩 후 실행
       document.addEventListener("DOMContentLoaded", function () {
