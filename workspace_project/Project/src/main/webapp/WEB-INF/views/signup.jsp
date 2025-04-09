@@ -185,7 +185,7 @@
         <!-- 약관 동의 체크 -->
         <div class="mt-9 text-lg font-semibold">이용 약관</div>
         <div class="my-4 space-y-3 text-sm">
-          <div class="flex align-middle">
+          <div class="flex items-center">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
               <input type="checkbox" class="hidden" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
@@ -198,10 +198,12 @@
                 </div>
               </div>
             </label>
-            <span class="ml-2.5">서비스 이용 약관 동의</span><span class="ml-1 text-sm text-red-500">*</span>
+            <span class="ml-2.5">서비스 이용 약관 동의</span>
+            <span class="ml-1 text-sm text-red-500">*</span>
+            <svg id="togglefromBtn1" onclick="openModal('termsModal', 'service')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-1 size-4 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
             <div id="termTooltip" class="mt-0.5 hidden pl-1 text-[13px] text-red-500">필수 이용 약관에 동의해주세요.</div>
           </div>
-          <div class="flex align-middle">
+          <div class="flex items-center">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
               <input type="checkbox" class="hidden" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
@@ -215,8 +217,9 @@
               </div>
             </label>
             <span class="ml-2.5">개인정보 수집 및 이용 동의</span>
+            <svg id="togglefromBtn2" onclick="openModal('termsModal', 'privacy')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-1 size-4 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
           </div>
-          <div class="flex align-middle">
+          <div class="flex items-center">
             <label class="ios-checkbox inline-block cursor-pointer select-none">
               <input type="checkbox" class="hidden" />
               <div class="checkbox-wrapper ease relative rounded-[8px] transition-transform duration-200 hover:scale-105 active:scale-95" style="width: var(--checkbox-size); height: var(--checkbox-size);">
@@ -230,6 +233,20 @@
               </div>
             </label>
             <span class="ml-2.5">정보 수신 동의</span>
+            <svg id="togglefromBtn3" onclick="openModal('termsModal', 'service')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-1 size-4 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+          </div>
+        </div>
+
+        <!-- 이용 약관 상세 정보 모달 -->
+        <div id="termsModal" class="fixed inset-0 z-50 flex hidden items-center justify-center">
+          <div role="dialog" aria-modal="true" class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <h2 id="modalTitle" class="mb-4 text-lg font-semibold">서비스 이용 약관</h2>
+            <p id="modalContent" class="mb-3 max-h-60 overflow-y-auto rounded-md border border-gray-300 px-2.5 py-1.5 text-sm text-gray-500 shadow-sm">이용 약관 예시 입니다.</p>
+            <div class="flex justify-end">
+              <button type="button" onclick="closeModal('termsModal')" class="group relative flex h-9 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-blue-500 px-10 font-medium ring-2 ring-blue-500/10 transition-all">
+                <span class="relative text-left text-sm font-medium whitespace-nowrap text-white transition-colors duration-200 ease-in-out group-hover:text-white">확인</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -303,6 +320,52 @@
                   isUsernameValid = false;
               });
       }
+
+      // 이용 약관 모달창 실행
+      const termsData = {
+        service: {
+          title: "서비스 이용약관",
+          content: `본 약관은 셀리티(Sellity)가 제공하는 모든 서비스의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다. 
+        	    이용자는 본 약관에 동의함으로써 셀리티가 제공하는 다양한 서비스(예: 회원 가입, 콘텐츠 이용, 고객 지원 등)를 정상적으로 이용할 수 있습니다.
+        	    서비스 이용 중 발생할 수 있는 문제에 대해서는 본 약관을 기준으로 판단되며, 셀리티는 원활한 서비스 제공을 위해 사전 고지 없이 서비스를 일부 변경 또는 종료할 수 있습니다. 
+        	    단, 이로 인해 이용자에게 중대한 영향을 미칠 경우 사전에 공지합니다. 
+        	    본 약관에 동의하지 않는 경우, 서비스 이용이 제한될 수 있습니다.`
+        },
+        privacy: {
+          title: "개인정보 처리방침",
+          content: `셀리티(Sellity)는 회원 가입, 고객 문의, 맞춤형 서비스 제공 등을 위해 최소한의 개인정보를 수집하며, 이용자의 동의 없이 개인정보를 외부에 제공하지 않습니다.
+        	    수집된 정보는 이용자의 서비스 경험을 개선하고, 고객 지원 및 법령상 의무 준수를 위한 목적으로만 사용됩니다.
+        	    또한 셀리티는 이용자의 개인정보 보호를 위해 업계 표준에 부합하는 보안 조치를 적용하고 있으며, 보관 기간이 지난 개인정보는 안전하게 파기합니다.
+        	    이용자는 언제든지 본인의 개인정보를 열람, 수정, 삭제 요청할 수 있으며, 이에 대한 문의는 고객센터를 통해 가능합니다.`
+        },
+        location: {
+          title: "마케팅 정보 수신 동의",
+          content: `셀리티(Sellity)는 고객에게 유용한 정보를 제공하기 위해 이메일, 문자 메시지, 푸시 알림 등의 수단으로 마케팅 정보를 발송할 수 있습니다.
+        	    해당 정보는 셀리티의 서비스 품질 향상과 이용자의 만족도 제고를 위한 목적으로만 사용되며, 수신자는 언제든지 수신 거부를 선택할 수 있습니다.
+        	    수신 거부는 마케팅 메시지 내 안내된 절차에 따라 간단히 처리할 수 있으며, 수신 거부 이후에는 해당 정보가 더 이상 발송되지 않습니다.
+        	    마케팅 정보 수신 동의는 선택 사항이며, 동의를 하지 않더라도 기본적인 서비스 이용에는 제한이 없습니다.`
+        }
+      };
+
+      function openModal(modalId, contentType) {
+        const modal = document.getElementById(modalId);
+        const title = document.getElementById("modalTitle");
+        const content = document.getElementById("modalContent");
+
+        // 내용 동적 변경
+        title.textContent = termsData[contentType].title;
+        content.textContent = termsData[contentType].content;
+
+        // 모달 열기
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal(modalId) {
+	  	const modal = document.getElementById(modalId);
+	   	if (modal) {
+	   		modal.classList.add("hidden");
+	   	}
+	  }
 
       // 페이지 로딩 후 실행
       document.addEventListener("DOMContentLoaded", function () {
