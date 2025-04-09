@@ -274,8 +274,8 @@
           const resultDiv = document.getElementById("idCheckResult");
 
           if (!/^[a-z0-9_]{6,12}$/.test(username)) {
-              resultDiv.style.color = "red";
-              resultDiv.textContent = "아이디 형식이 올바르지 않습니다.";
+              idTooltip.style.display = "block";
+              idInput.focus();
               isUsernameValid = false;
               return;
           }
