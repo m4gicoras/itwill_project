@@ -65,12 +65,5 @@ public class MainController {
         }
     } //login
     
-//    로그아웃 기능 더미용
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate(); // 모든 세션 제거
-//        return "redirect:/main";
-//    }
-
     
 } // MainController
