@@ -3,6 +3,7 @@
 .project
 .settings/
 .metadata/
+.Servers/
 
 # Maven
 target/
@@ -11,3 +12,8 @@ target/
 # OS별 임시 파일
 .DS_Store
 Thumbs.db
+
+#InteliJ
+.smarttomcat/
+.idea/
+*.iml

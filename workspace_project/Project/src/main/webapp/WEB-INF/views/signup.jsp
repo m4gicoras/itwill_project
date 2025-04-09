@@ -17,7 +17,6 @@
 
       /* 커스텀 bounce 애니메이션 (키프레임) */
       @keyframes bounce {
-
         0%,
         100% {
           transform: scale(1);
