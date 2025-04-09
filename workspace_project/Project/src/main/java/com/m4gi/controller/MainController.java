@@ -48,7 +48,7 @@ public class MainController {
             session.setAttribute("username", username);
             result.put("success", true);
             // 필요에 따라 redirect할 페이지 URL을 지정
-            result.put("redirect", "test");
+            result.put("redirect", "dashboard");
         } else {
             result.put("success", false);
         }
