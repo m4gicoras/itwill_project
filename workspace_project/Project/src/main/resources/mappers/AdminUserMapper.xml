@@ -36,5 +36,33 @@
         SELECT COUNT(*) FROM users
     </select>
 
+    <select id="searchCompanyList" resultType="com.m4gi.dto.admin.AdminUserListDTO">
+        SELECT
+        user_id AS userId,
+        company_name AS companyName,
+        master_name AS ceoName,
+        phone,
+        email,
+        reg_date AS regDate
+        FROM users
+        WHERE company_name LIKE CONCAT('%', #{keyword}, '%')
+        OR master_name LIKE CONCAT('%', #{keyword}, '%')
+        OR phone LIKE CONCAT('%', #{keyword}, '%')
+        OR email LIKE CONCAT('%', #{keyword}, '%')
+        OR company_addr LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY user_id ASC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+    <select id="getSearchCompanyCount" resultType="int">
+        SELECT COUNT(*) FROM users
+        WHERE company_name LIKE CONCAT('%', #{keyword}, '%')
+        OR master_name LIKE CONCAT('%', #{keyword}, '%')
+        OR phone LIKE CONCAT('%', #{keyword}, '%')
+        OR email LIKE CONCAT('%', #{keyword}, '%')
+        OR company_addr LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
 
 </mapper>

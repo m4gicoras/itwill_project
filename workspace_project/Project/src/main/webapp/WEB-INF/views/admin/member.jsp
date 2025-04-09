@@ -291,8 +291,8 @@
 <div class="main">
     <div class="search-bar">
         <button class="reset-btn" onclick="resetInput()">🔄</button>
-        <form method="get" action="${pageContext.request.contextPath}/admin/companies" style="display: flex; width: 100%;">
-            <input type="text" name="keyword" placeholder="검색어를 입력하세요." />
+        <form method="get" action="${pageContext.request.contextPath}/admin/member" style="display: flex; width: 100%;">
+            <input type="text" name="keyword" placeholder="검색어를 입력하세요." value="${param.keyword}" />
             <button type="submit" style="font-size: 20px; margin-left: 10px;">🔍</button>
         </form>
     </div>
@@ -340,10 +340,10 @@
             <c:forEach var="i" begin="1" end="${totalPage}">
                 <c:choose>
                     <c:when test="${i == currentPage}">
-                        <a href="?page=${i}" style="margin: 0 4px; font-weight: bold; color: blue;">${i}</a>
+                        <a href="?page=${i}&keyword=${param.keyword}" style="margin: 0 4px; font-weight: bold; color: blue;">${i}</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="?page=${i}" style="margin: 0 4px;">${i}</a>
+                        <a href="?page=${i}&keyword=${param.keyword}" style="margin: 0 4px;">${i}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>

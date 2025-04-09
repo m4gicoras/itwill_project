@@ -8,9 +8,7 @@ import java.util.Map;
 
 public interface AdminUserService {
 
-
-
     List<AdminUserListDTO> getCompanyList(int offset, int limit);
     int getTotalCompanyCount();
-    Map<String,Object> getPagedCompanyList(int page);
+    Map<String,Object> getPagedCompanyList(int page, String keyword);
 }

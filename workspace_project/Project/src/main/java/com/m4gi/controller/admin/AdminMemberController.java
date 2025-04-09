@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -19,8 +20,13 @@ public class AdminMemberController {
     private AdminUserService adminUserService;
 
     @GetMapping("/member")
-    public String adminMember(@RequestParam(defaultValue = "1") int page, Model model) {
-        model.addAllAttributes(adminUserService.getPagedCompanyList(page));
+    public String adminMember(@RequestParam(defaultValue = "1") int page,
+                              @RequestParam(defaultValue = "", required = false) String keyword,
+                              Model model) {
+        Map<String, Object> result = adminUserService.getPagedCompanyList(page, keyword);
+        model.addAllAttributes(result);
         return "admin/member";
     }
+
+
 }

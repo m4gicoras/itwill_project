@@ -1,6 +1,10 @@
 package com.m4gi.mapper;
 
 import com.m4gi.domain.User;
+import com.m4gi.dto.admin.AdminUserListDTO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
     // 아이디 중복 체크: 반환 값이 0이면 중복 없음, 1 이상이면 중복된 아이디
@@ -10,4 +14,11 @@ public interface UserMapper {
     void insertUser(User user);
     
     User checkUsername(String username);
+
+    List<AdminUserListDTO> getCompanyList(@Param("offset") int offset, @Param("limit") int limit);
+    int getTotalCompanyCount();
+
+    List<AdminUserListDTO> searchCompanyList(@Param("keyword") String keyword, @Param("offset") int offset, @Param("limit") int limit);
+    int getSearchCompanyCount(@Param("keyword") String keyword);
+
 }

@@ -26,14 +26,25 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public Map<String, Object> getPagedCompanyList(int page){
+    public Map<String, Object> getPagedCompanyList(int page, String keyword) {
         int pageSize = 12;
         int offset = (page - 1) * pageSize;
 
-        List<AdminUserListDTO> list = adminUserMapper.getCompanyList(offset, pageSize);
-        int totalCount = adminUserMapper.getTotalCompanyCount();
+        List<AdminUserListDTO> list;
+        int totalCount;
+
+        // 검색어가 있는 경우 vs 없는 경우 분기
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            list = adminUserMapper.searchCompanyList(keyword, offset, pageSize);
+            totalCount = adminUserMapper.getSearchCompanyCount(keyword);
+        } else {
+            list = adminUserMapper.getCompanyList(offset, pageSize);
+            totalCount = adminUserMapper.getTotalCompanyCount();
+        }
+
         int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
+        // 결과를 Map에 담아 반환
         Map<String, Object> result = new HashMap<>();
         result.put("companyList", list);
         result.put("currentPage", page);
