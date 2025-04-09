@@ -11,17 +11,23 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.itwillbs.web">
-		<level value="debug" />
+	<logger name="com.m4gi.controller">
+	    <level value="debug" />
 	</logger>
 	
-	<logger name="com.itwillbs.persistence">
-		<level value="debug" />
+	<logger name="com.m4gi.service">
+	    <level value="debug" />
 	</logger>
 	
-	<logger name="com.itwillbs.service">
-		<level value="debug" />
+	<logger name="com.m4gi.mapper">
+	    <level value="debug" />
 	</logger>
+	
+	<!-- 마이바티스 로그-->
+	<logger name="org.mybatis">
+    	<level value="debug"/>
+	</logger>
+	
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

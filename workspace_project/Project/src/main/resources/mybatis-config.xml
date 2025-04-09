@@ -3,9 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
   
-  <!-- MyBatis 설정파일 -->
-  <configuration>
-<!--  	<mappers>
-        <mapper resource="mappers/UserMapper.xml" />
-    </mappers>-->
-  </configuration>
+<!-- MyBatis 설정파일 -->
+<configuration>
+<!-- <mappers>
+      <mapper resource="mappers/UserMapper.xml" />
+      <mapper resource="mappers/ProductMapper.xml" />
+ </mappers> -->
+</configuration>

@@ -1,5 +1,0 @@
-<c:url var="videoPath" value="/resources/videos/citybg.mp4" />
-<video autoplay muted loop>
-    <source src="${videoPath}" type="video/mp4">
-    브라우저가 비디오 태그를 지원하지 않습니다.
-</video>
