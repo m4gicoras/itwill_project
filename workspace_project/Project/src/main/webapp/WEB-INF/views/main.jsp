@@ -1,391 +1,374 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>메인 페이지</title>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TailwindCSS 4.0 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- 구글 폰트 embed 코드 추가 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap"
+      rel="stylesheet">
 
-<style>
+        <style>
+        * {
+            box-sizing: border-box;
+        }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Noto Sans KR', sans-serif;
-}
+        @font-face {
+            font-family: 'KIMM_Bold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
 
-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
+        body {
+            font-weight: 300;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
 
-#main-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
+        /* ✅ 배경 블러 처리 영역 */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('<%= request.getContextPath() %>/resources/images/mainPage01.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+        }
 
-header {
-    padding: 1em 2em;
-    color: white;
-    font-size: 1.5em;
-    font-weight: bold;
-}
+        .login-container {
+            position: absolute;
 
-.logo {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 2em;
-    color: #FF6600;
-}
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
 
-#main-content {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5%;
-}
+            border-radius: 12px;
+            color: white;
+            width: 100%;
+            height: auto;
+            max-width: 400px;
 
-#left-info {
-    color: white;
-    width: 50%;
-}
+            /* 너무 넓어지지 않도록 최대 한도 지정 */
+            min-width: 250px;
 
-#left-info h1 {
-    font-size: 2.8em;
-    margin-bottom: 0.4em;
-}
+            /* 너무 좁아지지 않도록 최소 한도도 설정 가능 */
+            padding: 2rem;
 
-#left-info p {
-    font-size: 1.2em;
-    line-height: 1.7em;
-}
+            /* rem은 전체적으로 일관된 크기 유지 */
+            text-align: center;
+            padding: 2rem;
 
-/* 우측 로그인 박스 */
-#right-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-    width: 330px;
-    height: auto;
-    transition: all 0.3s ease;
-    flex-direction: column;
-}
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            /* 흐릿한 테두리 */
 
-#right-login h2 {
-    margin: 10px 0 20px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.7em;
-    font-weight: 600;
-   	font-style: italic;
-    color: #FF6600;
-    text-align: center;
-}
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            /* 외곽에 연한 빛 번짐 */
+        }
 
-/* 입력창. 입력시 폰트는 아직 안함 */
-#right-login input[type="text"],
-#right-login input[type="password"] {
-    padding: 10px;
-    margin-top: 10px;
-    width: 100%;
-    font-size: 1em;
-    font-weight: 430;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
+        .title {
+            font-family: 'KIMM_Bold', sans-serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 1em;
+            margin-top: 1em;
+            user-select: none;
+        }
 
-.pw-wrapper {
-    position: relative;
-    width: 100%;
-}
+        .subtitle {
+            font-family: 'KIMM_Bold', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+            color: white;
+            user-select: none;
+        }
 
-/* 비번창 기준으로 */
-.pw-wrapper .pw-toggle {
-    position: absolute;
-    right: 11px;
-    top: 60%;
-    transform: translateY(-50%);
-    font-size: 1em;
-    cursor: pointer;
-    opacity: 0.7;
-}
+        .subtitle .line {
+            flex: 0 0 110px;
+            /* grow:0, shrink:0, basis:40px */
+            height: 3px;
+            background-color: white;
+            margin: 0 10px;
+            opacity: 0.5;
+        }
 
-.options {
-    width: 100%;
-    text-align: right;
-    margin-top: 11px;
-}
+        .form-element {
+            width: 90%;
+            padding: 12px;
+            font-size: 15px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            margin-bottom: 1em;
+            line-height: 1.2;
+            height: 44px;
+        }
 
-.options a {
-    text-decoration: none;
-    font-size: 0.76em;
-    font-weight: 650;
-    font-style: italic;
-    color: #444;
-    opacity: 0.9;
-}
+        input.form-element {
+            border: none;
+            background-color: #ffffff;
+            font-weight: 300;
+            color: #222222;
+        }
 
-/* 입력오류시 보여줄거 */
-.pw-wrapper .error {
-    position: absolute;
-    bottom: -18px;
-    left: 2px;
-    font-size: 0.8em;
-    color: red;
-    margin: 0;
-}
+        input.form-element::placeholder {
+            color: #666;
+            /* 약간 더 밝은 회색 */
+        }
 
-.checkbox-wrap {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-    font-size: 0.88em;
-    margin: 7px 0 11px 0;
-}
+        input:focus {
+            outline: none;
+            /* 기본 outline 제거 */
+            border: 2px solid #aac8ff;
+            /* 색상 변경 가능 */
+            box-shadow: 0 0 5px rgba(170, 200, 255, 0.5);
+        }
 
-/* 로그인 회원가입 버튼 */
-#right-login button[type="submit"] {
-    background-color: #ff6600;
-    color: white;
-    border: none;
-    padding: 11px;
-    font-size: 1em;
-    border-radius: 6px;
-    width: 100%;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
+        input.form-element,
+        button.form-element {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            /* 아래 방향 부드러운 그림자 */
+        }
 
-#right-login button[type="submit"]:hover {
-    background-color: #e05500;
-}
+        .remember-container {
+            user-select: none;
 
-#right-login .signup-btn {
-    background-color: #c2d0da;
-    color: black;
-    border: none;
-    padding: 11px;
-    font-size: 1em;
-    border-radius: 6px;
-    width: 100%;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
 
-#right-login .signup-btn:hover {
-    background-color: #aebec9;
-}
+            width: 80%;
 
-.btn-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    width: 100%;
-    margin: 10px 0 20px 0;
-}
+            margin-bottom: 25px;
+            margin-top: 15px;
 
-.btn-row button {
-    flex: 1;
-}
+            padding-right: 10px;
 
+        }
 
-/* 소셜 파트 */
-#right-login .social-login {
-    text-align: center;
-}
+        .rememberId {
+            vertical-align: middle;
+            margin-right: 5px;
+            /* 체크박스와 텍스트 간격 조정 */
 
-#right-login .social-login i {
-    margin: 0 8px;
-    cursor: pointer;
-    opacity: 0.85;
-    transition: transform 0.2s ease;
-}
+        }
 
-#right-login .social-login i:hover {
-    transform: scale(1.1);
-}
+        .remember-container label {
+            position: relative;
+            right: -50px;
 
-.social-login {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
+            white-space: nowrap;
 
-.social-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.95em;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
-    transition: background 0.2s ease;
-}
+            font-size: 13px;
+            /* 텍스트 크기 조절 */
+            line-height: normal;
+            /* 높낮이 균형 조절 */
 
-.social-btn.google {
-    background-color: #ffffff;
-    color: #4285F4;
-    border: 1px solid #ddd;
-}
+        }
 
-.social-btn.google:hover {
-    background-color: #f2f2f2;
-}
+        .find-links {
+            margin-top: 1em;
+            font-size: 0.9em;
+            margin-bottom: 1.5em;
+            font-weight: 300;
 
-.social-btn.github {
-    background-color: #333;
-    color: white;
-}
+        }
 
-.social-btn.github:hover {
-    background-color: #222;
-}
+        .find-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
 
-.social-btn i {
-    font-size: 1.2em;
-}
-/* 소셜 파트 끝 */
+        }
 
-</style>
+        @keyframes bounce {
 
-</head>
-<body>
+            0%,
+            100% {
+                transform: scale(1);
+            }
 
-<c:url var="videoPath" value="/resources/videos/citybg.mp4" />
-<video autoplay muted loop>
-    <source src="${videoPath}" type="video/mp4">
-    브라우저가 비디오 태그를 지원하지 않습니다.
-</video>
+            50% {
+                transform: scale(1.1);
+            }
+        }
 
-<div id="main-container">
-	<!-- 상단 메뉴 추가될 수 있어서 헤더로 해둠 -->
-    <header>
-        <div class="logo">Sellity</div>
-    </header>
+        .ios-checkbox {
+            --checkbox-size: 24px;
+            --checkbox-color: #3b82f6;
+            --checkbox-bg: #dbeafe;
+            --checkbox-border: #93c5fd;
+        }
 
+        /* Color Themes */
+        .ios-checkbox.blue {
+            --checkbox-color: #3b82f6;
+            --checkbox-bg: #dbeafe;
+            --checkbox-border: #93c5fd;
+        }
 
-    <div id="main-content">
-        <!-- 왼쪽 설명 -->
-        <div id="left-info">
-            <h1>WMS플랫폼, 셀리티</h1>
-            <p>재고 관리를 스마트하게.<br>비즈니스의 시작은 셀리티와 함께 하세요.</p>
+        .ios-checkbox.green {
+            --checkbox-color: #10b981;
+            --checkbox-bg: #d1fae5;
+            --checkbox-border: #6ee7b7;
+        }
+
+        .ios-checkbox.purple {
+            --checkbox-color: #8b5cf6;
+            --checkbox-bg: #ede9fe;
+            --checkbox-border: #c4b5fd;
+        }
+
+        .ios-checkbox.red {
+            --checkbox-color: #ef4444;
+            --checkbox-bg: #fee2e2;
+            --checkbox-border: #fca5a5;
+        }
+
+        /* Checked State */
+        .ios-checkbox input:checked+.checkbox-wrapper .checkbox-bg {
+            background: var(--checkbox-color);
+            border-color: var(--checkbox-color);
+            border: none;
+        }
+
+        .ios-checkbox input:checked+.checkbox-wrapper .checkbox-icon {
+            transform: scale(1);
+        }
+
+        .ios-checkbox input:checked+.checkbox-wrapper .check-path {
+            stroke-dashoffset: 0;
+        }
+
+        /* Focus Styles */
+        .ios-checkbox input:focus+.checkbox-wrapper .checkbox-bg {
+            box-shadow: 0 0 0 4px var(--checkbox-bg);
+        }
+
+        /* Animation */
+        .ios-checkbox input:checked+.checkbox-wrapper {
+            animation: bounce 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+    </head>
+
+    <body style="font-family: 'Noto Sans KR', sans-serif;">
+        <!-- ✅ 배경 블러 처리된 영역 -->
+        <div class="background-blur"></div>
+
+        <!-- 로그인 폼 -->
+        <div class="login-container">
+            <h1 class="title">SELLITY</h1>
+            <h2 class="subtitle">
+                <span class="line"></span>
+                Login
+                <span class="line"></span>
+            </h2>
+
+            <form id="login-form" class="login-form">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="ID" class="form-element">
+                </div>
+
+                <!-- 비밀번호 입력 필드 바로 아래에 에러 메시지 출력 영역 추가 -->
+				<div class="input-group relative">
+				  <input type="password" id="password" name="password" placeholder="Password" class="form-element">
+				  <!-- 에러 메시지가 삽입될 컨테이너 (처음에는 숨김 처리) -->
+				  <div id="password-error" class="hidden mt-2">
+				    <span class="text-red-500 text-sm">계정 정보가 일치하지 않습니다</span>
+				  </div>
+				</div>
+
+                <div class="remember-container flex items-center justify-between">
+  <!-- 회원가입 관련 영역 (텍스트 클릭 시 이동) -->
+  <div class="register mr-6 text-[13px] cursor-pointer"
+       onclick="location.href='${pageContext.request.contextPath}/signup'">
+    아이디가 없으신가요?
+  </div>
+  
+  <!-- 아이디 저장 체크박스 영역 -->
+  <label class="ios-checkbox blue inline-flex items-center cursor-pointer select-none">
+    <input type="checkbox" class="hidden" />
+    <div class="checkbox-wrapper relative rounded-[8px] transition-transform duration-200 ease hover:scale-105 active:scale-95"
+         style="width: var(--checkbox-size); height: var(--checkbox-size);">
+      <div class="checkbox-bg absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200 ease"
+           style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
+        <div class="checkbox-icon absolute m-auto text-white scale-none transition-all duration-200 ease"
+             style="width: 100%; height: 100%;">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path class="check-path [transition:stroke-dashoffset_0.3s_ease_0.1s] [stroke-dasharray:40] [stroke-dashoffset:40]" d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3"></path>
+          </svg>
         </div>
+      </div>
+    </div>
+    <span class="ml-2">아이디 저장</span>
+  </label>
+</div>
 
-        <!-- 오른쪽 로그인폼 -->
-        <div id="right-login">
-        	<c:url var="loginAction" value="/main" />
-			<form action="${loginAction}" method="post">
-                <h2>Sign In</h2>
-        
-                <input type="text" name="username" id="username" placeholder="아이디" value="${savedUsername}" required>
-        
-                <div class="pw-wrapper">
-                    <input type="password" name="password" id="pw" placeholder="비밀번호" required>
-                    <i class="fa-solid fa-eye-slash pw-toggle" id="pwToggle" 
-                    onclick="togglePw()" title="비밀번호 보기"></i>
-                    
-	                <c:if test="${not empty error}">
-	                    <p class="error"><small>${error}</small></p>
-	                </c:if>
-                </div> <!-- pw-wrapper -->
-        
-                <div class="options">
-                    <c:url var="findUrl" value="/find" />
-					<a href="${findUrl}">id/pw 찾기</a>
-                </div>
-        
-                <div class="checkbox-wrap">
-                    <label><input type="checkbox" name="saveId" id="saveId"> 아이디 저장</label>
-                    <label><input type="checkbox" name="autoLogin" id="autoLogin"> 자동 로그인</label>
-                </div>
-        
-				<div class="btn-row">
-					<button type="submit">로그인</button>
-					<c:url var="signupUrl" value="/signup" />
-					<button type="button" class="signup-btn" onclick="location.href='${signupUrl}'">회원가입</button>
-				</div>
-				<hr>
+                <button type="submit"
+        class="mx-auto w-[90%] shadow-xl/20 p-3 text-[15px] box-border mb-4 leading-[1.2] h-11 relative flex items-center px-6 py-3 overflow-hidden font-medium transition-all bg-blue-500 ring-2 ring-blue-500/10 rounded-full group">
+  <span
+    class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full bg-blue-600 rounded-md group-hover:translate-x-0"></span>
+  <span class="relative w-full cursor-pointer text-white transition-colors duration-200 ease-in-out group-hover:text-white">
+    로그인
+  </span>
+</button>
+            </form>
 
-        		<!-- 모양만 만들어둠 -->
-				<div class="social-login" style="margin-top: 1.5em;">
-				    <button type="button" class="social-btn google">
-				        <i class="fab fa-google"></i> Google 로그인
-				    </button>
-				    <button type="button" class="social-btn github">
-				        <i class="fab fa-github"></i> GitHub 로그인
-				    </button>
-				</div>
-              </form>
-          </div>
+            <div class="find-links">
+                <a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a>
+            </div>
+        </div>
         
-    </div> <!-- main-content -->
-</div> <!-- main-container -->
+        <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // 기본 폼 제출 방지
 
-<script>
-	/* 비번 토글기능 */
-	function togglePw() {
-	  const pwInput = document.getElementById("pw");
-	  const icon = document.getElementById("pwToggle");
-	
-	  if (pwInput.type === "password") {
-	    pwInput.type = "text";
-	    icon.classList.remove("fa-eye-slash");
-	    icon.classList.add("fa-eye");
-	    icon.title = "비밀번호 가리기";
-	  } else {
-	    pwInput.type = "password";
-	    icon.classList.remove("fa-eye");
-	    icon.classList.add("fa-eye-slash");
-	    icon.title = "비밀번호 보기";
-	  }
-	}
-	
-	  // 아이디 저장
-	  window.addEventListener("DOMContentLoaded", function () {
-	    const usernameInput = document.getElementById("username");
-	    const saveIdCheckbox = document.getElementById("saveId");
+      // 폼 데이터 수집
+      const formData = new FormData(this);
+      const username = formData.get('username');
+      const password = formData.get('password');
+      
+      console.log(username);
+      console.log(password);
 
-	    // 저장된 아이디 불러옴
-	    const savedId = localStorage.getItem("savedId");
-	    if (savedId) {
-	      usernameInput.value = savedId;
-	      saveIdCheckbox.checked = true;
-	    }
-
-	    // 폼 제출시 저장 여부 판단
-	    document.querySelector("form").addEventListener("submit", function () {
-	      if (saveIdCheckbox.checked) {
-	        localStorage.setItem("savedId", usernameInput.value);
-	      } else {
-	        localStorage.removeItem("savedId");
-	      }
-	    });
-	  });
-	  
-	  /* 자동로그인(세션, 쿠키)은 아직 안만듦 */
-	  
+      // fetch()를 이용해 AJAX로 로그인 검증 요청 (URL은 실제 엔드포인트로 변경)
+      fetch('${pageContext.request.contextPath}/login', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // 로그인 성공 시 test.jsp(또는 성공 URL)로 이동
+          window.location.href = data.redirect;
+        } else {
+          // 로그인 실패 시 에러 메시지 표시 (TailwindCSS 클래스 활용)
+          document.getElementById('password-error').classList.remove('hidden');
+        }
+      })
+      .catch(error => {
+        console.error('로그인 요청 에러:', error);
+      });
+    });
+  });
 </script>
+    </body>
 
-
-</body>
-</html>
+    </html>

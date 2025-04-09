@@ -10,8 +10,6 @@ import com.m4gi.mapper.ProductMapper;
 import java.io.IOException;
 import java.util.List;
 
-import org.hashids.Hashids;
-
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -20,8 +18,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private FileUploadService fileUploadService;
-
-    private Hashids hashids = new Hashids("sellity-secret-key", 8);
 
     @Override
     public void registerProduct(ProductDTO dto, Integer companyId) {
@@ -53,11 +49,6 @@ public class ProductServiceImpl implements ProductService {
         // DB 저장시 product_id 생성됨
         productMapper.insertProduct(product);
 
-        // hash_id 생성 및 업데이트
-        String hashId = hashids.encode(product.getProductId());
-        productMapper.updateHashId(product.getProductId(), hashId);
-
-        System.out.println("상품 등록 완료: " + product.getProductName() + ", 해시 ID: " + hashId);
     }
     
     @Override

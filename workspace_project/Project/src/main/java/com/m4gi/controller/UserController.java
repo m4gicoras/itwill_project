@@ -2,10 +2,6 @@ package com.m4gi.controller;
 
 import com.m4gi.dto.SiteUser;
 import com.m4gi.service.UserService;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -49,9 +45,9 @@ public class UserController {
     */
 
     // 대시보드 페이지
-    @GetMapping("/test")
+    @GetMapping("/dashboard")
     public String showDashBoard() {
-        return "test";
+        return "bashboard";
     }
     
     @GetMapping("/isDuplicateUsername")

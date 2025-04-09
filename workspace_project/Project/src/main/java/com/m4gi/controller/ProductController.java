@@ -34,7 +34,7 @@ public class ProductController {
         }
 
         // 세션에서 company_id를 받아오는 로직 필요(예시)
-        Integer companyId = 1; // TODO: 실제 로그인한 사용자의 user_id로 교체
+        Integer companyId = 1; //실제 로그인한 사용자의 user_id로 교체하는 직업 필요
         productService.registerProduct(dto, companyId);
 
         redirectAttributes.addFlashAttribute("message", "상품이 등록되었습니다.");
