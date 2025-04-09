@@ -20,18 +20,7 @@ public class AdminMemberController {
 
     @GetMapping("/member")
     public String adminMember(@RequestParam(defaultValue = "1") int page, Model model) {
-        int pageSize = 12; //기업 12개씩 보여주기
-        int offset = (page - 1) * pageSize;
-
-        List<AdminUserListDTO> list = adminUserService.getCompanyList(offset, pageSize);
-        int totalCount = adminUserService.getTotalCompanyCount();
-
-        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
-
-        model.addAttribute("companyList", list);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPage", totalPage);
-
+        model.addAllAttributes(adminUserService.getPagedCompanyList(page));
         return "admin/member";
     }
 }
