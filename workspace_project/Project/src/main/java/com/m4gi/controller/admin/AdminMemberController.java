@@ -20,13 +20,17 @@ public class AdminMemberController {
     private AdminUserService adminUserService;
 
     @GetMapping("/member")
-    public String adminMember(@RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "", required = false) String keyword,
-                              Model model) {
+    public String adminMember(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "", required = false) String keyword, // 검색어(keyword)도 받을 수 있음, 없으면 빈 문자열
+            Model model // 뷰(JSP)로 데이터를 넘길 때 사용
+    ) {
+        // 서비스에서 페이징 + 검색 결과를 받아옴 (companyList, currentPage, totalPage 포함된 Map)
         Map<String, Object> result = adminUserService.getPagedCompanyList(page, keyword);
+
+        // 받은 결과(Map)를 model에 한꺼번에 담음
         model.addAllAttributes(result);
+
         return "admin/member";
     }
-
-
 }

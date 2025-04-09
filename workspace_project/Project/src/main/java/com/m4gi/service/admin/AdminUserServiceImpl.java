@@ -25,6 +25,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         return adminUserMapper.getTotalCompanyCount();
     }
 
+    //페이징 처리 & 검색창
     @Override
     public Map<String, Object> getPagedCompanyList(int page, String keyword) {
         int pageSize = 12;
@@ -33,7 +34,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         List<AdminUserListDTO> list;
         int totalCount;
 
-        // 검색어가 있는 경우 vs 없는 경우 분기
+        // 검색어 유무
         if (keyword != null && !keyword.trim().isEmpty()) {
             list = adminUserMapper.searchCompanyList(keyword, offset, pageSize);
             totalCount = adminUserMapper.getSearchCompanyCount(keyword);
@@ -44,7 +45,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
         int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
-        // 결과를 Map에 담아 반환
+        // 결과 Map에 담아 반환
         Map<String, Object> result = new HashMap<>();
         result.put("companyList", list);
         result.put("currentPage", page);
