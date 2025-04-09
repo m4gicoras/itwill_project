@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,18 +19,19 @@ public class AdminMemberController {
     private AdminUserService adminUserService;
 
     @GetMapping("/member")
-    public String adminMember(Model model) {
+    public String adminMember(@RequestParam(defaultValue = "1") int page, Model model) {
+        int pageSize = 12; //기업 12개씩 보여주기
+        int offset = (page - 1) * pageSize;
 
-        List<AdminUserListDTO> list = adminUserService.getCompanyList();
+        List<AdminUserListDTO> list = adminUserService.getCompanyList(offset, pageSize);
+        int totalCount = adminUserService.getTotalCompanyCount();
 
-        // ✅ 콘솔 로그 찍기
-        System.out.println("불러온 기업 수: " + list.size());
-        for (AdminUserListDTO user : list) {
-            System.out.println("기업명: " + user.getCompanyName());
-        }
+        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
         model.addAttribute("companyList", list);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPage", totalPage);
+
         return "admin/member";
     }
 }
-

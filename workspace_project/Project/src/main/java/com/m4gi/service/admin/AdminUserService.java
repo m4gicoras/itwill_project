@@ -5,5 +5,6 @@ import com.m4gi.dto.admin.AdminUserListDTO;
 import java.util.List;
 
 public interface AdminUserService {
-    List<AdminUserListDTO> getCompanyList();
+    List<AdminUserListDTO> getCompanyList(int offset, int limit);
+    int getTotalCompanyCount();
 }

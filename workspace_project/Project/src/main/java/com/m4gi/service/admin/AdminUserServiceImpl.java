@@ -14,7 +14,12 @@ public class AdminUserServiceImpl implements AdminUserService {
     private AdminUserMapper adminUserMapper;
 
     @Override
-    public List<AdminUserListDTO> getCompanyList() {
-        return adminUserMapper.getAllCompanies();
+    public List<AdminUserListDTO> getCompanyList(int offset, int limit) {
+        return adminUserMapper.getCompanyList(offset, limit);
+    }
+
+    @Override
+    public int getTotalCompanyCount() {
+        return adminUserMapper.getTotalCompanyCount();
     }
 }

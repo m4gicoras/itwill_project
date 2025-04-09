@@ -1,6 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
 <html>
 <head>
     <!-- Tailwind 기반 디자인 적용 -->
@@ -329,9 +333,33 @@
             </c:choose>
             </tbody>
         </table>
+
+        <!-- pagination 수정 -->
+
         <div class="pagination">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>...<span>52</span>
+            <c:forEach var="i" begin="1" end="${totalPage}">
+                <c:choose>
+                    <c:when test="${i == currentPage}">
+                        <a href="?page=${i}" style="margin: 0 4px; font-weight: bold; color: blue;">${i}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="?page=${i}" style="margin: 0 4px;">${i}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
         </div>
+
+        <!-- pagination
+
+       <div style="margin-top: 20px;">
+            <p>현재 페이지: ${currentPage}</p>
+            <p>전체 페이지 수: ${totalPage}</p>
+            <p>회원 개수: ${fn:length(companyList)}</p>
+        </div>
+
+         -->
+
+
     </div>
 
     <div id="popup">

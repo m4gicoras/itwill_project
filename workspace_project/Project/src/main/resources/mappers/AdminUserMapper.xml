@@ -17,4 +17,24 @@
         ORDER BY reg_date DESC
     </select>
 
+    <!-- 기업 리스트 페이징 조회 -->
+    <select id="getCompanyList" resultType="com.m4gi.dto.admin.AdminUserListDTO">
+        SELECT
+        user_id AS userId,
+        company_name AS companyName,
+        master_name AS ceoName,
+        phone,
+        email,
+        reg_date AS regDate
+        FROM users
+        ORDER BY user_id <!-- 회원번호 오름차순 정렬 -->
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 전체 회원 수 조회 -->
+    <select id="getTotalCompanyCount" resultType="int">
+        SELECT COUNT(*) FROM users
+    </select>
+
+
 </mapper>
