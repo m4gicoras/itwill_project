@@ -140,11 +140,11 @@
 
     <form id="login-form" class="flex flex-col items-center">
       <div class="input-group mb-4 w-full">
-        <input type="text" id="username" name="username" placeholder="ID" class="w-full p-3 text-sm rounded-md shadow-md bg-white text-gray-900 focus:ring-2 focus:ring-blue-300 placeholder-gray-500">
+        <input type="text" id="username" name="username" placeholder="ID" class="w-full p-3 text-sm rounded-md shadow-md bg-white text-black focus:ring-2 focus:ring-blue-300 placeholder-gray-500 focus:outline-none">
       </div>
 
       <div class="input-group relative mb-4 w-full">
-        <input type="password" id="password" name="password" placeholder="Password" class="w-full p-3 text-sm rounded-md shadow-md bg-white text-gray-900 focus:ring-2 focus:ring-blue-300 placeholder-gray-500">
+        <input type="password" id="password" name="password" placeholder="Password" class="w-full p-3 text-sm rounded-md shadow-md bg-white text-black focus:ring-2 focus:ring-blue-300 placeholder-gray-500 focus:outline-none">
         <div id="password-error" class="hidden text-red-500 text-sm mt-2">계정 정보가 일치하지 않습니다</div>
       </div>
 
@@ -175,20 +175,23 @@
 
       <button type="submit"
               class="w-11/12 p-3 bg-blue-500 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-blue-600 focus:outline-none">
-        Login
+       로그인
       </button>
     </form>
+
+
 
     <!-- 소셜 로그인 버튼을 나란히 배치하는 div -->
     <div class="flex space-x-4 justify-center mt-2 mb-4">
       <!-- 구글 로그인 버튼 (G 로고 이미지) -->
-      <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:bg-gray-200 transition-all">
-        <img src="<%= request.getContextPath() %>/resources/images/google01.png" alt="Google" class="w-8 h-8 rounded-full" />
+      <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:bg-gray-100 transition-all">
+        <img src="<%= request.getContextPath() %>/resources/images/google01.png" alt="Google" class="w-8 h-8 object-cover rounded-full" />
       </a>
 
-      <!-- 깃허브 로그인 버튼 -->
-      <a href="https://github.com/login" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:bg-gray-200 transition-all">
-        <img src="<%= request.getContextPath() %>/resources/images/github01.png" alt="GitHub" class="w-8 h-8 rounded-full" />
+      <!-- 카카오 로그인 버튼 -->
+      <a href="https://kauth.kakao.com/oauth/authorize?client_id=YOUR_APP_KEY&redirect_uri=YOUR_REDIRECT_URI&response_type=code"
+         class="flex items-center justify-center w-12 h-12 rounded-full shadow-md hover:bg-gray-100 transition-all focus:outline-none">
+        <img src="<%= request.getContextPath() %>/resources/images/kakaoLogo01.png" alt="Kakao" class="w-full h-full object-cover rounded-full" />
       </a>
     </div>
 
