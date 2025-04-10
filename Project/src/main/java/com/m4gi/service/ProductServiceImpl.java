@@ -15,12 +15,12 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     @Override
-    public List<Product> getProductsByCompany(Integer companyId) {
+    public List<Product> getProductsByCompany(int companyId) {
         return productMapper.selectProductsByCompany(companyId);
     }
 
     @Override
-    public List<Product> getProductsByCompanyAndStatus(Integer companyId, Integer status) {
+    public List<Product> getProductsByCompanyAndStatus(int companyId, int status) {
         return productMapper.selectProductsByCompanyAndStatus(companyId, status);
     }
     

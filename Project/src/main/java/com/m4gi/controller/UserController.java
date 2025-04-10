@@ -25,12 +25,6 @@ public class UserController {
         userService.register(siteUser);
         return "redirect:/main";
     }
-
-    // 대시보드 페이지
-    @GetMapping("/product_list")
-    public String showDashBoard() {
-        return "product_list";
-    }
     
     @GetMapping("/isDuplicateUsername")
     @ResponseBody

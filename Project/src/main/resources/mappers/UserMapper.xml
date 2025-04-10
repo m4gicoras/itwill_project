@@ -16,15 +16,23 @@
     </insert>
 
     <select id="checkUsername" parameterType="string" resultType="com.m4gi.domain.User">
-        SELECT username, user_pw
+        SELECT user_id, username, user_pw
         FROM users
         WHERE username = #{username}
     </select>
+    
+    <select id="getUserByUsername" parameterType="string" resultType="com.m4gi.domain.User">
+	    SELECT user_id, username, user_pw
+	    FROM users
+	    WHERE username = #{username}
+	</select>
+    
     
     <select id="isDuplicateUsername" parameterType="string" resultType="int">
 	    SELECT COUNT(*)
 	    FROM users
 	    WHERE username = #{username}
 	</select>
+	
 
 </mapper>

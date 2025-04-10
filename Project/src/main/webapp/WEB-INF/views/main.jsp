@@ -71,7 +71,7 @@
             /* rem은 전체적으로 일관된 크기 유지 */
             text-align: center;
             padding: 2rem;
-
+            
             border: 2px solid rgba(255, 255, 255, 0.2);
             /* 흐릿한 테두리 */
 
@@ -355,9 +355,11 @@
       })
       .then(response => response.json())
       .then(data => {
+    	  console.log("서버 응답 : ", data);
         if (data.success) {
-          // 로그인 성공 시 test.jsp(또는 성공 URL)로 이동
-          window.location.href = data.redirect;
+          // 로그인 성공 시 대시보드(성공url)로 이동
+          //window.location.href = data.redirect;
+          window.location.href = "${pageContext.request.contextPath}/dashboard";
         } else {
           // 로그인 실패 시 에러 메시지 표시 (TailwindCSS 클래스 활용)
           document.getElementById('password-error').classList.remove('hidden');

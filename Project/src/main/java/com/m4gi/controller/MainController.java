@@ -47,10 +47,10 @@ public class MainController {
         if (authenticated) {
         	User user = userService.getUserByUsername(username);
             session.setAttribute("username", username);
-            result.put("success", true);
             session.setAttribute("userId", user.getUserId());
+            result.put("success", true);
             // 필요에 따라 redirect할 페이지 URL을 지정
-            result.put("redirect", "products/product_list");
+            result.put("redirect", "dashboard");
         } else {
             result.put("success", false);
         }

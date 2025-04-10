@@ -5,6 +5,6 @@ import java.util.List;
 import com.m4gi.domain.Product;
 
 public interface ProductService {
-    List<Product> getProductsByCompany(Integer companyId);
-    List<Product> getProductsByCompanyAndStatus(Integer companyId, Integer status);
+    List<Product> getProductsByCompany(int companyId);
+    List<Product> getProductsByCompanyAndStatus(int companyId, int status);
 }
