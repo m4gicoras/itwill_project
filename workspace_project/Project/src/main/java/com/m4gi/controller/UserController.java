@@ -34,9 +34,14 @@ public class UserController {
         return "delete";
     }
 
-    @GetMapping("/mainTest1")
+    @GetMapping("/mainTest")
     public String showmainTestForm() {
-        return "mainTest1";
+        return "mainTest";
+    }
+
+    @GetMapping("/check")
+    public String showcheckForm() {
+        return "check";
     }
 
     // 로그인 처리
