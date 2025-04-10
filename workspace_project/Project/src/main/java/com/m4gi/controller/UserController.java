@@ -29,25 +29,6 @@ public class UserController {
         return "redirect:/main";
     }
 
-    /*
-    // 로그인 처리
-    @PostMapping("/main")
-    @ResponseBody
-    public Map<String, String> login(@RequestParam("username") String username,
-            @RequestParam("password") String password) {
-        Map<String, String> response = new HashMap<>();
-        // service의 login 메서드를 호출하여 로그인 여부 판단
-        if (userService.login(username, password)) {
-            response.put("message", "로그인 성공");
-            response.put("messageType", "success-message");
-        } else {
-            response.put("message", "로그인 실패");
-            response.put("messageType", "error-message");
-        }
-        return response;
-    }
-    */
-
     // 대시보드 페이지
     @GetMapping("/test")
     public String showDashBoard() {
