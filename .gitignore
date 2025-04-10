@@ -3,7 +3,7 @@
 .project
 .settings/
 .metadata/
-.Servers/
+./Servers/
 
 # 서버, 웹컨테이너
 .server
