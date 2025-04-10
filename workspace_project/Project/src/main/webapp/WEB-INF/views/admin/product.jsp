@@ -193,68 +193,89 @@
     </ul>
 </div>
 <div class="main">
-    <div class="search-bar">
-            <input type="text" placeholder="상품명 입력">
-            <input type="text" placeholder="기업명 입력">
-            <select>
-                <option>1개월 · 전체 · 최신순</option>
-                <option>최신순</option>
-                <option>오래된순</option>
-            </select>
-            <button>🔍</button>
+    <!-- 검색 폼 -->
+    <form action="${pageContext.request.contextPath}/admin/product" method="get">
+        <div class="search-bar">
+            <!-- 🔄 재설정 버튼 (폼 밖에서 동작) -->
+            <a href="${pageContext.request.contextPath}/admin/product" class="reset-btn" style="font-size: 22px;">🔄</a>
+
+            <!-- 🔍 검색 폼 -->
+            <form method="get" action="${pageContext.request.contextPath}/admin/product" style="display: flex; align-items: center; gap: 12px;">
+                <input type="text" name="productName" placeholder="상품명 입력" value="${productName}">
+                <input type="text" name="companyName" placeholder="기업명 입력" value="${companyName}">
+
+                <select name="sort">
+                    <option value="recent" ${sort == 'recent' ? 'selected' : ''}>최신순</option>
+                    <option value="oldest" ${sort == 'oldest' ? 'selected' : ''}>오래된순</option>
+                </select>
+
+                <button type="submit">🔍</button>
+            </form>
         </div>
 
+
+
+    </form>
+
+    <!-- 조건 없을 때 메시지 -->
+    <c:if test="${noCondition}">
+        <p style="color: red; text-align: center;">조회 조건을 입력해주세요.</p>
+    </c:if>
+
+    <!-- 결과 없음 메시지 -->
+    <c:if test="${noResult}">
+        <p style="color: gray; text-align: center;">일치하는 물품이 없습니다.</p>
+    </c:if>
+
+    <!-- 테이블 카드 -->
     <div class="card">
         <table class="member-list">
             <thead>
             <tr>
-                <th id="defaultSort" onclick="sortTable(0, this)" style="text-align: center;">
-                  회원번호 <span class="sort-arrow"></span>
-                </th>
-
-                <th>기업명 </th>
-                <th>상품명 </th>
-                <th>수량 </th>
-                <th>등록일 </th>
-                <th>상태 </th>
+                <th style="text-align: center;">물품번호</th>
+                <th>기업명</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>등록일</th>
+                <th>상태</th>
             </tr>
             </thead>
             <tbody>
-            <c:choose>
-                <c:when test="${not empty productList}">
-                    <c:forEach var="product" items="${productList}">
-                        <tr>
-                            <td style="text-align: center;">${product.productId}</td>
-                            <td class="company-name">㈜ ${product.companyName}</td>
-                            <td>${product.productName}</td>
-                            <td>${product.productQty}</td>
-                            <td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd"/></td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${product.status == 1}">판매중</c:when>
-                                    <c:otherwise>중단</c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-                    </c:forEach>
+            <c:forEach var="product" items="${productList}">
+                <tr>
+                    <td style="text-align: center;">${product.productId}</td>
+                    <td class="company-name">㈜ ${product.companyName}</td>
+                    <td>${product.productName}</td>
+                    <td>${product.productQty}</td>
+                    <td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${product.status == 0}">요청중</c:when>
+                            <c:when test="${product.status == 1}">견적 수락됨</c:when>
+                            <c:when test="${product.status == 2}">견적 거절됨</c:when>
+                            <c:when test="${product.status == 3}">견적 제시됨</c:when>
+                            <c:when test="${product.status == 4}">견적 만료됨</c:when>
+                            <c:otherwise>알 수 없음</c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:forEach>
 
-                </c:when>
-                <c:otherwise>
-                    <tr><td colspan="6" class="no-data">공사중</td></tr>
-                </c:otherwise>
-            </c:choose>
             </tbody>
         </table>
+
+        <!-- 페이징 처리 -->
         <div class="pagination">
             <c:forEach begin="1" end="${totalPages}" var="i">
-                <a href="?page=${i}" style="margin: 0 5px; ${currentPage == i ? 'font-weight:bold;' : ''}">
+                <a href="?page=${i}&productName=${param.productName}&companyName=${param.companyName}&sort=${param.sort}"
+                   style="margin: 0 5px; ${currentPage == i ? 'font-weight:bold;' : ''}">
                     ${i}
                 </a>
             </c:forEach>
         </div>
     </div>
-
-
 </div>
+
+
 </body>
 </html>
