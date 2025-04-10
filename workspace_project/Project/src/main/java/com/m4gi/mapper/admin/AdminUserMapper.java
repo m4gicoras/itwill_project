@@ -25,4 +25,5 @@ public interface AdminUserMapper {
     //같이한날
     AdminUser getUserById(int userId);
 
+
 }

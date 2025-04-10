@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.admin.AdminProductMapper">
+    <select id="getProductList" resultType="com.m4gi.dto.admin.AdminProductListDTO">
+        SELECT
+        p.product_id AS productId,
+        p.company_id AS companyId,
+        u.company_name AS companyName,
+        p.product_name AS productName,
+        p.product_qtty AS productQty,
+        p.created_at AS createdAt,
+        p.status
+        FROM products p
+        JOIN users u ON p.company_id = u.user_id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getProductCount" resultType="int">
+        SELECT COUNT(*) FROM products
+    </select>
+
+
+</mapper>
+

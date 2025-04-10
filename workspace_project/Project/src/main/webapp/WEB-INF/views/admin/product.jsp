@@ -221,18 +221,23 @@
             </thead>
             <tbody>
             <c:choose>
-                <c:when test="${not empty companyList}">
-                    <c:forEach var="user" items="${companyList}">
-                        <tr onclick="openPopup('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '${user.regDate}')">
-
-                            <td style="text-align: center;">${user.userId}</td>
-                            <td class="company-name">㈜ ${user.companyName}</td>
-                            <td>${empty user.ceoName ? '-' : user.ceoName}</td>
-                            <td>${empty user.phone ? '-' : user.phone}</td>
-                            <td>${empty user.email ? '-' : user.email}</td>
-                            <td><fmt:formatDate value="${user.regDate}" pattern="yyyy-MM-dd"/></td>
+                <c:when test="${not empty productList}">
+                    <c:forEach var="product" items="${productList}">
+                        <tr>
+                            <td style="text-align: center;">${product.productId}</td>
+                            <td class="company-name">㈜ ${product.companyName}</td>
+                            <td>${product.productName}</td>
+                            <td>${product.productQty}</td>
+                            <td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd"/></td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${product.status == 1}">판매중</c:when>
+                                    <c:otherwise>중단</c:otherwise>
+                                </c:choose>
+                            </td>
                         </tr>
                     </c:forEach>
+
                 </c:when>
                 <c:otherwise>
                     <tr><td colspan="6" class="no-data">공사중</td></tr>
@@ -241,7 +246,11 @@
             </tbody>
         </table>
         <div class="pagination">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>...<span>52</span>
+            <c:forEach begin="1" end="${totalPages}" var="i">
+                <a href="?page=${i}" style="margin: 0 5px; ${currentPage == i ? 'font-weight:bold;' : ''}">
+                    ${i}
+                </a>
+            </c:forEach>
         </div>
     </div>
 

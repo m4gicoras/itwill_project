@@ -1,0 +1,31 @@
+package com.m4gi.service.admin;
+
+import com.m4gi.dto.admin.AdminProductListDTO;
+import com.m4gi.dto.admin.AdminProductPageDTO;
+import com.m4gi.mapper.admin.AdminProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class AdminProductServiceImpl implements AdminProductService {
+
+    @Autowired
+    private AdminProductMapper adminProductMapper;
+
+    @Override
+    public AdminProductPageDTO getPagedProductList(int page) {
+        int limit = 12;
+        int offset = (page - 1) * limit;
+        List<AdminProductListDTO> list = adminProductMapper.getProductList(limit, offset);
+        int total = adminProductMapper.getProductCount();
+        int totalPages = (int) Math.ceil(total / (double) limit);
+
+        return new AdminProductPageDTO(list, totalPages);
+    }
+}
+
+
+
+
