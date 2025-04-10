@@ -9,4 +9,11 @@
       <mapper resource="mappers/UserMapper.xml" />
       <mapper resource="mappers/ProductMapper.xml" />
  </mappers> -->
+ 
+<!-- Aliase = 별칭 설정 -->
+ <typeAliases>
+    <typeAlias alias="Product" type="com.m4gi.domain.Product" />
+</typeAliases>
+
 </configuration>
+

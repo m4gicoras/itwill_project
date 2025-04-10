@@ -13,6 +13,11 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- 삭제해야함 -->
+	<listener>
+    	<listener-class>com.m4gi.listener.CleanupListener</listener-class>
+	</listener>
+	<!-- 삭제해야함 -->
 
 	<!-- Processes application requests -->
 	<servlet>
