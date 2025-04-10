@@ -29,7 +29,9 @@ public class AdminProductController {
             @RequestParam(defaultValue = "1") int page,
             Model model) {
 
-        AdminProductSearchCondition condition = new AdminProductSearchCondition(productName, companyName, productQty, sort);
+        AdminProductSearchCondition condition = new AdminProductSearchCondition(
+                productName, companyName, productQty, sort, null, null
+        );
 
         AdminProductPageDTO result = adminProductService.getProductList(condition, page);
 
