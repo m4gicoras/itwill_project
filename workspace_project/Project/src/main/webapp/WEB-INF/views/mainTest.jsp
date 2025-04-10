@@ -134,7 +134,7 @@
     <!-- Login 제목에만 KIMM_Bold 폰트 적용 -->
     <h2 class="subtitle text-xl font-semibold flex justify-center items-center mb-6 kimm-bold select-none">
       <span class="line flex-1 h-0.5 bg-white opacity-50"></span>  <!-- 선 굵기를 h-2로 변경 -->
-      <span class="mx-3">Login</span>
+      <span class="mx-3">Sign in</span>
       <span class="line flex-1 h-0.5 bg-white opacity-50"></span>  <!-- 선 굵기를 h-2로 변경 -->
     </h2>
 
@@ -174,8 +174,8 @@
 
 
       <button type="submit"
-              class="w-11/12 p-3 bg-blue-500 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-blue-600 focus:outline-none">
-       로그인
+              class="w-11/12 p-3 bg-blue-500 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-blue-600 focus:outline-none kimm-bold">
+       Sign in
       </button>
     </form>
 
