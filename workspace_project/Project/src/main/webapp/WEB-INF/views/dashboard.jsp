@@ -1,5 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <!DOCTYPE html>
   <html>
@@ -293,53 +291,103 @@
                   <!-- 상태 컬럼 -->
                   <th class="p-4 text-left">상태</th>
                   <!-- 세로 점 3개 아이콘 컬럼 -->
+
                 </tr>
               </thead>
-              <tbody>
-			  <c:choose>
-			    <c:when test="${not empty productList}">
-			      <c:forEach var="p" items="${productList}">
-			        <tr class="border-b hover:bg-gray-50 border-gray-300">
-			          <td class="p-4"><input type="checkbox" /></td>
-			          <td class="p-4 text-center">${p.product_id}</td>
-			          <td class="p-4 text-center">${p.product_name}</td>
-			          <td class="p-4 text-center">${p.product_qtty}</td>
-			          <td class="p-4 text-center"><fmt:formatNumber value="${p.price}" type="number" /></td>
-			          <td class="p-4 text-center">
-			            <c:choose>
-			              <c:when test="${not empty p.created_at}">
-			                <fmt:formatDate value="${p.created_at}" pattern="yyyy-MM-dd" />
-			              </c:when>
-			              <c:otherwise>-</c:otherwise>
-			            </c:choose>
-			          </td>
-			          <td class="pt-4 flex items-center">
-			            <c:choose>
-			              <c:when test="${p.status == 0}">
-			                <span class="bg-green-100 text-green-700 px-2 py-1 rounded-md text-xs">정상</span>
-			              </c:when>
-			              <c:when test="${p.status == 1}">
-			                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-md text-xs">품절</span>
-			              </c:when>
-			              <c:when test="${p.status == 2}">
-			                <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded-md text-xs">소진 임박</span>
-			              </c:when>
-			              <c:when test="${p.status == 3}">
-			                <span class="bg-red-100 text-red-700 px-2 py-1 rounded-md text-xs">단종</span>
-			              </c:when>
-			            </c:choose>
-			          </td>
-			        </tr>
-			      </c:forEach>
-			    </c:when>
-			    <c:otherwise>
-			      <tr>
-			        <td colspan="8" class="text-center text-gray-500 p-4">등록된 상품이 없습니다.</td>
-			      </tr>
-			    </c:otherwise>
-			  </c:choose>
-			</tbody>
               
+              <!-- 티바디 -->
+              <tbody id="product-list">
+                <!-- 예시 1: 정상 -->
+                <tr class="border-b hover:bg-gray-50 border-gray-300">
+                  <td class="p-4">
+                    <input type="checkbox">
+                  </td>
+                  <td class="p-4 text-center">A-001</td>
+                  <td class="p-4 text-center">Washing Bottle 2</td>
+                  <td class="p-4 text-center">20</td>
+                  <td class="p-4 text-center">320,000</td>
+                  <td class="p-4 text-center">10</td>
+                  <td class="p-4 text-center">2015-03-21</td>
+                  <td class="pt-4 flex items-center">
+                    <span
+                      class="transform translate-x-4 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700 inset-ring">
+                      정상
+                    </span>
+                    <button class="h-full flex items-center ml-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 5h.01M12 12h.01M12 19h.01"></path>
+                      </svg>
+                    </button>
+                  </td>
+
+                </tr>
+
+                <!-- 예시 2: 재고없음 -->
+                <tr class="border-b hover:bg-gray-50 border-gray-300">
+                  <td class="p-4">
+                    <input type="checkbox">
+                  </td>
+                  <td class="p-4 text-center" p-4="">A-002</td>
+                  <td class="p-4 text-center">Washing Bottle</td>
+                  <td class="p-4 text-center">32</td>
+                  <td class="p-4 text-center">120,000</td>
+                  <td class="p-4 text-center">8</td>
+                  <td class="p-4 text-center">2015-03-22</td>
+                  <td class="pt-4 flex items-center">
+                    <!-- 재고없음 배지 
+                                    <span
+                                        <class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">-->
+                    <span
+                      class="transform translate-x-4 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring inset-ring-yellow-500">
+                      재고없음
+                    </span>
+                    <button class="h-full flex items-center ml-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 5h.01M12 12h.01M12 19h.01"></path>
+                      </svg>
+                    </button>
+                  </td>
+
+                </tr>
+
+                <!-- 예시 3: 단종 -->
+                <tr class="border-b hover:bg-gray-50 border-gray-300">
+                  <td class="p-4">
+                    <input type="checkbox">
+                  </td>
+                  <td class="p-4 text-center">A-003</td>
+                  <td class="p-4 text-center">Sample Product</td>
+                  <td class="p-4 text-center">10</td>
+                  <td class="p-4 text-center">90,000</td>
+                  <td class="p-4 text-center">0</td>
+                  <td class="p-4 text-center">2015-03-23</td>
+                  <td class="pt-4 flex items-center">
+                    <!-- 단종 배지 
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">-->
+                    <span
+                      class="transform translate-x-4 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring">
+                      단종
+                    </span>
+                    <button class="h-full flex items-center ml-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 5h.01M12 12h.01M12 19h.01"></path>
+                      </svg>
+                    </button>
+                  </td>
+                </tr><!-- 예시3 -->
+                
+				
+              </tbody>
             </table>
           </div>
 
@@ -381,6 +429,71 @@
           }
         });
       });
+    });
+    
+    fetch('${pageContext.request.contextPath}/api/products')
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.getElementById('product-list');
+      tbody.innerHTML = '';
+
+      data.forEach(product => {
+        const tr = document.createElement('tr');
+        tr.className = "border-b hover:bg-gray-50 border-gray-300";
+
+        const statusText = ["정상", "재고없음", "소진 임박", "단종"][product.status] || "미정";
+        const statusColor = ["bg-green-100 text-green-700", "bg-yellow-100 text-yellow-700", "bg-orange-100 text-orange-700", "bg-red-100 text-red-700"][product.status] || "bg-gray-200 text-gray-700";
+
+        const createTd = (className, text) => {
+          const td = document.createElement('td');
+          td.className = className;
+          td.textContent = text;
+          return td;
+        };
+
+        const tdCheckbox = document.createElement('td');
+        tdCheckbox.className = "p-4";
+        const checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+
+        tdCheckbox.appendChild(checkbox);
+        tr.appendChild(tdCheckbox);
+
+        tr.appendChild(createTd("p-4 text-center", product.product_id));
+        tr.appendChild(createTd("p-4 text-center", product.product_name));
+        tr.appendChild(createTd("p-4 text-center", product.product_qtty));
+        tr.appendChild(createTd("p-4 text-center", product.price.toLocaleString()));
+        tr.appendChild(createTd("p-4 text-center", product.product_qtty));
+        tr.appendChild(createTd("p-4 text-center", new Date(product.created_at).toLocaleDateString()));
+
+        // 상태 badge와 버튼 포함한 td
+        const statusTd = document.createElement('td');
+        statusTd.className = "pt-4 flex items-center";
+
+        const span = document.createElement('span');
+        span.className = `transform translate-x-4 rounded-md px-2 py-1 text-xs font-medium ${statusColor}`;
+        span.textContent = statusText;
+
+        const button = document.createElement('button');
+        button.className = "h-full flex items-center ml-auto";
+        button.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 hover:text-gray-600 cursor-pointer"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 5h.01M12 12h.01M12 19h.01"></path>
+          </svg>
+        `;
+
+        statusTd.appendChild(span);
+        statusTd.appendChild(button);
+        tr.appendChild(statusTd);
+
+        tbody.appendChild(tr);
+      });
+    })
+    .catch(error => {
+      console.error('상품 목록 불러오기 실패:', error);
     });
   </script>
 

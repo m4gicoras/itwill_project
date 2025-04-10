@@ -46,8 +46,11 @@ public class MainController {
         boolean authenticated = userService.login(username, password);
         if (authenticated) {
         	User user = userService.getUserByUsername(username);
+        	
             session.setAttribute("username", username);
             session.setAttribute("userId", user.getUserId());
+            System.out.println("로그인 성공 - userId: " + user.getUserId());
+            
             result.put("success", true);
             // 필요에 따라 redirect할 페이지 URL을 지정
             result.put("redirect", "dashboard");

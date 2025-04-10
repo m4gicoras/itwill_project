@@ -11,8 +11,8 @@ public interface UserService {
     // 로그인 로직
     public boolean login(String username, String password);
     
+    User getUserByUsername(String username);
+    
     public int isDuplicateUsername(String username);
     
-    // 객체 조회용
-    User getUserByUsername(String username);
 }

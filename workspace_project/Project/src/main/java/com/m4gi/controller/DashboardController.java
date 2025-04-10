@@ -14,22 +14,23 @@ import com.m4gi.service.ProductService;
 
 @Controller
 public class DashboardController {
-
+	
     @Autowired
     private ProductService productService;
 
     @GetMapping("/dashboard")
     public String showDashboard(HttpSession session, Model model) {
-    	System.out.println("대시보드 컨트롤러 호출됨");
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
+        	System.out.println("세션에 userId없음.");
             return "redirect:/main";
         }
 
         List<Product> productList = productService.getProductsByCompany(userId);
         model.addAttribute("productList", productList);
-
         return "dashboard";
     }
+    
+    
 }
 

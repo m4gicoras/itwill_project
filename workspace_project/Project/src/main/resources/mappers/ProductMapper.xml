@@ -5,12 +5,11 @@
         
 <mapper namespace="com.m4gi.mapper.ProductMapper">
 
-<!-- mybatis-config에 alias설정 후 resultType은 짧게 Product로 등록함 -->
 <select id="selectProductsByCompany" parameterType="int" resultType="com.m4gi.domain.Product">
-    SELECT * FROM products
+    SELECT * FROM products WHERE company_id = #{companyId}
 </select>
 
-<select id="selectProductsByCompanyAndStatus" resultType="com.m4gi.domain.Product">
+<select id="selectProductsByCompanyAndStatus" parameterType="map" resultType="com.m4gi.domain.Product">
     SELECT * FROM products WHERE company_id = #{companyId} AND status = #{status}
 </select>
 

@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
-
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +70,7 @@
             /* rem은 전체적으로 일관된 크기 유지 */
             text-align: center;
             padding: 2rem;
-            
+
             border: 2px solid rgba(255, 255, 255, 0.2);
             /* 흐릿한 테두리 */
 
@@ -339,7 +338,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('login-form').addEventListener('submit', function(event) {
       event.preventDefault(); // 기본 폼 제출 방지
-
+	  
       // 폼 데이터 수집
       const formData = new FormData(this);
       const username = formData.get('username');
@@ -351,15 +350,15 @@
       // fetch()를 이용해 AJAX로 로그인 검증 요청 (URL은 실제 엔드포인트로 변경)
       fetch('${pageContext.request.contextPath}/login', {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'include'
       })
       .then(response => response.json())
       .then(data => {
-    	  console.log("서버 응답 : ", data);
+          console.log("서버 응답 : data");
         if (data.success) {
-          // 로그인 성공 시 대시보드(성공url)로 이동
-          //window.location.href = data.redirect;
-          window.location.href = "${pageContext.request.contextPath}/dashboard";
+          // 프로젝트 배포 경로 기준으로 이동할 url설정해놓음
+          window.location.href = '${pageContext.request.contextPath}/' + data.redirect;
         } else {
           // 로그인 실패 시 에러 메시지 표시 (TailwindCSS 클래스 활용)
           document.getElementById('password-error').classList.remove('hidden');

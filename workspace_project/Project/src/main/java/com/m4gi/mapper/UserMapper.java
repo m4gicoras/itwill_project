@@ -8,9 +8,10 @@ public interface UserMapper {
 
     // 사용자 정보를 DB에 저장합니다.
     void insertUser(User user);
+
+	User checkUsername(String username);
+	
+	User getUserByUsername(String username);
     
-    // 로그인시 id가져올거
-    User getUserByUsername(String username);
-    
-    User checkUsername(String username);
+
 }
