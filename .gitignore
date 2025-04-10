@@ -5,6 +5,9 @@
 .metadata/
 .Servers/
 
+# 서버, 웹컨테이너
+.server
+
 # Maven
 target/
 *.log
