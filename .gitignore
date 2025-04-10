@@ -16,8 +16,4 @@ Thumbs.db
 #InteliJ
 .smarttomcat/
 .idea/
-<<<<<<< HEAD
 *.iml
-=======
-*.iml
->>>>>>> c34cfb8420defd32431c7aebcd86c010dfa6815c

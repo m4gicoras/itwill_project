@@ -5,7 +5,7 @@
   
   <!-- MyBatis 설정파일 -->
   <configuration>
-<!--  	<mappers>
+  	<mappers>
         <mapper resource="mappers/UserMapper.xml" />
-    </mappers>-->
+    </mappers>
   </configuration>
