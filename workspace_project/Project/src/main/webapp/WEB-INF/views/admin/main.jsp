@@ -127,15 +127,40 @@
 <div class="main">
     <div class="welcome">어서오세요, 관리자님</div>
     <div class="search-bar">
-        <input type="text" placeholder="상품명 입력">
-        <input type="text" placeholder="기업명 입력">
-        <select>
-            <option>1개월 · 전체 · 최신순</option>
-            <option>최신순</option>
-            <option>오래된순</option>
+        <input type="text" id="productName" placeholder="상품명 입력">
+        <input type="text" id="companyName" placeholder="기업명 입력">
+        <select id="sortOrder">
+            <option value="latest">최신순</option>
+            <option value="oldest">오래된순</option>
+            <option value="custom">직접설정</option>
         </select>
-        <button>🔍</button>
+        <button onclick="handleSearch()">🔍</button>
     </div>
 </div>
+
+<script>
+    function handleSearch() {
+        const productName = document.getElementById("productName").value.trim();
+        const companyName = document.getElementById("companyName").value.trim();
+        const sortOrder = document.getElementById("sortOrder").value;
+
+        const contextPath = "<%= request.getContextPath() %>";
+
+        if (productName && !companyName) {
+            // 상품명만 있을 때 -> 물품관리 페이지 이동
+            window.location.href = contextPath + "/admin/product?productName=" + encodeURIComponent(productName) + "&sortOrder=" + sortOrder;
+        } else if (!productName && companyName) {
+            // 기업명만 있을 때 -> 회원관리 페이지 이동
+            window.location.href = contextPath + "/admin/member?companyName=" + encodeURIComponent(companyName);
+        } else if (productName && companyName) {
+            // 둘 다 있을 때 -> 물품관리 페이지 이동
+            window.location.href = contextPath + "/admin/product?productName=" + encodeURIComponent(productName) + "&companyName=" + encodeURIComponent(companyName) + "&sortOrder=" + sortOrder;
+        } else {
+            alert("검색어를 입력해주세요!");
+        }
+    }
+</script>
+
+
 </body>
 </html>
