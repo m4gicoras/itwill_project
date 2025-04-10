@@ -1,5 +1,6 @@
 package com.m4gi.mapper.admin;
 
+import com.m4gi.domain.admin.AdminUser;
 import com.m4gi.dto.admin.AdminUserListDTO;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,8 @@ public interface AdminUserMapper {
 
     // 일반 총 개수
     int getTotalCompanyCount();
+
+    //같이한날
+    AdminUser getUserById(int userId);
+
 }

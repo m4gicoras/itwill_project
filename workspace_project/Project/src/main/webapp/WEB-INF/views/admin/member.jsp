@@ -222,13 +222,24 @@
 
     <script>
         function openPopup(companyName, ceoName, phone, email, regDate) {
-            document.getElementById("popup-companyName").textContent = companyName;
-            document.getElementById("popup-ceoName").textContent = ceoName;
-            document.getElementById("popup-phone").textContent = phone;
-            document.getElementById("popup-email").textContent = email;
-            document.getElementById("popup-regDate").textContent = regDate;
+            document.getElementById("popup-companyName").innerText = companyName;
+            document.getElementById("popup-ceoName").innerText = ceoName;
+            document.getElementById("popup-phone").innerText = phone;
+            document.getElementById("popup-email").innerText = email;
+            document.getElementById("popup-regDate").innerText = regDate;
+
+            // 날짜 차이 계산
+            const joinDate = new Date(regDate);
+            const today = new Date();
+            const diffTime = today - joinDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            document.getElementById("popup-days").innerText = diffDays;
             document.getElementById("popup").style.display = "block";
         }
+
+
+
 
         function closePopup() {
             document.getElementById("popup").style.display = "none";
@@ -316,7 +327,7 @@
             <c:choose>
                 <c:when test="${not empty companyList}">
                     <c:forEach var="user" items="${companyList}">
-                        <tr onclick="openPopup('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '${user.regDate}')">
+                        <tr onclick="openPopup('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '<fmt:formatDate value="${user.regDate}" pattern="yyyy-MM-dd" />')">
 
                             <td style="text-align: center;">${user.userId}</td>
                             <td class="company-name">㈜ ${user.companyName}</td>
@@ -334,7 +345,7 @@
             </tbody>
         </table>
 
-        <!-- pagination 수정 -->
+        <!-- pagination -->
 
         <div class="pagination">
             <c:forEach var="i" begin="1" end="${totalPage}">
@@ -349,16 +360,6 @@
             </c:forEach>
         </div>
 
-        <!-- pagination
-
-       <div style="margin-top: 20px;">
-            <p>현재 페이지: ${currentPage}</p>
-            <p>전체 페이지 수: ${totalPage}</p>
-            <p>회원 개수: ${fn:length(companyList)}</p>
-        </div>
-
-         -->
-
 
     </div>
 
@@ -369,6 +370,7 @@
         <p><strong>연락처:</strong> <span id="popup-phone"></span></p>
         <p><strong>이메일:</strong> <span id="popup-email"></span></p>
         <p><strong>등록일:</strong> <span id="popup-regDate"></span></p>
+        <p>우리는 함께한지 <strong><span id="popup-days"></span></strong>일째입니다.</p>
         <button onclick="closePopup()">닫기</button>
     </div>
 </div>
