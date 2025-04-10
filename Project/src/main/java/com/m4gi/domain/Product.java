@@ -5,17 +5,16 @@ import java.util.Date;
 
 @Data
 public class Product {
-    private Integer productId;
-    private Integer companyId;
-    private String productName;
-    private String productDesc;
-    private String productImg;
-    private Integer productQtty;
+    private int product_id;
+    private int company_id;
+    private String product_name;
+    private String product_desc;
+    private String product_img;
+    private int product_qtty;
     private String category;
-    private Integer price;
-    private Integer status;
-    private String hashId;
-    private Date createdAt;
-    private Date updatedAt;
+    private int price;
+    private int status;
+    private Date created_at;
+    private Date updated_at;
 }
 

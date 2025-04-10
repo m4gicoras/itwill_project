@@ -5,15 +5,15 @@
   
 <!-- MyBatis 설정파일 -->
 <configuration>
-<!-- <mappers>
+<!--  <mappers>
       <mapper resource="mappers/UserMapper.xml" />
       <mapper resource="mappers/ProductMapper.xml" />
- </mappers> -->
+ 	  </mappers> -->
  
-<!-- Aliase = 별칭 설정 -->
- <typeAliases>
+<!-- Aliase: 별칭 설정. 리턴타입, 파라메터에만 씀 -->
+<!--  <typeAliases>
     <typeAlias alias="Product" type="com.m4gi.domain.Product" />
-</typeAliases>
+</typeAliases> -->
 
 </configuration>
 

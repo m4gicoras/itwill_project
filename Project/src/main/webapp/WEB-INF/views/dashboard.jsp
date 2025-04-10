@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.m4gi.domain.Product" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <!DOCTYPE html>
   <html>
@@ -384,7 +386,7 @@
                   </td>
 
                 </tr>
-
+				
               </tbody>
             </table>
           </div>

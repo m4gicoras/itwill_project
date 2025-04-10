@@ -9,13 +9,14 @@
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <!-- HikariCP DataSource -->
+    <!-- jdbcurl의 value에 ssl관련 경고방지, 타임존 문제방지 설정(?뒤에 삽입) -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
-        <property name="jdbcUrl" value="jdbc:mysql://itwillbs.com:3306/c6d2412t2p1"/>
+        <property name="jdbcUrl" value="jdbc:mysql://itwillbs.com:3306/c6d2412t2p1?useSSL=false&amp;serverTimezone=Asia/Seoul"/>
         <property name="username" value="c6d2412t2p1"/>
         <property name="password" value="1234"/>
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="maximumPoolSize" value="10"/>
-    </bean>
+    </bean> 
 
     <!-- MyBatis SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

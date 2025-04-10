@@ -21,10 +21,13 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/list")
+    @GetMapping("/product_list")
     public String productList(@RequestParam(value = "status", required = false) Integer status, Model model, HttpSession session) {
         Integer companyId = (Integer) session.getAttribute("userId");
-        List<Product> productList;
+        System.out.println("companyId = " + companyId);
+        
+        List<Product> productList = productService.getProductsByCompany(companyId);
+        System.out.println("상품 수 = " + productList.size());
 
         if (status == null) {
             productList = productService.getProductsByCompany(companyId);
@@ -33,6 +36,8 @@ public class ProductController {
         }
 
         model.addAttribute("productList", productList);
+        
+        
         return "product_list";
     }
 }

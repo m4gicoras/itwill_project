@@ -1,5 +1,6 @@
 package com.m4gi.service;
 
+import com.m4gi.domain.User;
 import com.m4gi.dto.SiteUser;
 
 public interface UserService {
@@ -11,4 +12,7 @@ public interface UserService {
     public boolean login(String username, String password);
     
     public int isDuplicateUsername(String username);
+    
+    // 객체 조회용
+    User getUserByUsername(String username);
 }

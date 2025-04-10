@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.m4gi.domain.User;
 import com.m4gi.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +45,12 @@ public class MainController {
         Map<String, Object> result = new HashMap<>();
         boolean authenticated = userService.login(username, password);
         if (authenticated) {
+        	User user = userService.getUserByUsername(username);
             session.setAttribute("username", username);
             result.put("success", true);
+            session.setAttribute("userId", user.getUserId());
             // 필요에 따라 redirect할 페이지 URL을 지정
-            result.put("redirect", "dashboard");
+            result.put("redirect", "products/product_list");
         } else {
             result.put("success", false);
         }

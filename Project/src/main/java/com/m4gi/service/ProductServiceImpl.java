@@ -23,4 +23,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductsByCompanyAndStatus(Integer companyId, Integer status) {
         return productMapper.selectProductsByCompanyAndStatus(companyId, status);
     }
+    
+   
 }

@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService{
 	public int isDuplicateUsername(String username) {
 		return userMapper.isDuplicateUsername(username);
 	}
+
+	@Override
+	public User getUserByUsername(String username) {
+		return userMapper.checkUsername(username);
+	}
 }

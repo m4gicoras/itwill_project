@@ -1,57 +1,67 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.m4gi.domain.Product" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% System.out.println("JSP 렌더링 시작"); %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+    <title>상품 목록</title>
 </head>
 <body>
-<h2>📦 물품 목록</h2>
-
-<form method="get" action="/products/list">
-    <label for="status">필터:</label>
-    <select name="status">
-        <option value="">전체</option>
-        <option value="1">품절</option>
-        <option value="2">소진 임박</option>
-        <option value="3">단종</option>
-    </select>
-    <button type="submit">조회</button>
-</form>
-
+<h2>내 상품 목록</h2>
 <table border="1">
     <thead>
         <tr>
-            <th>이미지</th>
-            <th>물품코드</th>
+            <th>상품코드</th>
             <th>상품명</th>
             <th>수량</th>
-            <th>카테고리</th>
             <th>단가</th>
+            <th>등록일</th>
             <th>상태</th>
-            <th>조정</th>
         </tr>
     </thead>
     <tbody>
-        <c:forEach var="product" items="${productList}">
-            <tr>
-                <td><img src="${product.productImg}" width="80" height="80"/></td>
-                <td>${product.productId}</td>
-                <td>${product.productName}</td>
-                <td>${product.productQtty}</td>
-                <td>${product.category}</td>
-                <td>${product.price}</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${product.status == 0}">정상</c:when>
-                        <c:when test="${product.status == 1}">품절</c:when>
-                        <c:when test="${product.status == 2}">소진 임박</c:when>
-                        <c:when test="${product.status == 3}">단종</c:when>
-                        <c:otherwise>알수없음</c:otherwise>
-                    </c:choose>
-                </td>
-                <td><button>➕ 조정</button></td>
-            </tr>
-        </c:forEach>
+    <%
+        List<Product> productList = (List<Product>) request.getAttribute("productList");
+        if (productList != null && !productList.isEmpty()) {
+            for (Product p : productList) {
+    %>
+        <tr>
+            <td><%= p.getProduct_id() %></td>
+            <td><%= p.getProduct_name() %></td>
+            <td><%= p.getProduct_img() %></td>
+            <td><%= String.format("%,d", p.getPrice()) %></td>
+            <%-- <td><%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(p.getCreatedAt()) %></td> --%>
+            <td>
+			<%
+			    if (p.getCreated_at() != null) {
+			        out.print(new java.text.SimpleDateFormat("yyyy-MM-dd").format(p.getCreated_at()));
+			    } else {
+			        out.print("-");
+			    }
+			%>
+			</td>
+            <td>
+                <%
+                    switch (p.getStatus()) {
+                        case 0: out.print("정상"); break;
+                        case 1: out.print("품절"); break;
+                        case 2: out.print("소진 임박"); break;
+                        case 3: out.print("단종"); break;
+                    }
+                %>
+            </td>
+        </tr>
+    <%
+            }
+        } else {
+    %>
+        <tr>
+            <td colspan="6" style="text-align:center;">등록된 상품이 없습니다.</td>
+        </tr>
+    <%
+        }
+    %>
     </tbody>
 </table>
 </body>
