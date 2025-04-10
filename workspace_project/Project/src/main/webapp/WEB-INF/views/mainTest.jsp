@@ -129,10 +129,10 @@
        style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);">
 
     <!-- Sellity 제목에만 KIMM_Bold 폰트 적용 -->
-    <h1 class="title text-4xl font-extrabold text-center kimm-bold" style="margin-top: 1em; margin-bottom: 1em;">SELLITY</h1>
+    <h1 class="title text-4xl font-extrabold text-center select-none kimm-bold" style="margin-top: 1em; margin-bottom: 1em;">SELLITY</h1>
 
     <!-- Login 제목에만 KIMM_Bold 폰트 적용 -->
-    <h2 class="subtitle text-xl font-semibold flex justify-center items-center mb-6 kimm-bold">
+    <h2 class="subtitle text-xl font-semibold flex justify-center items-center mb-6 kimm-bold select-none">
       <span class="line flex-1 h-0.5 bg-white opacity-50"></span>  <!-- 선 굵기를 h-2로 변경 -->
       <span class="mx-3">Login</span>
       <span class="line flex-1 h-0.5 bg-white opacity-50"></span>  <!-- 선 굵기를 h-2로 변경 -->
