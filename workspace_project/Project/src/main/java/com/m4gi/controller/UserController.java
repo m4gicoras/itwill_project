@@ -35,12 +35,12 @@ public class UserController {
     }
 
     @GetMapping("/mainTest")
-    public String showmainTestForm() {
+    public String showMainTestForm() {
         return "mainTest";
     }
 
     @GetMapping("/check")
-    public String showcheckForm() {
+    public String showCheckForm() {
         return "check";
     }
 
