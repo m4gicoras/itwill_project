@@ -1,351 +1,168 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원탈퇴</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Great+Vibes&family=Noto+Sans+KR:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Satisfy&display=swap" rel="stylesheet">
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <meta charset="UTF-8">
-    <title>회원탈퇴</title>
+  <!-- 웹폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 
-    <style>
+  <!-- 커스텀 폰트 -->
+  <style>
+    @font-face {
+      font-family: 'KIMM_Bold';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
 
     body {
-      font-family: Arial, sans-serif;
-
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      font-family: 'Noto Sans KR', sans-serif;
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      height: 100px;
-
-      position: absolute;
-      top: 20px;
-      left: 30px;
-      z-index: 1000;
-
+    .logo-font {
+      font-family: 'KIMM_Bold', sans-serif;
     }
 
-    .logo {
-       width: auto;
+      @keyframes bounce {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
 
-    }
+      .ios-checkbox {
+        --checkbox-size: 24px;
+        --checkbox-color: #3b82f6;
+        --checkbox-bg: #dbeafe;
+        --checkbox-border: #93c5fd;
+      }
 
-     main {
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       margin-top: 50px; /* 브랜드명과 여백 */
-       padding: 20px;
-     }
+      .ios-checkbox.blue {
+        --checkbox-color: #3b82f6;
+        --checkbox-bg: #dbeafe;
+        --checkbox-border: #93c5fd;
+      }
 
-     .page-title {
-       font-family: "Noto Sans KR", sans-serif;
-       text-align: center;
-       font-size: 60px;
-       font-weight: bold;
-       margin-bottom: 15px;
-       margin-top: 20px;
-       color:#2c2c2c;
-     }
+      .ios-checkbox input:checked + .checkbox-wrapper .checkbox-bg {
+        background: var(--checkbox-color);
+        border-color: var(--checkbox-color);
+        border: none;
+      }
 
-    .container {
+      .ios-checkbox input:checked + .checkbox-wrapper .checkbox-icon {
+        transform: scale(1);
+      }
 
-      height: 700px;
-      width: 800px;
-      background: white;
+      .ios-checkbox input:checked + .checkbox-wrapper .check-path {
+        stroke-dashoffset: 0;
+      }
 
-      margin-top:80px;
-      margin-bottom:50px;
+      .ios-checkbox input:focus + .checkbox-wrapper .checkbox-bg {
+        box-shadow: 0 0 0 4px var(--checkbox-bg);
+      }
 
-      text-align: center;
+      .ios-checkbox input:checked + .checkbox-wrapper {
+        animation: bounce 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-      padding: 10px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-    }
-
-    .form-row {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-
-      padding: 10px;
-    }
-
-    .input-field, select, textarea {
-        width: 100%;
-        padding: 8px;
-
-        border: 1px solid #ccc;
-
-        font-size: 14px;
-        margin: 0 auto;
-        text-align: center;
-
-    }
-
-    .pw-box, .reason-box {
-      border: 3px solid #d1d5db;
-      padding: 10px;
-
-      border-radius: 5px;
-      background-color: #f9fafb;
-
-      font-size: 50px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      margin-bottom: 20px;
-      gap: 8px;
-
-    }
-
-    .pw-box {
-       width: 350px; height: 300px;
-       text-align:center;
-
-    }
-
-    .pw-box label {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .pw-box .input-field {
-       width: 80%;
-       height: 20px;
-       padding: 10px;
-       border: 1px solid #ccc;
-       border-radius: 3px;
-       font-size: 14px;
-       text-align: left;
-       background-color: white;
-
-    }
-
-    .reason-box {
-       width: 500px; height: 300px;
-
-    }
-
-    .reason-box label {
-        white-space: nowrap;
-        font-weight: bold;
-        text-align:left;
-
-    }
-
-    .reason-box textarea {
-      font-family: "Noto Sans KR", sans-serif;
-      resize: none;
-      height: 180px;
-      text-align:left;
-      margin-bottom:15px;
-      border-radius:3px;
-    }
-
-    .reason-box select {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        text-align: left;
-        resize: none;
-        background: white;
-    }
-
-    .warning-box {
-      font-family: "Noto Sans KR", sans-serif;
-      background-color:#FAF0E6;
-      padding: 20px;
-      border: 2px solid #DEB887;
-      border-radius: 3px;
-      font-size: 18px;
-      text-align: center;
-      margin: auto;
-      width: 90%; height: 70px;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-    }
-
-    .check-container {
-
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      align-items: center;
-
-      margin-top: 10px;
-      margin-bottom: 50px;
-    }
-
-    .check-container label {
-       position: relative;
-       white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-       font-size: 16px;
-
-    }
-
-    .agree {
-       margin-right: 10px;
-
-    }
-
-    .btn-group {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .withdraw-btn {
-      background-color: #0095f6;
-      color: white;
-      border: none;
-      padding: 15px;
-      font-size: 18px;
-      border-radius: 5px;
-      width: 150px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .cancel-btn {
-      background-color: #C0C0C0;
-      color: white;
-      border: none;
-      padding: 15px;
-      font-size: 18px;
-      border-radius: 5px;
-      width: 150px;
-      cursor: pointer;
-      transition: 0.3s;
-
-    }
-
-    .cancel-btn:hover {
-      background-color: #6c757d;
-    }
-
-    /*.withdraw-btn:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }*/
-      </style>
-
+  </style>
 </head>
-<body>
+<body class="font-['Noto Sans KR'] bg-gray-50 min-h-screen flex flex-col">
 
-<header>
-    <img src="<%= request.getContextPath() %>/resources/images/Sellity.png" alt="Sellity Logo" class="logo">
-</header>
-<main>
+  <!-- ✅ Header -->
+  <header class="bg-white shadow-md h-20 flex items-center px-8">
+    <a href="/" class="text-2xl logo-font text-black select-none">Sellity</a>
+  </header>
 
-   <h1 class="page-title">회원탈퇴</h1>
+  <!-- ✅ Main -->
+  <main class="flex flex-col items-center justify-center px-4 py-12 mt-8">
+    <h1 class="text-4xl font-bold mb-10">회원탈퇴</h1>
 
-    <div class="container">
-        <form action="withdraw_process.jsp" method="post">
+    <div class="bg-white shadow-md rounded-lg w-full max-w-2xl p-10 mt-4">
+      <form action="withdraw_process.jsp" method="post" class="space-y-8">
 
-               <div class="form-row">
-                      <div class="pw-box">
+        <!-- ✅ 탈퇴 사유 -->
+        <div class="space-y-4">
+          <label for="reason" class="block text-lg font-semibold">탈퇴 사유</label>
+          <select id="reason" name="reason" class="w-full border border-gray-300 rounded-md p-3 text-base focus:outline-none">
+            <option value="reason1">서비스가 마음에 들지 않아서</option>
+            <option value="reason2">더 이상 사용하지 않아서</option>
+            <option value="other">기타 (직접 입력)</option>
+          </select>
+          <textarea
+            id="other"
+            name="other-reason"
+            maxlength="2000"
+            placeholder="자세한 사유를 입력해 주세요. (최대 2,000자 까지)"
+            class="w-full h-36 border border-gray-300 rounded-md p-3 resize-none focus:outline-none"
+          ></textarea>
+        </div>
 
-                              <label for="pw">비밀번호</label>
-                              <input type="password" class="input-field" id="pw" name="password" required><br>
+        <!-- ✅ 경고 문구 -->
+        <div class="bg-orange-50 shadow-md text-orange-800 text-center p-4 rounded-md">
+          회원탈퇴 처리 후 개인정보는 즉시 파기되며, 해당 아이디는 복구할 수 없습니다.
+        </div>
+
+        <!-- ✅ 동의 체크 -->
+<div class="flex items-center justify-center gap-2">
+          <label class="ios-checkbox blue inline-flex items-center cursor-pointer select-none" style="--checkbox-size: 20px">
+            <input type="checkbox" id="agree" class="hidden" onchange="checkAgreement()" />
+            <div class="checkbox-wrapper relative rounded-[8px] transition-transform duration-200 ease hover:scale-105 active:scale-95"
+                 style="width: var(--checkbox-size); height: var(--checkbox-size);">
+              <div class="checkbox-bg absolute inset-0 rounded-[8px] border-2 bg-white transition-all duration-200 ease"
+                   style="width: var(--checkbox-size); height: var(--checkbox-size); border-color: var(--checkbox-border);">
+                <div class="checkbox-icon absolute m-auto text-white scale-none transition-all duration-200 ease"
+                     style="width: 100%; height: 100%;">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path class="check-path [transition:stroke-dashoffset_0.3s_ease_0.1s] [stroke-dasharray:40] [stroke-dashoffset:40]" d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <span class="ml-2 text-sm">위 내용을 모두 확인하였으며, 회원탈퇴에 동의합니다.</span>
+          </label>
+        </div>
 
 
 
-                              <label for="confirm-password">비밀번호 확인</label>
-                              <input type="password" class="input-field" id="confirm-pw" name="confirm-password" required>
-
-
-                          </div>
-
-                            <div class="reason-box">
-                                    <div class="reason-select-group">
-
-                                        <label for="reason">탈퇴 사유</label>
-
-                                            <select id="reason" name="reason">
-                                                <option value="reason1">서비스가 마음에 들지 않아서</option>
-                                                <option value="reason2">더 이상 사용하지 않아서</option>
-                                                <option value="other">기타 (직접 입력)</option>
-                                            </select><br>
-
-                                        </div>
-
-                                            <textarea id="other" name="other-reason" maxlength="2000" placeholder="텍스트를 입력하세요. (최대 2,000자 까지)"></textarea>
-
-                                    </div>
-
-                            </div>
-
-
-
-                      <div class="warning-box">
-                      회원탈퇴 처리 후 회원님의 개인정보는 즉시 파기되어 복원할 수 없으며,<br>
-                      해당 아이디는 영구적으로 삭제됩니다.
-                      </div>
-
-                      <div class="check-container">
-
-                           <input type="checkbox" class="agree" onchange="checkAgreement()">
-                           <label for="agree">해당 내용을 모두 확인했으며, 회원탈퇴에 동의합니다.</label>
-
-                      </div>
-
-                      <div class="btn-group">
-
-                          <button type="submit" id="withdraw" class="withdraw-btn" onclick="validateForm(event)">회원 탈퇴</button>
-                          <button type="button" class="cancel-btn" onclick="window.location.href='main.jsp';">취소</button>
-                      </div>
-               </div>
-        </form>
+        <!-- ✅ 버튼 -->
+        <div class="flex justify-center gap-4">
+          <button
+            type="submit"
+            class="w-32 h-12 bg-blue-500 text-white rounded-md text-base hover:bg-blue-600 transition"
+            onclick="validateForm(event)"
+          >
+            회원 탈퇴
+          </button>
+          <button
+            type="button"
+            class="w-32 h-12 bg-gray-400 text-white rounded-md text-base hover:bg-gray-600 transition"
+            onclick="window.location.href='main.jsp';"
+          >
+            취소
+          </button>
+        </div>
+      </form>
     </div>
-</main>
+  </main>
 
-<script>
-  function validateForm(event) {
-  const pwInput = document.getElementById('pw');
-  const password = pwInput.value;
-
-  // 조건1: 길이 8~20자
-  if (password.length < 8 || password.length > 20) {
-    alert("비밀번호는 8자 이상 20자 이하로 입력해야 합니다.");
-    pwInput.focus();
-    event.preventDefault();
-    return false;
-  }
-
-  // 조건2: 특수문자 최소 1개 이상 포함
-  const specialCharRegex = /[!@#$%^&*]/;
-
-  if (!specialCharRegex.test(password)) {
-    alert("비밀번호에는 최소 1개의 특수문자를 포함해야 합니다.");
-    pwInput.focus();
-    event.preventDefault();
-    return false;
-  }
-
-  // 조건 모두 통과 시 제출
-  return true;
-}
-</script>
+  <script>
+    function validateForm(event) {
+      const checkbox = document.getElementById('agree');
+      if (!checkbox.checked) {
+        alert("탈퇴에 동의하셔야 회원 탈퇴가 가능합니다.");
+        event.preventDefault();
+        return false;
+      }
+      return true;
+    }
+  </script>
 
 </body>
 </html>
