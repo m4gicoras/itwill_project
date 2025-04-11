@@ -90,13 +90,12 @@
 
       <!-- 버튼 영역 -->
       <div class="flex justify-center space-x-6 mt-6">
-        <button class="px-6 py-2 bg-gray-400 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-gray-500 focus:outline-none">
+        <a href="/mypage" class="px-6 py-2 bg-gray-400 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-gray-500 focus:outline-none">
           이전
-        </button>
-        <button class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-blue-600 focus:outline-none">
+        </a>
+        <a href="/delete" class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-blue-600 focus:outline-none">
           다음
-        </button>
-      </div>
+      </a>
 
     </div>
   </main>
