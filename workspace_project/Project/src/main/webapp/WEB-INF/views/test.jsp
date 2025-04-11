@@ -190,16 +190,19 @@
                         class="ml-2 mr-3 flex items-center text-sm font-semibold leading-none text-zinc-950 dark:text-white">
                         m4gi</p>
                     </a>
-                    <form class="w-full"><input type="hidden" value="/shadcn-nextjs-boilerplate/dashboard/main"
-                        name="pathName"><button
+                    <form action="<%=request.getContextPath()%>/logout" method="post" class="w-full">
+                      <button
                         class="whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground ml-auto flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full p-0 text-center text-sm font-medium hover:dark:text-white"
-                        type="submit"><svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
-                          aria-hidden="true" class="h-4 w-4 stroke-2 text-zinc-950 dark:text-white" width="1em"
-                          height="1em" color="inherit" xmlns="http://www.w3.org/2000/svg" style="color: inherit;">
+                        type="submit">
+                        <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
+                          aria-hidden="true" class="h-4 w-4 stroke-2 text-zinc-950 dark:text-white" width="1em" height="1em"
+                          color="inherit" xmlns="http://www.w3.org/2000/svg" style="color: inherit;">
                           <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9">
                           </path>
-                        </svg></button></form>
+                        </svg>
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
