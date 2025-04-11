@@ -21,10 +21,10 @@ public class DashboardController {
     @GetMapping("/dashboard")
     public String showDashboard(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("userId");
-        if (userId == null) {
-        	System.out.println("세션에 userId없음.");
-            return "redirect:/main";
-        }
+//        if (userId == null) {
+//        	System.out.println("세션에 userId없음.");
+//            return "redirect:/main";
+//        }
 
         List<Product> productList = productService.getProductsByCompany(userId);
         model.addAttribute("productList", productList);
