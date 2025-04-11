@@ -44,6 +44,11 @@ public class UserController {
         return "check";
     }
 
+    @GetMapping("/clear")
+    public String showClearForm() {
+        return "clear";
+    }
+
     // 로그인 처리
     /*    @PostMapping("/main")
     @ResponseBody
