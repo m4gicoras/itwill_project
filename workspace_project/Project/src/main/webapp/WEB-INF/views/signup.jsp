@@ -75,7 +75,7 @@
   <body class="m-0 bg-gray-50 font-sans">
   	
   	<!-- 화면 상단 바 -->
-  	<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-[0_3px_20px_rgba(0,123,255,0.2)] h-20 flex items-center px-8">
+  	<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-[0_8px_10px_rgba(0,123,255,0.1)] h-20 flex items-center px-8">
     	<a href="${pageContext.request.contextPath}/main" class="text-2xl logo-font text-black select-none">Sellity</a>
   	</header>
   	
