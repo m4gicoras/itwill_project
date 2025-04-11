@@ -3,7 +3,6 @@
 .project
 .settings/
 .metadata/
-.Servers/
 
 # Maven
 target/
@@ -13,7 +12,6 @@ target/
 .DS_Store
 Thumbs.db
 
-#InteliJ
-.smarttomcat/
+# IntelliJ IDEA
 .idea/
 *.iml
