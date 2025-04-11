@@ -43,7 +43,7 @@
     <body class="font-['Noto Sans KR'] bg-gray-50 min-h-screen flex flex-col">
 
     <!-- ✅ Header -->
-    <header class="bg-white shadow-md h-20 flex items-center px-8">
+    <header class="bg-white shadow-[0_8px_10px_rgba(0,123,255,0.1)] h-20 flex items-center px-8">
         <a href="/" class="text-2xl logo-font text-black select-none">Sellity</a>
     </header>
 
@@ -68,20 +68,16 @@
       </div>
 
       <!-- ✅ 비밀번호 입력 파트 -->
-           <div class="flex justify-center items-center w-full h-full mb-10">
-             <div class="flex flex-col w-1/2 max-w-xs mx-2">
-               <label for="password" class="block text-base font-semibold text-gray-800 mt-2 mb-2 select-none">비밀번호</label>
-               <input type="password" id="password" name="password"
-                 class="w-1/2 p-3 text-sm border border-gray-200 rounded-md shadow-md bg-white text-black focus:ring-2 focus:ring-gray-200 focus:outline-none mb-4">
-             </div>
+<div class="flex items-center w-full w-auto space-x-4 max-w-md mx-2 mt-6 mb-12 ml-8">
+  <!-- 비밀번호 라벨과 입력창 나란히 배치 -->
+  <label for="password" class="text-lg font-semibold text-gray-800 w-auto select-none">비밀번호</label>
+  <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요."
+    class="w-1/2 h-10 p-2 text-sm border border-gray-300 rounded-sm shadow-sm bg-white text-sm text-black focus:ring-2 focus:ring-gray-200 focus:outline-none">
 
-                    <div class="flex flex-col w-1/2 max-w-xs mx-2">
-                      <label for="password-confirm" class="block text-base font-semibold text-gray-800 mt-2 mb-2 select-none">비밀번호 재확인</label>
-                      <input type="password" id="password-confirm" name="password-confirm"
-                        class="w-1/2 p-3 text-sm border border-gray-200 rounded-md shadow-md bg-white text-black focus:ring-2 focus:ring-gray-200 focus:outline-none mb-4">
-                    </div>
-
-           </div>
+  <button class="h-9 px-4 bg-blue-500 text-white rounded-sm shadow-md transition-all hover:bg-blue-600 focus:outline-none ml-2">
+    확인
+  </button>
+</div>
 
 <div class="flex justify-center space-x-6 mt-6">
 <button class="px-6 py-2 bg-gray-400 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-gray-500 focus:outline-none">
