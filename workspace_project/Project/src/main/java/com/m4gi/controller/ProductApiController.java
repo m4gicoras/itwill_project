@@ -23,11 +23,12 @@ public class ProductApiController {
     @ResponseBody
     public List<Product> getProductList(HttpSession session) {
         Integer userId = (Integer) session.getAttribute("userId");
-        if (userId == null) { 
-        	// 로그인X -> 빈목록
-        	System.out.println("세션에 userId 없음");
-        	return Collections.emptyList();
-        }
+//        if (userId == null) { 
+//        	// 로그인X -> 빈목록
+//        	System.out.println("세션에 userId 없음");
+//        	return Collections.emptyList();
+//        }
+        
         // 로그 확인용
         List<Product> list = productService.getProductsByCompany(userId);
         System.out.println("상품 개수: " + list.size());
