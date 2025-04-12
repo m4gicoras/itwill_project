@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.admin.AdminUserMapper">
+
+    <!-- 전체 기업 목록을 불러오는 쿼리 (정렬: 등록일 내림차순) -->
+    <select id="getAllCompanies" resultType="com.m4gi.dto.admin.AdminUserListDTO">
+        SELECT
+        user_id AS userId,
+        company_name AS companyName,
+        master_name AS ceoName,
+        phone,
+        email,
+        reg_date AS regDate
+        FROM users
+        ORDER BY reg_date DESC
+    </select>
+
+    <!-- 페이징 처리를 위한 기업 리스트 조회 (회원번호 오름차순 정렬) -->
+    <select id="getCompanyList" resultType="com.m4gi.dto.admin.AdminUserListDTO">
+        SELECT
+        user_id AS userId,
+        company_name AS companyName,
+        master_name AS ceoName,
+        phone,
+        email,
+        reg_date AS regDate
+        FROM users
+        ORDER BY user_id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 전체 기업 수를 조회하는 쿼리 (페이징 계산용) -->
+    <select id="getTotalCompanyCount" resultType="int">
+        SELECT COUNT(*) FROM users
+    </select>
+
+    <!-- 검색어(keyword)를 기준으로 회사명, 대표명, 연락처, 이메일, 주소 중 하나라도 포함되면 해당 기업 리스트 반환 (페이징 포함) -->
+    <select id="searchCompanyList" resultType="com.m4gi.dto.admin.AdminUserListDTO">
+        SELECT
+        user_id AS userId,
+        company_name AS companyName,
+        master_name AS ceoName,
+        phone,
+        email,
+        reg_date AS regDate
+        FROM users
+        WHERE company_name LIKE CONCAT('%', #{keyword}, '%')
+        OR master_name LIKE CONCAT('%', #{keyword}, '%')
+        OR phone LIKE CONCAT('%', #{keyword}, '%')
+        OR email LIKE CONCAT('%', #{keyword}, '%')
+        OR company_addr LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY user_id ASC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 검색 조건에 맞는 총 개수 조회 (페이징 계산용) -->
+    <select id="getSearchCompanyCount" resultType="int">
+        SELECT COUNT(*) FROM users
+        WHERE company_name LIKE CONCAT('%', #{keyword}, '%')
+        OR master_name LIKE CONCAT('%', #{keyword}, '%')
+        OR phone LIKE CONCAT('%', #{keyword}, '%')
+        OR email LIKE CONCAT('%', #{keyword}, '%')
+        OR company_addr LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+</mapper>
