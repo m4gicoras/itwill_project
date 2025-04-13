@@ -114,8 +114,8 @@
     <div class="flex h-full w-full bg-white">
       <div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
         <div class="bg-card text-card-foreground m-3 ml-3 h-[96.5vh] w-full overflow-hidden !rounded-lg rounded-lg border border-zinc-200 pe-4 shadow-sm sm:my-4 sm:mr-4 md:m-5 md:mr-[-50px]">
-          <div style="position: relative; overflow: hidden; width: 100%; height: 100%;">
-            <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)]" style="position: absolute; inset: 0px; overflow: scroll; margin-right: -15px; margin-bottom: -22px; width: 100%;">
+          <div class="relative overflow-hidden w-full h-full">
+            <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)] absolute inset-0 overflow-scroll -mr-[15px] -mb-[22px] w-full">
               <div class="flex h-full flex-col justify-between">
                 <div>
                   <span class="absolute top-4 block cursor-pointer text-zinc-200 xl:hidden">
@@ -132,7 +132,7 @@
                   <ul>
                     <div>
                       <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-                        <a class="undefined" href="${pageContext.request.contextPath}/admin/product" style="border-radius: 0px; width: 100%;">
+                        <a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/product">
                           <div class="w-full items-center justify-center">
                             <div class="flex w-full items-center justify-center">
                               <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -148,7 +148,7 @@
                     </div>
                     <div>
                       <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-                        <a class="undefined" href="${pageContext.request.contextPath}/admin/member" style="border-radius: 0px; width: 100%;">
+                        <a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/member">
                           <div class="w-full items-center justify-center">
                             <div class="flex w-full items-center justify-center">
                               <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -164,7 +164,7 @@
                     </div>
                     <div>
                       <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-                        <a class="undefined" href="${pageContext.request.contextPath}/admin/notification" style="border-radius: 0px; width: 100%;">
+                        <a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/notification">
                           <div class="w-full items-center justify-center">
                             <div class="flex w-full items-center justify-center">
                               <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -180,7 +180,7 @@
                     </div>
                     <div>
                       <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-                        <a class="undefined" href="#" style="border-radius: 0px; width: 100%;">
+                        <a class="undefined rounded-none w-full" href="#">
                           <div class="w-full items-center justify-center">
                             <div class="flex w-full items-center justify-center">
                               <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
