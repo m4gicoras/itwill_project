@@ -49,6 +49,11 @@ public class UserController {
         return "clear";
     }
 
+    @GetMapping("/find_in_id")
+    public String showFindinIdForm() {
+        return "find_in_id";
+    }
+
     // 로그인 처리
     /*    @PostMapping("/main")
     @ResponseBody

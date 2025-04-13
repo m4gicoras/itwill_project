@@ -49,7 +49,7 @@
   </style>
 </head>
 
-<body class="font-['Noto Sans KR'] bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-gray-50 min-h-screen flex flex-col">
 
   <!-- ✅ Header -->
   <header class="bg-white shadow-[0_8px_10px_rgba(0,123,255,0.1)] h-20 flex items-center px-8">
@@ -57,11 +57,14 @@
   </header>
 
   <!-- ✅ 나머지 콘텐츠를 화면 가운데로 정렬 -->
-  <main class="flex-1 flex items-center justify-center w-full px-4">
-    <div class="flex flex-col items-center max-w-4xl">
+
+    <main class="flex flex-col items-center justify-center w-full px-4 py-20">
+    <div class="flex flex-col items-center justify-center bg-white rounded-xl shadow-md w-full max-w-5xl p-14">
+
+    <form action="check_process.jsp" method="post" class="flex flex-col items-center justify-center py-8 w-full space-y-8">
 
       <!-- 법률에 관한 네모박스 -->
-      <div class="legal-box w-full max-w-4xl border-2 border-gray-200 p-4 bg-red-50 rounded-md shadow-sm mb-10 select-none">
+      <div class="legal-box w-full max-w-4xl border-2 border-gray-200 p-4 bg-red-50 rounded-md shadow-sm mt-2 mb-6 select-none">
         <p class="text-sm text-gray-700 leading-relaxed">
           <span class="text-red-500 text-base">회원탈퇴 시 개인정보 및
             <span style="font-family: 'KIMM_Bold', sans-serif;">Sellity</span> 에서 만들어진 모든 데이터는 삭제됩니다.</span><br>
@@ -77,26 +80,23 @@
       </div>
 
       <!-- ✅ 비밀번호 입력 파트 -->
-      <div class="flex items-center w-full space-x-4 max-w-md mx-2 mt-6 mb-12 ml-8">
+      <div class="flex items-center justify-center w-full space-x-4 max-w-md">
         <!-- 비밀번호 라벨과 입력창 나란히 배치 -->
-        <label for="password" class="text-lg font-semibold text-gray-800 w-auto select-none">비밀번호</label>
+        <label for="password" class="text-lg font-semibold text-gray-700 w-auto select-none">*비밀번호 확인</label>
         <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요."
-          class="w-1/2 h-10 p-2 text-sm border border-gray-300 rounded-sm shadow-sm bg-white text-sm text-black focus:ring-2 focus:ring-gray-200 focus:outline-none">
+          class="w-1/2 h-10 p-2 text-sm border border-gray-200 rounded-md bg-white text-sm text-black focus:ring-2 focus:ring-blue-300 focus:outline-none">
 
-        <button class="h-9 px-4 bg-blue-500 text-white rounded-sm shadow-md transition-all hover:bg-blue-600 focus:outline-none ml-2">
-          확인
-        </button>
       </div>
 
       <!-- 버튼 영역 -->
-      <div class="flex justify-center space-x-6 mt-6">
-        <a href="/mypage" class="px-6 py-2 bg-gray-400 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-gray-500 focus:outline-none">
+      <div class="flex justify-center space-x-6">
+        <a href="/mypage" class="px-6 py-2 mt-10 bg-gray-400 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-gray-500 focus:outline-none">
           이전
         </a>
-        <a href="/delete" class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-blue-600 focus:outline-none">
+        <a href="/delete" class="px-6 py-2 mt-10 bg-blue-500 text-white rounded-full shadow-lg mb-4 transition-all hover:bg-blue-600 focus:outline-none">
           다음
       </a>
-
+     </form>
     </div>
   </main>
 </body>
