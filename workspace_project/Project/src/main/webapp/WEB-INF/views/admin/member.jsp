@@ -126,7 +126,6 @@
                   <!-- 페이지 명 -->
                   <div class="mt-8 flex items-center justify-center">
                     <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
-
                   </div>
                   <div class="mt-8 mb-8 h-px bg-zinc-200 dark:bg-white/10"></div>
                   <!-- 사이드 바 리스트 -->
@@ -207,7 +206,7 @@
                       <span class="relative flex h-10 min-h-10 w-10 min-w-10 shrink-0 overflow-hidden rounded-full"><img class="aspect-square h-full w-full" src="" /></span> <!-- 프로필 이미지 넣는거 수정 필요 -->
                     </a>
                     <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
-                      <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950 dark:text-white">m4gi</p>
+                      <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950 dark:text-white">admin</p>
                     </a>
                     <form class="w-full">
                       <input type="hidden" value="/shadcn-nextjs-boilerplate/dashboard/main" name="pathName" /><button class="ring-offset-background text-zinc-500 focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground ml-auto flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full border p-0 text-center text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 hover:dark:text-white" type="submit">
@@ -229,7 +228,7 @@
       <div class="mx-5 my-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px]">
 
         <!-- 검색창 -->
-        <div class="flex items-center justify-center bg-gray-200 bg-search-bg rounded-lg py-3 px-4 w-full max-w-3xl mx-auto">
+        <div class="flex items-center justify-center bg-blue-300/30 bg-search-bg rounded-lg py-3 px-4 w-full max-w-3xl mx-auto">
           <button class="ml-3 mr-4 bg-transparent border-0 cursor-pointer text-lg text-reset-btn" onclick="resetInput()">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
@@ -246,10 +245,10 @@
         </div>
 
         <!-- 테이블 -->
-        <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm dark:border-zinc-800">
+        <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm">
           <div class="overflow-hidden rounded bg-white shadow">
             <table class="member-list min-w-full text-gray-700">
-              <thead class="border-b border-gray-300 bg-gray-200">
+              <thead class="border-b border-gray-300 bg-blue-300/30">
                 <tr>
                   <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center">
                     	회원번호
@@ -340,16 +339,16 @@
       menuItems.forEach(item => {
         item.addEventListener('mouseenter', function () {
           // 부모 요소 클래스 변경 (hover 상태)
-          this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-zinc-950 font-semibold text-white dark:bg-white dark:text-zinc-950";
+          this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800";
           // 하위 p 태그 클래스 변경
           const pElement = this.querySelector('p');
           if (pElement) {
-            pElement.className = "mr-auto text-sm font-semibold text-white dark:text-zinc-950";
+            pElement.className = "mr-auto text-sm font-semibold text-blue-800";
           }
           // 하위 svg-item 클래스 요소 변경
           const svgElement = this.querySelector('.svg-item');
           if (svgElement) {
-            svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-white dark:text-zinc-950";
+            svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-blue-800 dark:text-zinc-950";
           }
         });
         item.addEventListener('mouseleave', function () {
