@@ -198,18 +198,22 @@
                   </ul>
                 </div>
 
-                <!-- 사이드 바 하단 내용 - 추가 할지 말지 여쭤봐야함 (프로필, 이름, 로그아웃 기능)-->
-                <div class="mt-7 mb-9">
-                  <div class="flex justify-center"></div>
-                  <div class="mt-5 flex w-full items-center rounded-lg border border-zinc-200 p-4">
+                <!-- 사이드 바 하단 내용 -->
+                <div class="mb-9">
+                  <div class="flex w-full items-center rounded-lg border border-zinc-200 p-4">
                     <a href="/shadcn-nextjs-boilerplate/dashboard/dashboard/settings">
-                      <span class="relative flex h-10 min-h-10 w-10 min-w-10 shrink-0 overflow-hidden rounded-full"><img class="aspect-square h-full w-full" src="" /></span> <!-- 프로필 이미지 넣는거 수정 필요 -->
+                      <span class="relative flex h-[40px] min-h-10 w-[40px] min-w-10 mr-1 shrink-0 overflow-hidden rounded-full">
+                      	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="h-[40px] w-[40px]">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+						</svg>
+                      </span>
                     </a>
                     <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
                       <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950">admin</p>
                     </a>
-                    <form class="w-full">
-                      <input type="hidden" value="/shadcn-nextjs-boilerplate/dashboard/main" name="pathName" /><button class="ring-offset-background text-zinc-500 focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground ml-auto flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full border p-0 text-center text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" type="submit">
+                    <form class="w-full"> <!-- 로그아웃? -->
+                      <input type="hidden" value="/shadcn-nextjs-boilerplate/dashboard/main" name="pathName" />
+                      <button class="ring-offset-background text-zinc-500 focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground ml-auto flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full border p-0 text-center text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" type="submit">
                         <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" class="h-4 w-4 stroke-2 text-zinc-950" width="1em" height="1em" color="inherit" xmlns="http://www.w3.org/2000/svg" style="color: inherit;">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"></path>
                         </svg>
