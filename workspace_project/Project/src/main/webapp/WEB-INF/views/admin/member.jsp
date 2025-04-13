@@ -13,14 +13,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <style>
+    	@font-face {
+		  font-family: 'KIMM_Bold';
+		  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+		  font-weight: 700;
+		  font-style: normal;
+		}
+		.logo-font {
+		      font-family: 'KIMM_Bold', sans-serif;
+		    }
+    </style>
     <!-- JavaScript 코드 -->
     <script>
-      function openPopup(companyName, ceoName, phone, email, regDate) {
-          document.getElementById("popup-companyName").innerText = companyName;
-          document.getElementById("popup-ceoName").innerText = ceoName;
-          document.getElementById("popup-phone").innerText = phone;
-          document.getElementById("popup-email").innerText = email;
-          document.getElementById("popup-regDate").innerText = regDate;
+      function openModal(companyName, ceoName, phone, email, regDate) {
+          document.getElementById("modal-companyName").innerText = companyName;
+          document.getElementById("modal-ceoName").innerText = ceoName;
+          document.getElementById("modal-phone").innerText = phone;
+          document.getElementById("modal-email").innerText = email;
+          document.getElementById("modal-regDate").innerText = regDate;
 
           // 날짜 차이 계산
           const joinDate = new Date(regDate);
@@ -28,12 +39,12 @@
           const diffTime = today - joinDate;
           const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-          document.getElementById("popup-days").innerText = diffDays;
-          document.getElementById("popup").classList.remove("hidden");
+          document.getElementById("modal-days").innerText = diffDays;
+          document.getElementById("companyInfoModal").classList.remove("hidden");
       }
 
-      function closePopup() {
-          document.getElementById("popup").classList.add("hidden");
+      function closeModal() {
+          document.getElementById("companyInfoModal").classList.add("hidden");
       }
 
       function resetInput() {
@@ -47,6 +58,7 @@
           const table = document.querySelector(".member-list");
           const tbody = table.tBodies[0];
           const rows = Array.from(tbody.rows);
+          
           sortDirection[colIndex] = !sortDirection[colIndex];
           const direction = sortDirection[colIndex];
           const isNumeric = !isNaN(rows[0].cells[colIndex].innerText);
@@ -65,11 +77,29 @@
 
           rows.forEach(row => tbody.appendChild(row));
 
+          const updateArrows = (element, show) => {
+              const upArrow = element.querySelector(".sort-up");
+              const downArrow = element.querySelector(".sort-down");
+              
+              if (upArrow && downArrow) {
+                  if (show) {
+                      // 정렬 방향에 따라 화살표 표시
+                      upArrow.style.display = direction ? "inline-block" : "none";
+                      downArrow.style.display = direction ? "none" : "inline-block";
+                  } else {
+                      // 모든 화살표 숨기기
+                      upArrow.style.display = "none";
+                      downArrow.style.display = "none";
+                  }
+              }
+          };
+          
           if (currentSortedTh && currentSortedTh !== thElement) {
-              currentSortedTh.querySelector(".sort-arrow").textContent = "";
+              updateArrows(currentSortedTh, false);
           }
-          const arrowSpan = thElement.querySelector(".sort-arrow");
-          arrowSpan.textContent = direction ? "▲" : "▼";              // 수정 필요!!!!!!!!
+          
+          updateArrows(thElement, true);
+          
           currentSortedTh = thElement;
       }
 
@@ -88,13 +118,14 @@
             <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)]" style="position: absolute; inset: 0px; overflow: scroll; margin-right: -15px; margin-bottom: -22px; width: 100%;">
               <div class="flex h-full flex-col justify-between">
                 <div>
-                  <span class="absolute top-4 block cursor-pointer text-zinc-200 xl:hidden dark:text-white/40"
-                    ><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg
-                  ></span>
+                  <span class="absolute top-4 block cursor-pointer text-zinc-200 xl:hidden dark:text-white/40">
+                  	<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    	<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                  </span>
                   <!-- 페이지 명 -->
                   <div class="mt-8 flex items-center justify-center">
-                    <h5 class="me-2 text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
+                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
 
                   </div>
                   <div class="mt-8 mb-8 h-px bg-zinc-200 dark:bg-white/10"></div>
@@ -217,32 +248,32 @@
         <!-- 테이블 -->
         <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm dark:border-zinc-800">
           <div class="overflow-hidden rounded bg-white shadow">
-            <table class="min-w-full text-gray-700">
+            <table class="member-list min-w-full text-gray-700">
               <thead class="border-b border-gray-300 bg-gray-200">
                 <tr>
                   <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center">
-                    회원번호
-                    <svg class="size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    	회원번호
+                    <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                       <path fill-rule="evenodd" d="M18.425 10.271C19.499 8.967 18.57 7 16.88 7H7.12c-1.69 0-2.618 1.967-1.544 3.271l4.881 5.927a2 2 0 0 0 3.088 0l4.88-5.927Z" clip-rule="evenodd"/>
                     </svg>
-                    <!-- <svg class="size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="sort-down size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                       <path fill-rule="evenodd" d="M5.575 13.729C4.501 15.033 5.43 17 7.12 17h9.762c1.69 0 2.618-1.967 1.544-3.271l-4.881-5.927a2 2 0 0 0-3.088 0l-4.88 5.927Z" clip-rule="evenodd"/>
-                    </svg> -->
+                    </svg>
                   </th>
                   <th onclick="sortTable(1, this)" class="p-4 text-center">
-                      기업명
+                      	기업명
                   </th>
                   <th onclick="sortTable(2, this)" class="p-4 text-center">
-                      담당자명
+                      	담당자명
                   </th>
                   <th onclick="sortTable(3, this)" class="p-4 text-center">
-                      연락처
+                      	연락처
                   </th>
                   <th onclick="sortTable(4, this)" class="p-4 text-center">
-                      이메일
+                      	이메일
                   </th>
                   <th onclick="sortTable(5, this)" class="p-4 text-center">
-                      등록일
+                      	등록일
                   </th>
                 </tr>
               </thead>
@@ -250,9 +281,9 @@
                 <c:choose>
                     <c:when test="${not empty companyList}">
                         <c:forEach var="user" items="${companyList}">
-                            <tr onclick="openPopup('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '${user.regDate}')" class="border-b border-gray-300 hover:bg-gray-50">
+                            <tr onclick="openModal('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '${user.regDate}')" class="border-b border-gray-300 hover:bg-gray-50">
                                 <td class="p-4 text-center text-sm border-b border-gray-100">${user.userId}</td>
-                                <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${user.companyName}</td>
+                                <td class="p-4 text-center text-sm text-blue-700 border-b border-gray-100 hover:underline cursor-pointer">㈜ ${user.companyName}</td>
                                 <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.ceoName ? '-' : user.ceoName}</td>
                                 <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.phone ? '-' : user.phone}</td>
                                 <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.email ? '-' : user.email}</td>
@@ -282,6 +313,19 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
+          </div>
+          
+          <!-- 기업 상세정보 모달창 -->
+          <div id="companyInfoModal" class="hidden fixed top-1/5 left-1/2 transform -translate-x-1/2 bg-white border border-zinc-200 p-8 rounded-xl shadow-lg z-50 w-96">
+            <h3 class="text-lg font-semibold mb-4">기업 상세 정보(아직)</h3>
+            <div class="mt-4 mb-4 h-px bg-zinc-200"></div>
+            <p class="mb-2"><strong>기업명:</strong> <span id="modal-companyName"></span></p>
+            <p class="mb-2"><strong>담당자:</strong> <span id="modal-ceoName"></span></p>
+            <p class="mb-2"><strong>연락처:</strong> <span id="modal-phone"></span></p>
+            <p class="mb-2"><strong>이메일:</strong> <span id="modal-email"></span></p>
+            <p class="mb-2"><strong>등록일:</strong> <span id="modal-regDate"></span></p>
+            <p class="mb-4">우리는 함께한지 <strong><span id="modal-days"></span></strong>일째입니다.</p>
+            <button onclick="closeModal()" class="mt-4 bg-blue-600 text-white border-0 py-2 px-5 rounded-md cursor-pointer hover:bg-blue-700">닫기</button>
           </div>
 
         </div>
