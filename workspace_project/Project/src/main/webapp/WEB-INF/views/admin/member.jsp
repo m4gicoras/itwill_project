@@ -117,14 +117,13 @@
         <div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
             <div class="bg-card text-card-foreground m-3 ml-3 h-[96.5vh] w-full overflow-hidden !rounded-lg rounded-lg border border-zinc-200 pe-4 shadow-sm sm:my-4 sm:mr-4 md:m-5 md:mr-[-50px]">
                 <div class="relative overflow-hidden w-full h-full">
-                    <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)] absolute inset-0 overflow-scroll -mr-[15px] -mb-[22px] w-full">
+                    <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)] absolute inset-0 overflow-scroll -mr-[15px] -mb-[22px]">
                         <div class="flex h-full flex-col justify-between">
                             <div>
                                 <!-- 페이지 명 -->
-                                <div class="mt-8 flex items-center justify-center">
+                                <div class="mt-15 mb-10 flex items-center justify-center">
                                     <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
                                 </div>
-                                <div class="mt-8 mb-8 h-px bg-zinc-200"></div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
