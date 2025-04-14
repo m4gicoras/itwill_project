@@ -140,6 +140,49 @@
        		modal.classList.add("hidden");
        	}
       }
+         
+      // 재고 조정 
+      function activateQtyEdit(productId, btn) {
+		    console.log("productId:", productId);
+		    const modal = btn.closest(".ProductOptionModal");
+		    if (modal) {
+		        closeModal(modal.id);
+		    }
+		    
+		    const displayId = "qtyDisplay-" + productId;
+		    const inputId = "qtyInput-" + productId;
+		    
+		    const display = document.getElementById(displayId);
+		    const input = document.getElementById(inputId);
+		    
+		    console.log("Display ID:", displayId, "Element:", display);
+		    console.log("Input ID:", inputId, "Element:", input);
+		    
+		    if (display && input) {
+		        display.classList.add("hidden");
+		        input.classList.remove("hidden");
+		        input.focus();
+		        input.select();
+		    } else {
+		        console.error("요소를 찾을 수 없습니다:", displayId, inputId);
+		    }
+		}
+      function updateQtyOnEnter(event, productId) {
+    	    if (event.key === "Enter") {
+    	        const inputId = "qtyInput-" + productId;
+    	        const displayId = "qtyDisplay-" + productId;
+    	        
+    	        const input = document.getElementById(inputId);
+    	        const display = document.getElementById(displayId);
+    	        
+    	        if (input && display) {
+    	            display.textContent = input.value;
+    	            input.classList.add("hidden");
+    	            display.classList.remove("hidden");
+    	            
+    	        }
+    	    }
+    	}
     </script>
 </head>
 
@@ -316,7 +359,18 @@
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productId}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${product.productQty}</td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">
+											    <span id="qtyDisplay-${product.productId}">
+											        ${product.productQty}
+											    </span>
+											    <input 
+											        id="qtyInput-${product.productId}" 
+											        type="number" 
+											        class="hidden w-16 px-1 py-0.5 border border-gray-300 rounded text-center text-sm"
+											        value="${product.productQty}" 
+											        onkeydown="updateQtyOnEnter(event, '${product.productId}')"
+											    />
+											</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100"><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd"/></td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">
                                                 <c:choose>
@@ -336,7 +390,7 @@
 												</button>
 												<!-- ProductOptionModal - 상품 관련 추가 옵션 클릭 시 나오는 모달 창 --> 
 									            <div id="optionModal-${product.productId}" class="ProductOptionModal hidden absolute right-0 w-30 bg-white rounded-lg border border-zinc-200 p-1 z-50">
-												    <button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+												    <button onclick="activateQtyEdit('${product.productId}', this)" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
 												    	<div class="flex align-center">
 															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5 h-5 mr-2">
 															  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
