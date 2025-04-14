@@ -120,11 +120,6 @@
                     <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)] absolute inset-0 overflow-scroll -mr-[15px] -mb-[22px] w-full">
                         <div class="flex h-full flex-col justify-between">
                             <div>
-                                <span class="absolute top-4 block cursor-pointer text-zinc-200 xl:hidden">
-                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </span>
                                 <!-- 페이지 명 -->
                                 <div class="mt-8 flex items-center justify-center">
                                     <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
