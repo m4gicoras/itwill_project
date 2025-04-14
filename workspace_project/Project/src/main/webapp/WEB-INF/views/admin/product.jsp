@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet" />
-    <link href="./././resources/css/m4gi.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/css/m4gi.css" rel="stylesheet" />
     <style>
         @font-face {
             font-family: 'KIMM_Bold';
@@ -125,6 +125,21 @@
 	      document.addEventListener("click", handler);
 	    }, 0); // 다른 클릭 이벤트보다 나중에 실행되게
 	  }
+	  
+	  // 모달창 관련 코드
+	  function openModal(modalId) {
+           const modal = document.getElementById(modalId);
+
+           modal.classList.remove("hidden");
+           clickOutsideOfModal(modalId);
+         }
+
+         function closeModal(modalId) {
+      	const modal = document.getElementById(modalId);
+       	if (modal) {
+       		modal.classList.add("hidden");
+       	}
+      }
     </script>
 </head>
 
@@ -329,7 +344,7 @@
 													    	<span>조정</span>
 												    	</div>
 												    </button>
-												    <button class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+												    <button onclick="openModal('ConfirmProductDeleteModal')" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
 												    	<div class="flex align-center">
 															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5 h-5 mr-2">
 															  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"></path>
@@ -355,27 +370,49 @@
                     </table>
                 </div>
 
-                <!-- pagination -->
-                <div class="mt-5 text-center">
-                    <c:forEach var="i" begin="1" end="${totalPages}">
-                        <a href="?page=${i}&productName=${param.productName}&companyName=${param.companyName}&sort=${param.sort}"
-                           class="mx-1 px-2 py-1 text-sm ${currentPage == i ? 'font-bold text-blue-600' : 'text-gray-700'}">
-                           ${i}
-                        </a>
-                    </c:forEach>
-                </div>
+	            <!-- pagination -->
+	            <div class="mt-5 text-center">
+	                <c:forEach var="i" begin="1" end="${totalPages}">
+	                    <a href="?page=${i}&productName=${param.productName}&companyName=${param.companyName}&sort=${param.sort}"
+	                       class="mx-1 px-2 py-1 text-sm ${currentPage == i ? 'font-bold text-blue-600' : 'text-gray-700'}">
+	                       ${i}
+	                    </a>
+	                </c:forEach>
+	            </div>
             </div> <!-- 테이블 -->
             
             <!-- 상품 삭제 /조정 모달 -->
-            <div id="ConfirmProductDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+            <div id="ConfirmProductDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
               <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
                 <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-8 h-8 mb-8">
                   <span class="font-bold text-xl text-red-700">!</span>
                 </div>
-                <p class="text-center mb-4 text-lg font-semibold">선택하신 상품은 <span class="text-red-700">'기업명'</span>의 <span class="text-red-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
-                <p class="text-center mb-4">삭제된 제품은 복구할 수 없습니다.</p>
-                <div class="flex justify-end">
-                  <button type="button" class="btn mx-0 mb-0 h-9 w-40" onclick="closeModal('termsModal')">
+                <p class="text-center mb-2 text-lg font-semibold">선택하신 상품은 <span class="text-red-700">'기업명'</span>의 <span class="text-red-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
+                <p class="text-center text-sm">삭제된 제품은 복구할 수 없습니다.</p>
+                <div class="flex align-center gap-6 mt-8">
+	                <div>
+	                  <button onclick="closeModal('ConfirmProductDeleteModal'); openModal('deleteSuccessModal');"  type="button" class="btn mx-0 mb-0 h-9 w-35">
+	                    <span class="btn-text">확인</span>
+	                  </button>
+	                </div>
+	                <div>
+	                  <button onclick="closeModal('ConfirmProductDeleteModal')" type="button" class="btn mx-0 mb-0 h-9 w-35 bg-gray-500/50">
+	                    <span class="btn-text">취소</span>
+	                  </button>
+	                </div>
+                </div>
+              </div>
+          	</div>
+          	
+          	<!-- 삭제 완료 알림 모달 -->
+          	<div id="deleteSuccessModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
+                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-8 h-8 mb-8">
+                  <span class="font-bold text-xl text-red-700">!</span>
+                </div>
+                <p class="text-center mb-2 text-lg font-semibold"><span class="text-red-700">'기업명'</span>의 <span class="text-red-700">'상품명'</span>이 삭제되었습니다.</p>
+                <div class="mt-8">
+                  <button type="button" class="btn mx-0 mb-0 h-9 w-35" onclick="closeModal('deleteSuccessModal')">
                     <span class="btn-text">확인</span>
                   </button>
                 </div>
