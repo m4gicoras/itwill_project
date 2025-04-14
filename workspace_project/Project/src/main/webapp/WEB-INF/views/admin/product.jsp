@@ -33,7 +33,8 @@
             document.querySelector("input[name='productName']").value = "";
             document.querySelector("input[name='companyName']").value = "";
         }
-
+		
+    	// 테이블의 상품번호 정렬 방식 변경
         let sortDirection = {};
         let currentSortedTh = null;
 
@@ -89,6 +90,40 @@
         window.onload = function() {
             sortTable(0, document.getElementById("defaultSort"));
         }
+        
+        // 상품 관련 추가 기능(삭제, 조정) 모달창 관련 코드
+		function openProductOptionModal(modalId) {
+		    // 모든 모달 먼저 닫기
+		    const allModals = document.querySelectorAll(".ProductOptionModal");
+		    allModals.forEach(m => m.classList.add("hidden"));
+		
+		    const modal = document.getElementById(modalId);
+		    if (modal) {
+		      modal.classList.remove("hidden");
+		      closeProductModalOnOutsideClick(modalId);
+			}
+		}
+	
+	  function closeProductOptionModal(modalId) {
+	    const modal = document.getElementById(modalId);
+	    if (modal) {
+	      modal.classList.add("hidden");
+	    }
+	  }
+	
+	  function closeProductModalOnOutsideClick(modalId) {
+	    // 기존 클릭 이벤트 제거 후 다시 추가
+	    const handler = (e) => {
+	      const modal = document.getElementById(modalId);
+	      if (modal && !modal.contains(e.target)) {
+	        modal.classList.add("hidden");
+	        document.removeEventListener("click", handler);
+	      }
+	    };
+	    setTimeout(() => {
+	      document.addEventListener("click", handler);
+	    }, 0); // 다른 클릭 이벤트보다 나중에 실행되게
+	  }
     </script>
 </head>
 
@@ -208,7 +243,7 @@
         <div class="mx-5 my-5 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px]">
 
             <!-- 검색창 -->
-            <form action="${pageContext.request.contextPath}/admin/product" method="get" class="mb-6">
+            <form action="${pageContext.request.contextPath}/admin/product" method="get">
                 <div class="flex items-center justify-center gap-3 bg-blue-300/30 bg-search-bg rounded-lg py-3 px-4 w-full max-w-3xl mx-auto">
                     <button class="ml-3 mr-4 bg-transparent border-0 cursor-pointer text-reset-btn" onclick="resetInput()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -277,10 +312,31 @@
                                                     <c:otherwise>알 수 없음</c:otherwise>
                                                 </c:choose>
                                             </td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-												  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-												</svg>
+                                            <td class="relative p-4 text-center text-sm border-b border-gray-100">
+                                            	<button onclick='openProductOptionModal("optionModal-${product.productId}")' >
+	                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">
+														<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+													</svg>
+												</button>
+												<!-- ProductOptionModal - 상품 관련 추가 옵션 클릭 시 나오는 모달 창 --> 
+									            <div id="optionModal-${product.productId}" class="ProductOptionModal hidden absolute right-0 w-30 bg-white rounded-lg border border-zinc-200 p-1 z-50">
+												    <button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+												    	<div class="flex align-center">
+															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5 h-5 mr-2">
+															  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+															</svg>
+													    	<span>조정</span>
+												    	</div>
+												    </button>
+												    <button class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+												    	<div class="flex align-center">
+															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5 h-5 mr-2">
+															  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"></path>
+															</svg>
+													    	<span>삭제</span>
+												    	</div>
+												    </button>
+												</div>
 											</td>
                                         </tr>
                                     </c:forEach>
@@ -307,9 +363,8 @@
                         </a>
                     </c:forEach>
                 </div>
-
-            </div>
-        </div>
+            </div> <!-- 테이블 -->
+        </div> <!-- 메인 -->
     </div>
 </body>
 
