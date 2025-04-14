@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link href="./././resources/css/m4gi.css" rel="stylesheet" />
     <style>
         @font-face {
             font-family: 'KIMM_Bold';
@@ -364,6 +365,24 @@
                     </c:forEach>
                 </div>
             </div> <!-- 테이블 -->
+            
+            <!-- 상품 삭제 /조정 모달 -->
+            <div id="ConfirmProductDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
+                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-8 h-8 mb-8">
+                  <span class="font-bold text-xl text-red-700">!</span>
+                </div>
+                <p class="text-center mb-4 text-lg font-semibold">선택하신 상품은 <span class="text-red-700">'기업명'</span>의 <span class="text-red-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
+                <p class="text-center mb-4">삭제된 제품은 복구할 수 없습니다.</p>
+                <div class="flex justify-end">
+                  <button type="button" class="btn mx-0 mb-0 h-9 w-40" onclick="closeModal('termsModal')">
+                    <span class="btn-text">확인</span>
+                  </button>
+                </div>
+              </div>
+          	</div>
+            
+            
         </div> <!-- 메인 -->
     </div>
 </body>
