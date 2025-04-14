@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@theme {
+    --animate-bounce: bounce 0.3s ease-in-out;
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+    }
+}
+
+@layer base {
+    .ios-checkbox {
+        --checkbox-size: 28px;
+        --checkbox-color: #3b82f6;
+        --checkbox-bg: #dbeafe;
+        --checkbox-border: #93c5fd;
+
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .ios-checkbox input {
+        display: none;
+    }
+
+    .checkbox-wrapper {
+        position: relative;
+        width: var(--checkbox-size);
+        height: var(--checkbox-size);
+        border-radius: 8px;
+        transition: transform 0.2s ease;
+    }
+
+    .checkbox-bg {
+        position: absolute;
+        inset: 0;
+        border-radius: 8px;
+        border: 2px solid var(--checkbox-border);
+        background: white;
+        transition: all 0.2s ease;
+    }
+
+    .checkbox-icon {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 80%;
+        height: 80%;
+        color: white;
+        transform: scale(0);
+        transition: all 0.2s ease;
+    }
+
+    .check-path {
+        stroke-dasharray: 40;
+        stroke-dashoffset: 40;
+        transition: stroke-dashoffset 0.3s ease 0.1s;
+    }
+
+    /* Checked State */
+    .ios-checkbox input:checked+.checkbox-wrapper .checkbox-bg {
+        background: var(--checkbox-color);
+        border-color: var(--checkbox-color);
+    }
+
+    .ios-checkbox input:checked+.checkbox-wrapper .checkbox-icon {
+        transform: scale(1);
+    }
+
+    .ios-checkbox input:checked+.checkbox-wrapper .check-path {
+        stroke-dashoffset: 0;
+    }
+
+    /* Hover Effects */
+    .ios-checkbox:hover .checkbox-wrapper {
+        transform: scale(1.05);
+    }
+
+    /* Active Animation */
+    .ios-checkbox:active .checkbox-wrapper {
+        transform: scale(0.95);
+    }
+
+    /* Focus Styles */
+    .ios-checkbox input:focus+.checkbox-wrapper .checkbox-bg {
+        box-shadow: 0 0 0 4px var(--checkbox-bg);
+    }
+
+    .ios-checkbox input:checked+.checkbox-wrapper {
+        animation: var(--animate-bounce);
+    }
+
+    /* Color Themes */
+    .ios-checkbox.blue {
+        --checkbox-color: #3b82f6;
+        --checkbox-bg: #dbeafe;
+        --checkbox-border: #93c5fd;
+    }
+
+    .ios-checkbox.green {
+        --checkbox-color: #10b981;
+        --checkbox-bg: #d1fae5;
+        --checkbox-border: #6ee7b7;
+    }
+
+    .ios-checkbox.purple {
+        --checkbox-color: #8b5cf6;
+        --checkbox-bg: #ede9fe;
+        --checkbox-border: #c4b5fd;
+    }
+
+    .ios-checkbox.red {
+        --checkbox-color: #ef4444;
+        --checkbox-bg: #fee2e2;
+        --checkbox-border: #fca5a5;
+    }
+}
+
+@layer components {
+
+    /* 버튼 전체 스타일 */
+    .btn-effect {
+        @apply relative mx-auto mb-4 box-border flex h-11 w-[90%] items-center overflow-hidden rounded-full bg-blue-500 px-6 py-3 leading-[1.2] font-medium shadow-xl/20 transition-all;
+        font-family: "Noto Sans KR", sans-serif;
+    }
+
+    /* ::before를 이용한 배경 슬라이드 효과 */
+    .btn-effect::before {
+        content: "";
+        /* 의사 요소가 정상 렌더링되게 content를 지정해야 합니다. */
+        @apply absolute bottom-0 left-0 h-full w-full rounded-md bg-blue-600;
+        transition: transform 500ms ease-in-out 200ms;
+        /* 초기 상태: 왼쪽으로 완전히 숨김 */
+        transform: translateX(-100%);
+        /* 배경이 버튼보다 아래에 위치하도록 */
+        z-index: 0;
+    }
+
+    /* 호버 시 ::before가 슬라이드되어 나타나는 효과 */
+    .btn-effect:hover::before {
+        transform: translateX(0);
+    }
+
+    /* 버튼 내부 텍스트 스타일 (HTML에서 내용을 자유롭게 설정 가능) */
+    .btn-effect>.btn-text {
+        @apply relative w-full cursor-pointer text-white transition-colors duration-200 ease-in-out;
+        z-index: 1;
+    }
+
+    .btn {
+        @apply relative mx-auto mb-4 box-border flex h-11 w-[90%] items-center overflow-hidden rounded-full bg-blue-500 px-6 py-3 leading-[1.2] font-medium shadow-xl/20 transition-all;
+        font-family: "Noto Sans KR", sans-serif;
+    }
+
+    /* 버튼 내부 텍스트 스타일 (HTML에서 내용을 자유롭게 설정 가능) */
+    .btn>.btn-text {
+        @apply relative w-full cursor-pointer text-white transition-colors duration-200 ease-in-out;
+        z-index: 1;
+    }
+
+    .search-container {
+        @apply relative flex h-[20px] w-[20px] items-center justify-center rounded-full bg-[#222222] p-5 transition-all duration-300;
+        box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .search-container.active {
+        @apply w-[270px];
+    }
+
+    /* 검색 아이콘: 항상 가운데 정렬 */
+    .search-icon {
+        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform transition-all duration-300;
+    }
+
+    /* 활성(expanded) 상태에서는 아이콘을 왼쪽에 고정 */
+    .search-container.active .search-icon {
+        left: 20px;
+    }
+
+    /* 입력창 */
+    .search-input {
+        @apply ml-2 w-full bg-transparent px-2 text-[20px] font-normal text-white outline-none;
+    }
+
+    /* 드롭다운 영역: 기본 숨김 */
+    .search-dropdown {
+        @apply pointer-events-none absolute top-full left-0 z-[500] mt-2 w-full -translate-y-2 rounded-xl border border-gray-200 bg-white p-4 opacity-0 shadow-lg transition duration-200;
+    }
+
+    /* active 상태 시 드롭다운 표시 */
+    .search-container.active .search-dropdown {
+        @apply pointer-events-auto translate-y-0 opacity-100;
+    }
+
+    /* 드롭다운 리스트 */
+    .dropdown-list {
+        @apply mt-2 flex flex-col gap-2;
+    }
+
+    .dropdown-item {
+        @apply cursor-pointer rounded-lg px-2 py-2 text-sm hover:bg-green-100;
+    }
+
+    /* 두 번째 드롭다운 리스트 */
+    .dropdown-list-alt {
+        @apply mt-4 flex gap-2;
+    }
+
+    .dropdown-item-alt {
+        @apply grid cursor-pointer grid-cols-10 overflow-hidden rounded-xl border border-[#E7EDFB];
+    }
+
+    .alarm-button {
+        @apply relative;
+        /* 자식 요소인 배지를 절대 위치로 표시하기 위해 부모에 relative 선언 */
+    }
+
+    /* 알람 배지 */
+    .alarm-badge {
+        @apply absolute flex items-center justify-center rounded-full text-xs font-bold text-white;
+        @apply bg-[#F43616];
+        /* 원하는 배경색(예: 빨간색) */
+        width: 20px;
+        height: 20px;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -30%);
+        /* 버튼 모서리에서 조금 더 자연스러운 위치로 조정 */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        /* 선택 사항: 약간의 그림자 */
+        border: 1px solid #fff;
+        /* 선택 사항: 배지 테두리(하얀색) */
+    }
+}
