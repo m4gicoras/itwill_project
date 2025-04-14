@@ -382,12 +382,26 @@
                                             <td class="p-4 text-center text-sm border-b border-gray-100"><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd"/></td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">
                                                 <c:choose>
-                                                    <c:when test="${product.status == 0}">요청중</c:when>
-                                                    <c:when test="${product.status == 1}">견적 수락됨</c:when>
-                                                    <c:when test="${product.status == 2}">견적 거절됨</c:when>
-                                                    <c:when test="${product.status == 3}">견적 제시됨</c:when>
-                                                    <c:when test="${product.status == 4}">견적 만료됨</c:when>
-                                                    <c:otherwise>알 수 없음</c:otherwise>
+                                                    <c:when test="${product.status == 0}">
+														<span class="transform translate-x-4 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700 inset-ring">
+													                    정상
+													    </span>
+													</c:when>
+                                                    <c:when test="${product.status == 1}">
+                                                    	<span class="transform translate-x-4 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700 inset-ring">
+	                                                    	소진 임박
+													    </span>
+                                                    </c:when>
+                                                    <c:when test="${product.status == 2}">
+                                                    	<span class="transform translate-x-4 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700 inset-ring">
+	                                                    	거래 불가
+													    </span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                    	<span class="transform translate-x-4 rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 inset-ring">
+	                                                   		 알 수 없음
+													    </span>
+                                                    </c:otherwise>
                                                 </c:choose>
                                             </td>
                                             <td class="relative p-4 text-center text-sm border-b border-gray-100">
