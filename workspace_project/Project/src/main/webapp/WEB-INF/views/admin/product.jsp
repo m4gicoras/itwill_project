@@ -384,10 +384,10 @@
             <!-- 상품 삭제 /조정 모달 -->
             <div id="ConfirmProductDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
               <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
-                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-8 h-8 mb-8">
-                  <span class="font-bold text-xl text-red-700">!</span>
+                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
+                  <span class="font-bold text-2xl text-red-700">!</span>
                 </div>
-                <p class="text-center mb-2 text-lg font-semibold">선택하신 상품은 <span class="text-red-700">'기업명'</span>의 <span class="text-red-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
+                <p class="text-center mb-2 text-lg font-semibold">선택하신 상품은 <span class="text-blue-700">'기업명'</span>의 <span class="text-blue-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
                 <p class="text-center text-sm">삭제된 제품은 복구할 수 없습니다.</p>
                 <div class="flex align-center gap-6 mt-8">
 	                <div>
@@ -407,10 +407,10 @@
           	<!-- 삭제 완료 알림 모달 -->
           	<div id="deleteSuccessModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
               <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
-                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-8 h-8 mb-8">
-                  <span class="font-bold text-xl text-red-700">!</span>
+                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
+                  <span class="font-bold text-2xl text-red-700">!</span>
                 </div>
-                <p class="text-center mb-2 text-lg font-semibold"><span class="text-red-700">'기업명'</span>의 <span class="text-red-700">'상품명'</span>이 삭제되었습니다.</p>
+                <p class="text-center mb-2 text-lg font-semibold"><span class="text-blue-700">'기업명'</span>의 <span class="text-blue-700">'상품명'</span>이 삭제되었습니다.</p>
                 <div class="mt-8">
                   <button type="button" class="btn mx-0 mb-0 h-9 w-35" onclick="closeModal('deleteSuccessModal')">
                     <span class="btn-text">확인</span>
