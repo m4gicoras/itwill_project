@@ -34,6 +34,14 @@
             document.querySelector("input[name='productName']").value = "";
             document.querySelector("input[name='companyName']").value = "";
         }
+    	
+     	// Enter 키를 누르면 폼을 제출하는 함수
+        function submitFormOnEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                event.target.form.submit();
+            }
+        }
 		
     	// 테이블의 상품번호 정렬 방식 변경
         let sortDirection = {};
@@ -309,8 +317,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
                         </svg>
                     </button>
-                    <input type="text" name="productName" placeholder="상품명 입력" value="${productName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
-                    <input type="text" name="companyName" placeholder="기업명 입력" value="${companyName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
+                    <input type="text" name="productName" placeholder="상품명 입력" value="${productName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
+                    <input type="text" name="companyName" placeholder="기업명 입력" value="${companyName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
                     <select name="sort" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
                         <option value="recent" ${sort == 'recent' ? 'selected' : ''}>최신순</option>
                         <option value="oldest" ${sort == 'oldest' ? 'selected' : ''}>오래된순</option>
