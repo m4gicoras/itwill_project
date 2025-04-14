@@ -44,29 +44,83 @@
   <main class="flex-grow flex items-center justify-center px-8 py-20">
 
     <div class="bg-white py-16 px-6 rounded-xl shadow-md w-full max-w-xl flex flex-col items-center">
+
       <!-- 이름 -->
-      <input
-        type="text"
-        class="w-2/3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 mt-4 mb-6"
-        placeholder="이름"
-      />
+      <div class="w-[400px] mb-4">
+        <input
+          type="text"
+          class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+          placeholder="이름"
+        />
+      </div>
 
-      <!-- 이메일 -->
-      <input
-        type="email"
-        class="w-2/3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 mb-8"
-        placeholder="이메일"
-      />
+      <!-- 이메일 + 전송 버튼 -->
+      <div class="w-[400px] flex items-center gap-2 mb-4">
+        <input
+          type="email"
+          class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+          placeholder="이메일"
+        />
+        <button
+          type="button"
+          class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+        >
+          전송
+        </button>
+      </div>
 
-      <!-- 버튼 -->
+      <!-- 인증번호 + 재발송 버튼 -->
+      <div class="w-[400px] flex items-center gap-2 mt-6 mb-6">
+        <input
+          type="text"
+          class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+          placeholder="인증번호를 입력해주세요."
+        />
+        <button
+          type="button"
+          class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+        >
+          확인
+        </button>
+      </div>
+
+        <div id="errorMsg" class="text-red-500 text-sm mt-1 hidden">
+          인증번호가 일치하지 않습니다.
+        </div>
+
+      <!-- 아이디 찾기 버튼 -->
       <button
         type="submit"
-        class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
+        class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
       >
         아이디 찾기
       </button>
+
     </div>
 
+    </div>
+
+
   </main>
+
+  <script>
+    // 실제 인증번호를 여기에 임시 하드코딩 (예: 서버에서 받은 값)
+    const correctCode = "123456";
+
+    function checkVerificationCode() {
+      const input = document.getElementById("verifyInput").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (input !== correctCode) {
+        errorMsg.classList.remove("hidden");
+      } else {
+        errorMsg.classList.add("hidden");
+        alert("인증번호가 확인되었습니다!");
+      }
+    }
+  </script>
+
+
+
 </body>
 </html>
