@@ -1,5 +1,6 @@
 package com.m4gi.mapper;
 
+import com.m4gi.domain.Products;
 import com.m4gi.domain.User;
 import com.m4gi.dto.admin.AdminUserListDTO;
 import org.apache.ibatis.annotations.Param;
@@ -21,4 +22,5 @@ public interface UserMapper {
     List<AdminUserListDTO> searchCompanyList(@Param("keyword") String keyword, @Param("offset") int offset, @Param("limit") int limit);
     int getSearchCompanyCount(@Param("keyword") String keyword);
 
+    List<Products> showProductList(User user);
 }

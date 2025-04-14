@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
-
 <html>
 
 <head>
@@ -322,12 +323,13 @@
                         </thead>
                         <tbody>
                             <!-- 예시 1: 정상 -->
+                            <c:forEach var="products" items="${productList}">
                             <tr class="border-b border-gray-300 hover:bg-gray-50">
                                 <td class="p-4">
                                     <input type="checkbox" />
                                 </td>
                                 <td class="p-4 text-center">A-001</td>
-                                <td class="p-4 text-center">Washing Bottle 2</td>
+                                <td class="p-4 text-center">${products.productName}</td>
                                 <td class="p-4 text-center">20</td>
                                 <td class="p-4 text-center">320,000</td>
                                 <td class="p-4 text-center">10</td>
@@ -347,6 +349,7 @@
                                 </td>
                             </tr>
 
+                            <!--
                             <!-- 예시 2: 재고없음 -->
                             <tr class="border-b border-gray-300 hover:bg-gray-50">
                                 <td class="p-4">
@@ -404,6 +407,8 @@
                                     </button>
                                 </td>
                             </tr>
+                            -->
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>

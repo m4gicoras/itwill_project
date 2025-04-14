@@ -1,10 +1,13 @@
 package com.m4gi.service;
 
+import com.m4gi.domain.Products;
 import com.m4gi.domain.User;
 import com.m4gi.dto.SiteUser;
 import com.m4gi.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -55,4 +58,14 @@ public class UserServiceImpl implements UserService{
 	public int isDuplicateUsername(String username) {
 		return userMapper.isDuplicateUsername(username);
 	}
+
+    @Override
+    public User checkUsername(String username) {
+        return userMapper.checkUsername(username);
+    }
+
+    @Override
+    public List<Products> getProductsByUser(User user) {
+        return userMapper.showProductList(user);
+    }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.UserMapper">
+    <select id="showProductList" parameterType="com.m4gi.domain.User" resultType="com.m4gi.domain.Products">
+        SELECT *
+        FROM products
+        WHERE company_id = #{userId}
+    </select>
+</mapper>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.m4gi.domain.User;
 import com.m4gi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,36 +61,38 @@ public class MainController {
                                      HttpSession session,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-
         Map<String, Object> result = new HashMap<>();
+        User user = userService.checkUsername(username);
         boolean authenticated = userService.login(username, password);
-
-        // 로그인 유지 체크박스("keep-id")가 선택되었는지 확인
         boolean isKeep = request.getParameter("keep-id") != null;
-        if (authenticated) {
-            // 인증 성공: 세션에 사용자 정보 저장
-            session.setAttribute("username", username);
 
-            // 로그인 유지 옵션이 있으면 쿠키 발급 (예제에서는 3분 동안 유지)
+        if (authenticated) {
+            session.setAttribute("username", username);
+            session.setAttribute("userId", user.getUserId());
+
+            // 디버그 로그 출력 또는 콘솔 출력
+            System.out.println("DEBUG: userId stored in session: " + session.getAttribute("userId"));
+            // logger.debug("userId stored in session: {}", session.getAttribute("userId"));
+
             if (isKeep) {
-                int maxAge = 60 * 3;  // 3분, 초 단위
+                int maxAge = 180;  // 3분
                 Cookie cookie = new Cookie("username", username);
                 cookie.setMaxAge(maxAge);
-                // 보안을 위해 HttpOnly true로 설정하여 클라이언트 스크립트에서 접근하지 못하게 함
                 cookie.setHttpOnly(true);
                 cookie.setPath("/");
                 response.addCookie(cookie);
-                logger.info("Cookie set for user '{}' with maxAge {} sec;", username, Integer.valueOf(maxAge));
+                logger.info("Cookie set for user '{}' with maxAge {} sec;", username, maxAge);
             }
 
             result.put("success", true);
-            // 인증 성공 후 이동할 페이지 URL (예: test)
             result.put("redirect", "test");
         } else {
             result.put("success", false);
         }
+
         return result;
     }
+
 
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse response) {

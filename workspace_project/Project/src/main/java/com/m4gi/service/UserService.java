@@ -1,6 +1,10 @@
 package com.m4gi.service;
 
+import com.m4gi.domain.Products;
+import com.m4gi.domain.User;
 import com.m4gi.dto.SiteUser;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -11,4 +15,8 @@ public interface UserService {
     public boolean login(String username, String password);
     
     public int isDuplicateUsername(String username);
+
+    public User checkUsername(String username);
+
+    public List<Products> getProductsByUser(User user);
 }
