@@ -125,7 +125,7 @@
                             <div>
                                 <!-- 페이지 명 -->
                                 <div class="mt-15 mb-10 flex items-center justify-center">
-                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950 select-none">Sellity</h5>
+                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-blue-900 select-none">Sellity</h5>
                                 </div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
