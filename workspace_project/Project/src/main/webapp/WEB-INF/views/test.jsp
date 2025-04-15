@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html>
 
@@ -311,10 +312,10 @@
                                     <input type="checkbox" />
                                 </th>
                                 <th class="p-4 text-center">상품코드</th>
+                                <th class="p-4 text-center">이미지</th>
                                 <th class="p-4 text-center">상품명</th>
                                 <th class="p-4 text-center">수량</th>
-                                <th class="p-4 text-center">판매가격</th>
-                                <th class="p-4 text-center">재고수량</th>
+                                <th class="p-4 text-center">단가</th>
                                 <th class="p-4 text-center">등록일</th>
                                 <!-- 상태 컬럼 -->
                                 <th class="p-4 text-left">상태</th>
@@ -322,92 +323,66 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- 예시 1: 정상 -->
                             <c:forEach var="products" items="${productList}">
-                            <tr class="border-b border-gray-300 hover:bg-gray-50">
-                                <td class="p-4">
-                                    <input type="checkbox" />
-                                </td>
-                                <td class="p-4 text-center">A-001</td>
-                                <td class="p-4 text-center">${products.productName}</td>
-                                <td class="p-4 text-center">20</td>
-                                <td class="p-4 text-center">320,000</td>
-                                <td class="p-4 text-center">10</td>
-                                <td class="p-4 text-center">2015-03-21</td>
-                                <td class="flex items-center pt-4">
-                                    <span
-                                        class="translate-x-4 transform rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700 inset-ring">
-                                        정상 </span>
-                                    <button class="ml-auto flex h-full items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="h-5 w-5 cursor-pointer text-gray-400 hover:text-gray-600" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 5h.01M12 12h.01M12 19h.01"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <!--
-                            <!-- 예시 2: 재고없음 -->
-                            <tr class="border-b border-gray-300 hover:bg-gray-50">
-                                <td class="p-4">
-                                    <input type="checkbox" />
-                                </td>
-                                <td class="p-4 text-center" p-4="">A-002</td>
-                                <td class="p-4 text-center">Washing Bottle</td>
-                                <td class="p-4 text-center">32</td>
-                                <td class="p-4 text-center">120,000</td>
-                                <td class="p-4 text-center">8</td>
-                                <td class="p-4 text-center">2015-03-22</td>
-                                <td class="flex items-center pt-4">
-                                    <!-- 재고없음 배지
-                                    <span
-                                        <class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">-->
-                                    <span
-                                        class="translate-x-4 transform rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring inset-ring-yellow-500">
-                                        재고없음 </span>
-                                    <button class="ml-auto flex h-full items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="h-5 w-5 cursor-pointer text-gray-400 hover:text-gray-600" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 5h.01M12 12h.01M12 19h.01"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <!-- 예시 3: 단종 -->
-                            <tr class="border-b border-gray-300 hover:bg-gray-50">
-                                <td class="p-4">
-                                    <input type="checkbox" />
-                                </td>
-                                <td class="p-4 text-center">A-003</td>
-                                <td class="p-4 text-center">Sample Product</td>
-                                <td class="p-4 text-center">10</td>
-                                <td class="p-4 text-center">90,000</td>
-                                <td class="p-4 text-center">0</td>
-                                <td class="p-4 text-center">2015-03-23</td>
-                                <td class="flex items-center pt-4">
-                                    <!-- 단종 배지
-                                    <span
-                                        class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">-->
-                                    <span
-                                        class="translate-x-4 transform rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring">
-                                        단종 </span>
-                                    <button class="ml-auto flex h-full items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="h-5 w-5 cursor-pointer text-gray-400 hover:text-gray-600" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 5h.01M12 12h.01M12 19h.01"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            -->
+                                <tr class="border-b border-gray-300 hover:bg-gray-50">
+                                    <td class="p-4">
+                                        <input type="checkbox" />
+                                    </td>
+                                    <td class="p-4 text-center">${products.productId}</td>
+                                    <td class="p-4 text-center"></td>
+                                    <td class="p-4 text-center">${products.productName}</td>
+                                    <td class="p-4 text-center">
+                                        <fmt:formatNumber value="${products.productQtty}" type="number" pattern="#,##0" />
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <fmt:formatNumber value="${products.price}" type="number" pattern="#,##0" />
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <fmt:formatDate value="${products.createdAt}" pattern="yyyy-MM-dd" />
+                                    </td>
+                                    <td class="flex items-center pt-4">
+                                        <c:choose>
+                                            <%-- 상태: 0 = 정상 --%>
+                                            <c:when test="${products.status == 0}">
+                                                <span class="translate-x-4 transform rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700 inset-ring">
+                                                    정상
+                                                </span>
+                                            </c:when>
+                                            <%-- 상태: 1 = 재고 없음 --%>
+                                            <c:when test="${products.status == 1}">
+                                                <span class="translate-x-4 transform rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring inset-ring-yellow-500">
+                                                    재고 없음
+                                                </span>
+                                            </c:when>
+                                            <%-- 상태: 2 = 소진 임박 --%>
+                                            <c:when test="${products.status == 2}">
+                                                <span class="translate-x-4 transform rounded-md bg-orange-100 px-2 py-1 text-xs font-medium text-orange-700 inset-ring">
+                                                    소진 임박
+                                                </span>
+                                            </c:when>
+                                            <%-- 상태: 3 = 단종 --%>
+                                            <c:when test="${products.status == 3}">
+                                                <span class="translate-x-4 transform rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-pink-700 inset-ring">
+                                                    단종
+                                                </span>
+                                            </c:when>
+                                            <%-- 기타 상태 --%>
+                                            <c:otherwise>
+                                                <span class="translate-x-4 transform rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 inset-ring">
+                                                    미확인
+                                                </span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <button class="ml-auto flex h-full items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="h-5 w-5 cursor-pointer text-gray-400 hover:text-gray-600" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 5h.01M12 12h.01M12 19h.01"></path>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
                             </c:forEach>
                         </tbody>
                     </table>
