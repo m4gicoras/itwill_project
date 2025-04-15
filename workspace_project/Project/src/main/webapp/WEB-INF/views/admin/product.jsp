@@ -198,7 +198,7 @@
     <!-- 사이드 바 -->
     <div class="flex h-full w-full bg-white">
         <div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
-            <div class="bg-card text-card-foreground m-3 ml-3 h-[96.5vh] w-full overflow-hidden !rounded-lg rounded-lg border border-zinc-200 pe-4 shadow-sm sm:my-4 sm:mr-4 md:m-5 md:mr-[-50px]">
+            <div class="bg-card text-card-foreground m-3 ml-3 h-[96.5vh] w-full overflow-hidden !rounded-lg rounded-lg border border-zinc-800 pe-4 shadow-sm sm:my-4 sm:mr-4 md:m-5 md:mr-[-50px]">
                 <div class="relative overflow-hidden w-full h-full">
                     <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)] absolute inset-0 overflow-scroll -mr-[15px] -mb-[22px]">
                         <div class="flex h-full flex-col justify-between">
@@ -331,7 +331,7 @@
             </c:if>
 
             <!-- 테이블 -->
-            <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm">
+            <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-800 p-6 shadow-sm">
                 <div class="overflow-hidden rounded bg-white shadow">
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
