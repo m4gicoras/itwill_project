@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/css/m4gi.css" rel="stylesheet" />
     <style>
         @font-face {
             font-family: 'KIMM_Bold';
@@ -28,6 +29,7 @@
     </style>
     <!-- JavaScript 코드 -->
     <script>
+    	// 기업 상세 정보 모달창  
         function openModal(companyName, ceoName, phone, email, regDate) {
             document.getElementById("modal-companyName").innerText = companyName;
             document.getElementById("modal-ceoName").innerText = ceoName;
@@ -55,7 +57,8 @@
 
         let sortDirection = {};
         let currentSortedTh = null;
-
+		
+        // 테이블 정렬 방법 변경
         function sortTable(colIndex, thElement) {
             const table = document.querySelector(".member-list");
             const tbody = table.tBodies[0];
@@ -263,7 +266,7 @@
                             <c:choose>
                                 <c:when test="${not empty companyList}">
                                     <c:forEach var="user" items="${companyList}">
-                                        <tr onclick="openModal('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '${user.regDate}')" class="border-b border-gray-300 hover:bg-gray-50">
+                                        <tr onclick="openModal('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '<fmt:formatDate value="${user.regDate}" pattern="yyyy년 MM월 dd일" />')" class="border-b border-gray-300 hover:bg-gray-50">
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${user.userId}</td>
                                             <td class="p-4 text-center text-sm text-blue-700 border-b border-gray-100 hover:underline cursor-pointer">㈜ ${user.companyName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.ceoName ? '-' : user.ceoName}</td>
@@ -300,17 +303,44 @@
                 </div>
 
                 <!-- 기업 상세정보 모달창 -->
-                <div id="companyInfoModal" class="hidden fixed top-1/5 left-1/2 transform -translate-x-1/2 bg-white border border-zinc-200 p-8 rounded-xl shadow-lg z-50 w-96">
-                    <h3 class="text-lg font-semibold mb-4">기업 상세 정보(아직)</h3>
-                    <div class="mt-4 mb-4 h-px bg-zinc-200"></div>
-                    <p class="mb-2"><strong>기업명:</strong> <span id="modal-companyName"></span></p>
-                    <p class="mb-2"><strong>담당자:</strong> <span id="modal-ceoName"></span></p>
-                    <p class="mb-2"><strong>연락처:</strong> <span id="modal-phone"></span></p>
-                    <p class="mb-2"><strong>이메일:</strong> <span id="modal-email"></span></p>
-                    <p class="mb-2"><strong>등록일:</strong> <span id="modal-regDate"></span></p>
-                    <p class="mb-4">우리는 함께한지 <strong><span id="modal-days"></span></strong>일째입니다.</p>
-                    <button onclick="closeModal()" class="mt-4 bg-blue-600 text-white border-0 py-2 px-5 rounded-md cursor-pointer hover:bg-blue-700">닫기</button>
-                </div>
+                <div id="companyInfoModal" class="fixed hidden inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+		            <div role="dialog" aria-modal="true" class="flex items-center rounded-xl bg-white shadow-xl p-10">
+		                <div>
+		                  <div class="flex">
+		                    <div class="h-20 w-20 bg-blue-700/20 rounded-md"></div>
+		                    <div class="ml-7 flex flex-col justify-center">
+		                      <p class="text-xl mb-1 font-semibold"><span id="modal-companyName"></span></p>
+		                      <p class="text-xl text-zinc-500">@user_id_sung</p>
+		                    </div>
+		                  </div>
+		                  <div class="mt-5 px-3">
+		                    <p class="mb-2">담당자: <span id="modal-ceoName" class="text-zinc-500"></span></p>
+		                    <p class="mb-2">연락처: <span id="modal-phone" class="text-zinc-500"></span></p>
+		                    <p class="mb-2">이메일: <span id="modal-email" class="text-zinc-500"></span></p>
+		                    <p class="mb-2">등록일: <span id="modal-regDate" class="text-zinc-500"></span> (등록일부터 <span id="modal-days" class="text-zinc-500"></span>일 째)</p>
+		                    <p class="mb-2">누적 거래: <span id="modal-days" class="text-zinc-500"></span></p>
+		                    <p class="mb-2">등록된 상품 수: <span id="modal-regDate" class="text-zinc-500"></p>
+		                  </div>
+		                  <div class="flex gap-2 mt-7">
+			                  <div class="w-3xs">
+					              <button type="button" class="btn mb-0">
+					                <span class="btn-text flex align-center justify-center gap-3">
+					                	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4.5">
+										  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"></path>
+										</svg>		                	
+					                	메세지 보내기
+					                </span>
+					              </button>
+				              </div>
+				              <div class="w-3xs">
+					              <button type="button" class="btn mb-0 bg-zinc-300" onclick="closeModal()">
+					                <span class="btn-text">닫기</span>
+					              </button>
+				              </div>
+			              </div>
+		                </div>
+		            </div>
+		          </div>
 
             </div>
         </div>
