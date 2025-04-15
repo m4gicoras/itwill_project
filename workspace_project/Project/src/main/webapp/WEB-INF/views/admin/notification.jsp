@@ -35,12 +35,12 @@
         <div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
             <div class="bg-card text-card-foreground m-3 ml-3 h-[96.5vh] w-full overflow-hidden !rounded-lg rounded-lg border border-zinc-800 pe-4 shadow-sm sm:my-4 sm:mr-4 md:m-5 md:mr-[-50px]">
                 <div class="relative overflow-hidden w-full h-full">
-                    <div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)] absolute inset-0 overflow-scroll -mr-[15px] -mb-[22px] w-full">
+                    <div class="!translate-x-[5.5%] pr-4 absolute inset-0 overflow-scroll -mr-[15px] -mb-[22px]">
                         <div class="flex h-full flex-col justify-between">
                             <div>
                                 <!-- 페이지 명 -->
                                 <div class="mt-15 mb-10 flex items-center justify-center">
-                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
+                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950 select-none">Sellity</h5>
                                 </div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
@@ -53,7 +53,7 @@
 									                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
 									                    </svg>
 									                </div>
-									                <p class="mr-auto text-sm font-medium text-zinc-950">물품 관리</p>
+									                <p class="mr-auto text-sm font-medium text-zinc-950 select-none">물품 관리</p>
 									            </div>
 									        </div>
 									    </a>
@@ -67,7 +67,7 @@
 	                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
 	                                                    </svg>
 	                                                </div>
-	                                                <p class="mr-auto text-sm font-medium text-zinc-950">회원 관리</p>
+	                                                <p class="mr-auto text-sm font-medium text-zinc-950 select-none">회원 관리</p>
 	                                            </div>
 	                                        </div>
 	                                    </a>
@@ -81,7 +81,7 @@
 										                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
 										                </svg>
 										            </div>
-										            <p class="mr-auto text-sm font-medium text-zinc-950">알림 전송</p>
+										            <p class="mr-auto text-sm font-medium text-zinc-950 select-none">알림 전송</p>
 										        </div>
 										    </div>
 										</a>
@@ -96,7 +96,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
                                                         </svg>
                                                     </div>
-                                                    <p class="mr-auto text-sm font-medium text-zinc-950">설정</p>
+                                                    <p class="mr-auto text-sm font-medium text-zinc-950 select-none">설정</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -115,7 +115,7 @@
                                         </span>
                                     </a>
                                     <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
-                                        <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950">admin</p>
+                                        <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950 select-none">admin</p>
                                     </a>
                                     <form class="w-full">
                                         <!-- 로그아웃? -->
@@ -137,37 +137,40 @@
 
         <!-- 메인 컨텐츠 -->
         <div class="mx-5 my-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px]">
-            <div class="flex justify-center items-center min-h-[90vh]">
+            <div class="flex flex-col justify-center items-center min-h-[90vh]">
                 <!-- 테두리 -->
                 <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-800 shadow-sm">
                     <section class="bg-white rounded-xl p-8 mx-auto">
-                        <h2 class="text-2xl font-bold mb-8">메시지 보내기</h2>
+                    	<div class="flex gap-4">
+                    		<div class="pt-1.5">
+		                    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+								  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+								</svg>
+							</div>
+	                        <h2 class="text-2xl font-bold mb-8 select-none">알림 전송</h2>
+	                    </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <!-- Left Side -->
                             <div class="flex flex-col">
                               <div class="flex gap-2 mb-3 h-10">
-                                  <input type="text" id="companyInput" placeholder="기업명" class="flex-1 border border-gray-300 rounded-md px-4 py-2 text-sm">
+                                  <input type="text" id="companyInput" placeholder="기업명" class="flex-1 border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
 				                  <button onclick="closeModal('ConfirmProductDeleteModal'); openModal('deleteSuccessModal');"  type="button" class="btn mx-0 mb-0 h-9 w-35">
-				                    <span class="btn-text">확인</span>
+				                    <span class="btn-text select-none">추가하기</span>
 				                  </button>
 			                  </div>
                               <div id="tagContainer" class="border border-gray-300 rounded-md p-3 h-55 overflow-y-auto space-y-2">
                                 <!-- 태그 리스트 출력 영역 -->
                               </div>
                     
-                              <button type="button" class="mt-3 mr-3 text-sm text-blue-600 hover:underline flex justify-end" onclick="resetTags()">reset</button>
+                              <button type="button" class="mt-3 mr-3 text-sm text-blue-600 hover:underline flex justify-end select-none" onclick="resetTags()">reset</button>
                             </div>
                     
                             <!-- Right Side -->
                             <div class="flex flex-col h-full">
-                              <textarea maxlength="500" placeholder="내용을 입력하세요." class="resize-none border border-gray-300 rounded-md px-4 py-3 h-68 mb-3"></textarea>
-                             <!--  <div class="flex justify-between items-center mt-auto">
-                                <span class="text-sm text-gray-500">0 / 500</span>
-                                <button type="submit" class="bg-blue-600 text-white rounded-md px-5 py-2 text-sm">메시지 보내기</button>
-                              </div> -->
-                              <div class="flex gap-2 mb-3 h-10">
-				                  <button onclick="closeModal('ConfirmProductDeleteModal'); openModal('deleteSuccessModal');"  type="button" class="btn mx-0 mb-0 h-9 w-35">
-				                    <span class="btn-text">확인</span>
+                              <textarea maxlength="500" placeholder="내용을 입력하세요." class="resize-none border border-gray-300 rounded-md px-4 py-3 h-68 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300"></textarea>
+                              <div class="flex justify-end mb-3 h-10">
+				                  <button onclick="closeModal('ConfirmProductDeleteModal'); openModal('deleteSuccessModal');"  type="button" class="btn mx-0 mb-0 h-9 w-40">
+				                    <span class="btn-text select-none">메세지 보내기</span>
 				                  </button>
 			                  </div>
                             </div>
