@@ -332,7 +332,7 @@
 
             <!-- 테이블 -->
             <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-800 p-6 shadow-sm">
-                <div class="overflow-hidden rounded bg-white shadow">
+                <div class="rounded bg-white shadow">
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
