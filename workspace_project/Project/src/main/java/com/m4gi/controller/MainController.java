@@ -72,7 +72,6 @@ public class MainController {
 
             // 디버그 로그 출력 또는 콘솔 출력
             System.out.println("DEBUG: userId stored in session: " + session.getAttribute("userId"));
-            // logger.debug("userId stored in session: {}", session.getAttribute("userId"));
 
             if (isKeep) {
                 int maxAge = 180;  // 3분
