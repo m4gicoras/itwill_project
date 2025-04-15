@@ -45,7 +45,7 @@
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-									    <a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/product">
+									    <a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/product">
 									        <div class="w-full items-center justify-center">
 									            <div class="flex w-full items-center justify-center">
 									                <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -53,13 +53,13 @@
 									                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
 									                    </svg>
 									                </div>
-									                <p class="mr-auto text-sm font-medium text-zinc-950 select-none">물품 관리</p>
+									                <p class="mr-auto text-sm font-medium text-zinc-950">물품 관리</p>
 									            </div>
 									        </div>
 									    </a>
 									</div>
                                     <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-	                                    <a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/member">
+	                                    <a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/member">
 	                                        <div class="w-full items-center justify-center">
 	                                            <div class="flex w-full items-center justify-center">
 	                                                <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -67,13 +67,13 @@
 	                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
 	                                                    </svg>
 	                                                </div>
-	                                                <p class="mr-auto text-sm font-medium text-zinc-950 select-none">회원 관리</p>
+	                                                <p class="mr-auto text-sm font-medium text-zinc-950">회원 관리</p>
 	                                            </div>
 	                                        </div>
 	                                    </a>
                                     </div>
                                     <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-										<a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/notification">
+										<a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/notification">
 										    <div class="w-full items-center justify-center">
 										        <div class="flex w-full items-center justify-center">
 										            <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -81,13 +81,13 @@
 										                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
 										                </svg>
 										            </div>
-										            <p class="mr-auto text-sm font-medium text-zinc-950 select-none">알림 전송</p>
+										            <p class="mr-auto text-sm font-medium text-zinc-950">알림 전송</p>
 										        </div>
 										    </div>
 										</a>
                                      </div>
                                      <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-                                        <a class="undefined rounded-none w-full" href="#">
+                                        <a class="undefined rounded-none w-full select-none" href="#">
                                             <div class="w-full items-center justify-center">
                                                 <div class="flex w-full items-center justify-center">
                                                     <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -96,7 +96,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
                                                         </svg>
                                                     </div>
-                                                    <p class="mr-auto text-sm font-medium text-zinc-950 select-none">설정</p>
+                                                    <p class="mr-auto text-sm font-medium text-zinc-950">설정</p>
                                                 </div>
                                             </div>
                                         </a>

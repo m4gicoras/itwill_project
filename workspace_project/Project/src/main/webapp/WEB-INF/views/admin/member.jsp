@@ -125,12 +125,12 @@
                             <div>
                                 <!-- 페이지 명 -->
                                 <div class="mt-15 mb-10 flex items-center justify-center">
-                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
+                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950 select-none">Sellity</h5>
                                 </div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-									    <a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/product">
+									    <a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/product">
 									        <div class="w-full items-center justify-center">
 									            <div class="flex w-full items-center justify-center">
 									                <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -144,7 +144,7 @@
 									    </a>
 									</div>
                                     <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-	                                    <a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/member">
+	                                    <a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/member">
 	                                        <div class="w-full items-center justify-center">
 	                                            <div class="flex w-full items-center justify-center">
 	                                                <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -158,7 +158,7 @@
 	                                    </a>
                                     </div>
                                     <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-										<a class="undefined rounded-none w-full" href="${pageContext.request.contextPath}/admin/notification">
+										<a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/notification">
 										    <div class="w-full items-center justify-center">
 										        <div class="flex w-full items-center justify-center">
 										            <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -172,7 +172,7 @@
 										</a>
                                      </div>
                                      <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-                                        <a class="undefined rounded-none w-full" href="#">
+                                        <a class="undefined rounded-none w-full select-none" href="#">
                                             <div class="w-full items-center justify-center">
                                                 <div class="flex w-full items-center justify-center">
                                                     <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -200,7 +200,7 @@
                                         </span>
                                     </a>
                                     <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
-                                        <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950">admin</p>
+                                        <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950 select-none">admin</p>
                                     </a>
                                     <form class="w-full">
                                         <!-- 로그아웃? -->
@@ -246,7 +246,7 @@
                     <table class="member-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                                <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center">
+                                <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center select-none">
                                 	회원번호
                                     <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M18.425 10.271C19.499 8.967 18.57 7 16.88 7H7.12c-1.69 0-2.618 1.967-1.544 3.271l4.881 5.927a2 2 0 0 0 3.088 0l4.88-5.927Z" clip-rule="evenodd" />
@@ -255,11 +255,11 @@
                                         <path fill-rule="evenodd" d="M5.575 13.729C4.501 15.033 5.43 17 7.12 17h9.762c1.69 0 2.618-1.967 1.544-3.271l-4.881-5.927a2 2 0 0 0-3.088 0l-4.88 5.927Z" clip-rule="evenodd" />
                                     </svg>
                                 </th>
-                                <th onclick="sortTable(1, this)" class="p-4 text-center">기업명</th>
-                                <th onclick="sortTable(2, this)" class="p-4 text-center">담당자명</th>
-                                <th onclick="sortTable(3, this)" class="p-4 text-center">연락처</th>
-                                <th onclick="sortTable(4, this)" class="p-4 text-center">이메일</th>
-                                <th onclick="sortTable(5, this)" class="p-4 text-center">등록일</th>
+                                <th onclick="sortTable(1, this)" class="p-4 text-center select-none">기업명</th>
+                                <th onclick="sortTable(2, this)" class="p-4 text-center select-none">담당자명</th>
+                                <th onclick="sortTable(3, this)" class="p-4 text-center select-none">연락처</th>
+                                <th onclick="sortTable(4, this)" class="p-4 text-center select-none">이메일</th>
+                                <th onclick="sortTable(5, this)" class="p-4 text-center select-none">등록일</th>
                             </tr>
                         </thead>
                         <tbody>
