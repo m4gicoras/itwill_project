@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m4gi.mapper.OrderMapper">
+
+    <select id="selectInboundOrders" resultType="com.m4gi.dto.OrderDTO">
+        SELECT
+            o.order_id AS orderId,
+            p.product_name AS productName,
+            o.order_qtty AS orderQtty,
+            o.order_date AS orderDate,
+            o.ship_comp_date AS shipCompDate,
+            u.company_name AS companyName,
+            o.status AS status
+        FROM orders o
+                 JOIN products p ON o.product_id = p.product_id
+                 JOIN users u ON o.b_company_id = u.user_id
+        WHERE o.status IN (10, 11)
+        ORDER BY o.order_date DESC
+    </select>
+
+    <select id="selectOutboundOrders" resultType="com.m4gi.dto.OrderDTO">
+        SELECT
+            o.order_id AS orderId,
+            p.product_name AS productName,
+            o.order_qtty AS orderQtty,
+            o.order_date AS orderDate,
+            o.ship_comp_date AS shipCompDate,
+            u.company_name AS companyName,
+            o.status AS status
+        FROM orders o
+                 JOIN products p ON o.product_id = p.product_id
+                 JOIN users u ON o.b_company_id = u.user_id
+        WHERE o.status IN (20, 21)
+        ORDER BY o.order_date DESC
+    </select>
+
+
+</mapper>
