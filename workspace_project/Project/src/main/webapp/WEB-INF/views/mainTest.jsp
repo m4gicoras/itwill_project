@@ -125,11 +125,11 @@
   <div class="background-blur"></div>
 
   <!-- 로그인 폼 -->
-  <div class="login-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg text-white rounded-xl p-8 max-w-sm w-full border-2 border-white/30 shadow-2xl z-10"
-       style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);">
+  <div class="login-container absolute top-1/2 left-1/2 select-none transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg text-white rounded-xl p-8 max-w-sm w-full border-2 border-white/30 shadow-2xl z-10"
+       style="background-color: rgba(255, 255, 255, 0.3); backdrop-filter: blur(4px); box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);">
 
     <!-- Sellity 제목에만 KIMM_Bold 폰트 적용 -->
-    <h1 class="title text-4xl font-extrabold text-center select-none kimm-bold" style="margin-top: 1em; margin-bottom: 1em;">SELLITY</h1>
+    <h1 class="title text-4xl font-extrabold text-center text-blue-900 kimm-bold" style="margin-top: 1em; margin-bottom: 1em;">SELLITY</h1>
 
     <!-- Login 제목에만 KIMM_Bold 폰트 적용 -->
     <h2 class="subtitle text-xl font-semibold flex justify-center items-center mb-6 kimm-bold select-none">
@@ -196,9 +196,9 @@
     </div>
 
     <div class="find-links text-sm text-white text-center" style="margin-top: 1em; margin-bottom: 1.5em;">
-      <a href="#" class="hover:underline">아이디 찾기</a>
+      <a href="${pageContext.request.contextPath}/find_id" class="hover:underline">아이디 찾기</a>
       <span class="mx-2">|</span>
-      <a href="#" class="hover:underline">비밀번호 찾기</a>
+      <a href="${pageContext.request.contextPath}/find_pw" class="hover:underline">비밀번호 찾기</a>
     </div>
   </div>
 

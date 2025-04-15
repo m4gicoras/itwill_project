@@ -45,7 +45,7 @@
 
   <!-- ✅ Header -->
   <header class="bg-white h-20 flex items-center px-8 shadow-[0_8px_16px_rgba(0,123,255,0.12)]">
-    <a href="/" class="text-2xl logo-font text-black select-none">Sellity</a>
+    <a href="/" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   </header>
 
   <!-- ✅ Main -->
@@ -62,7 +62,7 @@
            id="newPassword"
            type="text"
            class="w-[300px] px-4 py-2 border border-gray-300 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-           placeholder="8~20자리, 최소 1개 이상의 특수문자 포함"
+           placeholder="특수문자를 1개 이상 포함한 8~20자리"
         />
 
             <!-- 비밀번호 유효성 오류 -->

@@ -49,9 +49,29 @@ public class UserController {
         return "clear";
     }
 
-    @GetMapping("/find_in_id")
-    public String showFindinIdForm() {
-        return "find_in_id";
+    @GetMapping("/find_id")
+    public String showFindIDForm() {
+        return "find_id";
+    }
+
+    @GetMapping("/find_pw")
+    public String showFindPWForm() {
+        return "find_pw";
+    }
+
+    @GetMapping("/find_pw2")
+    public String showFindPW2Form() {
+        return "find_pw2";
+    }
+
+    @GetMapping("/finish_pw")
+    public String showFinishPWForm() {
+        return "finish_pw";
+    }
+
+    @GetMapping("/finish_id")
+    public String showFinishID2Form() {
+        return "finish_id";
     }
     
     @GetMapping("/isDuplicateUsername")

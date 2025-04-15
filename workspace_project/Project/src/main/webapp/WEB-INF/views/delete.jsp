@@ -75,7 +75,7 @@
 
   <!-- ✅ Header -->
   <header class="bg-white shadow-[0_8px_10px_rgba(0,123,255,0.1)] h-20 flex items-center px-8">
-    <a href="/" class="text-2xl logo-font text-black select-none">Sellity</a>
+    <a href="/" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   </header>
 
   <!-- ✅ Main -->

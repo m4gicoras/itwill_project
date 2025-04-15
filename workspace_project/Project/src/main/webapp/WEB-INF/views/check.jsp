@@ -53,7 +53,7 @@
 
   <!-- ✅ Header -->
   <header class="bg-white shadow-[0_8px_10px_rgba(0,123,255,0.1)] h-20 flex items-center px-8">
-    <a href="/" class="text-2xl logo-font text-black select-none">Sellity</a>
+    <a href="/" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   </header>
 
   <!-- ✅ 나머지 콘텐츠를 화면 가운데로 정렬 -->
@@ -80,25 +80,57 @@
       </div>
 
       <!-- ✅ 비밀번호 입력 파트 -->
-      <div class="flex items-center justify-center w-full space-x-4 max-w-md">
+      <div class="flex items-center justify-center w-full space-x-2 max-w-md">
         <!-- 비밀번호 라벨과 입력창 나란히 배치 -->
         <label for="password" class="text-lg font-semibold text-gray-700 w-auto">*비밀번호 확인</label>
         <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요."
-          class="w-1/2 h-10 p-2 text-sm border border-gray-200 rounded-md bg-white text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-300">
+          class="w-1/2 p-2 text-sm border border-gray-300 rounded-md bg-white text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-300">
 
       </div>
 
       <!-- 버튼 영역 -->
       <div class="flex justify-center space-x-6">
-        <a href="/mypage" class="px-6 py-2 mt-10 bg-gray-400 text-white rounded-full shadow-lg mt-10 transition-all hover:bg-gray-500 focus:outline-none">
+        <a href="/mypage"
+           class="px-6 py-2 mt-10 bg-gray-400 text-white rounded-full shadow-lg mt-10 transition-all hover:bg-gray-500 focus:outline-none">
           이전
         </a>
-        <a href="/delete" class="px-6 py-2 mt-10 bg-blue-500 text-white rounded-full shadow-lg mt-10 transition-all hover:bg-blue-600 focus:outline-none">
+        <button type="button"
+           onclick="checkPasswordAndGo()"
+           class="px-6 py-2 mt-10 bg-blue-500 text-white rounded-full shadow-lg mt-10 transition-all hover:bg-blue-600 focus:outline-none">
           다음
-      </a>
-     </form>
+        </button>
+    </div>
+
+    </form>
+
     </div>
   </main>
+
+  <script>
+    function checkPasswordAndGo() {
+      const inputPassword = document.getElementById('password').value;
+
+      // 서버에서 받아온 실제 비밀번호 (예: 세션 또는 JSP 변수로 출력)
+      const correctPassword = "<%= session.getAttribute("userPassword") != null ? session.getAttribute("userPassword") : "user1234" %>";
+
+      // 1. 입력 안한 경우
+      if (!inputPassword) {
+        alert("비밀번호를 입력해주세요.");
+        return;
+      }
+
+      // 2. 비밀번호 불일치
+      if (inputPassword !== correctPassword) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
+
+      // 3. 성공 시 이동
+      window.location.href = "<%= request.getContextPath() %>/delete";
+    }
+  </script>
+
+
 </body>
 
 </html>
