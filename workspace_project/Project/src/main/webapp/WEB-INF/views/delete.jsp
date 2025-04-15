@@ -31,6 +31,11 @@
       font-family: 'KIMM_Bold', sans-serif;
     }
 
+              /* KIMM_Bold 폰트를 적용하는 부분 */
+              .kimm-bold {
+                font-family: 'KIMM_Bold', sans-serif;
+              }
+
     @keyframes bounce {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.1); }
@@ -74,16 +79,17 @@
   </header>
 
   <!-- ✅ Main -->
-  <main class="flex flex-col items-center justify-center py-20">
-  <div class="bg-white shadow-md rounded-xl w-full max-w-3xl p-16">
-    <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mt-8 mb-6 select-none">회원탈퇴</h1>
+  <main class="flex flex-col items-center justify-center px-8 py-20">
+  <div class="bg-white px-14 py-16 shadow-[0_10px_20px_rgba(0,123,255,0.2)] select-none rounded-xl w-full max-w-3xl">
+    <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
+    <span class="kimm-bold text-blue-500">회원탈퇴</span></h1></h1>
 
       <form action="withdraw_process.jsp" method="post" class="space-y-8 py-10">
 
         <!-- 탈퇴 사유 -->
         <div class="space-y-4">
-          <label for="reason" class="block font-semibold text-lg text-gray-700 select-none">*탈퇴 사유</label>
-          <select id="reason" name="reason" class="w-full border border-gray-200 rounded-md p-3 text-sm focus:outline-none">
+          <label for="reason" class="block font-semibold text-lg text-gray-700">*탈퇴 사유</label>
+          <select id="reason" name="reason" class="w-full border border-gray-300 rounded-md p-3 text-sm focus:outline-none">
             <option value="reason1">서비스가 마음에 들지 않아서</option>
             <option value="reason2">더 이상 서비스를 사용하지 않아서</option>
             <option value="other">기타사유(직접 입력)</option>
@@ -93,7 +99,7 @@
             name="other-reason"
             maxlength="2000"
             placeholder="자세한 사유를 입력해 주세요. (최대 2,000자 까지)"
-            class="w-full h-40 border border-gray-200 rounded-md p-3 resize-none focus:outline-none text-sm"
+            class="w-full h-40 border border-gray-300 rounded-md p-3 resize-none focus:outline-none text-sm"
           ></textarea>
         </div>
 

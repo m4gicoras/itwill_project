@@ -30,6 +30,12 @@
     .logo-font {
       font-family: 'KIMM_Bold', sans-serif;
     }
+
+        /* KIMM_Bold 폰트를 적용하는 부분 */
+        .kimm-bold {
+          font-family: 'KIMM_Bold', sans-serif;
+        }
+
   </style>
 </head>
 
@@ -43,11 +49,14 @@
   <!-- ✅ Main -->
   <main class="flex-grow flex items-center justify-center px-8 py-20">
 
-    <div class="bg-white py-16 px-6 rounded-xl shadow-md w-full max-w-xl flex flex-col items-center">
+    <div class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-xl flex flex-col items-center">
+    <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
+         <span class="kimm-bold text-blue-500">아이디 찾기</span></h1>
 
       <!-- 이름 -->
       <div class="w-[400px] mb-4">
         <input
+          id="nameInput"
           type="text"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           placeholder="이름"
@@ -55,8 +64,9 @@
       </div>
 
       <!-- 이메일 + 전송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mb-4">
+      <div class="w-[400px] flex items-center gap-2 mb-4 relative">
         <input
+          id="emailInput"
           type="email"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           placeholder="이메일"
@@ -64,14 +74,22 @@
         <button
           type="button"
           class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+          onclick="validateInputs()"
         >
           전송
         </button>
+
+      <!-- 이메일 입력값이 비었을 때 오류 메시지 -->
+      <div id="noInfoMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
+       회원정보가 존재하지 않습니다.
       </div>
 
+    </div>
+
       <!-- 인증번호 + 재발송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mt-6 mb-6">
+      <div class="w-[400px] flex items-center gap-2 mt-6 mb-6 relative">
         <input
+          id="verifyInput"
           type="text"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           placeholder="인증번호를 입력해주세요."
@@ -79,14 +97,15 @@
         <button
           type="button"
           class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+          onclick="checkVerificationCode()"
         >
           확인
         </button>
-      </div>
 
-        <div id="errorMsg" class="text-red-500 text-sm mt-1 hidden">
+        <div id="errorMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
           인증번호가 일치하지 않습니다.
         </div>
+      </div>
 
       <!-- 아이디 찾기 버튼 -->
       <button
@@ -107,6 +126,32 @@
     // 실제 인증번호를 여기에 임시 하드코딩 (예: 서버에서 받은 값)
     const correctCode = "123456";
 
+    // 이름과 이메일이 일치하는지 확인하는 함수
+    function validateInputs() {
+      const name = document.getElementById("nameInput").value;
+      const email = document.getElementById("emailInput").value;
+      const noInfoMsg = document.getElementById("noInfoMsg");
+
+       // 이메일 또는 이름이 비어있다면 오류 메시지를 표시하고 함수를 종료
+      if (name === "" || email === "") {
+        noInfoMsg.classList.remove("hidden");
+        return;  // 더 이상 진행x
+      } else {
+        noInfoMsg.classList.add("hidden");  // 메시지 숨기기
+      }
+
+      // 예시: 특정 이름과 이메일이 일치해야 한다고 가정
+      const expectedName = "홍길동";  // 예시 이름
+      const expectedEmail = "hong@example.com";  // 예시 이메일
+
+      if (name !== expectedName || email !== expectedEmail) {
+        alert("이름과 이메일이 일치하지 않습니다.");
+      } else {
+        // 이름과 이메일이 일치하면 인증 메일을 보냄
+        sendVerificationEmail(email);
+      }
+    }
+
     function checkVerificationCode() {
       const input = document.getElementById("verifyInput").value;
       const errorMsg = document.getElementById("errorMsg");
@@ -115,11 +160,15 @@
         errorMsg.classList.remove("hidden");
       } else {
         errorMsg.classList.add("hidden");
-        alert("인증번호가 확인되었습니다!");
+        alert("인증이 완료되었습니다.");
       }
     }
-  </script>
 
+    // 인증 메일 전송을 알리는 함수 (실제로 메일을 보내는 것은 서버에서 처리해야 함)
+    function sendVerificationEmail(email) {
+      alert("입력하신 이메일(" + email + ")로 인증 메일을 전송했습니다.");
+    }
+  </script>
 
 
 </body>

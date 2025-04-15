@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>회원탈퇴 완료</title>
 
   <!-- TailwindCSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -41,7 +42,7 @@
   </style>
 </head>
 <body>
-  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 text-center">
+  <div class="flex flex-col items-center justify-center select-none min-h-screen bg-gray-50 px-4 text-center">
     <!-- 이미지 -->
     <img src="${pageContext.request.contextPath}/resources/images/ufo.png" alt="emoji" class="w-40 h-40 mb-2" />
 
@@ -57,12 +58,12 @@
     <!-- 버튼 영역 -->
     <div class="flex flex-col space-y-4 mt-14">
       <!-- 메인페이지 이동 -->
-      <a href="/mainTest" class="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition text-center">
+      <a href="/mainTest" class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition text-center">
         확인
       </a>
 
       <!-- 회원가입 페이지 이동 -->
-      <a href="/signup" class="px-6 py-2 bg-gray-300 text-black rounded-md shadow-md hover:bg-gray-400 transition text-center">
+      <a href="/signup" class="px-6 py-2 bg-gray-300 text-black rounded-full shadow-md hover:bg-gray-400 transition text-center">
         회원가입
       </a>
     </div>

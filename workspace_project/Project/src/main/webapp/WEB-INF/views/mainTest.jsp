@@ -184,13 +184,13 @@
     <!-- 소셜 로그인 버튼을 나란히 배치하는 div -->
     <div class="flex space-x-4 justify-center mt-2 mb-4">
       <!-- 구글 로그인 버튼 (G 로고 이미지) -->
-      <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:bg-gray-100 transition-all">
+      <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md transition-all focus:outline-none">
         <img src="<%= request.getContextPath() %>/resources/images/google01.png" alt="Google" class="w-8 h-8 object-cover rounded-full" />
       </a>
 
       <!-- 카카오 로그인 버튼 -->
       <a href="https://kauth.kakao.com/oauth/authorize?client_id=YOUR_APP_KEY&redirect_uri=YOUR_REDIRECT_URI&response_type=code"
-         class="flex items-center justify-center w-12 h-12 rounded-full shadow-md hover:bg-gray-100 transition-all focus:outline-none">
+         class="flex items-center justify-center w-12 h-12 rounded-full shadow-md transition-all focus:outline-none">
         <img src="<%= request.getContextPath() %>/resources/images/kakaoLogo01.png" alt="Kakao" class="w-full h-full object-cover rounded-full" />
       </a>
     </div>
