@@ -10,13 +10,16 @@
         username, user_pw, nickname, user_img, email, phone,
         breg_num, company_name, master_name, company_addr, company_phone, product_category
         ) VALUES (
-        #{username}, #{user_pw}, #{nickname}, #{user_img}, #{email}, #{phone},
-        #{breg_num}, #{company_name}, #{master_name}, #{company_addr}, #{company_phone}, #{product_category}
+        #{username}, #{userPw}, #{nickname}, #{userImg}, #{email}, #{phone},
+        #{bregNum}, #{companyName}, #{masterName}, #{companyAddr}, #{companyPhone}, #{productCategory}
         )
     </insert>
 
     <select id="checkUsername" parameterType="string" resultType="com.m4gi.domain.User">
-        SELECT username, user_pw
+        SELECT
+        user_id AS userId,
+        username,
+        user_pw AS userPw
         FROM users
         WHERE username = #{username}
     </select>
