@@ -205,7 +205,7 @@
                             <div>
                                 <!-- 페이지 명 -->
                                 <div class="mt-15 mb-10 flex items-center justify-center">
-                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950">Sellity</h5>
+                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-zinc-950 select-none">Sellity</h5>
                                 </div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
@@ -218,7 +218,7 @@
 									                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
 									                    </svg>
 									                </div>
-									                <p class="mr-auto text-sm font-medium text-zinc-950">물품 관리</p>
+									                <p class="mr-auto text-sm font-medium text-zinc-950 select-none">물품 관리</p>
 									            </div>
 									        </div>
 									    </a>
@@ -232,7 +232,7 @@
 	                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
 	                                                    </svg>
 	                                                </div>
-	                                                <p class="mr-auto text-sm font-medium text-zinc-950">회원 관리</p>
+	                                                <p class="mr-auto text-sm font-medium text-zinc-950 select-none">회원 관리</p>
 	                                            </div>
 	                                        </div>
 	                                    </a>
@@ -246,7 +246,7 @@
 										                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
 										                </svg>
 										            </div>
-										            <p class="mr-auto text-sm font-medium text-zinc-950">알림 전송</p>
+										            <p class="mr-auto text-sm font-medium text-zinc-950 select-none">알림 전송</p>
 										        </div>
 										    </div>
 										</a>
@@ -261,7 +261,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
                                                         </svg>
                                                     </div>
-                                                    <p class="mr-auto text-sm font-medium text-zinc-950">설정</p>
+                                                    <p class="mr-auto text-sm font-medium text-zinc-950 select-none">설정</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -280,7 +280,7 @@
                                         </span>
                                     </a>
                                     <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
-                                        <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950">admin</p>
+                                        <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950 select-none">admin</p>
                                     </a>
                                     <form class="w-full">
                                         <!-- 로그아웃? -->
@@ -336,7 +336,7 @@
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                                <th id="defaultSort" onclick="sortTable(0, this)" class="px-3 py-2 text-center font-semibold">
+                                <th id="defaultSort" onclick="sortTable(0, this)" class="px-3 py-2 text-center font-semibold select-none">
                                     	물품번호
                                     <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M18.425 10.271C19.499 8.967 18.57 7 16.88 7H7.12c-1.69 0-2.618 1.967-1.544 3.271l4.881 5.927a2 2 0 0 0 3.088 0l4.88-5.927Z" clip-rule="evenodd" />
@@ -345,12 +345,12 @@
                                         <path fill-rule="evenodd" d="M5.575 13.729C4.501 15.033 5.43 17 7.12 17h9.762c1.69 0 2.618-1.967 1.544-3.271l-4.881-5.927a2 2 0 0 0-3.088 0l-4.88 5.927Z" clip-rule="evenodd" />
                                     </svg>
                                 </th>
-                                <th class="p-4 text-center">기업명</th>
-                                <th class="p-4 text-center">상품명</th>
-                                <th class="p-4 text-center">수량</th>
-                                <th class="p-4 text-center">등록일</th>
-                                <th class="p-4 text-center">상태</th>
-                                <th class="p-4 w-7 text-center"></th>
+                                <th class="p-4 text-center select-none">기업명</th>
+                                <th class="p-4 text-center select-none">상품명</th>
+                                <th class="p-4 text-center select-none">수량</th>
+                                <th class="p-4 text-center select-none">등록일</th>
+                                <th class="p-4 text-center select-none">상태</th>
+                                <th class="p-4 w-7 text-center select-none"></th>
                             </tr>
                         </thead>
                         <tbody>
