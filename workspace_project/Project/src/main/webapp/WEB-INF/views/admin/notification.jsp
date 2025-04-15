@@ -27,6 +27,22 @@
             font-family: 'KIMM_Bold', sans-serif;
         }
     </style>
+    <script>
+	  // 모달창 관련 코드
+	  function openModal(modalId) {
+         const modal = document.getElementById(modalId);
+
+         modal.classList.remove("hidden");
+         clickOutsideOfModal(modalId);
+       }
+
+       function closeModal(modalId) {
+    	const modal = document.getElementById(modalId);
+	     	if (modal) {
+	     		modal.classList.add("hidden");
+	     	}
+	    }
+    </script>
 </head>
 
 <body style="font-family: 'Noto Sans KR', sans-serif;">
@@ -169,13 +185,53 @@
                             <div class="flex flex-col h-full">
                               <textarea maxlength="500" placeholder="내용을 입력하세요." class="resize-none border border-gray-300 rounded-md px-4 py-3 h-68 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300"></textarea>
                               <div class="flex justify-end mb-3 h-10">
-				                  <button onclick="closeModal('ConfirmProductDeleteModal'); openModal('deleteSuccessModal');"  type="button" class="btn mx-0 mb-0 h-9 w-40">
+				                  <button onclick="openModal('ConfirmSendingNotifModal')" type="button" class="btn mx-0 mb-0 h-9 w-40">
 				                    <span class="btn-text select-none">메세지 보내기</span>
 				                  </button>
 			                  </div>
                             </div>
                           </div>
                     </section>
+                    
+					<!-- 알림 전송 확인 모달창 -->
+		            <div id="ConfirmSendingNotifModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+		              <div role="dialog" aria-modal="true" class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+		                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mb-8 size-7 text-yellow-500">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+						</svg>             
+		                <p class="mb-2 text-center text-lg font-semibold">알림을 전송하시겠습니까?</p>
+		                <div class="align-center mt-8 flex gap-6">
+		                  <div>
+		                    <button onclick="closeModal('ConfirmSendingNotifModal'); openModal('SendingNotifModal');" type="button" class="btn mx-0 mb-0 h-9 w-35">
+		                      <span class="btn-text">확인</span>
+		                    </button>
+		                  </div>
+		                  <div>
+		                    <button onclick="closeModal('ConfirmSendingNotifModal')" type="button" class="btn mx-0 mb-0 h-9 w-35 bg-gray-500/50">
+		                      <span class="btn-text">취소</span>
+		                    </button>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		            
+		            <!-- 알림 전송 완료 모달창 -->
+		            <div id="SendingNotifModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+		              <div role="dialog" aria-modal="true" class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+		                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mb-8 size-7 text-blue-500">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+						</svg>
+		                <p class="mb-2 text-center text-lg font-semibold">알림 전송이 완료되었습니다.</p>
+		                <div class="align-center mt-8 flex gap-6">
+		                  <div>
+		                    <button onclick="closeModal('SendingNotifModal')" type="button" class="btn mx-0 mb-0 h-9 w-35">
+		                      <span class="btn-text">확인</span>
+		                    </button>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+                    
                 </div>
             </div>
         </div>
