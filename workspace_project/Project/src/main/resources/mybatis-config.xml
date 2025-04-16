@@ -9,5 +9,6 @@
       <mapper resource="mappers/AdminUserMapper.xml"/>
       <mapper resource="mappers/AdminProductMapper.xml"/>
       <mapper resource="mappers/Products.xml"/>
+      <mapper resource="mappers/OrderMapper.xml"/>
     </mappers>
   </configuration>
