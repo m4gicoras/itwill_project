@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>프로필 페이지</title>
+    <title>프로필 페이지111111111</title>
 </head>
 <body>
-    <h1>프로필 이미지 변경</h1>
+    <h1>프로필 이미지 변경1111111111</h1>
 
     <!-- 현재 프로필 이미지 표시 -->
     <c:if test="${not empty profileImageUrl}">
