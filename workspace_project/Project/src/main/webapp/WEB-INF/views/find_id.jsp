@@ -53,23 +53,13 @@
     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
          <span class="kimm-bold text-blue-500">아이디 찾기</span></h1>
 
-      <!-- 이름 -->
-      <div class="w-[400px] mb-4">
-        <input
-          id="nameInput"
-          type="text"
-          class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="이름"
-        />
-      </div>
-
       <!-- 이메일 + 전송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mb-4 relative">
+      <div class="w-[400px] flex items-center mt-4 gap-2 relative">
         <input
           id="emailInput"
           type="email"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="이메일"
+          placeholder="Email"
         />
         <button
           type="button"
@@ -79,11 +69,6 @@
           전송
         </button>
 
-      <!-- 이메일 입력값이 비었을 때 오류 메시지 -->
-      <div id="noInfoMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
-       회원정보가 존재하지 않습니다.
-      </div>
-
     </div>
 
       <!-- 인증번호 + 재발송 버튼 -->
@@ -92,7 +77,7 @@
           id="verifyInput"
           type="text"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="인증번호를 입력해주세요."
+          placeholder="인증번호를 입력해주세요"
         />
         <button
           type="button"
@@ -123,33 +108,26 @@
   </main>
 
   <script>
-    // 실제 인증번호를 여기에 임시 하드코딩 (예: 서버에서 받은 값)
-    const correctCode = "123456";
 
-    // 이름과 이메일이 일치하는지 확인하는 함수
     function validateInputs() {
-      const name = document.getElementById("nameInput").value;
       const email = document.getElementById("emailInput").value;
-      const noInfoMsg = document.getElementById("noInfoMsg");
 
-       // 이메일 또는 이름이 비어있다면 오류 메시지를 표시하고 함수를 종료
-      if (name === "" || email === "") {
-        noInfoMsg.classList.remove("hidden");
-        return;  // 더 이상 진행x
-      } else {
-        noInfoMsg.classList.add("hidden");  // 메시지 숨기기
-      }
+      // 이메일 입력값이 비었을 때
+        if (email === "") {
+          alert("이메일을 입력해주세요.");
+          return;  // 더 이상 진행하지 않음
+        }
 
-      // 예시: 특정 이름과 이메일이 일치해야 한다고 가정
-      const expectedName = "홍길동";  // 예시 이름
-      const expectedEmail = "hong@example.com";  // 예시 이메일
+        // 가정: 예시 이메일
+        const expectedEmail = "hong@example.com";  // 예시 이메일
 
-      if (name !== expectedName || email !== expectedEmail) {
-        alert("이름과 이메일이 일치하지 않습니다.");
-      } else {
-        // 이름과 이메일이 일치하면 인증 메일을 보냄
-        sendVerificationEmail(email);
-      }
+        // 이메일이 일치하지 않으면 알림창 표시
+        if (email !== expectedEmail) {
+          alert("존재하지 않는 이메일 입니다.");
+        } else {
+          // 이메일이 일치하면 인증 메일을 보냄
+          sendVerificationEmail(email);
+        }
     }
 
     function checkVerificationCode() {

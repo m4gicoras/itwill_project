@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sellity - 메인 페이지</title>
 
-  <!-- TailwindCSS 2.0 -->ss
+  <!-- TailwindCSS 2.0 -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- 구글 폰트 embed 코드 추가 -->
@@ -181,7 +181,7 @@
 
 
 
-    <!-- 소셜 로그인 버튼을 나란히 배치하는 div -->ss
+    <!-- 소셜 로그인 버튼을 나란히 배치하는 div -->
     <div class="flex space-x-4 justify-center mt-2 mb-4">
       <!-- 구글 로그인 버튼 (G 로고 이미지) -->
       <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md transition-all focus:outline-none">

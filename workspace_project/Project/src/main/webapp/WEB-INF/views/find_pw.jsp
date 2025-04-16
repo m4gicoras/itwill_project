@@ -61,17 +61,7 @@
            id="userId" name="userId"
            type="text"
            class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-           placeholder="아이디"
-        />
-      </div>
-
-      <!-- 이름 -->
-      <div class="w-[400px] flex justify-center mb-4">
-        <input
-          type="text"
-          id="userName" name="userName"
-          class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="이름"
+           placeholder="ID"
         />
       </div>
 
@@ -81,15 +71,10 @@
           id="userEmail"
           type="email"
           class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="이메일"
+          placeholder="Email"
         />
 
-              <!-- 오류 메시지 -->
-              <div id="errorMsg" class="text-red-500 text-sm text-center hidden mt-4 w-[300px]">
-                회원정보가 존재하지 않습니다.
-              </div>
-
-              </div>
+      </div>
 
       <!-- 비밀번호 찾기 버튼 -->
       <button
@@ -106,26 +91,31 @@
   </main>
 
   <script>
+    // 유효성 검사 및 폼 전송 함수
     function validateAndSubmit() {
       const id = document.getElementById("userId").value.trim();
-      const name = document.getElementById("userName").value.trim();
       const email = document.getElementById("userEmail").value.trim();
-      const errorMsg = document.getElementById("errorMsg");
 
-      // 유효성 검사
-      if (!id || !name || !email) {
-        errorMsg.classList.remove("hidden"); // 오류 메시지 표시
-        return; // 전송하지 않음
-      } else {
-        errorMsg.classList.add("hidden"); // 오류 메시지 숨김
+      // 아이디와 이메일이 비어있는 경우
+      if (!id || !email) {
+        alert("아이디와 이메일을 작성해주세요.");
+        return;  // 더 이상 진행하지 않음
+      }
+
+      // 가정: 아이디와 이메일이 일치하는지 확인 (예시 아이디와 이메일)
+      const expectedId = "user123";  // 예시 아이디
+      const expectedEmail = "user@example.com";  // 예시 이메일
+
+      // 아이디와 이메일이 일치하지 않으면 오류 메시지 표시
+      if (id !== expectedId || email !== expectedEmail) {
+        alert("존재하지 않는 회원정보 입니다.");
+        return;  // 더 이상 진행하지 않음
       }
 
       // 입력이 모두 올바르면 form 전송
       document.getElementById("pwFindForm").submit(); // ✅ 전송 ⭕
     }
   </script>
-
-
 
 </body>
 </html>
