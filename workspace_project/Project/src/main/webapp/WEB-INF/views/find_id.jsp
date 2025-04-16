@@ -87,14 +87,20 @@
           확인
         </button>
 
-        <div id="errorMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
+        <div id="successMsg" class="text-blue-500 text-sm hidden mt-1 absolute top-full left-20 w-[300px]">
+          인증이 완료되었습니다.
+        </div>
+
+        <div id="errorMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-20 w-[300px]">
           인증번호가 일치하지 않습니다.
         </div>
+
       </div>
 
       <!-- 아이디 찾기 버튼 -->
       <button
         type="submit"
+        onclick="submitFindId()"
         class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
       >
         아이디 찾기
@@ -109,8 +115,11 @@
 
   <script>
 
+    const correctEmail = "hong@example.com";  // 예시 이메일
+    const correctCode = "123456";             // 예시 인증번호
+
     function validateInputs() {
-      const email = document.getElementById("emailInput").value;
+      const email = document.getElementById("emailInput").value.trim(); // trim() => 공백 방지
 
       // 이메일 입력값이 비었을 때
         if (email === "") {
@@ -118,11 +127,7 @@
           return;  // 더 이상 진행하지 않음
         }
 
-        // 가정: 예시 이메일
-        const expectedEmail = "hong@example.com";  // 예시 이메일
-
-        // 이메일이 일치하지 않으면 알림창 표시
-        if (email !== expectedEmail) {
+        if (email !==  correctEmail) {
           alert("존재하지 않는 이메일 입니다.");
         } else {
           // 이메일이 일치하면 인증 메일을 보냄
@@ -130,22 +135,50 @@
         }
     }
 
+    let isEmailVerified = false; // 전역 변수: 이메일 인증 성공 여부 저장
+
     function checkVerificationCode() {
-      const input = document.getElementById("verifyInput").value;
+      const input = document.getElementById("verifyInput").value.trim();
+      const successMsg = document.getElementById("successMsg");
       const errorMsg = document.getElementById("errorMsg");
 
-      if (input !== correctCode) {
-        errorMsg.classList.remove("hidden");
-      } else {
-        errorMsg.classList.add("hidden");
-        alert("인증이 완료되었습니다.");
+        if (input === "") {
+          alert("인증번호를 입력해주세요.");
+          successMsg.classList.add("hidden");
+          errorMsg.classList.add("hidden");
+          return;
+        }
+
+        if (input !== correctCode) {
+          successMsg.classList.add("hidden");
+          errorMsg?.classList.remove("hidden");
+          isEmailVerified = false;
+        } else {
+          successMsg.classList.remove("hidden");
+          errorMsg?.classList.add("hidden");
+          isEmailVerified = true;
+
+          }
+        }
+
+    function submitFindId() {
+      const email = document.getElementById("emailInput").value.trim();
+      const code = document.getElementById("verifyInput").value.trim();
+
+      if (email === "" || code === "") {
+        alert("이메일과 인증번호를 모두 입력해주세요.");
+        return;
       }
+
+      if (!isEmailVerified) {
+        alert("인증에 실패했습니다.");
+        return;
+      }
+
+      // 성공 시 페이지 이동
+      window.location.href = "http://localhost:8080/web/finish_id";
     }
 
-    // 인증 메일 전송을 알리는 함수 (실제로 메일을 보내는 것은 서버에서 처리해야 함)
-    function sendVerificationEmail(email) {
-      alert("입력하신 이메일(" + email + ")로 인증 메일을 전송했습니다.");
-    }
   </script>
 
 

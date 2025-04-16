@@ -60,7 +60,7 @@
        <label class="w-[300px] block font-semibold text-left text-base text-gray-700">새 비밀번호</label>
         <input
            id="newPassword"
-           type="text"
+           type="password"
            class="w-[300px] px-4 py-2 border border-gray-300 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
            placeholder="특수문자를 1개 이상 포함한 8~20자리"
         />
@@ -77,7 +77,7 @@
       <label class="w-[300px] block font-semibold text-left text-base text-gray-700">새 비밀번호 확인</label>
         <input
           id="confirmPassword"
-          type="text"
+          type="password"
           class="w-[300px] px-4 py-2 border border-gray-300 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           placeholder="비밀번호를 다시 입력해 주세요"
         />
@@ -133,9 +133,14 @@
       pwMatchError.classList.add("hidden");
     }
 
-    if (valid) {
+      if (!valid) {
+        alert("비밀번호를 변경하지 못했습니다.");
+        return;
+      }
+
+      // 성공하면 폼 제출
       document.getElementById("resetPwForm").submit();
-    }
+
   }
 </script>
 
