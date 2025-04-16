@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m4gi.mapper.OrderMapper">
+
+    <select id="selectInboundOrders" resultType="com.m4gi.dto.OrderDTO">
+        SELECT
+        o.order_id AS orderId,
+        p.product_name AS productName,
+        o.order_qtty AS orderQtty,
+        o.order_date AS orderDate,
+        o.ship_comp_date AS shipCompDate,
+        u.company_name AS companyName,
+        o.status AS status,
+        o.inbound_date AS inboundDate  <!-- 입고일도 같이 조회 -->
+        FROM orders o
+        JOIN products p ON o.product_id = p.product_id
+        JOIN users u ON o.b_company_id = u.user_id
+        WHERE o.status IN (10, 11, 12)  <!-- 입고완료(12) 포함 -->
+        ORDER BY o.order_date DESC
+    </select>
+
+
+    <select id="selectOutboundOrders" resultType="com.m4gi.dto.OrderDTO">
+        SELECT
+            o.order_id AS orderId,
+            p.product_name AS productName,
+            o.order_qtty AS orderQtty,
+            o.order_date AS orderDate,
+            o.ship_comp_date AS shipCompDate,
+            o.outbound_date AS outboundDate,
+            u.company_name AS companyName,
+            o.status AS status
+        FROM orders o
+                 JOIN products p ON o.product_id = p.product_id
+                 JOIN users u ON o.b_company_id = u.user_id
+        WHERE o.status IN (20, 21,22)
+        ORDER BY o.order_date DESC
+    </select>
+
+    <!-- 입고/출고에 관해서.. 기업 물품 상태 업데이트 -->
+    <update id="updateOutboundToInProgress">
+        UPDATE orders SET status = 21 WHERE order_id = #{orderId}
+    </update>
+
+    <update id="updateInboundToInProgress">
+        UPDATE orders
+        SET status = 11
+        WHERE order_id = #{orderId} AND status = 10
+    </update>
+
+
+    <!-- 1. 주문 상태 변경 (입고) -->
+    <update id="updateOrderToInboundComplete">
+        UPDATE orders
+        SET status = 12,
+            inbound_date = NOW()
+        WHERE order_id = #{orderId}
+    </update>
+
+    <!-- 1. 주문 상태 변경 (출고) -->
+    <update id="updateOrderToOutboundComplete">
+        UPDATE orders
+        SET status = 22,
+            outbound_date = NOW()
+        WHERE order_id = #{orderId}
+    </update>
+
+
+    <!-- 2. 주문 상세 조회 -->
+    <select id="getOrderById" resultType="com.m4gi.dto.OrderDTO">
+        SELECT
+            o.order_id,
+            o.s_company_id AS company_id,
+            p.product_name,
+            o.order_qtty
+        FROM orders o
+                 JOIN products p ON o.product_id = p.product_id
+        WHERE o.order_id = #{orderId}
+    </select>
+
+    <!-- 3. 상품 존재 여부 확인 -->
+    <select id="checkProductExists" resultType="int">
+        SELECT COUNT(*) FROM products
+        WHERE company_id = #{companyId}
+          AND product_name = #{productName}
+    </select>
+
+    <!-- 4. 수량 추가 -->
+    <update id="updateProductQuantity">
+        UPDATE products
+        SET quantity = quantity + #{quantity}
+        WHERE company_id = #{companyId}
+          AND product_name = #{productName}
+    </update>
+
+    <!-- 5. 상품 새로 추가 -->
+    <insert id="insertProduct">
+        INSERT INTO products (company_id, product_name, quantity)
+        VALUES (#{companyId}, #{productName}, #{quantity})
+    </insert>
+
+
+</mapper>
