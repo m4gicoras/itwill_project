@@ -115,7 +115,7 @@
 
   <script>
 
-    const correctEmail = "hong@example.com";  // 예시 이메일
+    const correctEmail = "3thirdp4rty@gmail.com";  // 예시 이메일
     const correctCode = "123456";             // 예시 인증번호
 
     function validateInputs() {
@@ -176,7 +176,10 @@
       }
 
       // 성공 시 페이지 이동
-      window.location.href = "http://localhost:8080/web/finish_id";
+      // 아이디 찾기 버튼 클릭 시
+      // find_Id 경로로 이동하면 서버에서 @RequestParam("email") String email을 통해 이 이메일 값을 받을 수 있음
+      window.location.href = "${pageContext.request.contextPath}/finish_id";
+
     }
 
   </script>

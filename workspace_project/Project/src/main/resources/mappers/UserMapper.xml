@@ -27,4 +27,18 @@
 	    WHERE username = #{username}
 	</select>
 
+    <select id="isExistEmail" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        where email = #{email}
+    </select>
+
+    <!--
+    <update id="updateUserPassword" parameterType="map">
+        UPDATE users
+        SET user_pw = #{newPassword}
+        WHERE user_id = #{userId}
+    </update>
+    -->
+
 </mapper>

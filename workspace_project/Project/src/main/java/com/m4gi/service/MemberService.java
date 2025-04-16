@@ -16,4 +16,8 @@ public class MemberService {
         return member != null;
 
     }
+    public MemberDTO findByEmail(String email) {
+        return memberMapper.findByEmail(email);
+    }
+
 }

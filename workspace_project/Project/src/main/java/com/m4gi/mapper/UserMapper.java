@@ -10,4 +10,6 @@ public interface UserMapper {
     void insertUser(User user);
     
     User checkUsername(String username);
+
+    int isExistEmail(String email);
 }

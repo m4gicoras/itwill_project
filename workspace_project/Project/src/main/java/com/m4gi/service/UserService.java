@@ -11,4 +11,7 @@ public interface UserService {
     public boolean login(String username, String password);
     
     public int isDuplicateUsername(String username);
+
+    public int isExistEmail(String email);
+
 }

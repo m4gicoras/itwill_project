@@ -126,7 +126,7 @@
       }
 
       // 3. 성공 시 이동
-      window.location.href = "<%= request.getContextPath() %>/delete";
+      window.location.href = "${pageContext.request.contextPath}/delete";
     }
   </script>
 

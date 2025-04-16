@@ -58,12 +58,12 @@
     <!-- 버튼 영역 -->
     <div class="flex flex-col space-y-4 mt-14">
       <!-- 메인페이지 이동 -->
-      <a href="/mainTest" class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition text-center">
+      <a href="${pageContext.request.contextPath}/mainTest" class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition text-center">
         확인
       </a>
 
       <!-- 회원가입 페이지 이동 -->
-      <a href="/signup" class="px-6 py-2 bg-gray-300 text-black rounded-full shadow-md hover:bg-gray-400 transition text-center">
+      <a href="${pageContext.request.contextPath}/signup" class="px-6 py-2 bg-gray-300 text-black rounded-full shadow-md hover:bg-gray-400 transition text-center">
         회원가입
       </a>
     </div>

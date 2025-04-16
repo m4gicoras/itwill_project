@@ -54,7 +54,7 @@
     <div class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-2xl flex flex-col items-center">
      <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10"><span class="kimm-bold text-blue-500">비밀번호 찾기</span></h1>
 
-      <form id="pwFindForm" action="http://localhost:8080/web/find_pw2" method="post" class="flex flex-col items-center">
+      <form id="pwFindForm" action="${pageContext.request.contextPath}/find_pw2" method="post" class="flex flex-col items-center">
       <!-- 아이디 -->
        <div class="w-[400px] flex justify-center mt-4 mb-4">
         <input

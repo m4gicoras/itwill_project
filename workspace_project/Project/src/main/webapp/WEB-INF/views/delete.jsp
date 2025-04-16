@@ -84,7 +84,7 @@
     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
     <span class="kimm-bold text-blue-500">회원탈퇴</span></h1></h1>
 
-      <form action="withdraw_process.jsp" method="post" class="space-y-8 py-10">
+      <form onsubmit="return validateForm(event)" method="post" class="space-y-8 py-10">
 
         <!-- 탈퇴 사유 -->
         <div class="space-y-4">
@@ -135,14 +135,13 @@
           <button
             type="submit"
             class="w-1/4 px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition"
-            onclick="validateForm(event)"
           >
             회원 탈퇴
           </button>
           <button
             type="button"
             class="w-1/4 px-6 py-2 bg-gray-400 text-white rounded-full shadow-lg hover:bg-gray-500 transition"
-            onclick="window.location.href='main.jsp';"
+            onclick="window.location.href='${pageContext.request.contextPath}/mainTest';"
           >
             취소
           </button>
@@ -154,13 +153,17 @@
 
   <script>
     function validateForm(event) {
+      event.preventDefault();
       const checkbox = document.getElementById('agree');
+
       if (!checkbox.checked) {
-        alert("탈퇴에 동의하셔야 회원 탈퇴가 가능합니다.");
+        alert("동의하신 후 탈퇴가 가능합니다.");
         event.preventDefault();
         return false;
       }
-      return true;
+          // 체크되어 있으면 페이지 이동
+        window.location.href = "${pageContext.request.contextPath}/clear";
+        return true;
     }
   </script>
 
