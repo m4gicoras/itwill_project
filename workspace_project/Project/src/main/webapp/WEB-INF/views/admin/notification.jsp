@@ -53,8 +53,9 @@
                             <div>
                                 <!-- 페이지 명 -->
                                 <div class="mt-15 mb-10 flex items-center justify-center">
-                                    <h5 class="me-2 logo-font text-2xl leading-5 font-bold text-blue-900 select-none">Sellity</h5>
+                                    <h5 class="me-2 logo-font text-4xl leading-5 font-bold text-blue-900 select-none">Sellity</h5>
                                 </div>
+                                <div class="mt-8 mb-8 h-px bg-zinc-200 "></div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
