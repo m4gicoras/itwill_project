@@ -7,13 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sellity - 메인 페이지</title>
 
-  <!-- TailwindCSS 2.0 -->
+  <!-- TailwindCSS 2.0 -->ss
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- 구글 폰트 embed 코드 추가 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900git checkout dev_main_front_final&amp;display=swap" rel="stylesheet">
 
   <style>
     @font-face {
