@@ -181,7 +181,7 @@
 
 
 
-    <!-- 소셜 로그인 버튼을 나란히 배치하는 div -->
+    <!-- 소셜 로그인 버튼을 나란히 배치하는 div -->ss
     <div class="flex space-x-4 justify-center mt-2 mb-4">
       <!-- 구글 로그인 버튼 (G 로고 이미지) -->
       <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md transition-all focus:outline-none">
