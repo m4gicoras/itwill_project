@@ -117,7 +117,7 @@
 	                                    </a>
                                     </div>
                                     <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-										<a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/notification">
+										<a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/notificationTable">
 										    <div class="w-full items-center justify-center">
 										        <div class="flex w-full items-center justify-center">
 										            <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
@@ -125,7 +125,7 @@
 										                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
 										                </svg>
 										            </div>
-										            <p class="mr-auto text-sm font-medium text-zinc-950">알림 전송</p>
+										            <p class="mr-auto text-sm font-medium text-zinc-950">알림 관리</p>
 										        </div>
 										    </div>
 										</a>
@@ -265,7 +265,18 @@
 	                    </a>
 	                </c:forEach>
 	            </div>
+	            
+	            <!-- 알림 보내기 페이지로 -->
+	            <div class="flex justify-end">
+	              <button onclick="location.href='/web/admin/notification'"  type="button" class="btn mx-0 mb-0 h-9 w-45">
+	              	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-white">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+					</svg>            
+	                <span class="btn-text">알림 보내기</span>
+	              </button>
+	            </div>
             </div> <!-- 테이블 -->
+            
             
         </div> <!-- 메인 -->
     </div>
