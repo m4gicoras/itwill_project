@@ -91,7 +91,7 @@
           인증이 완료되었습니다.
         </div>
 
-        <div id="errorMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-20 w-[300px]">
+        <div id="errorMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
           인증번호가 일치하지 않습니다.
         </div>
 
@@ -171,7 +171,7 @@
       }
 
       if (!isEmailVerified) {
-        alert("인증에 실패했습니다.");
+        alert("인증에 실패하였습니다.");
         return;
       }
 
