@@ -10,5 +10,6 @@
       <mapper resource="mappers/AdminProductMapper.xml"/>
       <mapper resource="mappers/Products.xml"/>
       <mapper resource="mappers/OrderMapper.xml"/>
+      <mapper resource="mappers/NotificationMapper.xml"/>
     </mappers>
   </configuration>

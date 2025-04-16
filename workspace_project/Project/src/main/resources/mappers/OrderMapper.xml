@@ -59,6 +59,11 @@
         WHERE order_id = #{orderId}
     </update>
 
+    <!-- 1-a. 입고 알림 기능 -->
+    <select id="getBuyerId" resultType="int">
+        SELECT b_company_id FROM orders WHERE order_id = #{orderId}
+    </select>
+
     <!-- 1. 주문 상태 변경 (출고) -->
     <update id="updateOrderToOutboundComplete">
         UPDATE orders
@@ -66,6 +71,9 @@
             outbound_date = NOW()
         WHERE order_id = #{orderId}
     </update>
+
+
+
 
 
     <!-- 2. 주문 상세 조회 -->

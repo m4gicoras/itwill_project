@@ -12,6 +12,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public List<OrderDTO> getInboundOrders() {
@@ -41,6 +43,14 @@ public class OrderServiceImpl implements OrderService {
         } else {
             orderMapper.insertProduct(order.getCompanyId(), order.getProductName(), order.getOrderQtty());
         }
+
+        // 주문 상태 업데이트 및 상품 수량 처리 다 한 뒤 알림보내기
+        int recipientId = orderMapper.getBuyerId(orderId); // 구매자 ID 조회
+        String content = "입고가 완료되었습니다. 주문번호: " + orderId;
+        notificationService.createNotification(content, recipientId); // 알림 전송
+        System.out.println("🔔 ㅇㄱ 알림 테스트 - recipientId: " + recipientId + ", orderId: " + orderId);
+
+
     }
 
     // 출고 준비 -> 진행
@@ -61,6 +71,7 @@ public class OrderServiceImpl implements OrderService {
     //출고완료 버튼누르면 일어나는일
     @Override
     public void completeOutbound(int orderId) {
+        System.out.println("👉 completeOutbound 진입");
         // 1. 주문 상태를 22로 변경하고, 출고 완료일을 now()로 업데이트
         orderMapper.updateOrderToOutboundComplete(orderId);
 
@@ -82,6 +93,13 @@ public class OrderServiceImpl implements OrderService {
         } else {
             orderMapper.insertProduct(order.getCompanyId(), order.getProductName(), order.getOrderQtty());
         }
+
+        int recipientId = orderMapper.getBuyerId(orderId);
+        String content = "출고가 완료되었습니다. 주문번호: " + orderId;
+        System.out.println("👉 알림 보내기 전: content=" + content + ", recipientId=" + recipientId);
+        notificationService.createNotification(content, recipientId);
+        System.out.println("🔔 출고 알림 테스트 - recipientId: " + recipientId + ", orderId: " + orderId);
+        System.out.println("👉 알림 보내기 후");
     }
 
 

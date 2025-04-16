@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.NotificationMapper">
+
+    <!-- 알림 insert 시 notificationId를 자바에 매핑 (camelCase) -->
+    <insert id="insertNotification"
+            parameterType="com.m4gi.domain.Notification"
+            useGeneratedKeys="true"
+            keyProperty="notificationId"
+            keyColumn="notification_id">
+        INSERT INTO notification (content, created_at)
+        VALUES (#{content}, NOW())
+    </insert>
+
+
+
+    <!-- 수신자 insert -->
+    <insert id="insertRecipient">
+        INSERT INTO recipients (notification_id, recipient_id)
+        VALUES (#{notificationId}, #{recipientId})
+    </insert>
+
+    <!-- (선택) 알림 조회 예시 - 컬럼명 매핑용 -->
+    <select id="selectNotification" resultType="com.m4gi.domain.Notification">
+        SELECT
+            notification_id AS notificationId,
+            content,
+            created_at AS createdAt
+        FROM notification
+        WHERE notification_id = #{notificationId}
+    </select>
+
+</mapper>

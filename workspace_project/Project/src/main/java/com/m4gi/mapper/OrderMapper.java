@@ -18,5 +18,8 @@ public interface OrderMapper {
     void insertProduct(int companyId, String productName, int quantity);
     void updateOutboundToInProgress(int orderId);
     void updateInboundToInProgress(int orderId);
+
+    int getBuyerId(int orderId); //알람
+
 }
 
