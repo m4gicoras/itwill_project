@@ -33,7 +33,7 @@ public class MainController {
     public String showMainPage(HttpSession session, HttpServletRequest request) {
         // 세션에 로그인 정보가 있으면 바로 test 페이지로 이동
         if (session.getAttribute("username") != null) {
-            return "redirect:/test";
+            return "redirect:/dashboard";
         }
 
         // 세션에 정보가 없으면 쿠키에서 'username'을 확인하여 세션 복원 시도
@@ -45,7 +45,7 @@ public class MainController {
                     session.setAttribute("username", username);
                     logger.info("Session restored from cookie for user '{}'", username);
                     // 복원된 경우 바로 test 페이지로 리다이렉트
-                    return "redirect:/test";
+                    return "redirect:/dashboard";
                 }
             }
         }
@@ -84,14 +84,13 @@ public class MainController {
             }
 
             result.put("success", true);
-            result.put("redirect", "test");
+            result.put("redirect", "dashboard");
         } else {
             result.put("success", false);
         }
 
         return result;
     }
-
 
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse response) {

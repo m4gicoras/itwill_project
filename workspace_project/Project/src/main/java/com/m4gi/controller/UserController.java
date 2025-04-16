@@ -5,9 +5,7 @@ import com.m4gi.domain.User;
 import com.m4gi.dto.SiteUser;
 import com.m4gi.service.UserService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +34,7 @@ public class UserController {
     }
 
     // 대시보드 페이지
-    @GetMapping("/test")
+    @GetMapping("/dashboard")
     public String showDashBoard(Model model, HttpSession session) {
 
         Integer userId = (Integer) session.getAttribute("userId");
@@ -47,7 +45,7 @@ public class UserController {
         List<Products> productList = userService.getProductsByUser(user);
         model.addAttribute("productList", productList);
 
-        return "test";
+        return "dashboard";
     }
     
     @GetMapping("/isDuplicateUsername")
