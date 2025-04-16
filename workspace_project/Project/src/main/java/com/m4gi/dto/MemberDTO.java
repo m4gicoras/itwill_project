@@ -1,4 +1,4 @@
-package persistence;
+package com.m4gi.dto;
 
 public class MemberDTO {
     private String userId;
