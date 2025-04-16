@@ -251,7 +251,7 @@
 										    </div>
 										</a>
                                      </div>
-                                     <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
+                                     <!-- <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
                                         <a class="undefined rounded-none w-full select-none" href="#">
                                             <div class="w-full items-center justify-center">
                                                 <div class="flex w-full items-center justify-center">
@@ -265,7 +265,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                     </div>
+                                     </div> -->
                                 </ul>
                             </div>
 
