@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.admin.AdminNotificationMapper">
+
+	<!-- 전체 알림 기록 조회 -->
+	<select id="getNotificationList" resultType="com.m4gi.domain.admin.AdminNotification">
+		SELECT 
+		n.notification_id, 
+		r.recipient_id, 
+		n.content, 
+		u.company_name,
+		n.created_at
+		FROM recipients r 
+		JOIN notification n
+		ON r.notification_id = n.notification_id
+		JOIN users u
+		ON r.recipient_id = u.user_id
+		ORDER BY n.notification_id;
+	</select>
+	<!-- 전체 알림 기록 조회 -->
+
+</mapper>
