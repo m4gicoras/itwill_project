@@ -59,7 +59,7 @@
       <!-- 버튼 영역 -->
       <div class="flex flex-col space-y-4 mt-10">
         <!-- 메인페이지 이동 -->
-        <a href="${pageContext.request.contextPath}/mainTest"
+        <a href="${pageContext.request.contextPath}/main"
            class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition text-center">
           로그인하러 가기
         </a>

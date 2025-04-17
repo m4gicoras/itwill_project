@@ -62,7 +62,7 @@
                         <div class="w-[400px] flex justify-left mt-4 mb-4">
                             <input id="username" name="username" type="text"
                                 class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                placeholder="아이디" />
+                                placeholder="ID" />
 
                         </div>
 
@@ -71,7 +71,7 @@
                         <div class="w-[400px] flex items-center mb-4">
                             <input id="emailInput" type="email"
                                 class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                placeholder="이메일" />
+                                placeholder="Email" />
                             <!-- 오른쪽 버튼 -->
                             <button type="button"
                                                                 class="ml-4 btn"

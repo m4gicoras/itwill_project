@@ -56,12 +56,12 @@
          <span class="kimm-bold text-blue-500">아이디 찾기</span></h1>
 
       <!-- 이메일 + 전송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mb-4 relative">
+      <div class="w-[400px] flex items-center gap-2 mt-4 mb-4 relative">
         <input
           id="emailInput"
           type="email"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="이메일"
+          placeholder="Email"
         />
         <button
           type="button"
@@ -72,14 +72,14 @@
         </button>
 
       <!-- 이메일 입력값이 비었을 때 오류 메시지 -->
-      <div id="noInfoMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
+      <div id="noInfoMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-20 w-[300px]">
        회원정보가 존재하지 않습니다.
       </div>
 
     </div>
 
       <!-- 인증번호 + 재발송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mt-6 mb-6 relative">
+      <div class="w-[400px] flex items-center gap-2 mt-4 mb-6 relative">
         <input
           id="verifyInput"
           type="text"
