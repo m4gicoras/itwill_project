@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -85,6 +86,16 @@ public class UserController {
         return "find_pw2";
     }
 
+    @PostMapping("/find_pw2")
+    public String showFindPW2Form(
+            @RequestParam("username") String username,
+            HttpSession session)
+    {
+        // 세션에 저장
+        session.setAttribute("resetUsername", username);
+        return "find_pw2";
+    }
+
     @GetMapping("/finish_pw")
     public String showFinishPWForm() {
         return "finish_pw";
@@ -125,6 +136,37 @@ public class UserController {
             result.put("error", "해당 이메일로 등록된 아이디가 없습니다.");
         }
         return result;
+    }
+
+    @PostMapping("/resetPassword")
+    public String resetPassword(
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmPassword") String confirmPassword,
+            HttpSession session,
+            Model model
+    )
+        {
+            // 세션에서 userId 꺼내기
+            String username = (String) session.getAttribute("resetUsername");
+
+            // 비밀번호 일치 체크
+            if (!newPassword.equals(confirmPassword)) {
+                model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
+                return "find_pw2";
+        }
+
+        // 2) 서비스 호출
+        boolean success = userService.resetPassword(username, newPassword);
+
+        // 3) 처리 결과에 따라 이동
+        if (success) {
+            // 로그인 페이지로 리다이렉트
+            session.removeAttribute("resetUsername");
+            return "redirect:/finish_pw";
+        } else {
+            model.addAttribute("error", "비밀번호 변경에 실패했습니다.");
+            return "find_pw2";
+        }
     }
     
     @GetMapping("/isDuplicateUsername")

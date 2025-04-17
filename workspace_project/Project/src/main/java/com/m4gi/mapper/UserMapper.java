@@ -28,4 +28,6 @@ public interface UserMapper {
 
     List<Products> showProductList(User user);
 
+    int updatePassword(@Param("username") String username, @Param("newPassword") String newPassword);
+
 }

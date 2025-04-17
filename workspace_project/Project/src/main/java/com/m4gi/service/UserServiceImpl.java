@@ -74,4 +74,9 @@ public class UserServiceImpl implements UserService{
     public List<Products> getProductsByUser(User user) {
         return userMapper.showProductList(user);
     }
+
+    @Override
+    public boolean resetPassword(String username, String password) {
+        return userMapper.updatePassword(username, password) == 1;
+    }
 }

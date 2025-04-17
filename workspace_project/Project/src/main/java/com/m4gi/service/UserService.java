@@ -21,4 +21,6 @@ public interface UserService {
     public int isExistEmail(String email);
 
     public List<Products> getProductsByUser(User user);
+
+    public boolean resetPassword(String username, String password);
 }

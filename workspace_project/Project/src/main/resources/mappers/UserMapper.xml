@@ -42,4 +42,10 @@
         WHERE email = #{email}
     </select>
 
+    <update id="updatePassword" parameterType="map">
+        UPDATE users
+        SET user_pw = #{newPassword}
+        WHERE username = #{username}
+    </update>
+
 </mapper>
