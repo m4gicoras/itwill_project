@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.NotificationMapper">
+
+    <select id="selectNotificationsByUserId" resultType="NotificationDTO">
+        SELECT
+            n.notification_id AS notificationId,
+            n.content,
+            n.created_at AS createdAt,
+            r.is_read AS isRead
+        FROM notification n
+                 JOIN recipients r ON n.notification_id = r.notification_id
+        WHERE r.recipient_id = #{userId}
+        ORDER BY n.created_at DESC
+    </select>
+
+    <select id="countUnreadNotifications" resultType="int">
+        SELECT COUNT(*)
+        FROM recipients
+        WHERE recipient_id = #{userId}
+          AND is_read = FALSE
+    </select>
+
+    <insert id="insertNotification" useGeneratedKeys="true" keyProperty="notificationId">
+        INSERT INTO notification (content, created_at)
+        VALUES (#{content}, #{createdAt})
+    </insert>
+
+    <insert id="insertRecipient">
+        INSERT INTO recipients (notification_id, recipient_id, is_read)
+        VALUES (#{notificationId}, #{recipientId}, FALSE)
+    </insert>
+
+</mapper>
