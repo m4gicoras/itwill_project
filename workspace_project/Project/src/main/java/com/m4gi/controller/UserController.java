@@ -95,6 +95,11 @@ public class UserController {
         return "finish_id";
     }
 
+    @GetMapping("/add_product")
+    public String showAddProductForm() {
+        return "add_product";
+    }
+
     @PostMapping("/checkEmail")
     @ResponseBody
     public Map<String, Object> checkEmail(@RequestParam("email") String email) {
