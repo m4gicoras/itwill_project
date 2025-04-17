@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
 <head>
+
+<script> var contextPath = '<%= request.getContextPath() %>'; </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>아이디 찾기</title>
@@ -52,16 +54,6 @@
     <div class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-xl flex flex-col items-center">
     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
          <span class="kimm-bold text-blue-500">아이디 찾기</span></h1>
-
-      <!-- 이름 -->
-      <div class="w-[400px] mb-4">
-        <input
-          id="nameInput"
-          type="text"
-          class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="이름"
-        />
-      </div>
 
       <!-- 이메일 + 전송 버튼 -->
       <div class="w-[400px] flex items-center gap-2 mb-4 relative">
@@ -118,58 +110,9 @@
     </div>
 
     </div>
-
-
   </main>
-
-  <script>
-    // 실제 인증번호를 여기에 임시 하드코딩 (예: 서버에서 받은 값)
-    const correctCode = "123456";
-
-    // 이름과 이메일이 일치하는지 확인하는 함수
-    function validateInputs() {
-      const name = document.getElementById("nameInput").value;
-      const email = document.getElementById("emailInput").value;
-      const noInfoMsg = document.getElementById("noInfoMsg");
-
-       // 이메일 또는 이름이 비어있다면 오류 메시지를 표시하고 함수를 종료
-      if (name === "" || email === "") {
-        noInfoMsg.classList.remove("hidden");
-        return;  // 더 이상 진행x
-      } else {
-        noInfoMsg.classList.add("hidden");  // 메시지 숨기기
-      }
-
-      // 예시: 특정 이름과 이메일이 일치해야 한다고 가정
-      const expectedName = "홍길동";  // 예시 이름
-      const expectedEmail = "hong@example.com";  // 예시 이메일
-
-      if (name !== expectedName || email !== expectedEmail) {
-        alert("이름과 이메일이 일치하지 않습니다.");
-      } else {
-        // 이름과 이메일이 일치하면 인증 메일을 보냄
-        sendVerificationEmail(email);
-      }
-    }
-
-    function checkVerificationCode() {
-      const input = document.getElementById("verifyInput").value;
-      const errorMsg = document.getElementById("errorMsg");
-
-      if (input !== correctCode) {
-        errorMsg.classList.remove("hidden");
-      } else {
-        errorMsg.classList.add("hidden");
-        alert("인증이 완료되었습니다.");
-      }
-    }
-
-    // 인증 메일 전송을 알리는 함수 (실제로 메일을 보내는 것은 서버에서 처리해야 함)
-    function sendVerificationEmail(email) {
-      alert("입력하신 이메일(" + email + ")로 인증 메일을 전송했습니다.");
-    }
-  </script>
-
-
 </body>
+
+<script src="<%= request.getContextPath() %>/resources/js/find.js"></script>
+
 </html>
