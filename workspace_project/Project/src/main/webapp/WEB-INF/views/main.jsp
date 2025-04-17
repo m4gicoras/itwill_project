@@ -57,15 +57,15 @@
   <!-- 배경 블러 처리된 영역 -->
   <div class="background-blur"></div>
 
-  <!-- 로그인 폼 -->
-  <div class="login-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg text-white rounded-xl p-8 max-w-sm w-full border-2 border-white/30 shadow-2xl z-10"
-       style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);">
+    <!-- 로그인 폼 -->
+    <div class="login-container absolute top-1/2 left-1/2 select-none transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg text-white rounded-xl p-8 max-w-sm w-full border-2 border-white/30 shadow-2xl z-10"
+         style="background-color: rgba(255, 255, 255, 0.3); backdrop-filter: blur(4px); box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);">
 
-    <!-- Sellity 제목에만 KIMM_Bold 폰트 적용 -->
-    <h1 class="title text-4xl font-extrabold text-center select-none kimm-bold" style="margin-top: 1em; margin-bottom: 1em;">SELLITY</h1>
+      <!-- Sellity 제목에만 KIMM_Bold 폰트 적용 -->
+      <h1 class="title text-4xl font-extrabold text-center text-blue-900 kimm-bold" style="margin-top: 1em; margin-bottom: 1em;">SELLITY</h1>
 
     <!-- Login 제목에만 KIMM_Bold 폰트 적용 -->
-    <h2 class="subtitle text-xl font-semibold flex justify-center items-center mb-6 kimm-bold select-none">
+    <h2 class="subtitle text-xl font-semibold flex justify-center items-center mb-6 kimm-bold">
       <span class="line flex-1 h-0.5 bg-white opacity-50"></span>  <!-- 선 굵기를 h-2로 변경 -->
       <span class="mx-3">Sign in</span>
       <span class="line flex-1 h-0.5 bg-white opacity-50"></span>  <!-- 선 굵기를 h-2로 변경 -->
@@ -111,7 +111,7 @@
     <!-- 소셜 로그인 버튼을 나란히 배치하는 div -->
     <div class="flex space-x-4 justify-center mt-2 mb-4">
       <!-- 구글 로그인 버튼 (SVG) -->
-      <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:bg-gray-100 transition-all">
+      <a href="https://accounts.google.com/signin" class="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md transition-all">
         <svg viewBox="0 0 512 512" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
           <g>
             <path d="M42.4,145.9c15.5-32.3,37.4-59.6,65-82.3c37.4-30.9,80.3-49.5,128.4-55.2c56.5-6.7,109.6,4,158.7,33.4 c12.2,7.3,23.6,15.6,34.5,24.6c2.7,2.2,2.4,3.5,0.1,5.7c-22.3,22.2-44.6,44.4-66.7,66.8c-2.6,2.6-4,2.4-6.8,0.3 c-64.8-49.9-159.3-36.4-207.6,29.6c-8.5,11.6-15.4,24.1-20.2,37.7c-0.4,1.2-1.2,2.3-1.8,3.5c-12.9-9.8-25.9-19.6-38.7-29.5 C72.3,169,57.3,157.5,42.4,145.9z" fill="#E94335"/>
@@ -124,7 +124,7 @@
 
       <!-- 카카오 로그인 버튼 (SVG) -->
       <a href="https://kauth.kakao.com/oauth/authorize?client_id=YOUR_APP_KEY&redirect_uri=YOUR_REDIRECT_URI&response_type=code"
-         class="flex items-center justify-center w-12 h-12 rounded-full shadow-md bg-yellow-300 hover:bg-gray-100 transition-all focus:outline-none">
+         class="flex items-center justify-center w-12 h-12 rounded-full shadow-md bg-yellow-300 transition-all focus:outline-none">
         <svg viewBox="0 0 512 512" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
           <path fill="#000000" d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"/>
         </svg>
