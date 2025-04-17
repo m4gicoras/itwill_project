@@ -94,6 +94,33 @@ public class UserController {
     public String showFinishID2Form() {
         return "finish_id";
     }
+
+    @PostMapping("/checkEmail")
+    @ResponseBody
+    public Map<String, Object> checkEmail(@RequestParam("email") String email) {
+        int count = userService.isExistEmail(email);
+        Map<String, Object> response = new HashMap<>();
+        response.put("exists", count); // DB에 이메일이 존재하면 true, 아니면 false
+        System.out.println("count: " + count);
+        return response;
+    }
+
+    @PostMapping("/findId")
+    @ResponseBody
+    public Map<String, Object> findUserId(@RequestParam("email") String email, HttpSession session) {
+        Map<String, Object> result = new HashMap<>();
+        User user = userService.findByEmail(email);
+        if (user != null) {
+            String username = user.getUsername();
+            String maskedUsername = username.replaceAll("(?<=.{4}).", "*");  // 앞 4글자 제외하고 마스킹
+            session.setAttribute("foundUsername", maskedUsername); // 세션에 마스킹된 아이디 저장
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("error", "해당 이메일로 등록된 아이디가 없습니다.");
+        }
+        return result;
+    }
     
     @GetMapping("/isDuplicateUsername")
     @ResponseBody

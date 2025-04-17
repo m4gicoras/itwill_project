@@ -103,6 +103,7 @@
       <button
         type="submit"
         class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
+        onclick="checkId()"
       >
         아이디 찾기
       </button>

@@ -65,6 +65,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findByEmail(String email) { return userMapper.findByEmail(email); }
+
+    @Override
+    public int isExistEmail(String email) { return userMapper.isExistEmail(email); }
+
+    @Override
     public List<Products> getProductsByUser(User user) {
         return userMapper.showProductList(user);
     }

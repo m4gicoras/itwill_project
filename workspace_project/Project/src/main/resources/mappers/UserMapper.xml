@@ -30,4 +30,16 @@
 	    WHERE username = #{username}
 	</select>
 
+    <select id="findByEmail" resultType="com.m4gi.domain.User">
+        SELECT username
+        FROM users
+        WHERE email = #{email}
+    </select>
+
+    <select id="isExistEmail" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        WHERE email = #{email}
+    </select>
+
 </mapper>

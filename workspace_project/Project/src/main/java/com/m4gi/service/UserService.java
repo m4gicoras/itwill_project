@@ -16,5 +16,9 @@ public interface UserService {
 
     public User checkUsername(String username);
 
+    public User findByEmail(String email);
+
+    public int isExistEmail(String email);
+
     public List<Products> getProductsByUser(User user);
 }

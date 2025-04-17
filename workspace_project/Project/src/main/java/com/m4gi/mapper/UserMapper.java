@@ -16,6 +16,10 @@ public interface UserMapper {
     
     User checkUsername(String username);
 
+    User findByEmail(String username);
+
+    int isExistEmail(String email);
+
     List<AdminUserListDTO> getCompanyList(@Param("offset") int offset, @Param("limit") int limit);
     int getTotalCompanyCount();
 
@@ -23,4 +27,5 @@ public interface UserMapper {
     int getSearchCompanyCount(@Param("keyword") String keyword);
 
     List<Products> showProductList(User user);
+
 }
