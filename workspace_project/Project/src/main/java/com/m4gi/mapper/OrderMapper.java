@@ -2,6 +2,7 @@ package com.m4gi.mapper;
 
 import com.m4gi.dto.OrderDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,9 +14,13 @@ public interface OrderMapper {
     void updateOrderToInboundComplete(int orderId);
     void updateOrderToOutboundComplete(int orderId);
     OrderDTO getOrderById(int orderId);
-    int checkProductExists(int companyId, String productName);
-    void updateProductQuantity(int companyId, String productName, int quantity);
-    void insertProduct(int companyId, String productName, int quantity);
+    int checkProductExists(@Param("companyId") int companyId, @Param("productName") String productName);
+    void updateProductQuantity(@Param("companyId") int companyId,
+                               @Param("productName") String productName,
+                               @Param("quantity") int quantity);
+    void insertProduct(@Param("companyId") int companyId,
+                       @Param("productName") String productName,
+                       @Param("quantity") int quantity);
     void updateOutboundToInProgress(int orderId);
     void updateInboundToInProgress(int orderId);
 }

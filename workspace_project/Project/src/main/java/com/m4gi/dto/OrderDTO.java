@@ -17,4 +17,5 @@ public class OrderDTO {
     private int status;
 
     private int companyId;
+    private int BcompanyId;
 }

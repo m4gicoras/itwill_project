@@ -18,7 +18,7 @@
         JOIN products p ON o.product_id = p.product_id
         JOIN users u ON o.b_company_id = u.user_id
         WHERE o.status IN (10, 11, 12)  <!-- 입고완료(12) 포함 -->
-            AND o.b_company_id = #{companyId} <!-- 로그인한 기업의 ID로 필터링 -->
+            AND o.s_company_id = #{companyId}
         ORDER BY o.order_date DESC
     </select>
 
@@ -37,7 +37,7 @@
                  JOIN products p ON o.product_id = p.product_id
                  JOIN users u ON o.b_company_id = u.user_id
         WHERE o.status IN (20, 21,22)
-            AND o.b_company_id = #{companyId}
+            AND o.s_company_id = #{companyId}
         ORDER BY o.order_date DESC
     </select>
 
@@ -74,9 +74,10 @@
     <select id="getOrderById" resultType="com.m4gi.dto.OrderDTO">
         SELECT
             o.order_id,
-            o.s_company_id AS company_id,
-            p.product_name,
-            o.order_qtty
+            o.s_company_id AS companyId,
+            o.b_company_id AS bCompanyId,
+            p.product_name AS productName,
+            o.order_qtty AS orderQtty
         FROM orders o
                  JOIN products p ON o.product_id = p.product_id
         WHERE o.order_id = #{orderId}
@@ -92,16 +93,18 @@
     <!-- 4. 수량 추가 -->
     <update id="updateProductQuantity">
         UPDATE products
-        SET quantity = quantity + #{quantity}
+        SET product_qtty = product_qtty + #{quantity}
         WHERE company_id = #{companyId}
           AND product_name = #{productName}
     </update>
 
     <!-- 5. 상품 새로 추가 -->
     <insert id="insertProduct">
-        INSERT INTO products (company_id, product_name, quantity)
-        VALUES (#{companyId}, #{productName}, #{quantity})
+        INSERT INTO products (company_id, product_name, product_qtty, price, status, created_at, updated_at)
+        VALUES (#{companyId}, #{productName}, #{quantity}, 0, 0, NOW(), NOW())
     </insert>
+
+
 
 
 </mapper>
