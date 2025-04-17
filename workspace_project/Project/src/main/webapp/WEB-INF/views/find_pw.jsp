@@ -60,7 +60,7 @@
                         class="flex flex-col items-center">
                         <!-- 아이디 -->
                         <div class="w-[400px] flex justify-left mt-4 mb-4">
-                            <input id="userId" name="userId" type="text"
+                            <input id="username" name="username" type="text"
                                 class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
                                 placeholder="아이디" />
 
@@ -100,7 +100,7 @@
                         </div>
 
                         <!-- 비밀번호 찾기 버튼 -->
-                        <button type="button"
+                        <button type="button" id="pwFindButton" onclick="checkPwFind()"
                             class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
                             비밀번호 찾기
                         </button>
