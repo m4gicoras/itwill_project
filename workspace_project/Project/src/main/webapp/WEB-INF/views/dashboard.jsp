@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
-
 <head>
 
 <script>
-    // 이 변수는 JSP EL에 의해 실제 컨텍스트 경로로 대체됩니다.
     var contextPath = '<%= request.getContextPath() %>';
 </script>
 
