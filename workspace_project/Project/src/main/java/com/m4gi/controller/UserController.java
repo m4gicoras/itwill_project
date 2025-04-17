@@ -1,14 +1,20 @@
 package com.m4gi.controller;
 
+import com.m4gi.domain.Products;
+import com.m4gi.domain.User;
 import com.m4gi.dto.SiteUser;
 import com.m4gi.service.UserService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -42,6 +48,7 @@ public class UserController {
         model.addAttribute("productList", productList);
 
         return "dashboard";
+    }
 
     @GetMapping("/delete")
     public String showDeleteForm() {
