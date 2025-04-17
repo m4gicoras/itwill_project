@@ -41,5 +41,11 @@
         FROM users
         WHERE email = #{email}
     </select>
+    
+    <select id="getUserById" resultType="com.m4gi.domain.User">
+    	SELECT *
+    	FROM users
+    	WHERE user_id = #{user_id}
+    </select>
 
 </mapper>

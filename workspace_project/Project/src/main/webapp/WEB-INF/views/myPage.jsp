@@ -74,8 +74,8 @@
                         </div>
                         <!-- 오른쪽 - 이메일, 이름 구역 -->
                         <div class="flex flex-col gap-2 select-none">
-                          <p class="text-lg select-none">김깜순</p>
-                          <p class="text-zinc-500 select-none">dog@willbs.co.kr</p>
+                          <p class="text-lg select-none">${user.nickname}</p>
+                          <p class="text-zinc-500 select-none">${user.email}</p>
                         </div>
                       </td>
                     </tr>
@@ -94,19 +94,19 @@
                   <tbody>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">아이디</td>
-                      <td class="select-none">puppy12</td>
+                      <td class="select-none">${user.username}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">닉네임</td>
-                      <td class="select-none">gae1</td>
+                      <td class="select-none">${user.nickname}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">이메일</td>
-                      <td class="italic text-zinc-600 select-none">dog@willbs.co.kr</td>
+                      <td class="italic text-zinc-600 select-none">${user.email}</td>
                     </tr>
                     <tr class="border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">연락처</td>
-                      <td class="select-none">010-1234-5667</td>
+                      <td class="select-none">${user.phone}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -123,23 +123,23 @@
                   <tbody>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">상호/법인명</td>
-                      <td class="select-none">삼성</td>
+                      <td class="select-none">${user.companyName}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">대표자명</td>
-                      <td class="select-none">김삼성</td>
+                      <td class="select-none">${user.masterName}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">사업자등록번호</td>
-                      <td class="select-none">135-16-15351</td>
+                      <td class="select-none">${user.bregNum}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">대표 전화</td>
-                      <td class="select-none">010-2366-1574</td>
+                      <td class="select-none">${user.companyPhone}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">주소</td>
-                      <td class="select-none">경기 성남시 분당구 판교역로 166 1층</td>
+                      <td class="select-none">${user.companyAddr}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -151,7 +151,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                   </svg>
-                  정보 수정
+                  	정보 수정
                 </button>
               </div>
 
@@ -168,22 +168,22 @@
                     <tr class="border-b border-zinc-200">
                       <td class="px-8 py-3 flex items-center justify-between space-x-4">
                         <div class="flex gap-5 items-center">
-                          <img src="https://img.icons8.com/color/48/000000/google-logo.png" class="w-6 h-6" alt="google" />
+                          <img src="${pageContext.request.contextPath}/resources/images/google01.png" class="w-6 h-6" alt="google" />
                           <div class="mr-5 select-none">Google</div>
-                          <div class="text-zinc-700 select-none">dog@google.com</div>
+                          <div class="text-zinc-700 select-none">temp@google.com</div>
                           <div class="text-xs text-zinc-500 select-none">연동일: <span>2015-03-11</span></div>
                         </div>
                         <button type="button" class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
-                          연결끊기
+                          	연결끊기
                         </button>
                       </td>
                     </tr>
                     <tr class="border-b border-zinc-200">
                       <td class="px-8 py-3 flex items-center justify-between space-x-4">
-                        <img src="https://img.icons8.com/color/48/000000/kakao-talk.png" class="w-6 h-6" alt="kakao" /> 
+                        <img src="${pageContext.request.contextPath}/resources/images/kakaoLogo01.png" class="w-6 h-6" alt="kakao" /> 
                         <div class="flex-1 text-gray-500 text-sm select-none">연결되지 않음</div>
                         <button type="button" class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
-                          연동
+                          	연동
                         </button>
                       </td>
                     </tr>

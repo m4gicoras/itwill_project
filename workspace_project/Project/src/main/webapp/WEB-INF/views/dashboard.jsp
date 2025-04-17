@@ -291,7 +291,7 @@
                                 </path>
                             </svg>
                         </button>
-                        <a class="w-full" href="/shadcn-nextjs-boilerplate/dashboard/settings">
+                        <a class="w-full" href="<%=request.getContextPath()%>/myPage">
                             <span
                                 class="relative flex h-9 w-10 min-w-9 shrink-0 overflow-hidden rounded-full md:min-h-10 md:min-w-10"><img
                                     class="aspect-square h-full w-full"

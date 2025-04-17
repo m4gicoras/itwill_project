@@ -74,4 +74,10 @@ public class UserServiceImpl implements UserService{
     public List<Products> getProductsByUser(User user) {
         return userMapper.showProductList(user);
     }
+    
+    @Override
+    public User getUserById(int user_id) {
+    	System.out.println("★★★★★★★userid:" + user_id);
+    	return userMapper.getUserById(user_id);
+    }
 }

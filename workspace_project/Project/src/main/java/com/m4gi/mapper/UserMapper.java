@@ -27,5 +27,7 @@ public interface UserMapper {
     int getSearchCompanyCount(@Param("keyword") String keyword);
 
     List<Products> showProductList(User user);
+    
+    User getUserById(int UserId);
 
 }

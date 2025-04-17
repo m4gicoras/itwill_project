@@ -49,6 +49,18 @@ public class UserController {
 
         return "dashboard";
     }
+    
+    // 대시보드 -> 마이페이지 
+    @GetMapping("/myPage")
+    public String showMyPage(Model model, HttpSession session) {
+    	Integer user_id = (Integer) session.getAttribute("userId");
+    	
+    	User user = userService.getUserById(user_id);
+    	System.out.println("★★★★★★★user:" + user);
+    	model.addAttribute("user", user);
+    	System.out.println("★★★★★★★model:" + model);
+    	return "myPage";
+    }
 
     @GetMapping("/delete")
     public String showDeleteForm() {
