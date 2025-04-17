@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.m4gi.mapper.OrderMapper">
 
-    <select id="selectInboundOrders" resultType="com.m4gi.dto.OrderDTO">
+    <select id="selectInboundOrdersByUser" resultType="com.m4gi.dto.OrderDTO">
         SELECT
         o.order_id AS orderId,
         p.product_name AS productName,
@@ -18,11 +18,12 @@
         JOIN products p ON o.product_id = p.product_id
         JOIN users u ON o.b_company_id = u.user_id
         WHERE o.status IN (10, 11, 12)  <!-- 입고완료(12) 포함 -->
+            AND o.b_company_id = #{companyId} <!-- 로그인한 기업의 ID로 필터링 -->
         ORDER BY o.order_date DESC
     </select>
 
 
-    <select id="selectOutboundOrders" resultType="com.m4gi.dto.OrderDTO">
+    <select id="selectOutboundOrdersByUser" resultType="com.m4gi.dto.OrderDTO">
         SELECT
             o.order_id AS orderId,
             p.product_name AS productName,
@@ -36,6 +37,7 @@
                  JOIN products p ON o.product_id = p.product_id
                  JOIN users u ON o.b_company_id = u.user_id
         WHERE o.status IN (20, 21,22)
+            AND o.b_company_id = #{companyId}
         ORDER BY o.order_date DESC
     </select>
 

@@ -14,9 +14,10 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public List<OrderDTO> getInboundOrders() {
-        return orderMapper.selectInboundOrders();
+    public List<OrderDTO> getInboundOrdersByUser(int userId) {
+        return orderMapper.selectInboundOrdersByUser(userId);
     }
+
     //수령완료 버튼누르면 일어나는일
     @Override
     public void completeInbound(int orderId) {
@@ -43,6 +44,11 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public List<OrderDTO> getOutboundOrdersByUser(int userId) {
+        return orderMapper.selectOutboundOrdersByUser(userId);
+    }
+
     // 출고 준비 -> 진행
     @Override
     public void markOutboundInProgress(int orderId) {
@@ -53,11 +59,6 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.updateInboundToInProgress(orderId);
     }
 
-
-    @Override
-    public List<OrderDTO> getOutboundOrders() {
-        return orderMapper.selectOutboundOrders();
-    }
     //출고완료 버튼누르면 일어나는일
     @Override
     public void completeOutbound(int orderId) {
