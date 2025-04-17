@@ -110,23 +110,22 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div
-                                            class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
-                                            <a class="undefined" href="/shadcn-nextjs-boilerplate/dashboard/settings"
-                                                style="border-radius: 0px; width: 100%;">
+                                        <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
+                                            <a href="<%=request.getContextPath()%>/inbound"
+                                               style="border-radius: 0px; width: 100%;">
                                                 <div class="w-full items-center justify-center">
                                                     <div class="flex w-full items-center justify-center">
                                                         <div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">
                                                             <svg stroke="currentColor" fill="none" stroke-width="1.5"
-                                                                viewBox="0 0 24 24" aria-hidden="true"
-                                                                class="-mt-[7px] h-4 w-4 stroke-2 text-inherit"
-                                                                height="1em" width="1em"
-                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                 viewBox="0 0 24 24" aria-hidden="true"
+                                                                 class="-mt-[7px] h-4 w-4 stroke-2 text-inherit"
+                                                                 height="1em" width="1em"
+                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z">
+                                                                      d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z">
                                                                 </path>
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+                                                                      d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
                                                             </svg>
                                                         </div>
                                                         <p class="mr-auto text-sm font-medium text-zinc-950 ">
@@ -136,24 +135,24 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div
-                                        class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium">
-                                        <div class="w-full items-center justify-center">
-                                            <div class="flex w-full items-center justify-center">
-                                                <div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">
-                                                    <svg stroke="currentColor" fill="none" stroke-width="1.5"
-                                                        viewBox="0 0 24 24" aria-hidden="true"
-                                                        class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em"
-                                                        width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z">
-                                                        </path>
-                                                    </svg>
+                                    <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium">
+                                        <a href="<%=request.getContextPath()%>/outbound" style="border-radius: 0px; width: 100%;">
+                                            <div class="w-full items-center justify-center">
+                                                <div class="flex w-full items-center justify-center">
+                                                    <div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">
+                                                        <svg stroke="currentColor" fill="none" stroke-width="1.5"
+                                                             viewBox="0 0 24 24" aria-hidden="true"
+                                                             class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em"
+                                                             width="1em" xmlns="http://www.w3.org/2000/svg">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <p class="mr-auto text-sm font-medium text-zinc-950 ">
+                                                        출고 현황</p>
                                                 </div>
-                                                <p class="mr-auto text-sm font-medium text-zinc-950 ">
-                                                    출고 현황</p>
                                             </div>
-                                        </div>
                                     </div>
 
                                     <div
@@ -274,14 +273,14 @@
                                 </div>
                             </div>
                         </div>
-                        <button
-                            class="alarm-button ring-offset-background focus-visible:ring-ring bg-background hover:bg-accent hover:text-accent-foreground flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-full border border-zinc-200 p-0 text-xl font-medium whitespace-nowrap text-zinc-950 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:min-h-10 md:min-w-10 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 w-6 stroke-2">
-                                <path
-                                    d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416l400 0c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4l0-25.4c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112l0 25.4c0 47.9 13.9 94.6 39.7 134.6L72.3 368C98.1 328 112 281.3 112 233.4l0-25.4c0-61.9 50.1-112 112-112zm64 352l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z" />
+                        <a href="<%=request.getContextPath()%>/notification/list"
+                           class="relative flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 hover:bg-accent hover:text-accent-foreground transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                 class="h-6 w-6 stroke-2 text-zinc-950">
+                                <path d="M224 0c-17.7 0-32 14.3-32 32v19.2C119 66 64 130.6 64 208v25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416h400c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112v25.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V208c0-61.9 50.1-112 112-112zm64 352h-128c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7 33.3-6.7 45.3-18.7S288 465 288 448z"/>
                             </svg>
-                            <span class="alarm-badge">3</span>
-                        </button>
+                            <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white leading-none">3</span>
+                        </a>
                         <button
                             class="ring-offset-background focus-visible:ring-ring bg-background hover:bg-accent hover:text-accent-foreground flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-full border border-zinc-200 p-0 text-xl font-medium whitespace-nowrap text-zinc-950 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:min-h-10 md:min-w-10 ">
                             <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
