@@ -132,9 +132,9 @@
     </div>
 
     <div class="find-links text-sm text-white text-center" style="margin-top: 1em; margin-bottom: 1.5em;">
-      <a href="#" class="hover:underline">아이디 찾기</a>
+      <a href="find_id" class="hover:underline">아이디 찾기</a>
       <span class="mx-2">|</span>
-      <a href="#" class="hover:underline">비밀번호 찾기</a>
+      <a href="find_pw" class="hover:underline">비밀번호 찾기</a>
     </div>
   </div>
 
