@@ -6,4 +6,5 @@ import java.util.List;
 public interface NotificationService {
     List<NotificationDTO> getNotifications(int userId);   // 알림 목록 조회
     int getUnreadCount(int userId);                       // 안 읽은 알림 개수
+    void createNotification(int recipientId, String content);
 }
