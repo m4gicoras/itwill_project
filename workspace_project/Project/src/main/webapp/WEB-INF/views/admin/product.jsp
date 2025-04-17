@@ -136,20 +136,84 @@
 	  
 	  // 모달창 관련 코드
 	  function openModal(modalId) {
-           const modal = document.getElementById(modalId);
+          const modal = document.getElementById(modalId);
+		
+          modal.classList.remove("hidden");
+        }
 
-           modal.classList.remove("hidden");
-           clickOutsideOfModal(modalId);
-         }
-
-         function closeModal(modalId) {
-      	const modal = document.getElementById(modalId);
-       	if (modal) {
-       		modal.classList.add("hidden");
-       	}
-      }
+        function closeModal(modalId) {
+     	const modal = document.getElementById(modalId);
+      	if (modal) {
+      		modal.classList.add("hidden");
+      	}
+     }
          
-      // 재고 조정 
+      // 물품 삭제 확인 모달창에 들어갈 값(기업명, 물품명)
+      function openDeleteModal(button) {
+    	  const companyName = button.dataset.companyName;
+    	  const productName = button.dataset.productName;
+    	  const productId = button.dataset.productId;
+
+    	  document.getElementById('deleteCompanyName').textContent = companyName;
+    	  document.getElementById('deleteProductName').textContent = productName;
+    	  
+    	  const modal = document.getElementById('ConfirmProductDeleteModal');
+    	  modal.dataset.productId = productId;
+
+    	  openModal('ConfirmProductDeleteModal');
+      }
+      
+      // 물품 삭제 
+      function deleteProduct() {
+		  const modal = document.getElementById('ConfirmProductDeleteModal');
+		  const productId = modal.dataset.productId;
+		
+		  fetch('/web/admin/product/delete', {
+			    method: 'POST',
+			    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			    body: 'productId=' + productId
+			  })
+			  .then(response => {
+			    if (!response.ok) {
+			      throw new Error('Network response was not ok');
+			    }
+			    return response.text();
+			  })
+			  .then(result => {
+			    console.log("서버 응답:", result); // 삭제 할 것 
+			    if (result === "success") {
+			      closeModal('ConfirmProductDeleteModal');
+			      
+			      const companyName = document.getElementById('deleteCompanyName').textContent;
+			      const productName = document.getElementById('deleteProductName').textContent;
+			      
+			      document.getElementById('deletedCompanyName').textContent = companyName;
+			      document.getElementById('deletedProductName').textContent = productName;
+			      
+			      openModal('deleteSuccessModal');
+			    } else {
+			      alert("삭제 실패: " + result);
+			      openModal("deleteFailModal");
+			    }
+			  })
+			  .catch(error => {
+			    console.error('Error:', error);
+			    openModal("deleteFailModal");
+			  });
+		}
+      
+      // 삭제 확인 과 삭제 실패 모달창 띄우기 위한 코드
+      window.addEventListener("DOMContentLoaded", function () {
+	    const deleteStatus = "${deleteStatus}";
+	
+	    if (deleteStatus === "success") {
+	      openModal("deleteSuccessModal");
+	    } else if (deleteStatus === "fail") {
+	      openModal("deleteFailModal");
+	    }
+	  });
+      
+      // 물품 개수 수정
       function activateQtyEdit(productId, btn) {
 		    console.log("productId:", productId);
 		    const modal = btn.closest(".ProductOptionModal");
@@ -179,15 +243,40 @@
     	    if (event.key === "Enter") {
     	        const inputId = "qtyInput-" + productId;
     	        const displayId = "qtyDisplay-" + productId;
-    	        
+
     	        const input = document.getElementById(inputId);
     	        const display = document.getElementById(displayId);
-    	        
+
     	        if (input && display) {
-    	            display.textContent = input.value;
-    	            input.classList.add("hidden");
-    	            display.classList.remove("hidden");
-    	            
+    	            const newQtty = input.value;
+
+    	            // 서버에 AJAX 요청 보내기
+    	            fetch("/web/admin/product/updateQtty", {
+    	                method: "POST",
+    	                headers: {
+    	                    "Content-Type": "application/x-www-form-urlencoded"
+    	                },
+    	                body: new URLSearchParams({
+    	                    productId: productId,
+    	                    ProductQtty: newQtty
+    	                })
+    	            })
+    	            .then(res => res.text())
+    	            .then(data => {
+    	                if (data === "success") {
+    	                    console.log("수정 성공!");
+		    	            // UI 변경
+		    	            display.textContent = newQtty;
+		    	            input.classList.add("hidden");
+		    	            display.classList.remove("hidden");
+    	                } else {
+    	                    alert("수정 실패");
+    	                }
+    	            })
+    	            .catch(error => {
+    	                console.error("에러 발생:", error);
+    	                alert("서버 오류로 수정 실패");
+    	            });
     	        }
     	    }
     	}
@@ -415,7 +504,12 @@
 													    	<span>조정</span>
 												    	</div>
 												    </button>
-												    <button onclick="openModal('ConfirmProductDeleteModal')" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+												    <button 
+													    onclick="openDeleteModal(this)" 
+														data-company-name="${product.companyName}" 
+														data-product-name="${product.productName}" 
+														data-product-id="${product.productId}"
+													    class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
 												    	<div class="flex align-center">
 															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5 h-5 mr-2">
 															  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"></path>
@@ -453,37 +547,56 @@
             </div> <!-- 테이블 -->
             
             <!-- 상품 삭제 /조정 모달 -->
-            <div id="ConfirmProductDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
-              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
-                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
-                  <span class="font-bold text-2xl text-red-700">!</span>
-                </div>
-                <p class="text-center mb-2 text-lg font-semibold">선택하신 상품은 <span class="text-blue-700">'기업명'</span>의 <span class="text-blue-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
-                <p class="text-center text-sm">삭제된 제품은 복구할 수 없습니다.</p>
-                <div class="flex align-center gap-6 mt-8">
-	                <div>
-	                  <button onclick="closeModal('ConfirmProductDeleteModal'); openModal('deleteSuccessModal');"  type="button" class="btn mx-0 mb-0 h-9 w-35">
-	                    <span class="btn-text">확인</span>
-	                  </button>
+            <form>
+	            <div id="ConfirmProductDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+	              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
+	                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
+	                  <span class="font-bold text-2xl text-red-700">!</span>
 	                </div>
-	                <div>
-	                  <button onclick="closeModal('ConfirmProductDeleteModal')" type="button" class="btn mx-0 mb-0 h-9 w-35 bg-gray-500/50">
-	                    <span class="btn-text">취소</span>
-	                  </button>
+	                <!-- 숨겨진 input에 productId 값 넣기 -->
+      				<input type="hidden" name="productId" id="deleteProductId" />
+	                <p class="text-center mb-2 text-lg font-semibold">선택하신 상품은 <span id="deleteCompanyName" class="text-blue-700">'기업명'</span>의 <span id="deleteProductName" class="text-blue-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
+	                <p class="text-center text-sm">삭제된 제품은 복구할 수 없습니다.</p>
+	                <div class="flex align-center gap-6 mt-8">
+		                <div>
+		                  <button onclick="deleteProduct()"  type="button" class="btn mx-0 mb-0 h-9 w-35">
+		                    <span class="btn-text">확인</span>
+		                  </button>
+		                </div>
+		                <div>
+		                  <button onclick="closeModal('ConfirmProductDeleteModal')" type="button" class="btn mx-0 mb-0 h-9 w-35 bg-gray-500/50">
+		                    <span class="btn-text">취소</span>
+		                  </button>
+		                </div>
 	                </div>
-                </div>
-              </div>
-          	</div>
-          	
+	              </div>
+	          	</div>
+          	</form>
+			
           	<!-- 삭제 완료 알림 모달 -->
           	<div id="deleteSuccessModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
               <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
                 <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
                   <span class="font-bold text-2xl text-red-700">!</span>
                 </div>
-                <p class="text-center mb-2 text-lg font-semibold"><span class="text-blue-700">'기업명'</span>의 <span class="text-blue-700">'상품명'</span>이 삭제되었습니다.</p>
+                <p class="text-center mb-2 text-lg font-semibold"><span id="deletedCompanyName" class="text-blue-700">'기업명'</span>의 <span id="deletedProductName" class="text-blue-700">'상품명'</span>이 삭제되었습니다.</p>
                 <div class="mt-8">
                   <button type="button" class="btn mx-0 mb-0 h-9 w-35" onclick="closeModal('deleteSuccessModal')">
+                    <span class="btn-text">확인</span>
+                  </button>
+                </div>
+              </div>
+          	</div>
+          	
+          	<!-- 삭제 실패 알림 모달 -->
+          	<div id="deleteFailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
+                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
+                  <span class="font-bold text-2xl text-red-700">!</span>
+                </div>
+                <p class="text-center mb-2 text-lg font-semibold"><span id="deletedCompanyName" class="text-blue-700">'기업명'</span>의 <span id="deletedProductName" class="text-blue-700">'상품명'</span>를 삭제하지 못했습니다.</p>
+                <div class="mt-8">
+                  <button type="button" class="btn mx-0 mb-0 h-9 w-35" onclick="closeModal('deleteFailModal')">
                     <span class="btn-text">확인</span>
                   </button>
                 </div>

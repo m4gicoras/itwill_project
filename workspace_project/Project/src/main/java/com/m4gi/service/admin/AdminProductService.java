@@ -10,6 +10,11 @@ public interface AdminProductService {
 
     AdminProductPageDTO getPagedProductList(int page);
     AdminProductPageDTO getProductList(AdminProductSearchCondition condition, int page);
-
+    
+    // 물품 삭제
+    int deleteProduct(int productId) throws Exception;
+    
+    // 물품 조정
+    int updateProductQtty(int productId, int newQtty) throws Exception;
 }
 

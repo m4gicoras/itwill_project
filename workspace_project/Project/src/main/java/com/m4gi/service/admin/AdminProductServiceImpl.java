@@ -43,6 +43,20 @@ public class AdminProductServiceImpl implements AdminProductService {
 
         return new AdminProductPageDTO(list, totalPages);
     }
+    
+    // 물품 삭제
+    @Override
+    public int deleteProduct (int productId) throws Exception {
+    	int result = adminProductMapper.deleteProduct(productId);
+    	return result; // 삭제된 행 반환 (0:삭제 실패, 1이상:삭제 성공)
+    }
+    
+    // 물품 개수 조정
+    @Override
+    public int updateProductQtty(int productId, int newQtty) throws Exception {
+    	int result = adminProductMapper.updateProductQtty(productId, newQtty);
+    	return result; // 수정된 행의 개수 반환
+    }
 }
 
 

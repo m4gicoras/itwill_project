@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -58,8 +60,22 @@ public class AdminProductController {
 
         return "admin/product";
     }
-
-
+    
+    @PostMapping("/product/delete")
+    @ResponseBody
+    public String adminProductDeletePOST(@RequestParam("productId") int productId) throws Exception {
+    	int result = adminProductService.deleteProduct(productId);
+    	return result > 0 ? "success" : "fail";
+    }
+    
+    @PostMapping("/product/updateQtty")
+    @ResponseBody
+    public String adminUpdateProductQttyPOST(
+    		@RequestParam("productId") int productId, 
+    		@RequestParam("ProductQtty") int newQtty) throws Exception {
+    	int result = adminProductService.updateProductQtty(productId, newQtty);
+    	return result > 0 ? "success" : "fail";
+    }
 
 }
 

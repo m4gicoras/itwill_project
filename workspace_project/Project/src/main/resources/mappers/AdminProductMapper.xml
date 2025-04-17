@@ -80,5 +80,17 @@
     <select id="getProductCount" resultType="int">
         SELECT COUNT(*) FROM products
     </select>
-
+    
+    <!-- 물품 삭제 -->
+    <delete id="deleteProduct" parameterType="int">
+	    DELETE FROM products 
+	    WHERE product_id = #{productId}
+	</delete>
+	
+	<!-- 물품 개수 조정 -->
+	<update id="updateProductQtty">
+		UPDATE products
+		SET product_qtty = #{newQtty}
+		WHERE product_id = #{productId}
+	</update>
 </mapper>

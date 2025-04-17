@@ -17,7 +17,12 @@ public interface AdminProductMapper {
 
     int getProductCount();
     List<AdminProductListDTO> getProductList(@Param("limit") int limit, @Param("offset") int offset);
-
+    
+    // 물품 삭제
+    int deleteProduct(int productId);
+    
+    // 물품 개수 조정 
+    int updateProductQtty(@Param("productId") int productId, @Param("newQtty") int newQtty);
 }
 
 
