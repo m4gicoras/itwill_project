@@ -7,8 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface OrderMapper {
-    List<OrderDTO> selectInboundOrders();
-    List<OrderDTO> selectOutboundOrders();
+    List<OrderDTO> selectInboundOrdersByUser(int userId);
+    List<OrderDTO> selectOutboundOrdersByUser(int userId);
 
     void updateOrderToInboundComplete(int orderId);
     void updateOrderToOutboundComplete(int orderId);
