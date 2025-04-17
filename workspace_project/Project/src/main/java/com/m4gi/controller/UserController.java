@@ -44,10 +44,10 @@ public class UserController {
 
     // 아이디 찾기 처리
     @PostMapping("/find_id")
-    public String findId(@RequestParam("email") String email, HttpSession session, Model model) {
+    public String findId(@RequestParam("email") String email,  @RequestParam("verificationCode") String verificationCode, HttpSession session, Model model) {
         MemberDTO member = memberService.findByEmail(email);
 
-        if (member != null) {
+        if (member != null &&  memberService.verifyCode(verificationCode)) {
             String userId = member.getUserId();
             String maskedId = userId.substring(0, Math.min(4, userId.length())) + "****";
 

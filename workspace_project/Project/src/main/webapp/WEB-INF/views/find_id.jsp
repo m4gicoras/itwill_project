@@ -50,137 +50,165 @@
   <main class="flex-grow flex items-center justify-center px-8 py-20">
 
     <div class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-xl flex flex-col items-center">
-    <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
+      <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
          <span class="kimm-bold text-blue-500">아이디 찾기</span></h1>
 
+    <form id="findIdForm" action="${pageContext.request.contextPath}/find_id" method="POST" class="flex flex-col items-center w-full">
+      <!-- forward() 메소드에 의해 서버 내부적으로 요청과 응답 객체가 유지된 채로 finish_id.jsp로 이동 (포워딩) -->
+
+      <input type="hidden" id="verificationStatus" name="verificationStatus" value="not_completed">
+
       <!-- 이메일 + 전송 버튼 -->
-      <div class="w-[400px] flex items-center mt-4 gap-2 relative">
-        <input
-          id="emailInput"
-          type="email"
-          class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="Email"
-        />
-        <button
-          type="button"
-          class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
-          onclick="validateInputs()"
-        >
-          전송
-        </button>
+      <div class="w-[400px] flex items-center mt-4 gap-2">
+          <input
+            id="emailInput"
+            name="email"
+            type="email"
+            class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+            placeholder="Email"
+            required
+          />
+          <button
+            type="button"
+            onclick="sendVerificationEmail()"
+            class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+          >
+            전송
+          </button>
+      </div>
 
-    </div>
-
-      <!-- 인증번호 + 재발송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mt-6 mb-6 relative">
+      <!-- 인증번호 입력 + 확인 버튼 -->
+      <div class="w-[400px] flex items-center gap-2 mt-6 mb-6">
         <input
           id="verifyInput"
+          name="verificationCode"
           type="text"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           placeholder="인증번호를 입력해주세요"
+          required
         />
+
         <button
-          type="button"
+          type="submit"
           class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
           onclick="checkVerificationCode()"
         >
           확인
         </button>
+        </div>
 
-        <div id="successMsg" class="text-blue-500 text-sm hidden mt-1 absolute top-full left-20 w-[300px]">
+
+      <!-- 인증 결과 메시지 -->
+      <div class="relative w-[400px] flex items-center">
+        <div id="successMsg" class="absolute top-full left-20 w-[300px] text-blue-500 text-sm hidden mt-1">
           인증이 완료되었습니다.
         </div>
-
-        <div id="errorMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
+        <div id="errorMsg" class=" absolute top-full left-16 w-[300px] text-red-500 text-sm hidden mt-1">
           인증번호가 일치하지 않습니다.
         </div>
-
       </div>
 
-      <!-- 아이디 찾기 버튼 -->
+
+      <!-- 아이디 찾기 완료 버튼 -->
       <button
         type="submit"
-        onclick="submitFindId()"
         class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
       >
         아이디 찾기
       </button>
+      </form>
 
     </div>
-
-    </div>
-
 
   </main>
 
   <script>
 
-    const correctEmail = "3thirdp4rty@gmail.com";  // 예시 이메일
-    const correctCode = "123456";             // 예시 인증번호
+      const correctEmail = "3thirdp4rty@gmail.com";  // 예시 이메일
+      const correctCode = "123456";  // 예시 인증번호
 
-    function validateInputs() {
-      const email = document.getElementById("emailInput").value.trim(); // trim() => 공백 방지
+      let isEmailVerified = false;
 
-      // 이메일 입력값이 비었을 때
-        if (email === "") {
-          alert("이메일을 입력해주세요.");
-          return;  // 더 이상 진행하지 않음
-        }
+      function sendVerificationEmail() {
+              const email = document.getElementById("emailInput").value.trim();
 
-        if (email !==  correctEmail) {
-          alert("존재하지 않는 이메일 입니다.");
-        } else {
-          // 이메일이 일치하면 인증 메일을 보냄
-          sendVerificationEmail(email);
-        }
-    }
+              if (email === "") {
+                alert("이메일을 입력해주세요.");
+                return;
+              }
 
-    let isEmailVerified = false; // 전역 변수: 이메일 인증 성공 여부 저장
+              if (email !== correctEmail) {
+                alert("존재하지 않는 이메일 입니다.");
+              } else {
+                alert("인증번호가 발송되었습니다. (예시: 1234)");
+                // 실제로는 서버로 이메일 전송 및 인증번호 발송 로직 필요
+              }
+            }
 
-    function checkVerificationCode() {
-      const input = document.getElementById("verifyInput").value.trim();
-      const successMsg = document.getElementById("successMsg");
-      const errorMsg = document.getElementById("errorMsg");
+            function checkVerificationCode() {
+              const input = document.getElementById("verifyInput").value.trim();
+              const successMsg = document.getElementById("successMsg");
+              const errorMsg = document.getElementById("errorMsg");
+              const verificationStatusInput = document.getElementById("verificationStatus"); // 숨겨진 필드 참조
 
-        if (input === "") {
-          alert("인증번호를 입력해주세요.");
-          successMsg.classList.add("hidden");
-          errorMsg.classList.add("hidden");
-          return;
-        }
+              if (input === "") {
+                alert("인증번호를 입력해주세요.");
+                successMsg.classList.add("hidden");
+                errorMsg.classList.add("hidden");
+                return;
+              }
 
-        if (input !== correctCode) {
-          successMsg.classList.add("hidden");
-          errorMsg?.classList.remove("hidden");
-          isEmailVerified = false;
-        } else {
-          successMsg.classList.remove("hidden");
-          errorMsg?.classList.add("hidden");
-          isEmailVerified = true;
+              if (input !== correctCode) {
+                successMsg.classList.add("hidden");
+                errorMsg?.classList.remove("hidden");
+                isEmailVerified = false;
+                verificationStatusInput.value = "not_completed"; // 인증 실패 시 상태 유지
+              } else {
+                successMsg.classList.remove("hidden");
+                errorMsg?.classList.add("hidden");
+                isEmailVerified = true;
+                verificationStatusInput.value = "completed"; // 인증 성공 시 상태 변경
+                alert("인증이 완료되었습니다.");
+              }
+            }
 
-          }
-        }
+            // 아이디 찾기 버튼 클릭 시 (submit 이벤트 발생 시)
+            document.getElementById("findIdForm").addEventListener("submit", function(event) {
+              const email = document.getElementById("emailInput").value.trim();
+              const code = document.getElementById("verifyInput").value.trim();
 
-    function submitFindId() {
-      const email = document.getElementById("emailInput").value.trim();
-      const code = document.getElementById("verifyInput").value.trim();
+              if (email === "" || code === "") {
+                alert("이메일과 인증번호를 모두 입력해주세요.");
+                event.preventDefault(); // 폼 제출 막기
+                return;
+              }
 
-      if (email === "" || code === "") {
-        alert("이메일과 인증번호를 모두 입력해주세요.");
-        return;
-      }
+              if (!isEmailVerified) {
+                alert("인증을 먼저 완료해주세요.");
+                event.preventDefault(); // 폼 제출 막기
+                return;
+              }
 
-      if (!isEmailVerified) {
-        alert("인증에 실패하였습니다.");
-        return;
-      }
+              // 인증이 완료되면 FindIdServlet으로 form action에 의해 이동
+            });
 
-      // 성공 시 페이지 이동
-      // 아이디 찾기 버튼 클릭 시
-      // find_Id 경로로 이동하면 서버에서 @RequestParam("email") String email을 통해 이 이메일 값을 받을 수 있음
-      window.location.href = "${pageContext.request.contextPath}/finish_id";
+            window.onload = function () {
+              const successMsg = document.getElementById("successMsg");
+              const errorMsg = document.getElementById("errorMsg");
 
-    }
+              var errorMessage = "${errorMessage}";
+              var successMessage = "${successMessage}";
+
+              if (errorMessage != "") {
+                errorMsg.classList.remove("hidden");
+                successMsg.classList.add("hidden");
+              }
+
+              if (successMessage != "") {
+                successMsg.classList.remove("hidden");
+                errorMsg.classList.add("hidden");
+              }
+            };
 
   </script>
 
