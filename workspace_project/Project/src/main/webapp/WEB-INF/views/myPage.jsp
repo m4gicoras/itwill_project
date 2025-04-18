@@ -46,47 +46,42 @@
              }
          }).open();
      }
-
+	
+     // 정보 수정 버튼 클릭 시 
 	function infoChange() {
-	    // 각 항목의 span과 input을 토글하여 수정 가능하도록 변경
-	    document.querySelectorAll('.user-info').forEach(function(element) {
-	        element.classList.toggle('hidden');
-	    });
+		const editBtn = document.querySelector('.edit-btn');
+		const btnText = document.querySelector('.btn-text');
+		
+		if (btnText.textContent === '정보 수정') {
+			btnText.textContent = '저장하기';
+		    
+		    // 각 항목의 span과 input을 토글하여 수정 가능하도록 변경
+		    document.querySelectorAll('.user-info').forEach(function(element) {
+		        element.classList.toggle('hidden');
+		    });
+		
+		    document.querySelectorAll('.user-input').forEach(function(element) {
+		        element.classList.toggle('hidden');
+		    });
+		    
+		    // 기본과 기업 전화번호가 value값에 들어오도록
+		    const UserPhone = '${user.phone}';
+		    const [Upart1, Upart2, Upart3] = UserPhone.split('-');
 	
-	    document.querySelectorAll('.user-input').forEach(function(element) {
-	        element.classList.toggle('hidden');
-	    });
-	    
-	    // 기본과 기업 전화번호가 value값에 들어오도록
-	    const UserPhone = '${user.phone}';
-	    const CompanyPhone = '${user.companyPhone}'
-	    const [Upart1, Upart2, Upart3] = UserPhone.split('-');
-	    const [Cpart1, Cpart2, Cpart3] = CompanyPhone.split('-');
-
-	    document.getElementById('userPhone1').value = Upart1;
-	    document.getElementById('userPhone2').value = Upart2;
-	    document.getElementById('userPhone3').value = Upart3;
-	    
-	    document.getElementById('companyPhone1').value = Cpart1;
-	    document.getElementById('companyPhone2').value = Cpart2;
-	    document.getElementById('companyPhone3').value = Cpart3;
-	
-	    // 버튼 텍스트를 변경 ("정보 수정" -> "저장하기")
-	    const button = document.querySelector('.info-change-btn');
-	    if (button.innerText === '정보 수정') {
-	        button.innerHTML = `
-	        	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
-					<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-				</svg>
-				<span class="btn-text">정보 수정</span>
-	        `;
-	    } else {
-	        button.innerHTML = `
-	          	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
-            	<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-          	</svg>
-				<span class="btn-text">저장하기</span>
-	        `;
+		    document.getElementById('userPhone1').value = Upart1;
+		    document.getElementById('userPhone2').value = Upart2;
+		    document.getElementById('userPhone3').value = Upart3;
+		  } else {
+			  btnText.textContent = '정보 수정'
+			  
+			document.querySelectorAll('.user-info').forEach(function(element) {
+			      element.classList.toggle('hidden');
+			});
+			
+			document.querySelectorAll('.user-input').forEach(function(element) {
+			    element.classList.toggle('hidden');
+			});
+		  }
     }
 	    
  	// 숫자만 입력 가능 + 입력한 칸이 다 차면 다음 input으로 이동
@@ -100,7 +95,6 @@
             }
         }
     }
-}
 </script>
 </head>
 
@@ -173,14 +167,16 @@
                       <td class="px-8 py-3 select-none">이메일</td>
                       <td class="italic text-zinc-600 select-none">
                       	<span class="user-info">${user.email}</span>
-                      	<input type="text" class="hidden user-input h-9 w-100 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" id="edit-nickname" value="${user.email}" />
+                      	<div class="hidden user-input pr-8">
+				          <input type="email" name="email" required class="h-9 w-100 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="${user.email}"/>
+				        </div>
                       </td>
                     </tr>
                     <tr class="border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">연락처</td>
                       <td class="select-none">
 	                      <span class="user-info">${user.phone}</span>
-	                      <div class="hidden user-input flex w-100 items-center gap-1.5">
+	                      <div class="hidden user-input flex w-100 items-center gap-1.5 pr-8">
 				            <input type="text" name="userPhone1" id="userPhone1" maxlength="3" required="" oninput="validateAndMove(this, 'userPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="010-3322-3333">
 				            <span class="text-gray-500">-</span>
 				            <input type="text" name="userPhone2" id="userPhone2" maxlength="4" required="" oninput="validateAndMove(this, 'userPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
@@ -226,7 +222,7 @@
                       <td class="px-8 py-3 select-none">취급상품</td>
                       <td class="select-none">
 	                      <span class="user-info">${user.productCategory}</span>
-	                      <select name="category" class="hidden user-input h-9 w-100 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+	                      <select name="category" class="hidden user-input h-9 w-100 pr-8 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
 				            <option value="">카테고리 선택</option>
 				            <option value="digital">가전/디지털</option>
 				            <option value="fashion">패션</option>
@@ -241,7 +237,7 @@
 
               <div class="flex justify-end mr-4">
                 <!-- 정보 수정 버튼 --> 
-                <button onclick="infoChange()" type="button" class="btn info-change-btn mx-0 w-40">
+                <button onclick="infoChange()" type="button" class="btn edit-btn mx-0 w-40">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                   </svg>
