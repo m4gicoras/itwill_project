@@ -44,7 +44,7 @@
 
   <!-- ✅ Main -->
   <main class="flex-grow flex items-center justify-center px-8 py-20">
-  <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] py-16 px-6 select-none rounded-xl w-full max-w-2xl flex flex-col items-center">
+  <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] mt-10 py-16 px-6 select-none rounded-xl w-full max-w-2xl flex flex-col items-center">
   <img src="${pageContext.request.contextPath}/resources/images/finish_pw_image.png" alt="emoji" class="w-32 h-28 mb-6" />
 
   <!-- 텍스트 -->

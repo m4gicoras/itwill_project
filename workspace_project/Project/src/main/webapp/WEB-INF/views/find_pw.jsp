@@ -52,7 +52,7 @@
             <main class="flex-grow flex items-center justify-center px-8 py-20">
 
                 <div
-                    class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-2xl flex flex-col items-center">
+                    class="bg-white py-16 px-6 rounded-xl mt-10 select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-2xl flex flex-col items-center">
                     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10"><span
                             class="kimm-bold text-blue-500">비밀번호 찾기</span></h1>
 
@@ -74,22 +74,22 @@
                                 placeholder="Email" />
                             <!-- 오른쪽 버튼 -->
                             <button type="button"
-                                                                class="ml-4 btn"
-                                                                onclick="validateInputs()"
-                                                                style="margin-bottom: revert; width: revert;">
-                                                          <span class="btn-text">전송</span>
-                                                        </button>
+                               class="ml-4 btn"
+                               onclick="validateInputs()"
+                               style="margin-bottom: revert; width: revert;">
+                               <span class="btn-text">전송</span>
+                            </button>
                         </div>
 
                         <div class="w-[400px] flex items-center mb-4">
                             <input id="verifyInput" type="text"
                                 class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                placeholder="인증번호를 입력해주세요." />
+                                placeholder="인증번호를 입력해주세요" />
                             <!-- 오른쪽 버튼 -->
                             <button type="button"
-                                    class="ml-4 btn"
-                                    onclick="checkVerificationCode()"
-                                    style="margin-bottom: revert; width: revert;">
+                                class="ml-4 btn"
+                                onclick="checkVerificationCode()"
+                                style="margin-bottom: revert; width: revert;">
                               <span class="btn-text">확인</span>
                             </button>
                         </div>
@@ -101,7 +101,7 @@
 
                         <!-- 비밀번호 찾기 버튼 -->
                         <button type="button" id="pwFindButton" onclick="checkPwFind()"
-                            class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
+                            class="bg-blue-500 mt-10 cursor-pointer text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
                             비밀번호 찾기
                         </button>
                     </form>
