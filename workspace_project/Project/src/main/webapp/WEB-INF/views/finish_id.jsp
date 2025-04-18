@@ -59,19 +59,19 @@
   </header>
 
     <main class="flex flex-col items-center justify-center w-full px-4 py-20">
-    <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] select-none py-16 px-6 rounded-xl w-full max-w-2xl flex flex-col items-center">
+    <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] mt-10 select-none py-16 px-6 rounded-xl w-full mt-10 max-w-2xl flex flex-col items-center">
 
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">회원 님의 아이디는</h2>
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">회원님의 아이디는</h2>
 
       <p class="text-xl text-gray-800 font-semibold mb-6">
-        <%= foundUsername != null ? foundUsername + "입니다." : "아이디 정보가 없습니다." %>
+        <%= foundUsername != null ? foundUsername + "입니다" : "조회할 수 없습니다." %>
       </p>
 
   <div class="flex flex-col items-center justify-center w-full max-w-xs gap-4">
-    <a href="${pageContext.request.contextPath}/mainTest" class="flex items-center justify-center bg-blue-500 mt-10 text-white w-1/2 px-6 py-2 rounded-full shadow-md hover:bg-blue-600 transition">
+    <a href="${pageContext.request.contextPath}/main" class="flex items-center justify-center bg-blue-500 mt-8 text-white w-1/2 px-6 py-2 rounded-full shadow-md hover:bg-blue-600 transition">
       로그인하러 가기
     </a>
-    <a href="${pageContext.request.contextPath}/find_pw" class="flex items-center justify-center bg-gray-400 text-white w-1/2 px-6 py-2 rounded-full shadow-md hover:bg-gray-500 transition">
+    <a href="${pageContext.request.contextPath}/find_pw" class="flex items-center justify-center bg-gray-200 text-gray-700 hover:bg-gray-300 w-1/2 px-6 py-2 rounded-full shadow-md transition">
       비밀번호 찾기
     </a>
   </div>

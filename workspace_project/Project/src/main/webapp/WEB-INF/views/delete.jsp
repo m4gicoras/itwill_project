@@ -80,7 +80,7 @@
 
   <!-- ✅ Main -->
   <main class="flex flex-col items-center justify-center px-8 py-20">
-  <div class="bg-white px-14 py-16 shadow-[0_10px_20px_rgba(0,123,255,0.2)] select-none rounded-xl w-full max-w-3xl">
+  <div class="bg-white px-14 py-16 shadow-[0_10px_20px_rgba(0,123,255,0.2)] mt-10 select-none rounded-xl w-full max-w-3xl">
     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
     <span class="kimm-bold text-blue-500">회원탈퇴</span></h1></h1>
 
@@ -132,20 +132,26 @@
         <!-- 버튼 -->
             <div class="w-full max-w-[500px] mx-auto">
               <div class="flex justify-center space-x-6">
-          <button
-            type="submit"
-            class="w-1/4 px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition"
-            onclick="validateForm(event)"
-          >
-            회원 탈퇴
-          </button>
-          <button
-            type="button"
-            class="w-1/4 px-6 py-2 bg-gray-400 text-white rounded-full shadow-lg hover:bg-gray-500 transition"
-            onclick="window.location.href='main.jsp';"
-          >
-            취소
-          </button>
+
+           <!-- 회원 탈퇴 버튼 -->
+               <button
+                 type="button"
+                 onclick="withdrawWithAgreement()"
+                 class="w-1/4 px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition"
+               >
+                 회원 탈퇴
+               </button>
+
+               <!-- 취소 버튼 -->
+               <button
+                 type="button"
+                 onclick="location.href='${pageContext.request.contextPath}/main'"
+                 class="w-1/4 px-6 py-2 bg-gray-400 text-white rounded-full shadow-lg hover:bg-gray-500 transition"
+               >
+                 취소
+               </button>
+
+
         </div>
 
       </form>
@@ -153,14 +159,15 @@
   </main>
 
   <script>
-    function validateForm(event) {
+    function withdrawWithAgreement() {
       const checkbox = document.getElementById('agree');
       if (!checkbox.checked) {
         alert("탈퇴에 동의하셔야 회원 탈퇴가 가능합니다.");
-        event.preventDefault();
-        return false;
+        return;
       }
-      return true;
+
+      // 동의가 되었을 때 메인페이지로 이동
+      window.location.href = "${pageContext.request.contextPath}/main";
     }
   </script>
 

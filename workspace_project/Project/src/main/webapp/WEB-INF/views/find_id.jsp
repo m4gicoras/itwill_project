@@ -51,7 +51,7 @@
   <!-- ✅ Main -->
   <main class="flex-grow flex items-center justify-center px-8 py-20">
 
-    <div class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-xl flex flex-col items-center">
+    <div class="bg-white mt-10 py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-xl flex flex-col items-center">
     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
          <span class="kimm-bold text-blue-500">아이디 찾기</span></h1>
 
@@ -65,7 +65,7 @@
         />
         <button
           type="button"
-          class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+          class="w-[70px] font-semibold text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition"
           onclick="validateInputs()"
         >
           전송
@@ -84,11 +84,11 @@
           id="verifyInput"
           type="text"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="인증번호를 입력해주세요."
+          placeholder="인증번호를 입력해주세요"
         />
         <button
           type="button"
-          class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+          class="w-[70px] font-semibold text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition"
           onclick="checkVerificationCode()"
         >
           확인
@@ -102,7 +102,7 @@
       <!-- 아이디 찾기 버튼 -->
       <button
         type="submit"
-        class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
+        class="bg-blue-500 mt-8 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
         onclick="checkId()"
       >
         아이디 찾기

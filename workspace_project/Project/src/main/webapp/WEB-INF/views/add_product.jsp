@@ -44,7 +44,7 @@
     <!-- 상품명 -->
     <div>
       <label class="block text-base font-semibold mb-1">상품명</label>
-      <input type="text" class="w-full border border-gray-300 rounded-md px-3 py-2" />
+      <input type="text" class="w-full focus:outline-none border border-gray-300 rounded-md px-3 py-2" />
     </div>
 
     <div class="flex gap-4 mt-4">
@@ -91,26 +91,30 @@
       <div class="w-1/2 space-y-4">
         <div>
           <label class="block text-base font-semibold mb-1">카테고리</label>
-          <select class="w-full border border-gray-300 rounded-md px-3 py-2">
-            <option>선택</option>
-            <option>카테고리1</option>
-            <option>카테고리2</option>
+          <select class="w-full text-sm focus:outline-none border border-gray-300 rounded-md px-3 py-2">
+           <option value="">선택</option>
+           <option value="digital">가전/디지털</option>
+           <option value="fashion">패션</option>
+           <option value="food">식품</option>
+           <option value="etc">기타</option>
           </select>
         </div>
         <div>
           <label class="block text-base font-semibold mb-1">단가</label>
-          <input type="text" class="w-full border border-gray-300 rounded-md px-3 py-2" />
+          <input type="text" class="w-full text-sm border border-gray-300 focus:outline-none rounded-md px-3 py-2" />
         </div>
+
+        <!-- 수량 -->
         <div>
           <label class="block text-base font-semibold mb-1">수량</label>
-          <select class="w-full border border-gray-300 rounded-md px-3 py-2">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
+          <div class="flex items-center gap-2">
+            <button type="button" id="decreaseQty" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
+            <input type="number" id="quantityInput" value="1" min="1"
+                   class="w-16 text-end text-sm border border-gray-300 focus:outline-none rounded-md px-3 py-2 max-w-[80px]" />
+            <button type="button" id="increaseQty" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -124,8 +128,16 @@
 
     <!-- 버튼 -->
     <div class="flex justify-end gap-4 mt-6">
-      <button class="px-6 py-2 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 cursor-pointer transition">초기화</button>
-      <button class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 cursor-pointer transition">등록하기</button>
+      <button
+      type="cancel"
+      class="w-28 px-6 py-2 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 cursor-pointer transition">
+      취소
+      </button>
+      <button
+      type="submit"
+      class="w-28 px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 cursor-pointer transition">
+      등록하기
+      </button>
     </div>
   </div>
 </main>
@@ -138,6 +150,9 @@
   const previewImg = document.getElementById("previewImg");
   const placeholderIcon = document.getElementById("placeholderIcon");
   const deleteImageBtn = document.getElementById("deleteImageBtn");
+  const quantityInput = document.getElementById("quantityInput");
+  const increaseBtn = document.getElementById("increaseQty");
+  const decreaseBtn = document.getElementById("decreaseQty");
 
   // 클릭 시 파일 선택창 열기 (이미지가 없을 때만)
   uploadBox.addEventListener("click", () => {
@@ -182,6 +197,27 @@
     imageInput.value = "";
     deleteImageBtn.classList.add("hidden");
   });
+
+  increaseBtn.addEventListener("click", () => {
+    let currentValue = parseInt(quantityInput.value) || 1;
+    quantityInput.value = currentValue + 1;
+  });
+
+  decreaseBtn.addEventListener("click", () => {
+    let currentValue = parseInt(quantityInput.value) || 1;
+    if (currentValue > 1) {
+      quantityInput.value = currentValue - 1;
+    }
+  });
+
+  // 사용자가 직접 숫자 입력 시 1보다 작게 입력하면 자동 수정
+  quantityInput.addEventListener("input", () => {
+    if (parseInt(quantityInput.value) < 1 || isNaN(quantityInput.value)) {
+      quantityInput.value = 1;
+    }
+  });
+
+
 </script>
 
 </body>
