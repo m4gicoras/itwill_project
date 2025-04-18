@@ -41,20 +41,25 @@
         WHERE p.company_id != #{myCompanyId}
     </select>
 
-    <select id="selectProductById" parameterType="int" resultType="com.m4gi.dto.ShopProductDTO">
+    <select id="selectProductById" parameterType="int" resultMap="shopProductResultMap">
         SELECT
-            p.product_id     AS productId,
-            p.product_name   AS productName,
-            p.product_desc   AS productDesc,
-            p.product_img    AS productImg,
-            p.product_qtty   AS productQtty,
+            p.product_id     AS product_id,
+            p.company_id     AS company_id,
+            p.product_name   AS product_name,
+            p.product_desc   AS product_desc,
+            p.product_img    AS product_img,
+            p.product_qtty   AS product_qtty,
             p.category       AS category,
             p.price          AS price,
-            u.company_name   AS companyName
+            p.status         AS status,
+            p.created_at     AS created_at,
+            p.updated_at     AS updated_at,
+            u.company_name   AS company_name
         FROM products p
                  JOIN users u ON p.company_id = u.user_id
         WHERE p.product_id = #{productId}
     </select>
+
 
     <select id="selectProductsByCategory" parameterType="map" resultMap="shopProductResultMap">
         SELECT p.*, u.company_name

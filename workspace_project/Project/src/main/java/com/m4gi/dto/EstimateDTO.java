@@ -18,6 +18,8 @@ public class EstimateDTO {
     private Date createdAt;
     private Date updatedAt;
 
+    private String reqCompanyName;
+
     // 부가정보용 필드
     private String productName;
     private String requesterCompanyName;

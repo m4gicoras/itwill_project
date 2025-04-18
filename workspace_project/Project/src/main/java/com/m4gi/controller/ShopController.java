@@ -40,13 +40,12 @@ public class ShopController {
 
         return "shop";
     }
-
-
     @GetMapping("/shopDetail")
     public String showProductDetail(@RequestParam("productId") int productId, Model model) {
         ShopProductDTO product = shopProductService.getProductById(productId);
         model.addAttribute("product", product);
-        return "shopDetail"; // => /WEB-INF/views/shopDetail.jsp
+        return "shopDetail";
     }
+
 
 }
