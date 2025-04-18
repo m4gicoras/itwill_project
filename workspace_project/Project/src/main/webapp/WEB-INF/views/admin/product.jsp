@@ -426,7 +426,8 @@
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                                <th id="defaultSort" onclick="sortTable(0, this)" class="px-3 py-2 text-center font-semibold select-none">
+                            	<td class="selectAllCheckbox p-4"><input type="checkbox"></td>
+                                <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center select-none">
                                     	물품번호
                                     <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M18.425 10.271C19.499 8.967 18.57 7 16.88 7H7.12c-1.69 0-2.618 1.967-1.544 3.271l4.881 5.927a2 2 0 0 0 3.088 0l4.88-5.927Z" clip-rule="evenodd" />
@@ -448,6 +449,7 @@
                                 <c:when test="${not empty productList}">
                                     <c:forEach var="product" items="${productList}">
                                         <tr class="hover:bg-blue-50 cursor-pointer border-b">
+                                        	<td class="row-checkbox p-4 text-sm border-b border-gray-100"><input type="checkbox"></td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productId}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
@@ -643,6 +645,69 @@
             });
         });
     });
+    
+    // 체크박스 일괄 체크
+    const headerCheckboxTd = document.querySelector('td.selectAllCheckbox');
+    const headerCheckbox = headerCheckboxTd ? headerCheckboxTd.querySelector('input[type="checkbox"]') : null;
+    
+    if (headerCheckbox) {
+        headerCheckbox.addEventListener('change', function() {
+            const rowCheckboxTds = document.querySelectorAll('td.row-checkbox');
+            const rowCheckboxes = [];
+            
+            rowCheckboxTds.forEach(function(td) {
+                const checkbox = td.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    rowCheckboxes.push(checkbox);
+                }
+            });
+            
+            // 헤더 체크박스의 상태에 따라 모든 행 체크박스 상태 변경
+            rowCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = headerCheckbox.checked;
+            });
+        });
+        
+        // 개별 체크박스의 상태 변경을 감지하여 전체 선택 상태 업데이트
+        const updateHeaderCheckbox = function() {
+            const rowCheckboxTds = document.querySelectorAll('td.row-checkbox');
+            const rowCheckboxes = [];
+            let checkedCount = 0;
+            
+            // 각 td 안의 input 요소를 배열에 저장하고 체크된 것 카운트
+            rowCheckboxTds.forEach(function(td) {
+                const checkbox = td.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    rowCheckboxes.push(checkbox);
+                    if (checkbox.checked) {
+                        checkedCount++;
+                    }
+                }
+            });
+            
+            // 체크박스가 모두 체크되었는지 확인
+            if (rowCheckboxes.length > 0 && checkedCount === rowCheckboxes.length) {
+                headerCheckbox.checked = true;
+                headerCheckbox.indeterminate = false;
+            } 
+            // 일부만 체크되었을 때
+            else if (checkedCount > 0) {
+                headerCheckbox.checked = false;
+            } 
+            // 하나도 체크되지 않았을 때
+            else {
+                headerCheckbox.checked = false;
+            }
+        };
+        
+        // 각 행의 체크박스에 이벤트 리스너 추가
+        document.querySelectorAll('td.row-checkbox').forEach(function(td) {
+            const checkbox = td.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                checkbox.addEventListener('change', updateHeaderCheckbox);
+            }
+        });
+    }
 </script>
 
 </html>
