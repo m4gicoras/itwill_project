@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.ShopProductMapper">
+
+    <!-- resultMap 추가 -->
+    <resultMap id="shopProductResultMap" type="com.m4gi.dto.ShopProductDTO">
+        <result property="productId" column="product_id"/>
+        <result property="companyId" column="company_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productDesc" column="product_desc"/>
+        <result property="productImg" column="product_img"/>
+        <result property="productQtty" column="product_qtty"/>
+        <result property="category" column="category"/>
+        <result property="price" column="price"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="companyName" column="company_name"/> <!-- join한 users.company_name -->
+    </resultMap>
+
+    <!-- select 문에서 resultMap 사용 -->
+    <select id="selectProductsExcludeMyCompany" parameterType="int" resultMap="shopProductResultMap">
+        SELECT
+            p.product_id,
+            p.company_id,
+            p.product_name,
+            p.product_desc,
+            p.product_img,
+            p.product_qtty,
+            p.category,
+            p.price,
+            p.status,
+            p.created_at,
+            p.updated_at,
+            u.company_name
+        FROM products p
+                 JOIN users u ON p.company_id = u.user_id
+        WHERE p.company_id != #{myCompanyId}
+    </select>
+
+    <select id="selectProductById" parameterType="int" resultType="com.m4gi.dto.ShopProductDTO">
+        SELECT
+            p.product_id     AS productId,
+            p.product_name   AS productName,
+            p.product_desc   AS productDesc,
+            p.product_img    AS productImg,
+            p.product_qtty   AS productQtty,
+            p.category       AS category,
+            p.price          AS price,
+            u.company_name   AS companyName
+        FROM products p
+                 JOIN users u ON p.company_id = u.user_id
+        WHERE p.product_id = #{productId}
+    </select>
+
+    <select id="selectProductsByCategory" parameterType="map" resultMap="shopProductResultMap">
+        SELECT p.*, u.company_name
+        FROM products p
+                 JOIN users u ON p.company_id = u.user_id
+        WHERE p.company_id != #{myCompanyId}
+          AND p.category = #{category}
+    </select>
+
+    <select id="searchProducts" parameterType="String" resultMap="shopProductResultMap">
+        SELECT
+            p.*,
+            u.company_name
+        FROM products p
+                 JOIN users u ON p.company_id = u.user_id
+        WHERE LOWER(REPLACE(CONCAT(p.product_name, u.company_name), ' ', ''))
+                  LIKE LOWER(CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')) /*띄어쓰기,대소문자 구별 X*/
+    </select>
+
+
+
+
+
+
+</mapper>
+
