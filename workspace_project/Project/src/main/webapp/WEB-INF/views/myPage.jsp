@@ -33,7 +33,20 @@
         font-family: 'KIMM_Bold', sans-serif;
     }
 </style>
+<!-- 주소 검색 API: 다음 카카오 우편번호 서비스 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
+     // 다음 주소 검색 팝업 호출
+     function execDaumPostcode() {
+         new daum.Postcode({
+             oncomplete: function (data) {
+                 const fullAddr = data.roadAddress ? data.roadAddress : data.jibunAddress;
+                 document.getElementById('address').value = fullAddr;
+                 document.getElementById('addressDetail').focus();
+             }
+         }).open();
+     }
+
 	function infoChange() {
 	    // 각 항목의 span과 input을 토글하여 수정 가능하도록 변경
 	    document.querySelectorAll('.user-info').forEach(function(element) {
