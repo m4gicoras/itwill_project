@@ -33,6 +33,64 @@
         font-family: 'KIMM_Bold', sans-serif;
     }
 </style>
+<script type="text/javascript">
+	function infoChange() {
+	    // 각 항목의 span과 input을 토글하여 수정 가능하도록 변경
+	    document.querySelectorAll('.user-info').forEach(function(element) {
+	        element.classList.toggle('hidden');
+	    });
+	
+	    document.querySelectorAll('.user-input').forEach(function(element) {
+	        element.classList.toggle('hidden');
+	    });
+	    
+	    // 기본과 기업 전화번호가 value값에 들어오도록
+	    const UserPhone = '${user.phone}';
+	    const CompanyPhone = '${user.companyPhone}'
+	    const [Upart1, Upart2, Upart3] = UserPhone.split('-');
+	    const [Cpart1, Cpart2, Cpart3] = CompanyPhone.split('-');
+
+	    document.getElementById('userPhone1').value = Upart1;
+	    document.getElementById('userPhone2').value = Upart2;
+	    document.getElementById('userPhone3').value = Upart3;
+	    
+	    document.getElementById('companyPhone1').value = Cpart1;
+	    document.getElementById('companyPhone2').value = Cpart2;
+	    document.getElementById('companyPhone3').value = Cpart3;
+	    
+	    
+	
+	    // 버튼 텍스트를 변경 ("정보 수정" -> "저장하기")
+	    const button = document.querySelector('.info-change-btn');
+	    if (button.innerText === '정보 수정') {
+	        button.innerHTML = `
+	        	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4.5 h-4.5 text-white">
+	        	  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+	        	</svg>
+	            <span>저장하기</span>
+	        `;
+	    } else {
+	        button.innerHTML = `
+	        	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
+	            	<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+	          	</svg>
+	          	<span>정보 수정</span>
+	        `;
+    }
+	    
+ 	// 숫자만 입력 가능 + 입력한 칸이 다 차면 다음 input으로 이동
+    function validateAndMove(current, nextId, maxLength) {
+        current.value = current.value.replace(/[^0-9]/g, '');
+
+        if (current.value.length >= maxLength && nextId !== null) {
+            const nextInput = document.getElementById(nextId);
+            if (nextInput) {
+                nextInput.focus();
+            }
+        }
+    }
+}
+</script>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -53,7 +111,7 @@
                 <table class="w-full">
                   <!-- 왼쪽 - 프로필 이미지 구역 -->
                   <thead>
-                    <tr class="border-b border-zinc-200 bg-gray-200"> <!-- 혹은 bg-zinc-200 -->
+                    <tr class="border-b border-zinc-200 bg-gray-200">
                       <th class="text-left px-8 py-3 font-semibold text-lg select-none">프로필</th>
                     </tr>
                   </thead>
@@ -66,7 +124,7 @@
                             <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0H4z" />
                           </svg>
                           <!-- 수정 버튼 -->
-                          <button class="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full p-1 shadow">
+                          <button class="cursor-pointer absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full p-1 shadow">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-zinc-600 absolute top-1.5 right-1.5">
                               <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                             </svg>
@@ -93,12 +151,15 @@
                   </thead>
                   <tbody>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">아이디</td>
+                      <td class="px-8 py-3 w-80 select-none">아이디</td>
                       <td class="select-none">${user.username}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">닉네임</td>
-                      <td class="select-none">${user.nickname}</td>
+                      <td class="select-none">
+	                      <span class="user-info">${user.nickname}</span>
+	                      <input type="text" class="hidden user-input h-9 w-30 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" id="edit-nickname" value="${user.nickname}" />
+                      </td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">이메일</td>
@@ -106,7 +167,16 @@
                     </tr>
                     <tr class="border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">연락처</td>
-                      <td class="select-none">${user.phone}</td>
+                      <td class="select-none">
+	                      <span class="user-info">${user.phone}</span>
+	                      <div class="hidden user-input flex items-center gap-1.5">
+				            <input type="text" name="userPhone1" id="userPhone1" maxlength="3" required oninput="validateAndMove(this, 'userPhone2', 3)" class="h-9 w-30 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="${user.phone}"/>
+				            <span class="text-gray-500">-</span>
+				            <input type="text" name="userPhone2" id="userPhone2" maxlength="4" required oninput="validateAndMove(this, 'userPhone3', 4)" class="h-9 w-30 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+				            <span class="text-gray-500">-</span>
+				            <input type="text" name="userPhone3" id="userPhone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-30 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+				          </div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -122,7 +192,7 @@
                   </thead>
                   <tbody>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">상호/법인명</td>
+                      <td class="px-8 py-3 w-80 select-none">상호/법인명</td>
                       <td class="select-none">${user.companyName}</td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
@@ -135,15 +205,46 @@
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">대표 전화</td>
-                      <td class="select-none">${user.companyPhone}</td>
+                      <td class="select-none">
+                      <span class="user-info">${user.companyPhone}</span>
+                      <div class="hidden user-input flex items-center gap-1.5">
+			            <input type="text" name="companyPhone1" id="companyPhone1" maxlength="3" required oninput="validateAndMove(this, 'companyPhone2', 3)" class="h-9 w-30 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+			            <span class="text-gray-500">-</span>
+			            <input type="text" name="companyPhone2" id="companyPhone2" maxlength="4" required oninput="validateAndMove(this, 'companyPhone3', 4)" class="h-9 w-30 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+			            <span class="text-gray-500">-</span>
+			            <input type="text" name="companyPhone3" id="companyPhone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-30 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+			          </div>
+                      </td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">주소</td>
-                      <td class="select-none">${user.companyAddr}</td>
+                      <td class="select-none">
+	                      <span class="user-info">${user.companyAddr}</span>
+	                      <div class="user-input hidden my-4 mr-4">
+				          	<div class="flex items-center gap-2.5">
+				            	<input type="text" id="address" name="address" placeholder="기본 주소" required="" readonly="" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="${user.companyAddr}">
+					            <div class="w-3xs">
+					              <button type="button" class="btn mb-0 h-9" onclick="execDaumPostcode()">
+					                <span class="btn-text">주소 검색</span>
+					              </button>
+					            </div>
+					          </div>
+					          <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="mt-3 h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+					        </div>
+                      </td>
                     </tr>
                     <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 select-none">취급상품</td>
-                      <td class="select-none">${user.productCategory}</td>
+                      <td class="select-none">
+	                      <span class="user-info">${user.productCategory}</span>
+	                      <select name="category" class="hidden user-input h-9 w-60 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+				            <option value="">카테고리 선택</option>
+				            <option value="digital">가전/디지털</option>
+				            <option value="fashion">패션</option>
+				            <option value="food">식품</option>
+				            <option value="etc">기타</option>
+				          </select>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -151,7 +252,7 @@
 
               <div class="flex justify-end mr-4">
                 <!-- 정보 수정 버튼 --> 
-                <button type="button" class="flex gap-3 items-center bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
+                <button onclick="infoChange()" type="button" class="info-change-btn flex gap-3 cursor-pointer items-center bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                   </svg>
@@ -169,7 +270,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="border-b border-zinc-200">
+                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 flex items-center justify-between space-x-4">
                         <div class="flex gap-5 items-center">
                           <img src="${pageContext.request.contextPath}/resources/images/google01.png" class="w-6 h-6" alt="google" />
@@ -177,12 +278,12 @@
                           <div class="text-zinc-700 select-none">temp@google.com</div>
                           <div class="text-xs text-zinc-500 select-none">연동일: <span>2015-03-11</span></div>
                         </div>
-                        <button type="button" class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
+                        <button type="button" class="cursor-pointer bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
                           	연결끊기
                         </button>
                       </td>
                     </tr>
-                    <tr class="border-b border-zinc-200">
+                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
                       <td class="px-8 py-3 flex items-center justify-between space-x-4">
                         <div class="flex gap-5 items-center">
                           <img src="${pageContext.request.contextPath}/resources/images/kakaoLogo01.png" class="w-6 h-6" alt="kakao" />
@@ -190,7 +291,7 @@
                           <div class="text-zinc-700 select-none">연결되지 않음</div>
                           <div class="text-xs text-zinc-500 select-none"></div>
                         </div>
-                        <button type="button" class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
+                        <button type="button" class="cursor-pointer bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
                           	연결끊기
                         </button>
                       </td>
