@@ -29,88 +29,46 @@
     </style>
     <!-- JavaScript 코드 -->
     <script>
-    	// 기업 상세 정보 모달창  
-        function openModal(companyName, ceoName, phone, email, regDate) {
-            document.getElementById("modal-companyName").innerText = companyName;
-            document.getElementById("modal-ceoName").innerText = ceoName;
-            document.getElementById("modal-phone").innerText = phone;
-            document.getElementById("modal-email").innerText = email;
-            document.getElementById("modal-regDate").innerText = regDate;
-
-            // 날짜 차이 계산
-            const joinDate = new Date(regDate);
-            const today = new Date();
-            const diffTime = today - joinDate;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            document.getElementById("modal-days").innerText = diffDays;
-            document.getElementById("companyInfoModal").classList.remove("hidden");
-        }
-
-        function closeModal() {
-            document.getElementById("companyInfoModal").classList.add("hidden");
-        }
-
+    	// 검색 초기화
         function resetInput() {
-            document.querySelector("input[name='keyword']").value = "";
+            document.querySelector("input[name='productName']").value = "";
+            document.querySelector("input[name='companyName']").value = "";
         }
-
-        let sortDirection = {};
-        let currentSortedTh = null;
+    	
+     	// Enter 키를 누르면 폼을 제출하는 함수
+        function submitFormOnEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                event.target.form.submit();
+            }
+        }
 		
-        // 테이블 정렬 방법 변경
-        function sortTable(colIndex, thElement) {
-            const table = document.querySelector(".member-list");
-            const tbody = table.tBodies[0];
-            const rows = Array.from(tbody.rows);
+     	// 기업명 혹은 내용으로 찾기위한 input 전환
+        document.addEventListener("DOMContentLoaded", function() {
+            const optionSelect = document.getElementById("searchOption");
+            const companyInput = document.getElementById("companyInput");
+            const contentInput = document.getElementById("contentInput");
 
-            sortDirection[colIndex] = !sortDirection[colIndex];
-            const direction = sortDirection[colIndex];
-            const isNumeric = !isNaN(rows[0].cells[colIndex].innerText);
-
-            rows.sort((a, b) => {
-                let valA = a.cells[colIndex].innerText.trim();
-                let valB = b.cells[colIndex].innerText.trim();
-                if (isNumeric) {
-                    valA = parseFloat(valA);
-                    valB = parseFloat(valB);
+            function updateInputVisibility() {
+                const selected = optionSelect.value;
+                
+                if (selected === "companyName") {
+                    companyInput.style.display = "block";
+                    contentInput.style.display = "none";
+                } else if (selected === "content") {
+                    companyInput.style.display = "none";
+                    contentInput.style.display = "block";
+                } else {
+                    companyInput.style.display = "block";
+                    contentInput.style.display = "block";
                 }
-                if (valA < valB) return direction ? -1 : 1;
-                if (valA > valB) return direction ? 1 : -1;
-                return 0;
-            });
-
-            rows.forEach(row => tbody.appendChild(row));
-
-            const updateArrows = (element, show) => {
-                const upArrow = element.querySelector(".sort-up");
-                const downArrow = element.querySelector(".sort-down");
-
-                if (upArrow && downArrow) {
-                    if (show) {
-                        // 정렬 방향에 따라 화살표 표시
-                        upArrow.style.display = direction ? "inline-block" : "none";
-                        downArrow.style.display = direction ? "none" : "inline-block";
-                    } else {
-                        // 모든 화살표 숨기기
-                        upArrow.style.display = "none";
-                        downArrow.style.display = "none";
-                    }
-                }
-            };
-
-            if (currentSortedTh && currentSortedTh !== thElement) {
-                updateArrows(currentSortedTh, false);
             }
 
-            updateArrows(thElement, true);
+            updateInputVisibility(); // 처음 로드될 때 한 번 실행
 
-            currentSortedTh = thElement;
-        }
+            optionSelect.addEventListener("change", updateInputVisibility); // 변경될 때마다 실행
+        });
 
-        window.onload = function() {
-            sortTable(0, document.getElementById("defaultSort"));
-        }
     </script>
 </head>
 
@@ -223,65 +181,74 @@
 
         <!-- 메인 컨텐츠 -->
         <div class="mx-5 my-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px]">
-
+			
             <!-- 검색창 -->
-            <div class="flex items-center justify-center bg-blue-300/30 bg-search-bg rounded-lg py-3 px-4 w-full max-w-3xl mx-auto">
-                <button class="ml-3 mr-4 bg-transparent border-0 cursor-pointer text-lg text-reset-btn" onclick="resetInput()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
-                    </svg>
-                </button>
-                <form method="get" action="${pageContext.request.contextPath}/admin/member" class="flex w-full">
-                    <input type="text" name="keyword" placeholder="검색어를 입력하세요." value="${param.keyword}" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
+            <form action="${pageContext.request.contextPath}/admin/notificationTable" method="get">
+                <div class="flex items-center justify-center gap-3 bg-blue-300/30 bg-search-bg rounded-lg py-3 px-4 w-full max-w-3xl mx-auto">
+                    <button class="ml-3 mr-4 bg-transparent border-0 cursor-pointer text-reset-btn" onclick="resetInput()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
+                        </svg>
+                    </button>
+                    <select id="searchOption" name="option" class="w-35 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
+                        <option value="companyName">기업명</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" id="companyInput" name="companyName" placeholder="기업명 입력" value="${companyName}" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
+                    <input type="text" id="contentInput" name="content" placeholder="알림 내용 입력" value="${content}" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
                     <button type="submit" class="text-xl ml-4 mr-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path>
                         </svg>
                     </button>
-                </form>
-            </div>
+                </div>
+            </form>
 
             <!-- 테이블 -->
             <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm">
-                <div class="overflow-hidden rounded bg-white shadow">
-                    <table class="member-list min-w-full text-gray-700">
+                <div class="rounded bg-white shadow">
+                    <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                                <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center select-none">
-                                	회원번호
-                                    <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" d="M18.425 10.271C19.499 8.967 18.57 7 16.88 7H7.12c-1.69 0-2.618 1.967-1.544 3.271l4.881 5.927a2 2 0 0 0 3.088 0l4.88-5.927Z" clip-rule="evenodd" />
-                                    </svg>
-                                    <svg class="sort-down size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" d="M5.575 13.729C4.501 15.033 5.43 17 7.12 17h9.762c1.69 0 2.618-1.967 1.544-3.271l-4.881-5.927a2 2 0 0 0-3.088 0l-4.88 5.927Z" clip-rule="evenodd" />
-                                    </svg>
-                                </th>
-                                <th onclick="sortTable(1, this)" class="p-4 text-center select-none">기업명</th>
-                                <th onclick="sortTable(2, this)" class="p-4 text-center select-none">담당자명</th>
-                                <th onclick="sortTable(3, this)" class="p-4 text-center select-none">연락처</th>
-                                <th onclick="sortTable(4, this)" class="p-4 text-center select-none">이메일</th>
-                                <th onclick="sortTable(5, this)" class="p-4 text-center select-none">등록일</th>
+                                <th class="p-4 text-center select-none">알림번호</th>
+                                <th class="p-4 text-center select-none">기업명</th>
+                                <th class="p-4 text-center select-none">알림내용</th>
+                                <th class="p-4 text-center select-none">알림일</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:choose>
-                                <c:when test="${not empty companyList}">
-                                    <c:forEach var="user" items="${companyList}">
-                                        <tr onclick="openModal('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '<fmt:formatDate value="${user.regDate}" pattern="yyyy년 MM월 dd일" />')" class="border-b border-gray-300 hover:bg-gray-50">
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${user.userId}</td>
-                                            <td class="p-4 text-center text-sm text-blue-700 border-b border-gray-100 hover:underline cursor-pointer">㈜ ${user.companyName}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.ceoName ? '-' : user.ceoName}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.phone ? '-' : user.phone}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.email ? '-' : user.email}</td>
+                                <c:when test="${not empty notificationList}">
+                                    <c:forEach var="noti" items="${notificationList}">
+                                        <tr class="hover:bg-blue-50 cursor-pointer border-b">
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">${noti.notification_id}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">
-                                                <fmt:formatDate value="${user.regDate}" pattern="yyyy-MM-dd" />
+                                            	<c:forEach var="name" items="${noti.company_names}" varStatus="status">
+											        <c:if test="${status.index < 3}">
+											            <span>㈜ ${name}<c:if test="${status.index < 2 && status.index + 1 < fn:length(noti.company_names)}">, </c:if></span>
+											        </c:if>
+											    </c:forEach>
+											    <c:if test="${fn:length(noti.company_names) > 3}">
+											        ...
+											    </c:if>
                                             </td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">
+                                            	<c:choose>
+											        <c:when test="${fn:length(noti.content) > 30}">
+											            ${fn:substring(noti.content, 0, 30)}...
+											        </c:when>
+											        <c:otherwise>
+											            ${noti.content}
+											        </c:otherwise>
+											    </c:choose>
+                                            </td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100"><fmt:formatDate value="${noti.created_at}" pattern="yyyy-MM-dd"/></td>
                                         </tr>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
                                     <tr>
-                                        <td colspan="6" class="py-3 px-2 text-sm border-b border-gray-100 text-center">등록된 회원 정보가 없습니다.</td>
+                                        <td colspan="6" class="py-3 px-2 text-sm border-b border-gray-100 text-center">보낸 알림이 없습니다.</td>
                                     </tr>
                                 </c:otherwise>
                             </c:choose>
@@ -289,62 +256,29 @@
                     </table>
                 </div>
 
-                <!-- pagination -->
-                <div class="mt-5 text-center">
-                    <c:forEach var="i" begin="1" end="${totalPage}">
-                        <c:choose>
-                            <c:when test="${i == currentPage}">
-                                <a href="?page=${i}&keyword=${param.keyword}" class="mx-1 text-sm font-semibold text-blue-500">${i}</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="?page=${i}&keyword=${param.keyword}" class="mx-1 text-sm text-gray-600">${i}</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </div>
-
-                <!-- 기업 상세정보 모달창 -->
-                <div id="companyInfoModal" class="fixed hidden inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
-		            <div role="dialog" aria-modal="true" class="flex items-center rounded-xl bg-white shadow-xl p-10">
-		                <div>
-		                  <div class="flex">
-		                    <div class="h-20 w-20 bg-blue-700/20 rounded-md"></div>
-		                    <div class="ml-7 flex flex-col justify-center">
-		                      <p class="text-xl mb-1 font-semibold"><span id="modal-companyName"></span></p>
-		                      <p class="text-xl text-zinc-500">@user_id_sung</p>
-		                    </div>
-		                  </div>
-		                  <div class="mt-5 px-3">
-		                    <p class="mb-2">담당자: <span id="modal-ceoName" class="text-zinc-500"></span></p>
-		                    <p class="mb-2">연락처: <span id="modal-phone" class="text-zinc-500"></span></p>
-		                    <p class="mb-2">이메일: <span id="modal-email" class="text-zinc-500"></span></p>
-		                    <p class="mb-2">등록일: <span id="modal-regDate" class="text-zinc-500"></span> (등록일부터 <span id="modal-days" class="text-zinc-500"></span>일 째)</p>
-		                    <p class="mb-2">누적 거래: <span id="modal-days" class="text-zinc-500"></span></p>
-		                    <p class="mb-2">등록된 상품 수: <span id="modal-regDate" class="text-zinc-500"></p>
-		                  </div>
-		                  <div class="flex gap-2 mt-7">
-			                  <div class="w-3xs">
-					              <button type="button" class="btn mb-0">
-					                <span class="btn-text flex align-center justify-center gap-3">
-					                	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4.5">
-										  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"></path>
-										</svg>		                	
-					                	메세지 보내기
-					                </span>
-					              </button>
-				              </div>
-				              <div class="w-3xs">
-					              <button type="button" class="btn mb-0 bg-zinc-300" onclick="closeModal()">
-					                <span class="btn-text">닫기</span>
-					              </button>
-				              </div>
-			              </div>
-		                </div>
-		            </div>
-		          </div>
-
-            </div>
-        </div>
+	            <!-- pagination -->
+	            <div class="mt-5 text-center">
+	                <c:forEach var="i" begin="1" end="${totalPages}">
+	                    <a href="?page=${i}&companyName=${param.companyName}&content=${param.content}&sort=${param.sort}"
+	                       class="mx-1 px-2 py-1 text-sm ${currentPage == i ? 'font-bold text-blue-600' : 'text-gray-700'}">
+	                       ${i}
+	                    </a>
+	                </c:forEach>
+	            </div>
+	            
+	            <!-- 알림 보내기 페이지로 -->
+	            <div class="flex justify-end">
+	              <button onclick="location.href='/web/admin/notification'"  type="button" class="btn mx-0 mb-0 h-9 w-45">
+	              	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-white">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+					</svg>            
+	                <span class="btn-text">알림 보내기</span>
+	              </button>
+	            </div>
+            </div> <!-- 테이블 -->
+            
+            
+        </div> <!-- 메인 -->
     </div>
 </body>
 
