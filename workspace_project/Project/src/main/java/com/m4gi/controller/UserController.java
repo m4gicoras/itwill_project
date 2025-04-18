@@ -56,16 +56,21 @@ public class UserController {
     	Integer user_id = (Integer) session.getAttribute("userId");
     	
     	User user = userService.getUserById(user_id);
-    	System.out.println("★★★★★★★user:" + user);
     	model.addAttribute("user", user);
-    	System.out.println("★★★★★★★model:" + model);
     	return "myPage";
     }
     
     @PostMapping("/myPage/update")
     @ResponseBody
-    public String updateUserInfo(@RequestBody User user) {
-    	return userService.updateUserInfo(user)? "success": "fail";
+    public String updateUserInfo(@RequestBody User user, HttpSession session) {
+    	Integer userId = (Integer) session.getAttribute("userId");
+        
+        if (userId != null) {
+            user.setUserId(userId);
+            return userService.updateUserInfo(user) ? "success" : "fail";
+        } else {
+            return "fail";
+        }
     }
 
     @GetMapping("/delete")

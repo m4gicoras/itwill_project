@@ -48,14 +48,16 @@
      }
      
      // 버튼 상태에 따라 다른 함수 실행
-     document.querySelector('.edit-btn').addEventListener('click', function () {
-		const btnText = document.querySelector('.btn-text');
-		
-		if (btnText.textContent === '정보 수정') {
-			infoChange();
-		} else if (btnText.textContent === '저장하기') {
-			updateUserInfo();
-		}
+     window.addEventListener('DOMContentLoaded', function () {
+	  document.querySelector('.edit-btn').addEventListener('click', function () {
+	    const btnText = document.querySelector('.btn-text');
+	
+	    if (btnText.textContent === '정보 수정') {
+	      infoChange();
+	    } else if (btnText.textContent === '저장하기') {
+	      updateUserInfo();
+	    }
+	  });
 	});
 	
 	// 정보 수정 버튼 클릭 시 
@@ -100,17 +102,26 @@
 		 const btnText = document.querySelector('.btn-text');
 		 
 		 if (btnText.textContent === '저장하기') {
+	        const form = document.getElementById('updateForm');
+	        
+	        if (!form.checkValidity()) {
+	            form.reportValidity();
+	            return;
+	        }
+		        
 			// input 넣기 전에 조합하기
 	        const email = document.getElementById('email').value;
 	        const phone = document.getElementById('userPhone1').value + '-' +
 	                      document.getElementById('userPhone2').value + '-' +
 	                      document.getElementById('userPhone3').value;
 	        const category = document.getElementById('category').value;
+	        const userId = document.getElementById('userId').value;
 
 	        const data = {
+       			userId: userId,
 	            email: email,
 	            phone: phone,
-	            category: category
+	            productCategory: category
 	        };
 
 	        fetch('/web/myPage/update', {
@@ -125,6 +136,7 @@
 	            if (result === 'success') {
 	                openModal('UpdateSuccessModal');
 	                infoChange();
+	                location.reload();
 	            } else {
 	                openModal('UpdateFailModal');
 	            }
@@ -210,93 +222,95 @@
               </div>
 
               <!-- 기본 정보 섹션 -->
-              <div class="w-full rounded-md overflow-hidden border-2 border-zinc-200">
-                <table class="w-full">
-                  <thead>
-                    <tr class="border-b border-zinc-200 bg-gray-200">
-                      <th colspan="2" class="text-left px-8 py-3 font-semibold text-lg select-none">기본 정보</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 w-80 select-none">아이디</td>
-                      <td class="select-none">${user.username}</td>
-                    </tr>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">닉네임</td>
-                      <td class="select-none">${user.nickname}</td>
-                    </tr>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">이메일</td>
-                      <td class="italic text-zinc-600 select-none">
-                      	<span class="user-info">${user.email}</span>
-                      	<div class="hidden user-input pr-8">
-				          <input type="email" id="email" name="email" required class="h-9 w-100 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="${user.email}"/>
-				        </div>
-                      </td>
-                    </tr>
-                    <tr class="border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">연락처</td>
-                      <td class="select-none">
-	                      <span class="user-info">${user.phone}</span>
-	                      <div class="hidden user-input flex w-100 items-center gap-1.5 pr-8">
-				            <input type="text" name="userPhone1" id="userPhone1" maxlength="3" required="" oninput="validateAndMove(this, 'userPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="010-3322-3333">
-				            <span class="text-gray-500">-</span>
-				            <input type="text" name="userPhone2" id="userPhone2" maxlength="4" required="" oninput="validateAndMove(this, 'userPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
-				            <span class="text-gray-500">-</span>
-				            <input type="text" name="userPhone3" id="userPhone3" maxlength="4" required="" oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
-				          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- 기업 정보 섹션 -->
-              <div class="w-full rounded-md overflow-hidden border-2 border-zinc-200">
-                <table class="w-full">
-                  <thead>
-                    <tr class="border-b border-zinc-200 bg-gray-200">
-                      <th colspan="2" class="text-left px-8 py-3 font-semibold text-lg select-none">기업 정보</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 w-80 select-none">상호/법인명</td>
-                      <td class="select-none">${user.companyName}</td>
-                    </tr>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">대표자명</td>
-                      <td class="select-none">${user.masterName}</td>
-                    </tr>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">사업자등록번호</td>
-                      <td class="select-none">${user.bregNum}</td>
-                    </tr>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">대표 전화</td>
-                      <td class="select-none">${user.companyPhone}</td>
-                    </tr>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">주소</td>
-                      <td class="select-none">${user.companyAddr}</td>
-                    </tr>
-                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
-                      <td class="px-8 py-3 select-none">취급상품</td>
-                      <td class="select-none">
-	                      <span class="user-info">${user.productCategory}</span>
-	                      <select name="category" id="category" class="hidden user-input h-9 w-100 pr-8 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
-				            <option value="">카테고리 선택</option>
-				            <option value="digital">가전/디지털</option>
-				            <option value="fashion">패션</option>
-				            <option value="food">식품</option>
-				            <option value="etc">기타</option>
-				          </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <form id="updateForm" method="post" action="/web/myPage/update">
+	              <div class="w-full rounded-md overflow-hidden border-2 border-zinc-200">
+	                <table class="w-full">
+	                  <thead>
+	                    <tr class="border-b border-zinc-200 bg-gray-200">
+	                      <th colspan="2" class="text-left px-8 py-3 font-semibold text-lg select-none">기본 정보</th>
+	                    </tr>
+	                  </thead>
+	                  <tbody>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 w-80 select-none">아이디</td>
+	                      <td id="userId" class="select-none">${user.username}</td>
+	                    </tr>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">닉네임</td>
+	                      <td class="select-none">${user.nickname}</td>
+	                    </tr>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">이메일</td>
+	                      <td class="italic text-zinc-600 select-none">
+	                      	<span class="user-info">${user.email}</span>
+	                      	<div class="hidden user-input pr-8">
+					          <input type="email" id="email" name="email" required class="h-9 w-100 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="${user.email}"/>
+					        </div>
+	                      </td>
+	                    </tr>
+	                    <tr class="border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">연락처</td>
+	                      <td class="select-none">
+		                      <span class="user-info">${user.phone}</span>
+		                      <div class="hidden user-input flex w-100 items-center gap-1.5 pr-8">
+					            <input type="text" name="userPhone1" id="userPhone1" maxlength="3" required="" oninput="validateAndMove(this, 'userPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="010-3322-3333">
+					            <span class="text-gray-500">-</span>
+					            <input type="text" name="userPhone2" id="userPhone2" maxlength="4" required="" oninput="validateAndMove(this, 'userPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+					            <span class="text-gray-500">-</span>
+					            <input type="text" name="userPhone3" id="userPhone3" maxlength="4" required="" oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+					          </div>
+	                      </td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+	
+	              <!-- 기업 정보 섹션 -->
+	              <div class="w-full rounded-md overflow-hidden border-2 border-zinc-200">
+	                <table class="w-full">
+	                  <thead>
+	                    <tr class="border-b border-zinc-200 bg-gray-200">
+	                      <th colspan="2" class="text-left px-8 py-3 font-semibold text-lg select-none">기업 정보</th>
+	                    </tr>
+	                  </thead>
+	                  <tbody>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 w-80 select-none">상호/법인명</td>
+	                      <td class="select-none">${user.companyName}</td>
+	                    </tr>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">대표자명</td>
+	                      <td class="select-none">${user.masterName}</td>
+	                    </tr>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">사업자등록번호</td>
+	                      <td class="select-none">${user.bregNum}</td>
+	                    </tr>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">대표 전화</td>
+	                      <td class="select-none">${user.companyPhone}</td>
+	                    </tr>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">주소</td>
+	                      <td class="select-none">${user.companyAddr}</td>
+	                    </tr>
+	                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+	                      <td class="px-8 py-3 select-none">취급상품</td>
+	                      <td class="select-none">
+		                      <span class="user-info">${user.productCategory}</span>
+		                      <select name="category" id="category" class="hidden user-input h-9 w-100 pr-8 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+								<option value="" ${empty user.productCategory ? 'selected' : ''}>카테고리 선택</option>
+								<option value="digital" ${user.productCategory == '가전/디지털' ? 'selected' : ''}>가전/디지털</option>
+								<option value="fashion" ${user.productCategory == '패션' ? 'selected' : ''}>패션</option>
+								<option value="food" ${user.productCategory == '식품' ? 'selected' : ''}>식품</option>
+								<option value="etc" ${user.productCategory == '기타' ? 'selected' : ''}>기타</option>
+							  </select>
+	                      </td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+              </form>
 
               <!-- 정보 수정 버튼 --> 
               <div class="flex justify-end mr-4">
