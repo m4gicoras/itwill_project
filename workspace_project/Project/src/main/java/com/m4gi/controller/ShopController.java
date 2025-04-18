@@ -42,11 +42,11 @@ public class ShopController {
     }
 
 
-    @GetMapping("/productDetail")
+    @GetMapping("/shopDetail")
     public String showProductDetail(@RequestParam("productId") int productId, Model model) {
         ShopProductDTO product = shopProductService.getProductById(productId);
         model.addAttribute("product", product);
-        return "productDetail"; // => /WEB-INF/views/productDetail.jsp
+        return "shopDetail"; // => /WEB-INF/views/shopDetail.jsp
     }
 
 }

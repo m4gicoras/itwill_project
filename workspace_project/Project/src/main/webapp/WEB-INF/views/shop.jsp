@@ -124,13 +124,15 @@
 
 <script>
     function openPopup(productId) {
-        const url = '/web_war/productDetail?productId=' + productId;
+        const contextPath = '${pageContext.request.contextPath}';
+        const url = contextPath + '/shopDetail?productId=' + productId;
         const popup = window.open(url, '견적 제시', 'width=700,height=600,scrollbars=yes,resizable=no');
         if (popup == null) {
             alert('팝업이 차단되어 있습니다! 브라우저 설정을 확인해주세요.');
         }
     }
 </script>
+
 
 </body>
 </html>
