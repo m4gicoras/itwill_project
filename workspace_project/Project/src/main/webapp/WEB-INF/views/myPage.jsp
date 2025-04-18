@@ -173,7 +173,7 @@
                       <td class="px-8 py-3 flex items-center justify-between space-x-4">
                         <div class="flex gap-5 items-center">
                           <img src="${pageContext.request.contextPath}/resources/images/google01.png" class="w-6 h-6" alt="google" />
-                          <div class="mr-5 select-none">Google</div>
+                          <div class="mr-5 w-[50px] select-none">Google</div>
                           <div class="text-zinc-700 select-none">temp@google.com</div>
                           <div class="text-xs text-zinc-500 select-none">연동일: <span>2015-03-11</span></div>
                         </div>
@@ -184,10 +184,14 @@
                     </tr>
                     <tr class="border-b border-zinc-200">
                       <td class="px-8 py-3 flex items-center justify-between space-x-4">
-                        <img src="${pageContext.request.contextPath}/resources/images/kakaoLogo01.png" class="w-6 h-6" alt="kakao" /> 
-                        <div class="flex-1 text-gray-500 text-sm select-none">연결되지 않음</div>
+                        <div class="flex gap-5 items-center">
+                          <img src="${pageContext.request.contextPath}/resources/images/kakaoLogo01.png" class="w-6 h-6" alt="kakao" />
+                          <div class="mr-5 w-[50px] select-none">Kakao</div>
+                          <div class="text-zinc-700 select-none">연결되지 않음</div>
+                          <div class="text-xs text-zinc-500 select-none"></div>
+                        </div>
                         <button type="button" class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
-                          	연동
+                          	연결끊기
                         </button>
                       </td>
                     </tr>
