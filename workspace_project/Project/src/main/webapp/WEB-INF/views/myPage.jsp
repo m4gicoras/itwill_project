@@ -46,8 +46,19 @@
              }
          }).open();
      }
+     
+     // 버튼 상태에 따라 다른 함수 실행
+     document.querySelector('.edit-btn').addEventListener('click', function () {
+		const btnText = document.querySelector('.btn-text');
+		
+		if (btnText.textContent === '정보 수정') {
+			infoChange();
+		} else if (btnText.textContent === '저장하기') {
+			updateUserInfo();
+		}
+	});
 	
-     // 정보 수정 버튼 클릭 시 
+	// 정보 수정 버튼 클릭 시 
 	function infoChange() {
 		const editBtn = document.querySelector('.edit-btn');
 		const btnText = document.querySelector('.btn-text');
@@ -83,6 +94,47 @@
 			});
 		  }
     }
+     
+     // DB에 정보 수정
+	 function updateUserInfo() {
+		 const btnText = document.querySelector('.btn-text');
+		 
+		 if (btnText.textContent === '저장하기') {
+			// input 넣기 전에 조합하기
+	        const email = document.getElementById('email').value;
+	        const phone = document.getElementById('userPhone1').value + '-' +
+	                      document.getElementById('userPhone2').value + '-' +
+	                      document.getElementById('userPhone3').value;
+	        const category = document.getElementById('category').value;
+
+	        const data = {
+	            email: email,
+	            phone: phone,
+	            category: category
+	        };
+
+	        fetch('/web/myPage/update', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify(data)
+	        })
+	        .then(response => response.text())
+	        .then(result => {
+	            if (result === 'success') {
+	                openModal('UpdateSuccessModal');
+	                infoChange();
+	            } else {
+	                openModal('UpdateFailModal');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	            openModal('UpdateFailModal');
+	        });
+	    }
+     }
 	    
  	// 숫자만 입력 가능 + 입력한 칸이 다 차면 다음 input으로 이동
     function validateAndMove(current, nextId, maxLength) {
@@ -95,6 +147,17 @@
             }
         }
     }
+	// 모달창 관련 코드
+	function openModal(modalId) {
+    	const modal = document.getElementById(modalId);
+    	modal.classList.remove("hidden");
+	}
+	function closeModal(modalId) {
+		const modal = document.getElementById(modalId);
+		if (modal) {
+			modal.classList.add("hidden");
+		}
+	}
 </script>
 </head>
 
@@ -168,7 +231,7 @@
                       <td class="italic text-zinc-600 select-none">
                       	<span class="user-info">${user.email}</span>
                       	<div class="hidden user-input pr-8">
-				          <input type="email" name="email" required class="h-9 w-100 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="${user.email}"/>
+				          <input type="email" id="email" name="email" required class="h-9 w-100 rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="${user.email}"/>
 				        </div>
                       </td>
                     </tr>
@@ -222,7 +285,7 @@
                       <td class="px-8 py-3 select-none">취급상품</td>
                       <td class="select-none">
 	                      <span class="user-info">${user.productCategory}</span>
-	                      <select name="category" class="hidden user-input h-9 w-100 pr-8 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+	                      <select name="category" id="category" class="hidden user-input h-9 w-100 pr-8 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
 				            <option value="">카테고리 선택</option>
 				            <option value="digital">가전/디지털</option>
 				            <option value="fashion">패션</option>
@@ -235,9 +298,9 @@
                 </table>
               </div>
 
+              <!-- 정보 수정 버튼 --> 
               <div class="flex justify-end mr-4">
-                <!-- 정보 수정 버튼 --> 
-                <button onclick="infoChange()" type="button" class="btn edit-btn mx-0 w-40">
+                <button type="button" class="btn edit-btn mx-0 w-40">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                   </svg>
@@ -284,6 +347,47 @@
                   </tbody>
                 </table>
               </div>
+              
+              <!-- 수정 완료 모달창 -->
+              <div id="UpdateSuccessModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+	              <div role="dialog" aria-modal="true" class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+	                <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mb-8 size-7 text-blue-500">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+					</svg> -->
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mb-8 size-7 text-blue-500">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+					</svg>
+
+										
+	                <p class="mb-2 text-center text-lg font-semibold">회원님의 정보가 정상적으로 변경되었습니다.</p>
+	                <div class="align-center mt-8 flex gap-6">
+	                  <div>
+	                    <button onclick="closeModal('UpdateSuccessModal')" type="button" class="btn mx-0 mb-0 h-9 w-35">
+	                      <span class="btn-text">확인</span>
+	                    </button>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+
+              <!-- 수정 완료 모달창 -->
+              <div id="UpdateFailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+	              <div role="dialog" aria-modal="true" class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+					</svg>
+	                <p class="mb-2 text-center text-lg font-semibold">정보 변경에 실패했습니다. 잠시 후 다시 시도해 주세요.</p>
+	                <div class="align-center mt-8 flex gap-6">
+	                  <div>
+	                    <button onclick="closeModal('UpdateFailModal')" type="button" class="btn mx-0 mb-0 h-9 w-35">
+	                      <span class="btn-text">확인</span>
+	                    </button>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+              
+              
             </div>
         </div>
       </div>

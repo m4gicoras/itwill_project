@@ -107,4 +107,9 @@ public class UserServiceImpl implements UserService{
     	
     	return user;
     }
+    
+    @Override
+    public boolean updateUserInfo(User user) {
+    	return userMapper.updateUserInfo(user) > 0;
+    }
 }

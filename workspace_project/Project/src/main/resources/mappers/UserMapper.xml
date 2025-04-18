@@ -59,5 +59,14 @@
     	FROM users
     	WHERE user_id = #{user_id}
     </select>
+    
+    <update id="updateUserInfo" parameterType="com.m4gi.domain.User">
+    	UPDATE users
+    	SET 
+    	email = #{email},
+    	phone = #{phone},
+    	product_category = #{productCategory}
+    	WHERE user_id = #{userId}
+    </update>
 
 </mapper>

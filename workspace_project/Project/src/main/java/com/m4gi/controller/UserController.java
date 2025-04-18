@@ -61,6 +61,12 @@ public class UserController {
     	System.out.println("★★★★★★★model:" + model);
     	return "myPage";
     }
+    
+    @PostMapping("/myPage/update")
+    @ResponseBody
+    public String updateUserInfo(@RequestBody User user) {
+    	return userService.updateUserInfo(user)? "success": "fail";
+    }
 
     @GetMapping("/delete")
     public String showDeleteForm() {
