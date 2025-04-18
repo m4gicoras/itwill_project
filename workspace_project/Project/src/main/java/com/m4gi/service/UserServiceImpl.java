@@ -78,6 +78,33 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserById(int user_id) {
     	System.out.println("★★★★★★★userid:" + user_id);
-    	return userMapper.getUserById(user_id);
+    	User user = userMapper.getUserById(user_id);
+    	
+    	if (user != null) {
+            String category = user.getProductCategory();
+
+            // 인라인 switch-case로 한글 변환
+            String categoryName;
+            switch (category) {
+	            case "digital":
+	            	categoryName = "가전/디지털";
+	            	break;
+	            case "fashion":
+	            	categoryName = "패션";
+	            	break;
+                case "food":
+                    categoryName = "식품";
+                    break;
+                case "etc":
+                    categoryName = "기타";
+                    break;
+                default:
+                    categoryName = category;
+            }
+
+            user.setProductCategory(categoryName);
+        }
+    	
+    	return user;
     }
 }

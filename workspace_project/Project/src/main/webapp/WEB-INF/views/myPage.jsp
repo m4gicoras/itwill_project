@@ -141,6 +141,10 @@
                       <td class="px-8 py-3 select-none">주소</td>
                       <td class="select-none">${user.companyAddr}</td>
                     </tr>
+                    <tr class="border-b border-zinc-200 hover:bg-zinc-100/50">
+                      <td class="px-8 py-3 select-none">취급상품</td>
+                      <td class="select-none">${user.productCategory}</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
