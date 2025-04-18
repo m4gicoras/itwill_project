@@ -48,17 +48,31 @@
         let currentSortedTh = null;
 
         function sortTable(colIndex, thElement) {
+			const dataColIndex = colIndex + 1;
+        	
             const table = document.querySelector(".product-list");
             const tbody = table.tBodies[0];
             const rows = Array.from(tbody.rows);
+            
+            // 데이터 행이 없거나 메시지만 있는 경우
+            if (rows.length === 0 || rows[0].cells.length <= 1) {
+                return; 
+            }
 
             sortDirection[colIndex] = !sortDirection[colIndex];
             const direction = sortDirection[colIndex];
-            const isNumeric = !isNaN(rows[0].cells[colIndex].innerText);
+            
+            let firstDataRow = rows.find(row => row.cells.length > dataColIndex);
+            let isNumeric = false;
+            
+            if (firstDataRow) {
+                const cellText = firstDataRow.cells[dataColIndex].innerText.trim();
+                isNumeric = !isNaN(parseFloat(cellText)) && isFinite(cellText);
+            }
 
             rows.sort((a, b) => {
-                let valA = a.cells[colIndex].innerText.trim();
-                let valB = b.cells[colIndex].innerText.trim();
+            	let valA = a.cells[dataColIndex].innerText.trim();
+                let valB = b.cells[dataColIndex].innerText.trim();
                 if (isNumeric) {
                     valA = parseFloat(valA);
                     valB = parseFloat(valB);
@@ -92,7 +106,6 @@
             }
 
             updateArrows(thElement, true);
-
             currentSortedTh = thElement;
         }
 
@@ -100,135 +113,13 @@
             sortTable(0, document.getElementById("defaultSort"));
         }
         
-        // 상품 관련 추가 기능(삭제, 조정) 모달창 관련 코드
-		function openProductOptionModal(modalId) {
-		    // 모든 모달 먼저 닫기
-		    const allModals = document.querySelectorAll(".ProductOptionModal");
-		    allModals.forEach(m => m.classList.add("hidden"));
-		
-		    const modal = document.getElementById(modalId);
-		    if (modal) {
-		      modal.classList.remove("hidden");
-		      closeProductModalOnOutsideClick(modalId);
-			}
-		}
-	
-	  function closeProductOptionModal(modalId) {
-	    const modal = document.getElementById(modalId);
-	    if (modal) {
-	      modal.classList.add("hidden");
-	    }
-	  }
-	
-	  function closeProductModalOnOutsideClick(modalId) {
-	    // 기존 클릭 이벤트 제거 후 다시 추가
-	    const handler = (e) => {
-	      const modal = document.getElementById(modalId);
-	      if (modal && !modal.contains(e.target)) {
-	        modal.classList.add("hidden");
-	        document.removeEventListener("click", handler);
-	      }
-	    };
-	    setTimeout(() => {
-	      document.addEventListener("click", handler);
-	    }, 0); // 다른 클릭 이벤트보다 나중에 실행되게
-	  }
-	  
-	  // 모달창 관련 코드
-	  function openModal(modalId) {
-          const modal = document.getElementById(modalId);
-		
-          modal.classList.remove("hidden");
-        }
-
-        function closeModal(modalId) {
-     	const modal = document.getElementById(modalId);
-      	if (modal) {
-      		modal.classList.add("hidden");
-      	}
-     }
-         
-      // 물품 삭제 확인 모달창에 들어갈 값(기업명, 물품명)
-      function openDeleteModal(button) {
-    	  const companyName = button.dataset.companyName;
-    	  const productName = button.dataset.productName;
-    	  const productId = button.dataset.productId;
-
-    	  document.getElementById('deleteCompanyName').textContent = companyName;
-    	  document.getElementById('deleteProductName').textContent = productName;
-    	  
-    	  const modal = document.getElementById('ConfirmProductDeleteModal');
-    	  modal.dataset.productId = productId;
-
-    	  openModal('ConfirmProductDeleteModal');
-      }
-      
-      // 물품 삭제 
-      function deleteProduct() {
-		  const modal = document.getElementById('ConfirmProductDeleteModal');
-		  const productId = modal.dataset.productId;
-		
-		  fetch('/web/admin/product/delete', {
-			    method: 'POST',
-			    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			    body: 'productId=' + productId
-			  })
-			  .then(response => {
-			    if (!response.ok) {
-			      throw new Error('Network response was not ok');
-			    }
-			    return response.text();
-			  })
-			  .then(result => {
-			    console.log("서버 응답:", result); // 삭제 할 것 
-			    if (result === "success") {
-			      closeModal('ConfirmProductDeleteModal');
-			      
-			      const companyName = document.getElementById('deleteCompanyName').textContent;
-			      const productName = document.getElementById('deleteProductName').textContent;
-			      
-			      document.getElementById('deletedCompanyName').textContent = companyName;
-			      document.getElementById('deletedProductName').textContent = productName;
-			      
-			      openModal('deleteSuccessModal');
-			    } else {
-			      alert("삭제 실패: " + result);
-			      openModal("deleteFailModal");
-			    }
-			  })
-			  .catch(error => {
-			    console.error('Error:', error);
-			    openModal("deleteFailModal");
-			  });
-		}
-      
-      // 삭제 확인 과 삭제 실패 모달창 띄우기 위한 코드
-      window.addEventListener("DOMContentLoaded", function () {
-	    const deleteStatus = "${deleteStatus}";
-	
-	    if (deleteStatus === "success") {
-	      openModal("deleteSuccessModal");
-	    } else if (deleteStatus === "fail") {
-	      openModal("deleteFailModal");
-	    }
-	  });
-      
-      // 물품 개수 수정
+      // 수량 더블 클릭 -> 물품 개수 수정
       function activateQtyEdit(productId, btn) {
-		    console.log("productId:", productId);
-		    const modal = btn.closest(".ProductOptionModal");
-		    if (modal) {
-		        closeModal(modal.id);
-		    }
-		    
 		    const displayId = "qtyDisplay-" + productId;
 		    const inputId = "qtyInput-" + productId;
 		    
 		    const display = document.getElementById(displayId);
 		    const input = document.getElementById(inputId);
-		    
-		    console.log("Display ID:", displayId, "Element:", display);
-		    console.log("Input ID:", inputId, "Element:", input);
 		    
 		    if (display && input) {
 		        display.classList.add("hidden");
@@ -241,43 +132,7 @@
 		}
       function updateQtyOnEnter(event, productId) {
     	    if (event.key === "Enter") {
-    	        const inputId = "qtyInput-" + productId;
-    	        const displayId = "qtyDisplay-" + productId;
-
-    	        const input = document.getElementById(inputId);
-    	        const display = document.getElementById(displayId);
-
-    	        if (input && display) {
-    	            const newQtty = input.value;
-
-    	            // 서버에 AJAX 요청 보내기
-    	            fetch("/web/admin/product/updateQtty", {
-    	                method: "POST",
-    	                headers: {
-    	                    "Content-Type": "application/x-www-form-urlencoded"
-    	                },
-    	                body: new URLSearchParams({
-    	                    productId: productId,
-    	                    ProductQtty: newQtty
-    	                })
-    	            })
-    	            .then(res => res.text())
-    	            .then(data => {
-    	                if (data === "success") {
-    	                    console.log("수정 성공!");
-		    	            // UI 변경
-		    	            display.textContent = newQtty;
-		    	            input.classList.add("hidden");
-		    	            display.classList.remove("hidden");
-    	                } else {
-    	                    alert("수정 실패");
-    	                }
-    	            })
-    	            .catch(error => {
-    	                console.error("에러 발생:", error);
-    	                alert("서버 오류로 수정 실패");
-    	            });
-    	        }
+    	        // 여기에 이제 update하는거 들어가면 될 것 같아요!! ★★★★★★★★★
     	    }
     	}
     </script>
@@ -415,18 +270,13 @@
                 </div>
             </form>
 
-            <!-- 조건 메시지 -->
-            <c:if test="${noCondition}">
-                <p class="text-center text-red-500 mb-4">조회 조건을 입력해주세요.</p>
-            </c:if>
-
             <!-- 테이블 -->
             <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm">
                 <div class="rounded bg-white shadow">
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                            	<td class="selectAllCheckbox p-4"><input type="checkbox"></td>
+                            	<td class="p-4"><input type="checkbox" id="checkbox-${product.productId}" class="selectAllCheckbox"></td>
                                 <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center select-none">
                                     	물품번호
                                     <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -441,7 +291,6 @@
                                 <th class="p-4 text-center select-none">수량</th>
                                 <th class="p-4 text-center select-none">등록일</th>
                                 <th class="p-4 text-center select-none">상태</th>
-                                <th class="p-4 w-7 text-center select-none"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -454,7 +303,7 @@
                                             <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">
-											    <span id="qtyDisplay-${product.productId}">
+											    <span id="qtyDisplay-${product.productId}" ondblclick="activateQtyEdit('${product.productId}', null)">
 											        ${product.productQty}
 											    </span>
 											    <input 
@@ -463,6 +312,7 @@
 											        class="hidden w-16 px-1 py-0.5 border border-gray-300 rounded text-center text-sm"
 											        value="${product.productQty}" 
 											        onkeydown="updateQtyOnEnter(event, '${product.productId}')"
+                                    				onblur="updateQtyOnEnter({key:'Enter'}, '${product.productId}')"
 											    />
 											</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100"><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd"/></td>
@@ -490,37 +340,6 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
-                                            <td class="relative p-4 text-center text-sm border-b border-gray-100">
-                                            	<button onclick='openProductOptionModal("optionModal-${product.productId}")' >
-	                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">
-														<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-													</svg>
-												</button>
-												<!-- ProductOptionModal - 상품 관련 추가 옵션 클릭 시 나오는 모달 창 --> 
-									            <div id="optionModal-${product.productId}" class="ProductOptionModal hidden absolute right-0 w-30 bg-white rounded-lg border border-zinc-200 p-1 z-50">
-												    <button onclick="activateQtyEdit('${product.productId}', this)" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-												    	<div class="flex align-center">
-															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5 h-5 mr-2">
-															  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-															</svg>
-													    	<span>조정</span>
-												    	</div>
-												    </button>
-												    <button 
-													    onclick="openDeleteModal(this)" 
-														data-company-name="${product.companyName}" 
-														data-product-name="${product.productName}" 
-														data-product-id="${product.productId}"
-													    class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-												    	<div class="flex align-center">
-															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5 h-5 mr-2">
-															  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"></path>
-															</svg>
-													    	<span>삭제</span>
-												    	</div>
-												    </button>
-												</div>
-											</td>
                                         </tr>
                                     </c:forEach>
                                 </c:when>
@@ -528,17 +347,28 @@
                                     <tr>
                                         <td colspan="6" class="py-3 px-2 text-sm border-b border-gray-100 text-center">등록된 물품 정보가 없습니다.</td>
                                     </tr>
-                                    <c:if test="${noCondition}">
-						                <p class="text-center text-red-500 mb-4">조회 조건을 입력해주세요.</p>
-						            </c:if>
                                 </c:otherwise>
                             </c:choose>
                         </tbody>
                     </table>
                 </div>
-
-	            <!-- pagination -->
+				
+				<!-- 테이블 하단 -->
 	            <div class="mt-5 text-center">
+	            	<!-- 수정, 단종 변경 버튼 -->
+                   	<div class="flex justify-end gap-2">
+	            		<!-- <div>
+		                  <button type="button" id="editButton" class="btn mx-0 mb-0 h-9 w-20">
+		                    <span class="btn-text">수정</span>
+		                  </button>
+		                </div> 보류 -->
+	            		<div>
+		                  <button type="button" id="discontinueButton" class="btn mx-0 mb-0 h-9 w-45">
+		                    <span class="btn-text">거래 불가로 변경</span>
+		                  </button>
+		                </div>
+            		</div>
+		            <!-- pagination -->
 	                <c:forEach var="i" begin="1" end="${totalPages}">
 	                    <a href="?page=${i}&productName=${param.productName}&companyName=${param.companyName}&sort=${param.sort}"
 	                       class="mx-1 px-2 py-1 text-sm ${currentPage == i ? 'font-bold text-blue-600' : 'text-gray-700'}">
@@ -547,64 +377,6 @@
 	                </c:forEach>
 	            </div>
             </div> <!-- 테이블 -->
-            
-            <!-- 상품 삭제 /조정 모달 -->
-            <form>
-	            <div id="ConfirmProductDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
-	              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
-	                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
-	                  <span class="font-bold text-2xl text-red-700">!</span>
-	                </div>
-	                <!-- 숨겨진 input에 productId 값 넣기 -->
-      				<input type="hidden" name="productId" id="deleteProductId" />
-	                <p class="text-center mb-2 text-lg font-semibold">선택하신 상품은 <span id="deleteCompanyName" class="text-blue-700">'기업명'</span>의 <span id="deleteProductName" class="text-blue-700">'상품명'</span> 제품입니다.<br>삭제하시겠습니까?</p>
-	                <p class="text-center text-sm">삭제된 제품은 복구할 수 없습니다.</p>
-	                <div class="flex align-center gap-6 mt-8">
-		                <div>
-		                  <button onclick="deleteProduct()"  type="button" class="btn mx-0 mb-0 h-9 w-35">
-		                    <span class="btn-text">확인</span>
-		                  </button>
-		                </div>
-		                <div>
-		                  <button onclick="closeModal('ConfirmProductDeleteModal')" type="button" class="btn mx-0 mb-0 h-9 w-35 bg-gray-500/50">
-		                    <span class="btn-text">취소</span>
-		                  </button>
-		                </div>
-	                </div>
-	              </div>
-	          	</div>
-          	</form>
-			
-          	<!-- 삭제 완료 알림 모달 -->
-          	<div id="deleteSuccessModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
-              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
-                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
-                  <span class="font-bold text-2xl text-red-700">!</span>
-                </div>
-                <p class="text-center mb-2 text-lg font-semibold"><span id="deletedCompanyName" class="text-blue-700">'기업명'</span>의 <span id="deletedProductName" class="text-blue-700">'상품명'</span>이 삭제되었습니다.</p>
-                <div class="mt-8">
-                  <button type="button" class="btn mx-0 mb-0 h-9 w-35" onclick="closeModal('deleteSuccessModal')">
-                    <span class="btn-text">확인</span>
-                  </button>
-                </div>
-              </div>
-          	</div>
-          	
-          	<!-- 삭제 실패 알림 모달 -->
-          	<div id="deleteFailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
-              <div role="dialog" aria-modal="true" class="flex flex-col items-center w-full max-w-lg rounded-xl bg-white p-8 shadow-xl">
-                <div class="flex align-middle justify-center bg-red-700/10 rounded-full w-9 h-9 mb-8">
-                  <span class="font-bold text-2xl text-red-700">!</span>
-                </div>
-                <p class="text-center mb-2 text-lg font-semibold"><span id="deletedCompanyName" class="text-blue-700">'기업명'</span>의 <span id="deletedProductName" class="text-blue-700">'상품명'</span>를 삭제하지 못했습니다.</p>
-                <div class="mt-8">
-                  <button type="button" class="btn mx-0 mb-0 h-9 w-35" onclick="closeModal('deleteFailModal')">
-                    <span class="btn-text">확인</span>
-                  </button>
-                </div>
-              </div>
-          	</div>
-            
             
         </div> <!-- 메인 -->
     </div>
