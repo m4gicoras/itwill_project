@@ -35,30 +35,28 @@
 <body style="font-family: 'Noto Sans KR', sans-serif;">
 	<!-- 페이지 전체 레이아웃 -->
     <div class="flex h-full w-full bg-white select-none">
-   	<!-- 사이드바 div (고정 위치) -->
+   		<!-- 사이드바 div (고정 위치) -->
 		<div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
 			<!-- 사이드바 내부 디자인 -->
 			<div class="bg-card text-card-foreground m-3 ml-3 h-[96.5vh] w-full overflow-hidden rounded-lg border border-zinc-200 pe-4 shadow-sm sm:my-4 sm:mr-4 md:m-5 md:mr-[-50px] ">
 				<div style="position: relative; overflow: hidden; width: 100%; height: 100%;">
 					<div class="!translate-x-[5.5%] pr-4 xl:!-mr-8 xl:w-[calc(100%_+_20px)]" style="position: absolute; inset: 0px; overflow: scroll; margin-right: -15px; margin-bottom: -22px; width: 100%;">
 						<!-- 사이드 바 내부 div -->
-                        <div class="flex h-full flex-col justify-between">
-                        	<!-- 사이드 바 상단 메뉴 div -->
-                        	<!-- 로고  -->
-                            <div>
-                                <span class="absolute top-4 block cursor-pointer text-zinc-200 xl:hidden ">
-                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20"
-                                        aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"></path>
-                                </svg>
-                                </span>
-                                <div class="mt-8 flex items-center justify-center">
-                                    <h5 class="kimm-bold text-center text-4xl font-extrabold select-none">Sellity</h5>
-                                </div>
-                                <div class="mt-8 mb-8 h-px bg-zinc-200 "></div>
-                                <!-- 메뉴 -->
+						<div class="flex h-full flex-col justify-between">
+							<!-- 사이드 바 상단 메뉴 div -->
+							<!-- 로고  -->
+							<div>
+								<span class="absolute top-4 block cursor-pointer text-zinc-200 xl:hidden ">
+									<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20"
+										aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+									</svg>
+								</span>
+								<div class="mt-8 flex items-center justify-center">
+									<h5 class="kimm-bold text-center text-4xl font-extrabold select-none">Sellity</h5>
+								</div>
+								<div class="mt-8 mb-8 h-px bg-zinc-200 "></div>
+								<!-- 메뉴 -->
 								<ul>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
 	                                    <a class="undefined" href="<%=request.getContextPath()%>/main" style="border-radius: 0px; width: 100%;">
@@ -158,7 +156,7 @@
 	                                       </a>
 									</div>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
-										<a href="<%=request.getContextPath()%>/main" style="border-radius: 0px; width: 100%;">
+										<%-- <a href="<%=request.getContextPath()%>/main" style="border-radius: 0px; width: 100%;"> --%>
 										<div class="w-full items-center justify-center">
                                     		<div class="flex w-full items-center justify-center">
 												<div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">

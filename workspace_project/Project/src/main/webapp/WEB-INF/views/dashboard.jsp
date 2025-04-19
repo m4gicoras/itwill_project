@@ -36,7 +36,7 @@
 
 <body style="font-family: 'Noto Sans KR', sans-serif;">
 	<!-- 페이지 전체 레이아웃 -->
-    <div class="flex h-full w-full bg-white">
+    <div class="flex h-full w-full bg-white select-none">
    	<!-- 사이드바 div (고정 위치) -->
 		<div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
 			<!-- 사이드바 내부 디자인 -->
@@ -83,7 +83,7 @@
 	                                    </a>
 									</div>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
-                                       <a class="undefined" href="<%=request.getContextPath()%>/main" style="border-radius: 0px; width: 100%;">
+                                       <a class="undefined" href="<%=request.getContextPath()%>/add_product" style="border-radius: 0px; width: 100%;">
                                            <div class="w-full items-center justify-center">
                                                <div class="flex w-full items-center justify-center">
                                                    <div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">
@@ -160,7 +160,7 @@
 	                                       </a>
 									</div>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
-										<a href="<%=request.getContextPath()%>/main" style="border-radius: 0px; width: 100%;">
+										<%-- <a href="<%=request.getContextPath()%>/main" style="border-radius: 0px; width: 100%;"> --%>
 										<div class="w-full items-center justify-center">
                                     		<div class="flex w-full items-center justify-center">
 												<div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">
