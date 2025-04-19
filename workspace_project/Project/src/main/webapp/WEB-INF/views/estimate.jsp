@@ -290,7 +290,7 @@
 	  <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm">
 	  <!-- 테이블 배치 -->
 	  	<div class="flex gap-5">
-		    <!-- 보낸 견적 -->
+			<!-- 보낸 견적 -->
 			<div class="w-full">
 				<div class="flex gap-2 items-center text-xl font-semibold text-red-500 mb-5 pl-3">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 transform -scale-x-100">
@@ -299,89 +299,118 @@
 					<span>보낸 견적</span>
 				</div>
 			    <div class="overflow-hidden rounded bg-white shadow">
-			      <table class="w-full text-gray-700">
-			        <thead class="border-b border-gray-300 bg-gray-200">
-			          <tr>
-			            <th class="p-4 text-center">상품명</th>
-			            <th class="p-4 text-center">수량</th>
-			            <th class="p-4 text-center">요청단가</th>
-			            <th class="p-4 text-center">견적상태</th>
-			          </tr>
-			        </thead>
-			        <tbody>
-			          <c:forEach var="estimate" items="${sentEstimates}">
-			            <tr class="border-b">
-			              <td class="p-4 text-center">${estimate.productName}</td>
-			              <td class="p-4 text-center">${estimate.estimateQtty}</td>
-			              <td class="p-4 text-center">
-			                <fmt:formatNumber value="${estimate.reqCost}" type="number" />
-			              </td>
-			              <td class="p-4 text-center">
-			                <c:choose>
-			                  <c:when test="${estimate.status == 0}">요청중</c:when>
-			                  <c:when test="${estimate.status == 1}">수락됨</c:when>
-			                  <c:when test="${estimate.status == 2}">거절됨</c:when>
-			                  <c:when test="${estimate.status == 3}">견적제시됨</c:when>
-			                  <c:when test="${estimate.status == 4}">만료됨</c:when>
-			                  <c:otherwise>알 수 없음</c:otherwise>
-			                </c:choose>
-			              </td>
-			            </tr>
-			          </c:forEach>
-			        </tbody>
-			      </table>
-			    </div>
-		    </div>
-		    <!-- 보낸 견적 -->
+					<table class="w-full text-gray-700">
+						<thead class="border-b border-gray-300 bg-gray-200">
+							<tr>
+								<th class="p-4 text-center">상품명</th>
+								<th class="p-4 text-center">수량</th>
+								<th class="p-4 text-center">요청단가</th>
+								<th class="p-4 text-center">견적상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="estimate" items="${sentEstimates}">
+								<tr class="border-b">
+									<td class="p-4 text-center">${estimate.productName}</td>
+									<td class="p-4 text-center">${estimate.estimateQtty}</td>
+									<td class="p-4 text-center">
+										<fmt:formatNumber value="${estimate.reqCost}" type="number" />
+									</td>
+									<td class="p-4 text-center">
+										<c:choose>
+											<c:when test="${estimate.status == 0}">요청중</c:when>
+											<c:when test="${estimate.status == 1}">수락됨</c:when>
+											<c:when test="${estimate.status == 2}">거절됨</c:when>
+											<c:when test="${estimate.status == 3}">견적제시됨</c:when>
+											<c:when test="${estimate.status == 4}">만료됨</c:when>
+											<c:otherwise>알 수 없음</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- 보낸 견적 -->
 		
-		    <!-- 받은 견적 -->
-		    <div class="w-full">
+			<!-- 받은 견적 -->
+			<div class="w-full">
 				<div class="flex gap-2 items-center text-xl font-semibold text-blue-500 mb-5 pl-3">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-					  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"></path>
 					</svg>
 					<span>받은 견적</span>
 				</div>
-			    <div class="w-full overflow-hidden rounded bg-white shadow">
-			      <table class="w-full text-gray-700">
-			        <thead class="border-b border-gray-300 bg-gray-200">
-			          <tr>
-			            <th class="p-4 text-center">상품명</th>
-			            <th class="p-4 text-center">요청기업</th>
-			            <th class="p-4 text-center">수량</th>
-			            <th class="p-4 text-center">견적상태</th>
-			          </tr>
-			        </thead>
-			        <tbody id="Products">
-			          <c:forEach var="estimate" items="${receivedEstimates}">
-			            <tr class="border-b">
-			              <td class="p-4 text-center">${estimate.productName}</td>
-			              <td class="p-4 text-center">${estimate.reqCompanyName}</td>
-			              <td class="p-4 text-center">${estimate.estimateQtty}</td>
-			              <td class="p-4 text-center">
-			                <c:choose>
-			                  <c:when test="${estimate.status == 0}">요청중</c:when>
-			                  <c:when test="${estimate.status == 1}">수락됨</c:when>
-			                  <c:when test="${estimate.status == 2}">거절됨</c:when>
-			                  <c:when test="${estimate.status == 3}">견적제시됨</c:when>
-			                  <c:when test="${estimate.status == 4}">만료됨</c:when>
-			                  <c:otherwise>알 수 없음</c:otherwise>
-			                </c:choose>
-			              </td>
-			            </tr>
-			          </c:forEach>
-			        </tbody>
-			      </table>
-			    </div>
+				<div class="w-full overflow-hidden rounded bg-white shadow">
+					<table class="w-full text-gray-700">
+						<thead class="border-b border-gray-300 bg-gray-200">
+							<tr>
+								<th class="p-4 text-center">상품명</th>
+								<th class="p-4 text-center">요청기업</th>
+								<th class="p-4 text-center">수량</th>
+								<th class="p-4 text-center">견적상태</th>
+							</tr>
+						</thead>
+						<tbody id="Products">
+							<c:forEach var="estimate" items="${receivedEstimates}">
+								<tr class="border-b">
+									<td class="p-4 text-center">${estimate.productName}</td>
+									<td class="p-4 text-center">${estimate.reqCompanyName}</td>
+									<td class="p-4 text-center">${estimate.estimateQtty}</td>
+									<td class="p-4 text-center">
+										<c:choose>
+											<c:when test="${estimate.status == 0}">요청중</c:when>
+											<c:when test="${estimate.status == 1}">수락됨</c:when>
+											<c:when test="${estimate.status == 2}">거절됨</c:when>
+											<c:when test="${estimate.status == 3}">견적제시됨</c:when>
+											<c:when test="${estimate.status == 4}">만료됨</c:when>
+											<c:otherwise>알 수 없음</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 		    </div>
 		    <!-- 받은 견적 -->
-		    
-	    </div>
-	  </div>
+			</div>
+		</div>
+	</div>
 	</div>
 
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function () {
+    // 메뉴 항목 hover 효과 처리
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.addEventListener('mouseenter', function () {
+            // 부모 요소 클래스 변경 (hover 상태)
+            this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-zinc-950 font-semibold text-white";
+            const pElement = this.querySelector('p');
+            if (pElement) {
+                pElement.className = "mr-auto text-sm font-semibold text-white";
+            }
+            const svgElement = this.querySelector('.svg-item');
+            if (svgElement) {
+                svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-white";
+            }
+        });
+        item.addEventListener('mouseleave', function () {
+            // 부모 요소 클래스 원복 (hover 상태 해제)
+            this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ";
+            const pElement = this.querySelector('p');
+            if (pElement) {
+                pElement.className = "mr-auto text-sm font-medium text-zinc-950 ";
+            }
+            const svgElement = this.querySelector('.svg-item');
+            if (svgElement) {
+                svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950 ";
+            }
+        });
+    });
+</script>
 
-
-</div>
 </body>
 </html>
