@@ -159,7 +159,7 @@
 		                                       </a>
 										</div>
 										<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
-											<%-- <a href="<%=request.getContextPath()%>/main" style="border-radius: 0px; width: 100%;"> --%>
+											<a href="<%=request.getContextPath()%>/settlementStatus" style="border-radius: 0px; width: 100%;">
 											<div class="w-full items-center justify-center">
 	                                    		<div class="flex w-full items-center justify-center">
 													<div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">

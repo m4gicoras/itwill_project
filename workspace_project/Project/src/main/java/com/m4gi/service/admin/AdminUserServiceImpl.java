@@ -28,7 +28,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     //페이징 처리 & 검색창
     @Override
     public Map<String, Object> getPagedCompanyList(int page, String keyword) {
-        int pageSize = 12;
+        int pageSize = 10;
         int offset = (page - 1) * pageSize;
 
         List<AdminUserListDTO> list;
