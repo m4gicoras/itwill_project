@@ -52,10 +52,10 @@
                                         <path fill-rule="evenodd"
                                             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                             clip-rule="evenodd"></path>
-                                    </svg></span>
+                                </svg>
+                                </span>
                                 <div class="mt-8 flex items-center justify-center">
-                                    <h5 class="kimm-bold text-center text-4xl font-extrabold select-none">Sellity
-                                    </h5>
+                                    <h5 class="kimm-bold text-center text-4xl font-extrabold select-none">Sellity</h5>
                                 </div>
                                 <div class="mt-8 mb-8 h-px bg-zinc-200 "></div>
                                 <!-- 메뉴 -->
@@ -143,10 +143,14 @@
 	                                           <div class="w-full items-center justify-center">
 	                                               <div class="flex w-full items-center justify-center">
 	                                                   <div class="svg-item text mt-1.5 mr-3 font-semibold text-white ">
-	                                                       <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-	                                                           <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"></path>
-	                                                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
-	                                                       </svg>
+	                                                       <svg stroke="currentColor" fill="none" stroke-width="1.5"
+		                                                        viewBox="0 0 24 24" aria-hidden="true"
+		                                                        class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em"
+		                                                        width="1em" xmlns="http://www.w3.org/2000/svg">
+		                                                        <path stroke-linecap="round" stroke-linejoin="round"
+		                                                            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z">
+		                                                        </path>
+                                                    		</svg>
 	                                                   </div>
 	                                                   <p class="mr-auto text-sm font-semibold text-white ">견적 현황</p>
 	                                               </div>
@@ -159,13 +163,13 @@
                                     		<div class="flex w-full items-center justify-center">
 												<div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">
 													<svg stroke="currentColor" fill="none" stroke-width="1.5"
-														viewBox="0 0 24 24" aria-hidden="true"
-														class="-mt-[7px] h-4 w-4 stroke-2 text-inherit"
-														height="1em" width="1em"
-														xmlns="http://www.w3.org/2000/svg">
-													<path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"></path>
-													<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
-													</svg>
+                                                        viewBox="0 0 24 24" aria-hidden="true"
+                                                        class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em"
+                                                        width="1em" xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z">
+                                                        </path>
+                                                    </svg>
 												</div>
 												<p class="mr-auto text-sm font-medium text-zinc-950 ">정산 현황</p>
 											</div>
@@ -271,86 +275,113 @@
             </svg>
           </button>
           <a class="w-full" href="/shadcn-nextjs-boilerplate/dashboard/settings">
-                            <span
-                                    class="relative flex h-9 w-10 min-w-9 shrink-0 overflow-hidden rounded-full md:min-h-10 md:min-w-10"><img
-                                    class="aspect-square h-full w-full"
-                                    src="https://lh3.googleusercontent.com/a/ACg8ocKu6HSZ3T2vl0KJnwiB5ZSGFdkZ01mz_MtheLzmVRqoIjHhdFs=s96-c" />
-                            </span>
+	          <span
+	                  class="relative flex h-9 w-10 min-w-9 shrink-0 overflow-hidden rounded-full md:min-h-10 md:min-w-10"><img
+	                  class="aspect-square h-full w-full"
+	                  src="https://lh3.googleusercontent.com/a/ACg8ocKu6HSZ3T2vl0KJnwiB5ZSGFdkZ01mz_MtheLzmVRqoIjHhdFs=s96-c" />
+	          </span>
           </a>
         </div>
       </div>
     </nav>
-  <div class="max-w-7xl mx-auto mt-24">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- 보낸 견적 -->
-      <div class="bg-white shadow rounded-lg p-5">
-        <h3 class="text-lg font-semibold mb-3 text-blue-600">보낸 견적</h3>
-        <table class="w-full text-sm text-center border border-gray-200">
-          <thead class="bg-gray-100">
-          <tr>
-            <th class="p-2">상품명</th>
-            <th class="p-2">수량</th>
-            <th class="p-2">요청단가</th>
-            <th class="p-2">견적상태</th>
-          </tr>
-          </thead>
-          <tbody>
-          <c:forEach var="estimate" items="${sentEstimates}">
-            <tr class="border-b">
-              <td class="p-2">${estimate.productName}</td>
-              <td class="p-2">${estimate.estimateQtty}</td>
-              <td class="p-2"><fmt:formatNumber value="${estimate.reqCost}" type="number" /></td>
-              <td class="p-2">
-                <c:choose>
-                  <c:when test="${estimate.status == 0}">요청중</c:when>
-                  <c:when test="${estimate.status == 1}">수락됨</c:when>
-                  <c:when test="${estimate.status == 2}">거절됨</c:when>
-                  <c:when test="${estimate.status == 3}">견적제시됨</c:when>
-                  <c:when test="${estimate.status == 4}">만료됨</c:when>
-                  <c:otherwise>알 수 없음</c:otherwise>
-                </c:choose>
-              </td>
-            </tr>
-          </c:forEach>
-          </tbody>
-        </table>
-      </div>
+	
+	<!-- 테이블  -->
+	<div class="mt-24 mr-4 mb-5 ml-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px] xl:flex-row">
+	  <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm">
+	  <!-- 테이블 배치 -->
+	  	<div class="flex gap-5">
+		    <!-- 보낸 견적 -->
+			<div class="w-full">
+				<div class="flex gap-2 items-center text-xl font-semibold text-red-500 mb-5 pl-3">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+					</svg>
+					<span>보낸 견적</span>
+				</div>
+			    <div class="overflow-hidden rounded bg-white shadow">
+			      <table class="w-full text-gray-700">
+			        <thead class="border-b border-gray-300 bg-gray-200">
+			          <tr>
+			            <th class="p-4 text-center">상품명</th>
+			            <th class="p-4 text-center">수량</th>
+			            <th class="p-4 text-center">요청단가</th>
+			            <th class="p-4 text-center">견적상태</th>
+			          </tr>
+			        </thead>
+			        <tbody>
+			          <c:forEach var="estimate" items="${sentEstimates}">
+			            <tr class="border-b">
+			              <td class="p-4 text-center">${estimate.productName}</td>
+			              <td class="p-4 text-center">${estimate.estimateQtty}</td>
+			              <td class="p-4 text-center">
+			                <fmt:formatNumber value="${estimate.reqCost}" type="number" />
+			              </td>
+			              <td class="p-4 text-center">
+			                <c:choose>
+			                  <c:when test="${estimate.status == 0}">요청중</c:when>
+			                  <c:when test="${estimate.status == 1}">수락됨</c:when>
+			                  <c:when test="${estimate.status == 2}">거절됨</c:when>
+			                  <c:when test="${estimate.status == 3}">견적제시됨</c:when>
+			                  <c:when test="${estimate.status == 4}">만료됨</c:when>
+			                  <c:otherwise>알 수 없음</c:otherwise>
+			                </c:choose>
+			              </td>
+			            </tr>
+			          </c:forEach>
+			        </tbody>
+			      </table>
+			    </div>
+		    </div>
+		    <!-- 보낸 견적 -->
+		
+		    <!-- 받은 견적 -->
+		    <div class="w-full">
+				<div class="flex gap-2 items-center text-xl font-semibold text-blue-500 mb-5 pl-3">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+					</svg>
+					<span>받은 견적</span>
+				</div>
+			    <div class="w-full overflow-hidden rounded bg-white shadow">
+			      <table class="w-full text-gray-700">
+			        <thead class="border-b border-gray-300 bg-gray-200">
+			          <tr>
+			            <th class="p-4 text-center">상품명</th>
+			            <th class="p-4 text-center">요청기업</th>
+			            <th class="p-4 text-center">수량</th>
+			            <th class="p-4 text-center">견적상태</th>
+			          </tr>
+			        </thead>
+			        <tbody id="Products">
+			          <c:forEach var="estimate" items="${receivedEstimates}">
+			            <tr class="border-b">
+			              <td class="p-4 text-center">${estimate.productName}</td>
+			              <td class="p-4 text-center">${estimate.reqCompanyName}</td>
+			              <td class="p-4 text-center">${estimate.estimateQtty}</td>
+			              <td class="p-4 text-center">
+			                <c:choose>
+			                  <c:when test="${estimate.status == 0}">요청중</c:when>
+			                  <c:when test="${estimate.status == 1}">수락됨</c:when>
+			                  <c:when test="${estimate.status == 2}">거절됨</c:when>
+			                  <c:when test="${estimate.status == 3}">견적제시됨</c:when>
+			                  <c:when test="${estimate.status == 4}">만료됨</c:when>
+			                  <c:otherwise>알 수 없음</c:otherwise>
+			                </c:choose>
+			              </td>
+			            </tr>
+			          </c:forEach>
+			        </tbody>
+			      </table>
+			    </div>
+		    </div>
+		    <!-- 받은 견적 -->
+		    
+	    </div>
+	  </div>
+	</div>
 
-      <!-- 받은 견적 -->
-      <div class="bg-white shadow rounded-lg p-5">
-        <h3 class="text-lg font-semibold mb-3 text-green-600">받은 견적</h3>
-        <table class="w-full text-sm text-center border border-gray-200">
-          <thead class="bg-gray-100">
-          <tr>
-            <th class="p-2">상품명</th>
-            <th class="p-2">요청기업</th>
-            <th class="p-2">수량</th>
-            <th class="p-2">견적상태</th>
-          </tr>
-          </thead>
-          <tbody>
-          <c:forEach var="estimate" items="${receivedEstimates}">
-            <tr class="border-b">
-              <td class="p-2">${estimate.productName}</td>
-              <td class="p-2">${estimate.reqCompanyName}</td>
-              <td class="p-2">${estimate.estimateQtty}</td>
-              <td class="p-2">
-                <c:choose>
-                  <c:when test="${estimate.status == 0}">요청중</c:when>
-                  <c:when test="${estimate.status == 1}">수락됨</c:when>
-                  <c:when test="${estimate.status == 2}">거절됨</c:when>
-                  <c:when test="${estimate.status == 3}">견적제시됨</c:when>
-                  <c:when test="${estimate.status == 4}">만료됨</c:when>
-                  <c:otherwise>알 수 없음</c:otherwise>
-                </c:choose>
-              </td>
-            </tr>
-          </c:forEach>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+
+
 </div>
 </body>
 </html>
