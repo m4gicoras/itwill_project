@@ -8,58 +8,113 @@
     <meta charset="UTF-8">
     <title>Sellity 상품 목록</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
 
-<!-- 상단바 -->
-<header class="bg-white shadow-md p-4 flex justify-center items-center">
-    <div class="text-2xl font-bold text-gray-800">Sellity</div>
+     <!-- 웹폰트 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet"/>
+
+        <!-- 커스텀 폰트 -->
+        <style>
+          @font-face {
+            font-family: 'KIMM_Bold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+          }
+
+          body {
+            font-family: 'Noto Sans KR', sans-serif;
+          }
+
+          .logo-font {
+            font-family: 'KIMM_Bold', sans-serif;
+          }
+
+          .kimm-bold {
+            font-family: 'KIMM_Bold', sans-serif !important;
+          }
+
+     </style>
+
+
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<!-- ✅ Header -->
+<header class="bg-white h-20 flex items-center px-8 shadow-[0_8px_16px_rgba(0,123,255,0.12)]">
+  <div class="text-2xl logo-font text-blue-900 select-none">Sellity<span class="text-base font-normal text-blue-700 ml-2">Shop</span></div>
 </header>
 
+<div class="flex select-none w-full items-start">
+<c:set var="currentCategory" value="${param.category}" />
 
-<div class="flex min-h-screen">
-    <!-- 사이드바 -->
-    <aside class="w-64 bg-white shadow-md p-6">
-        <nav class="flex flex-col gap-4">
-            <h3 class="text-gray-500 text-sm font-semibold mb-2">📚 품목별 보기</h3>
-            <a href="${pageContext.request.contextPath}/shop?category=의료용품">🩺 의료용품</a>
-            <a href="${pageContext.request.contextPath}/shop?category=의료기기" class="text-gray-800 hover:text-blue-500 font-medium">🛠️ 의료기기</a>
-            <a href="${pageContext.request.contextPath}/shop?category=전자기기" class="text-gray-800 hover:text-blue-500 font-medium">📱 전자기기</a>
-            <a href="${pageContext.request.contextPath}/shop?category=생활용품" class="text-gray-800 hover:text-blue-500 font-medium">🏠 생활용품</a>
-            <a href="${pageContext.request.contextPath}/shop?category=사무용품" class="text-gray-800 hover:text-blue-500 font-medium">📎 사무용품</a>
-            <a href="${pageContext.request.contextPath}/shop?category=식음료" class="text-gray-800 hover:text-blue-500 font-medium">🥤 식음료</a>
-            <a href="${pageContext.request.contextPath}/shop?category=청소용품" class="text-gray-800 hover:text-blue-500 font-medium">🧽 청소용품</a>
-            <a href="${pageContext.request.contextPath}/shop?category=화장품" class="text-gray-800 hover:text-blue-500 font-medium">💄 화장품</a>
-            <a href="${pageContext.request.contextPath}/shop?category=반려동물용품" class="text-gray-800 hover:text-blue-500 font-medium">🐶 반려동물용품</a>
+<aside class="w-60 ml-6 mt-14 bg-white shadow-[0_8px_16px_rgba(0,123,255,0.1)] rounded-xl overflow-auto">
 
-            <!-- 기타 -->
-            <div class="border-t my-4"></div>
-            <a href="${pageContext.request.contextPath}/shop"
-               class="text-gray-800 hover:text-blue-500 font-medium">📦 전체 상품</a>
-            <a href="${pageContext.request.contextPath}/dashboard"
-               class="text-gray-800 hover:text-blue-500 font-medium">📝 나의 기업</a>
+    <!-- 카테고리 헤더 -->
+    <div class="bg-blue-500 font-semibold text-white shadow-lg rounded-xl text-center py-3 text-lg">
+      카테고리
+    </div>
 
-        </nav>
-    </aside>
+    <!-- 리스트 영역 -->
+    <div class="flex flex-col gap-1 px-4 py-4">
+      <ul class="flex flex-col gap-1 text-base">
+        <c:forEach var="cat" items="${['의료용품','의료기기','전자기기','생활용품','사무용품','식음료','청소용품','화장품','반려동물용품']}">
+          <li>
+            <a href="${pageContext.request.contextPath}/shop?category=${cat}"
+               class="block w-full px-4 py-2 rounded-full text-base transition
+               ${currentCategory == cat ? 'bg-blue-100 text-blue-700 font-semibold' : 'text-gray-800 hover:bg-blue-50 hover:text-blue-700'}">
+              ${cat}
+            </a>
+          </li>
+        </c:forEach>
+      </ul>
+
+      <!-- 구분선 -->
+      <div class="border-t my-4"></div>
+
+      <!-- 기타 메뉴 -->
+      <ul class="flex flex-col gap-1 text-base">
+        <li>
+          <a href="${pageContext.request.contextPath}/shop"
+             class="block w-full px-4 py-2 rounded-full transition
+             ${empty currentCategory ? 'bg-blue-100 text-blue-700 font-semibold' : 'text-gray-800 hover:bg-blue-50 hover:text-blue-800'}">
+            전체 상품
+          </a>
+        </li>
+        <li>
+          <a href="${pageContext.request.contextPath}/dashboard"
+             class="block w-full px-4 py-2 mb-6 text-gray-800 hover:font-semibold hover:text-blue-800 transition rounded-md">
+            나의 기업
+          </a>
+        </li>
+      </ul>
+  </div>
+
+</aside>
 
     <!-- 본문 콘텐츠 -->
-    <main class="flex-1 p-8">
+    <main class="flex-1 p-8 min-h-screen">
         <!-- 검색 폼 -->
+
+        <!-- ✅ 감싸는 카드 박스 시작 -->
+        <div class="bg-white rounded-xl shadow-[0_8px_16px_rgba(0,123,255,0.1)] mt-6 mb-4 p-10">
+
         <!-- 검색 폼: 가운데 정렬 -->
-        <div class="flex justify-center mb-6">
+        <div class="flex justify-start mt-2 mb-8">
             <form action="${pageContext.request.contextPath}/shop" method="get" class="flex gap-2">
                 <input type="text" name="keyword"
                        placeholder="상품명 또는 기업명 검색"
                        value="${param.keyword}"
-                       class="w-64 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                       class="w-64 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
                 <button type="submit"
-                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                    🔍 검색
+                        class="px-4 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600">
+                    검색
                 </button>
             </form>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-md">
             <table class="min-w-full bg-white border border-gray-200">
                 <thead class="bg-gray-100">
                 <tr class="text-left text-gray-700">
@@ -74,8 +129,8 @@
                 </thead>
                 <tbody>
                 <c:forEach var="product" items="${productList}">
-                    <tr class="border-t hover:bg-gray-50
-            <c:if test='${product.status == 3}'> bg-gray-100 text-gray-500</c:if>">
+                    <tr class="border-t hover:bg-blue-50
+            <c:if test='${product.status == 3}'> bg-gray-50 text-gray-400</c:if>">
                         <td class="px-4 py-2">${product.productId}</td>
                         <td class="px-4 py-2">
                             <img src="${product.productImg != null ? product.productImg : 'https://via.placeholder.com/50'}"
@@ -88,7 +143,7 @@
                                     <span class="text-gray-400 cursor-not-allowed">${product.productName}</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="#" onclick="openPopup(${product.productId})" class="text-blue-600 hover:underline">
+                                    <a href="#" onclick="openPopup(${product.productId})" class="font-semibold text-blue-500 hover:underline">
                                             ${product.productName}
                                     </a>
                                 </c:otherwise>
@@ -100,10 +155,10 @@
                         <td class="px-4 py-2">
                 <span class="
                     text-xs font-semibold px-2.5 py-0.5 rounded-full
-                    ${product.status == 0 ? 'bg-green-100 text-green-700' :
-                      product.status == 1 ? 'bg-red-100 text-red-600' :
-                      product.status == 2 ? 'bg-orange-100 text-orange-600' :
-                      'bg-gray-300 text-gray-600'}">
+                    ${product.status == 0 ? 'bg-green-200 text-green-700' :
+                      product.status == 1 ? 'bg-red-200 text-red-700' :
+                      product.status == 2 ? 'bg-orange-200 text-orange-700' :
+                      'bg-gray-200 text-gray-700'}">
                     <c:choose>
                         <c:when test="${product.status == 0}">구매 가능</c:when>
                         <c:when test="${product.status == 1}">재고 부족</c:when>
@@ -119,6 +174,9 @@
 
             </table>
         </div>
+
+    </div>
+
     </main>
 </div>
 
