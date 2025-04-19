@@ -42,6 +42,8 @@
             const today = new Date();
             const diffTime = today - joinDate;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            console.log(`joinDate: ${joinDate}`);
+            console.log(`가입한 지 ${diffDays}일 지남`);
 
             document.getElementById("modal-days").innerText = diffDays;
             document.getElementById("companyInfoModal").classList.remove("hidden");
@@ -320,7 +322,7 @@
 		                    <p class="mb-2">이메일: <span id="modal-email" class="text-zinc-500"></span></p>
 		                    <p class="mb-2">등록일: <span id="modal-regDate" class="text-zinc-500"></span> (등록일부터 <span id="modal-days" class="text-zinc-500"></span>일 째)</p>
 		                    <p class="mb-2">누적 거래: <span id="modal-days" class="text-zinc-500"></span></p>
-		                    <p class="mb-2">등록된 상품 수: <span id="modal-regDate" class="text-zinc-500"></p>
+		                    <p class="mb-2">등록된 상품 수: <span id="modal-regDate" class="text-zinc-500"></span></p>
 		                  </div>
 		                  <div class="flex gap-2 mt-7">
 			                  <div class="w-3xs">
