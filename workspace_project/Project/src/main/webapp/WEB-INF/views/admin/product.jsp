@@ -313,7 +313,7 @@
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                            	<td class="p-4"><input type="checkbox" id="checkbox-${product.productId}" class="selectAllCheckbox"></td>
+                            	<td class="selectAllCheckbox p-4"><input type="checkbox" id="checkbox-${product.productId}"></td>
                                 <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center select-none">
                                     	물품번호
                                     <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
