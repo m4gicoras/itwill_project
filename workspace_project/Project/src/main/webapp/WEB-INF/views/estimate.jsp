@@ -310,7 +310,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="estimate" items="${sentEstimates}">
-								<tr class="border-b">
+								<tr class="border-b hover:bg-zinc-100/60">
 									<td class="p-4 text-center">${estimate.productName}</td>
 									<td class="p-4 text-center">${estimate.estimateQtty}</td>
 									<td class="p-4 text-center">
@@ -318,12 +318,36 @@
 									</td>
 									<td class="p-4 text-center">
 										<c:choose>
-											<c:when test="${estimate.status == 0}">요청중</c:when>
-											<c:when test="${estimate.status == 1}">수락됨</c:when>
-											<c:when test="${estimate.status == 2}">거절됨</c:when>
-											<c:when test="${estimate.status == 3}">견적제시됨</c:when>
-											<c:when test="${estimate.status == 4}">만료됨</c:when>
-											<c:otherwise>알 수 없음</c:otherwise>
+											<c:when test="${estimate.status == 0}">
+												<span class="transform translate-x-4 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700 inset-ring">
+													요청중
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 1}">
+												<span class="transform translate-x-4 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700 inset-ring">
+													수락됨
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 2}">
+												<span class="transform translate-x-4 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700 inset-ring">
+													거절됨
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 3}">
+												<span class="transform translate-x-4 rounded-md bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 inset-ring">
+													견적제시됨
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 4}">만료됨
+												<span class="transform translate-x-4 rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-700 inset-ring">
+													만료됨
+												</span>
+											</c:when>
+											<c:otherwise>
+												<span class="transform translate-x-4 rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-700 inset-ring">
+													알 수 없음
+												</span>
+											</c:otherwise>
 										</c:choose>
 									</td>
 								</tr>
@@ -354,18 +378,42 @@
 						</thead>
 						<tbody id="Products">
 							<c:forEach var="estimate" items="${receivedEstimates}">
-								<tr class="border-b">
+								<tr class="border-b hover:bg-zinc-100/60">
 									<td class="p-4 text-center">${estimate.productName}</td>
 									<td class="p-4 text-center">${estimate.reqCompanyName}</td>
 									<td class="p-4 text-center">${estimate.estimateQtty}</td>
 									<td class="p-4 text-center">
 										<c:choose>
-											<c:when test="${estimate.status == 0}">요청중</c:when>
-											<c:when test="${estimate.status == 1}">수락됨</c:when>
-											<c:when test="${estimate.status == 2}">거절됨</c:when>
-											<c:when test="${estimate.status == 3}">견적제시됨</c:when>
-											<c:when test="${estimate.status == 4}">만료됨</c:when>
-											<c:otherwise>알 수 없음</c:otherwise>
+											<c:when test="${estimate.status == 0}">
+												<span class="transform translate-x-4 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700 inset-ring">
+													요청중
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 1}">
+												<span class="transform translate-x-4 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700 inset-ring">
+													수락됨
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 2}">
+												<span class="transform translate-x-4 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700 inset-ring">
+													거절됨
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 3}">
+												<span class="transform translate-x-4 rounded-md bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 inset-ring">
+													견적제시됨
+												</span>
+											</c:when>
+											<c:when test="${estimate.status == 4}">만료됨
+												<span class="transform translate-x-4 rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-700 inset-ring">
+													만료됨
+												</span>
+											</c:when>
+											<c:otherwise>
+												<span class="transform translate-x-4 rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-700 inset-ring">
+													알 수 없음
+												</span>
+											</c:otherwise>
 										</c:choose>
 									</td>
 								</tr>
