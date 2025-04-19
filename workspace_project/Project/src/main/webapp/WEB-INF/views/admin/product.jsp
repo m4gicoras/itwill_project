@@ -130,11 +130,48 @@
 		        console.error("요소를 찾을 수 없습니다:", displayId, inputId);
 		    }
 		}
+      // 수량 변경 후 ENTER 누르면 => 서버에 AJAX 요청 보내는 방식
       function updateQtyOnEnter(event, productId) {
-    	    if (event.key === "Enter") {
-    	        // 여기에 이제 update하는거 들어가면 될 것 같아요!! ★★★★★★★★★
-    	    }
-    	}
+    	  if (event.key === "Enter") {
+  	        const inputId = "qtyInput-" + productId;
+  	        const displayId = "qtyDisplay-" + productId;
+
+  	        const input = document.getElementById(inputId);
+  	        const display = document.getElementById(displayId);
+
+  	        if (input && display) {
+  	            const newQtty = input.value;
+
+  	            // 서버에 AJAX 요청 보내기
+  	            fetch("/web/admin/product/updateQtty", {
+  	                method: "POST",
+  	                headers: {
+  	                    "Content-Type": "application/x-www-form-urlencoded"
+  	                },
+  	                body: new URLSearchParams({
+  	                    productId: productId,
+  	                    ProductQtty: newQtty
+  	                })
+  	            })
+  	            .then(res => res.text())
+  	            .then(data => {
+  	                if (data === "success") {
+  	                    console.log("수정 성공!");
+		    	            // UI 변경
+		    	            display.textContent = newQtty;
+		    	            input.classList.add("hidden");
+		    	            display.classList.remove("hidden");
+  	                } else {
+  	                    alert("수정 실패");
+  	                }
+  	            })
+  	            .catch(error => {
+  	                console.error("에러 발생:", error);
+  	                alert("서버 오류로 수정 실패");
+  	            });
+  	        }
+  	    }
+  	}
     </script>
 </head>
 

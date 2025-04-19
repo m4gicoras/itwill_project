@@ -128,7 +128,7 @@
 	        <!-- 닉네임 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">닉네임</label>
-	          <input type="text" name="nickname" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 />
+	          <input type="text" name="nickname" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	        </div>
 	
 	        <!-- 연락처: 세 칸 분할 입력 -->
