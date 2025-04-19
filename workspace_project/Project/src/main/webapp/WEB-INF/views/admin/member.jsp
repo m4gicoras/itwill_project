@@ -31,21 +31,30 @@
     <script>
     	// 기업 상세 정보 모달창  
         function openModal(companyName, ceoName, phone, email, regDate) {
-            document.getElementById("modal-companyName").innerText = companyName;
+        	document.getElementById("modal-companyName").innerText = companyName;
             document.getElementById("modal-ceoName").innerText = ceoName;
             document.getElementById("modal-phone").innerText = phone;
             document.getElementById("modal-email").innerText = email;
-            document.getElementById("modal-regDate").innerText = regDate;
+            /* document.getElementById("modal-transactionCount").innerText = phone; */
+            /* document.getElementById("modal-productCount").innerText = email; */
 
-            // 날짜 차이 계산
             const joinDate = new Date(regDate);
             const today = new Date();
+            joinDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+
             const diffTime = today - joinDate;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            console.log(`joinDate: ${joinDate}`);
-            console.log(`가입한 지 ${diffDays}일 지남`);
 
-            document.getElementById("modal-days").innerText = diffDays;
+            const regDateFormatted = joinDate.toLocaleDateString('ko-KR', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+
+            document.getElementById("modal-regDate").innerText = regDateFormatted;
+            document.getElementById("modal-joinDays").innerText = diffDays;
+
             document.getElementById("companyInfoModal").classList.remove("hidden");
         }
 
@@ -269,7 +278,7 @@
                             <c:choose>
                                 <c:when test="${not empty companyList}">
                                     <c:forEach var="user" items="${companyList}">
-                                        <tr onclick="openModal('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '<fmt:formatDate value="${user.regDate}" pattern="yyyy년 MM월 dd일" />')" class="border-b border-gray-300 hover:bg-gray-50">
+                                        <tr onclick="openModal('${user.companyName}', '${user.ceoName}', '${user.phone}', '${user.email}', '<fmt:formatDate value="${user.regDate}" pattern="yyyy-MM-dd" />')" class="border-b border-gray-300 hover:bg-gray-50">
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${user.userId}</td>
                                             <td class="p-4 text-center text-sm text-blue-700 border-b border-gray-100 hover:underline cursor-pointer">㈜ ${user.companyName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${empty user.ceoName ? '-' : user.ceoName}</td>
@@ -320,9 +329,9 @@
 		                    <p class="mb-2">담당자: <span id="modal-ceoName" class="text-zinc-500"></span></p>
 		                    <p class="mb-2">연락처: <span id="modal-phone" class="text-zinc-500"></span></p>
 		                    <p class="mb-2">이메일: <span id="modal-email" class="text-zinc-500"></span></p>
-		                    <p class="mb-2">등록일: <span id="modal-regDate" class="text-zinc-500"></span> (등록일부터 <span id="modal-days" class="text-zinc-500"></span>일 째)</p>
-		                    <p class="mb-2">누적 거래: <span id="modal-days" class="text-zinc-500"></span></p>
-		                    <p class="mb-2">등록된 상품 수: <span id="modal-regDate" class="text-zinc-500"></span></p>
+		                    <p class="mb-2">등록일: <span id="modal-regDate" class="text-zinc-500"></span> (등록일부터 <span id="modal-joinDays" class="text-zinc-500"></span>일 째)</p>
+		                    <!-- <p class="mb-2">누적 거래: <span id="modal-transactionCount" class="text-zinc-500"></span></p> -->
+		                    <!-- <p class="mb-2">등록된 상품 수: <span id="modal-productCount" class="text-zinc-500"></span></p> -->
 		                  </div>
 		                  <div class="flex gap-2 mt-7">
 			                  <div class="w-3xs">
