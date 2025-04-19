@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html>
 
@@ -39,6 +42,33 @@
                 event.target.form.submit();
             }
         }
+		
+     	// 기업명 혹은 내용으로 찾기위한 input 전환
+        document.addEventListener("DOMContentLoaded", function() {
+            const optionSelect = document.getElementById("searchOption");
+            const companyInput = document.getElementById("companyInput");
+            const contentInput = document.getElementById("contentInput");
+
+            function updateInputVisibility() {
+                const selected = optionSelect.value;
+                
+                if (selected === "companyName") {
+                    companyInput.style.display = "block";
+                    contentInput.style.display = "none";
+                } else if (selected === "content") {
+                    companyInput.style.display = "none";
+                    contentInput.style.display = "block";
+                } else {
+                    companyInput.style.display = "block";
+                    contentInput.style.display = "block";
+                }
+            }
+
+            updateInputVisibility(); // 처음 로드될 때 한 번 실행
+
+            optionSelect.addEventListener("change", updateInputVisibility); // 변경될 때마다 실행
+        });
+
     </script>
 </head>
 
@@ -151,23 +181,21 @@
 
         <!-- 메인 컨텐츠 -->
         <div class="mx-5 my-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px]">
-        
-        	<div class="text-3xl mt-7 mb-3 text-center font-semibold text-blue-900">어서오세요, 관리자님</div>
-
+			
             <!-- 검색창 -->
-            <form action="${pageContext.request.contextPath}/admin/product" method="get">
+            <form action="${pageContext.request.contextPath}/admin/notificationTable" method="get">
                 <div class="flex items-center justify-center gap-3 bg-blue-300/30 bg-search-bg rounded-lg py-3 px-4 w-full max-w-3xl mx-auto">
                     <button class="ml-3 mr-4 bg-transparent border-0 cursor-pointer text-reset-btn" onclick="resetInput()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
                         </svg>
                     </button>
-                    <input type="text" name="productName" placeholder="상품명 입력" value="${productName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
-                    <input type="text" name="companyName" placeholder="기업명 입력" value="${companyName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
-                    <select name="sort" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
-                        <option value="recent" ${sort == 'recent' ? 'selected' : ''}>최신순</option>
-                        <option value="oldest" ${sort == 'oldest' ? 'selected' : ''}>오래된순</option>
+                    <select id="searchOption" name="option" class="w-35 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
+                        <option value="companyName">기업명</option>
+                        <option value="content">내용</option>
                     </select>
+                    <input type="text" id="companyInput" name="companyName" placeholder="기업명 입력" value="${companyName}" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
+                    <input type="text" id="contentInput" name="content" placeholder="알림 내용 입력" value="${content}" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
                     <button type="submit" class="text-xl ml-4 mr-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path>
@@ -175,6 +203,80 @@
                     </button>
                 </div>
             </form>
+
+            <!-- 테이블 -->
+            <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm">
+                <div class="rounded bg-white shadow">
+                    <table class="product-list min-w-full text-gray-700">
+                        <thead class="border-b border-gray-300 bg-blue-300/30">
+                            <tr>
+                                <th class="p-4 text-center select-none">알림번호</th>
+                                <th class="p-4 text-center select-none">기업명</th>
+                                <th class="p-4 text-center select-none">알림내용</th>
+                                <th class="p-4 text-center select-none">알림일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:choose>
+                                <c:when test="${not empty notificationList}">
+                                    <c:forEach var="noti" items="${notificationList}">
+                                        <tr class="hover:bg-blue-50 cursor-pointer border-b">
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">${noti.notification_id}</td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">
+                                            	<c:forEach var="name" items="${noti.company_names}" varStatus="status">
+											        <c:if test="${status.index < 3}">
+											            <span>㈜ ${name}<c:if test="${status.index < 2 && status.index + 1 < fn:length(noti.company_names)}">, </c:if></span>
+											        </c:if>
+											    </c:forEach>
+											    <c:if test="${fn:length(noti.company_names) > 3}">
+											        ...
+											    </c:if>
+                                            </td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">
+                                            	<c:choose>
+											        <c:when test="${fn:length(noti.content) > 30}">
+											            ${fn:substring(noti.content, 0, 30)}...
+											        </c:when>
+											        <c:otherwise>
+											            ${noti.content}
+											        </c:otherwise>
+											    </c:choose>
+                                            </td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100"><fmt:formatDate value="${noti.created_at}" pattern="yyyy-MM-dd"/></td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <tr>
+                                        <td colspan="6" class="py-3 px-2 text-sm border-b border-gray-100 text-center">보낸 알림이 없습니다.</td>
+                                    </tr>
+                                </c:otherwise>
+                            </c:choose>
+                        </tbody>
+                    </table>
+                </div>
+
+	            <!-- pagination -->
+	            <div class="mt-5 text-center">
+	                <c:forEach var="i" begin="1" end="${totalPages}">
+	                    <a href="?page=${i}&companyName=${param.companyName}&content=${param.content}&sort=${param.sort}"
+	                       class="mx-1 px-2 py-1 text-sm ${currentPage == i ? 'font-bold text-blue-600' : 'text-gray-700'}">
+	                       ${i}
+	                    </a>
+	                </c:forEach>
+	            </div>
+	            
+	            <!-- 알림 보내기 페이지로 -->
+	            <div class="flex justify-end">
+	              <button onclick="location.href='/web/admin/notification'"  type="button" class="btn mx-0 mb-0 h-9 w-45">
+	              	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-white">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+					</svg>            
+	                <span class="btn-text">알림 보내기</span>
+	              </button>
+	            </div>
+            </div> <!-- 테이블 -->
+            
             
         </div> <!-- 메인 -->
     </div>
