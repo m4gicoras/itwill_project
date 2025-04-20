@@ -1490,6 +1490,37 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     border: 1px solid #fff;
   }
+  .product-card {
+    @apply bg-white border border-zinc-200 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden;
+  }
+
+  .product-image {
+    @apply w-full h-60 object-cover rounded-t-lg;
+  }
+
+  .product-info {
+    @apply p-4 flex flex-col gap-1;
+  }
+
+  .product-title {
+    @apply text-lg font-semibold truncate;
+  }
+
+  .product-price {
+    @apply text-md font-medium mt-1 text-zinc-800;
+  }
+
+  .original-price {
+    @apply text-sm line-through text-zinc-400 ml-2;
+  }
+
+  .product-meta {
+    @apply text-sm text-zinc-500;
+  }
+
+  .product-status {
+    @apply inline-block mt-2 w-fit rounded-full px-3 py-1 text-sm font-medium;
+  }
 }
 @property --tw-translate-x {
   syntax: "*";

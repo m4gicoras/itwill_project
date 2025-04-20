@@ -59,7 +59,7 @@
 
     <!-- 로그인 폼 -->
     <div class="login-container absolute top-1/2 left-1/2 select-none transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg text-white rounded-xl p-8 max-w-sm w-full border-2 border-white/30 shadow-2xl z-10"
-         style="background-color: rgba(255, 255, 255, 0.3); backdrop-filter: blur(4px); box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);">
+         style="background-color: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);">
 
       <!-- Sellity 제목에만 KIMM_Bold 폰트 적용 -->
       <h1 class="title text-4xl font-extrabold text-center text-blue-900 kimm-bold" style="margin-top: 1em; margin-bottom: 1em;">SELLITY</h1>
@@ -73,23 +73,27 @@
 
     <form id="login-form" class="flex flex-col items-center">
       <div class="input-group mb-4 w-full">
-        <input type="text" id="username" name="username" placeholder="ID" class="w-full p-3 text-sm rounded-md shadow-md bg-white text-black focus:ring-2 focus:ring-blue-300 placeholder-gray-500 focus:outline-none">
+        <input type="text" id="username" name="username" placeholder="ID"
+        class="w-full p-3 text-sm rounded-md shadow-md bg-white text-black focus:outline-none"
+        style="background-color: rgba(255, 255, 255, 0.8);">
       </div>
 
       <div class="input-group relative mb-4 w-full">
-        <input type="password" id="password" name="password" placeholder="Password" class="w-full p-3 text-sm rounded-md shadow-md bg-white text-black focus:ring-2 focus:ring-blue-300 placeholder-gray-500 focus:outline-none">
-        <div id="password-error" class="hidden text-red-500 text-sm mt-2">계정 정보가 일치하지 않습니다</div>
+        <input type="password" id="password" name="password" placeholder="Password"
+        class="w-full p-3 text-sm rounded-md shadow-md bg-white text-black focus:outline-none"
+        style="background-color: rgba(255, 255, 255, 0.8);">
+        <div id="password-error" class="hidden text-red-500 text-sm ml-1 mt-2">계정 정보가 일치하지 않습니다</div>
       </div>
 
       <!-- 회원가입 관련 영역 -->
       <div class="remember-container flex items-center justify-between w-full mt-4 mb-6">
-        <div class="register text-sm cursor-pointer" onclick="location.href='<%= request.getContextPath() %>/signup'">아이디가 없으신가요?</div>
+        <div class="register text-sm cursor-pointer underline" onclick="location.href='<%= request.getContextPath() %>/signup'">아이디가 없으신가요?</div>
 
       <div class="remember-container flex justify-center items-center text-sm">
         <div class="checkbox-container flex justify-center items-center">
                 <label class="ios-checkbox blue">
-                    <input type="checkbox" name="keep-id" />
-                    <div class="checkbox-wrapper flex justify-center items-center">
+                    <input type="checkbox" name="keep-id"/>
+                    <div class="checkbox-wrapper flex justify-center items-center scale-70">
                         <div class="checkbox-bg"></div>
                         <svg fill="none" viewBox="0 0 24 24" class="checkbox-icon">
                             <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="currentColor"
@@ -98,7 +102,7 @@
                     </div>
                 </label>
             </div>
-        <span class="ml-2 text-sm">로그인 상태 유지</span>
+        <span class="-mt-0.5 ml-0.5 text-sm">로그인 상태 유지</span>
       </div>
     </div>
 

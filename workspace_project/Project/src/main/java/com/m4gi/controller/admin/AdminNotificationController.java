@@ -12,4 +12,9 @@ public class AdminNotificationController {
     public String adminNotification(){
         return "admin/notification";
     }
+    
+    @GetMapping("/notificationTable")
+    public String adminNotificationTable() {
+        return "admin/notificationTable";
+    }
 }

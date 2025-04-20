@@ -44,13 +44,13 @@
 
   <!-- ✅ Header -->
   <header class="bg-white h-20 flex items-center px-8 shadow-[0_8px_16px_rgba(0,123,255,0.12)]">
-    <a href="/" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
+    <a href="main" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   </header>
 
   <!-- ✅ Main -->
   <main class="flex-grow flex items-center justify-center px-8 py-20">
 
-    <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] select-none py-16 px-6 rounded-xl w-full max-w-2xl flex flex-col items-center">
+    <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] mt-10 select-none py-16 px-6 rounded-xl w-full max-w-2xl flex flex-col items-center">
      <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
      <span class="kimm-bold text-blue-500">비밀번호 재설정</span></h1>
 
