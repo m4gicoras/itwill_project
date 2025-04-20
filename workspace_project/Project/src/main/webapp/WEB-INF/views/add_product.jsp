@@ -357,21 +357,26 @@
                             </div>
                             <div>
                                 <label class="block text-base font-semibold mb-1">단가</label>
-                                <input name="price" type="number"
-                                    class="w-full text-sm border border-gray-300 focus:outline-none rounded-md px-3 py-2">
+                                <input name="price"
+                                       id="priceInput"
+                                       type="number"
+                                       inputmode="numeric"
+                                       pattern="[0-9]*"
+                                       min="1"
+                                       class="w-full text-sm border border-gray-300 focus:outline-none rounded-md px-3 py-2">
                             </div>
 
                             <!-- 수량 -->
                             <div>
-                                <label class="block text-base font-semibold mb-1">수량</label>
-                                <div class="flex items-center gap-2">
-                                    <button type="button" id="decreaseQty"
-                                        class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
-                                    <input name="quantity" type="number" id="quantityInput" value="1" min="1"
-                                        class="w-16 text-end text-sm border border-gray-300 focus:outline-none rounded-md px-3 py-2 max-w-[80px]">
-                                    <button type="button" id="increaseQty"
-                                        class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
-                                </div>
+                              <label class="block text-base font-semibold mb-1">수량</label>
+                              <input
+                                name="quantity"
+                                type="number"
+                                id="quantityInput"
+                                value="1"
+                                min="1"
+                                class="w-full text-start text-sm border border-gray-300 focus:outline-none rounded-md px-3 py-2"
+                              />
                             </div>
 
                         </div>
@@ -387,11 +392,11 @@
                     <!-- 버튼 -->
                     <div class="flex justify-end gap-4 mt-6">
                         <button type="cancel"
-                            class="w-28 px-6 py-2 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 cursor-pointer transition">
+                            class="w-28 py-3 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 cursor-pointer transition">
                             취소
                         </button>
                         <button type="submit"
-                            class="w-28 px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 cursor-pointer transition">
+                            class="w-28 py-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 cursor-pointer transition">
                             등록하기
                         </button>
                     </div>
