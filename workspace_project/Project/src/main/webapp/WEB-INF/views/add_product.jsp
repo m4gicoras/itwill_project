@@ -290,7 +290,7 @@
                     </div>
             </nav>
 
-            <form action="${contextPath}/dashboard/product/upload" method="post" enctype="multipart/form-data"
+            <form action="<%= request.getContextPath() %>/dashboard/product/upload" method="post" enctype="multipart/form-data"
                 class="mt-24 mr-4 mb-5 ml-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px] xl:flex-row">
 
                 <div
@@ -307,40 +307,61 @@
                         <!-- 상품 대표 이미지 -->
                         <div class="w-1/2">
                             <label class="block text-base font-semibold mb-1">대표 이미지</label>
+                            <div
+                              id="uploadBox"
+                              class="relative w-full aspect-square bg-gray-100 flex items-center justify-center rounded-md overflow-hidden cursor-pointer"
+                            >
+                              <!-- 기본 아이콘 -->
+                              <svg
+                                id="placeholderIcon"
+                                class="w-12 h-12 text-gray-300"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M3 5h18M3 5v14a2 2 0 002 2h14a2 2 0 002-2V5M3 5l9 7 9-7"
+                                ></path>
+                              </svg>
 
-                            <!-- 업로드 박스 -->
-                            <div class="relative">
-                                <div id="uploadBox"
-                                    class="w-full aspect-square bg-gray-100 flex items-center justify-center rounded-md overflow-hidden cursor-pointer relative">
+                              <!-- 미리보기 이미지 -->
+                              <img
+                                id="previewImg"
+                                src=""
+                                alt="미리보기"
+                                class="absolute inset-0 w-full h-full object-cover hidden pointer-events-none z-10"
+                              />
 
-                                    <!-- 기본 아이콘 -->
-                                    <svg id="placeholderIcon" class="w-12 h-12 text-gray-300" fill="none"
-                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M3 5h18M3 5v14a2 2 0 002 2h14a2 2 0 002-2V5M3 5l9 7 9-7"></path>
-                                    </svg>
+                              <!-- 파일 업로드 (이 박스 안에서만 클릭) -->
+                              <input
+                                name="imageFile"
+                                type="file"
+                                id="imageInput"
+                                accept=".jpg,.jpeg,.png,.webp"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-0"
+                              />
 
-                                    <!-- 미리보기 이미지 -->
-                                    <img id="previewImg" src="" alt="미리보기"
-                                        class="absolute w-full h-full object-cover hidden">
-                                </div>
-
-                                <!-- X 삭제 버튼 -->
-                                <button id="deleteImageBtn"
-                                    class="absolute top-2 right-2 z-20 border-none p-1 cursor-pointer hidden"
-                                    type="button">
-                                    <img src="https://www.svgrepo.com/show/416193/basic-delete-ui.svg" alt="삭제"
-                                        class="w-6 h-6">
-                                </button>
-
+                              <!-- X 삭제 버튼 -->
+                              <button
+                                id="deleteImageBtn"
+                                type="button"
+                                class="absolute top-2 right-2 z-20 p-1 cursor-pointer hidden"
+                              >
+                                <img
+                                  src="https://www.svgrepo.com/show/416193/basic-delete-ui.svg"
+                                  alt="삭제"
+                                  class="w-6 h-6"
+                                />
+                              </button>
                             </div>
-
-                            <!-- 파일 업로드 -->
-                            <input name="imageFile" type="file" id="imageInput" accept=".jpg, .jpeg, .png, .webp"
-                                class="hidden">
-                            <!-- 오류 메시지 -->
-                            <p id="imageError" class="text-red-500 text-sm mt-2 hidden">지원하는 파일 형식이 아닙니다.</p>
-                        </div>
+                            <p id="imageError" class="text-red-500 text-sm mt-2 hidden">
+                              지원하는 파일 형식이 아닙니다.
+                            </p>
+                          </div>
 
                         <!-- 카테고리, 단가, 수량 -->
                         <div class="w-1/2 space-y-4">
