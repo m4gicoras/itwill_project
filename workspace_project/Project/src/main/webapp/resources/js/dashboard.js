@@ -119,11 +119,3 @@ document.addEventListener("DOMContentLoaded", function () {
           console.error('제품 데이터를 가져오는 도중 오류 발생:', err);
       });
 });
-
-      // 단가 필드 숫자만 입력하도록 처리
-          const priceInput = document.getElementById("priceInput");
-
-          priceInput.addEventListener("input", function () {
-              this.value = this.value.replace(/[^0-9]/g, ""); // 숫자 외 문자 제거
-      });
-});

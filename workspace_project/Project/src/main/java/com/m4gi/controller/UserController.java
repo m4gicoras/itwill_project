@@ -5,6 +5,8 @@ import com.m4gi.domain.User;
 import com.m4gi.dto.SiteUser;
 import com.m4gi.service.UserService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -181,5 +184,53 @@ public class UserController {
         // 로그로 확인
         System.out.println("중복 확인 요청: " + username + ", count: " + count);
         return String.valueOf(count);
+    }
+
+    @PostMapping("/dashboard/product/upload")
+    public String uploadProduct(
+            @RequestParam("productName") String productName,
+            @RequestParam("category") String category,
+            @RequestParam("price") int price,
+            @RequestParam("quantity") int productQtty,
+            @RequestParam("description") String productDesc,
+            @RequestParam("imageFile") MultipartFile imageFile,
+            HttpSession session,
+            HttpServletRequest request
+    ) throws IOException {
+
+        // 1) 세션에서 로그인한 사용자 ID 가져오기
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        // 2) Products 객체 구성
+        Products product = new Products();
+        product.setCompanyId(userId);
+        product.setProductName(productName);
+        product.setCategory(category);
+        product.setPrice(price);
+        product.setProductQtty(productQtty);
+        product.setProductDesc(productDesc);
+        product.setStatus(0); // 기본 상태(정상)
+
+        // 3) 파일 저장
+        if (!imageFile.isEmpty()) {
+
+            String uploadDir = request.getServletContext().getRealPath("/resources/uploads");
+            File dir = new File(uploadDir);
+            if (!dir.exists()) dir.mkdirs();
+
+            String originalFilename = imageFile.getOriginalFilename();
+            String storedFilename = System.currentTimeMillis() + "_" + originalFilename;
+            File dest = new File(dir, storedFilename);
+            imageFile.transferTo(dest);
+
+            // DB에는 웹에서 접근 가능한 URL을 저장
+            product.setProductImg(request.getContextPath() + "/resources/uploads/" + storedFilename);
+        }
+
+        // 4) 서비스 호출하여 DB에 insert
+        userService.insertProduct(product);
+
+        // 5) 등록 완료 후 대시보드로 리다이렉트
+        return "redirect:/dashboard";
     }
 }

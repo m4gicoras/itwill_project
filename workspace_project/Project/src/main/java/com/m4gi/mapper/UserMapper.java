@@ -30,4 +30,6 @@ public interface UserMapper {
 
     int updatePassword(@Param("username") String username, @Param("newPassword") String newPassword);
 
+    int insertProduct(Products product);
+
 }

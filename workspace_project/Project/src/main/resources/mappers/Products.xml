@@ -20,4 +20,14 @@
         FROM products
         WHERE company_id = #{userId}
     </select>
+
+    <insert id="insertProduct" parameterType="com.m4gi.domain.Products"
+            useGeneratedKeys="true" keyProperty="productId">
+        INSERT INTO products
+        (company_id, product_name, product_desc, product_img,
+        product_qtty, category, price, status, created_at, updated_at)
+        VALUES
+        (#{companyId}, #{productName}, #{productDesc}, #{productImg},
+        #{productQtty}, #{category}, #{price}, #{status}, NOW(), NOW())
+    </insert>
 </mapper>

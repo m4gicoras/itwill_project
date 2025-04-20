@@ -311,9 +311,6 @@
     </div>
 </body>
 
-
-
 <script src="<%= request.getContextPath() %>/resources/js/dashboard.js"></script>
-
 
 </html>

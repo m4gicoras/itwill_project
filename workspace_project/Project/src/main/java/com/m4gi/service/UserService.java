@@ -23,4 +23,6 @@ public interface UserService {
     public List<Products> getProductsByUser(User user);
 
     public boolean resetPassword(String username, String password);
+
+    public int insertProduct(Products product);
 }
