@@ -305,7 +305,17 @@
                   <td class="p-4 text-left">
                     <c:choose>
                       <c:when test="${est.status == 1}">
-                        <span class="text-green-600 font-semibold">수락됨</span>
+                        <c:choose>
+                          <c:when test="${est.resCompId == loginUserId}">
+                            <span class="text-green-600 font-semibold">결제 대기</span>
+                          </c:when>
+                          <c:when test="${est.reqCompId == loginUserId}">
+                            <span class="text-red-600 font-semibold">결제 대기</span>
+                          </c:when>
+                          <c:otherwise>
+                            <span class="text-gray-600">수락됨</span>
+                          </c:otherwise>
+                        </c:choose>
                       </c:when>
                       <c:when test="${est.status == 0}">
                         <span class="text-gray-500">대기중</span>
@@ -315,6 +325,7 @@
                       </c:otherwise>
                     </c:choose>
                   </td>
+
                 </tr>
               </c:forEach>
 

@@ -52,6 +52,8 @@ public class PaymentController {
         model.addAttribute("estimateList", all);
         model.addAttribute("totalIncome", totalIncome);
         model.addAttribute("totalExpenditure", totalExpenditure);
+        model.addAttribute("loginUserId", companyId);
+
 
         return "settlementStatus";
     }
