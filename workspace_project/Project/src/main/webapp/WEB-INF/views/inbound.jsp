@@ -188,10 +188,10 @@
                             <div class="flex justify-center"></div>
                             <div class="mt-5 flex w-full items-center rounded-lg border border-zinc-200 p-4 ">
                                 <a href="/shadcn-nextjs-boilerplate/dashboard/dashboard/settings">
-	                                <span class="relative flex h-10 min-h-10 w-10 min-w-10 shrink-0 overflow-hidden rounded-full">
-	                                <img class="aspect-square h-full w-full" src="" /></span>
+	                                <span class="relative flex h-10 min-h-10 w-10 min-w-10 shrink-0 overflow-hidden rounded-full profile">
+	                                </span>
                                 </a>
-                                <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
+                                <a class="w-full" href="<%=request.getContextPath()%>/myPage">
                                     <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950 ">m4gi</p>
                                 </a>
                                 <form action="<%=request.getContextPath()%>/logout" method="post" class="w-full">
@@ -279,9 +279,7 @@
                     </button>
                     <a class="w-full" href="/shadcn-nextjs-boilerplate/dashboard/settings">
                             <span
-                                    class="relative flex h-9 w-10 min-w-9 shrink-0 overflow-hidden rounded-full md:min-h-10 md:min-w-10"><img
-                                    class="aspect-square h-full w-full"
-                                    src="https://lh3.googleusercontent.com/a/ACg8ocKu6HSZ3T2vl0KJnwiB5ZSGFdkZ01mz_MtheLzmVRqoIjHhdFs=s96-c" />
+                                    class="relative flex h-9 w-10 min-w-9 shrink-0 overflow-hidden rounded-full md:min-h-10 md:min-w-10 profile">
                             </span>
                     </a>
                 </div>
@@ -429,5 +427,6 @@
         });
     });
 </script>
+<script src="<%= request.getContextPath() %>/resources/js/dashboard.js"></script>
 <script src="<%= request.getContextPath() %>/resources/js/alarm.js"></script>
 </html>

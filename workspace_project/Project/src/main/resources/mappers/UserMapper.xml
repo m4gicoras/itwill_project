@@ -74,5 +74,11 @@
         SET user_pw = #{newPassword}
         WHERE username = #{username}
     </update>
+    
+    <update id="updateUserImage" parameterType="com.m4gi.domain.User">
+    	UPDATE users
+	    SET user_img = #{imageUrl}
+	    WHERE user_id = #{userId}
+    </update>
 
 </mapper>

@@ -24,6 +24,8 @@ public interface UserService {
 
     // 마이페이지에서 사용자 정보 수정하기 : 성공 혹은 실패(0)
     public boolean updateUserInfo(User user);
+    
+    public boolean updateUserImage(int userId, String imageUrl);
 
     public List<Products> getProductsByUser(User user);
 
