@@ -9,29 +9,61 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.nio.channels.Channels;
 import java.util.Collections;
 import java.util.List;
 
 public class GoogleAuthorizationUtil {
-    private static final String CREDENTIALS_FILE_PATH = "/client.json";
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
-    private static final List<String> SCOPES = Collections.singletonList("https://www.googleapis.com/auth/gmail.send");
+    private static final String PROJECT_ID        = "latale-1d43a";
+    private static final String BUCKET_NAME       = "m4gi";
+    private static final String CLIENT_JSON_OBJECT = "client.json";
+    // Gmail scope
+    private static final List<String> SCOPES =
+            Collections.singletonList("https://www.googleapis.com/auth/gmail.send");
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
+    private static final String TOKENS_DIR = "tokens";
 
     public static Credential getCredential(NetHttpTransport HTTP_TRANSPORT) throws IOException {
-        InputStreamReader in = new InputStreamReader(GoogleAuthorizationUtil.class.getResourceAsStream(CREDENTIALS_FILE_PATH));
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, in);
+        // 1) GCS 클라이언트 생성
+        Storage storage = StorageOptions.newBuilder()
+                .setProjectId(PROJECT_ID)
+                .build()
+                .getService();
 
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-                .setAccessType("offline")
-                .build();
+        // 2) client.json Blob 가져오기
+        Blob blob = storage.get(BlobId.of(BUCKET_NAME, CLIENT_JSON_OBJECT));
+        if (blob == null) {
+            throw new IOException("GCS에 client.json이 없습니다: gs://"
+                    + BUCKET_NAME + "/" + CLIENT_JSON_OBJECT);
+        }
 
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        // 3) InputStreamReader로 파싱
+        try (InputStream in = Channels.newInputStream(blob.reader());
+             InputStreamReader reader = new InputStreamReader(in)) {
+            GoogleClientSecrets clientSecrets =
+                    GoogleClientSecrets.load(JSON_FACTORY, reader);
+
+            // 4) 인증 흐름 구축
+            GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                    HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                    .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIR)))
+                    .setAccessType("offline")
+                    .build();
+
+            LocalServerReceiver receiver = new LocalServerReceiver.Builder()
+                    .setPort(8888)
+                    .build();
+
+            return new AuthorizationCodeInstalledApp(flow, receiver)
+                    .authorize("user");
+        }
     }
 }
