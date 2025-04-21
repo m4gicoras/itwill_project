@@ -152,6 +152,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const productPrice = Number(product.price).toLocaleString('en-US');
                     const productDate = new Date(product.createdAt).toISOString().split('T')[0];
 
+                    if (product.productQtty <= 10) product.status = 2;
+
                     const imageHtml = product.productImg
                         ? `<img src="${product.productImg}"
                alt="상품 이미지"
