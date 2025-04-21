@@ -136,7 +136,6 @@
 	            if (result === 'success') {
 	                openModal('UpdateSuccessModal');
 	                infoChange();
-	                location.reload();
 	            } else {
 	                openModal('UpdateFailModal');
 	            }
@@ -168,6 +167,7 @@
 		const modal = document.getElementById(modalId);
 		if (modal) {
 			modal.classList.add("hidden");
+			location.reload();
 		}
 	}
 </script>
@@ -252,7 +252,7 @@
 	                      <td class="px-8 py-3 select-none">연락처</td>
 	                      <td class="select-none">
 		                      <span class="user-info">${user.phone}</span>
-		                      <div class="hidden user-input flex w-100 items-center gap-1.5 pr-8">
+		                      <div class="hidden user-input flex w-100 items-center gap-1.5">
 					            <input type="text" name="userPhone1" id="userPhone1" maxlength="3" required="" oninput="validateAndMove(this, 'userPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="010-3322-3333">
 					            <span class="text-gray-500">-</span>
 					            <input type="text" name="userPhone2" id="userPhone2" maxlength="4" required="" oninput="validateAndMove(this, 'userPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
