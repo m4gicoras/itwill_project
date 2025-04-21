@@ -170,6 +170,68 @@
 			location.reload();
 		}
 	}
+	
+	// 이미지 파일 업로드
+	document.addEventListener("DOMContentLoaded", function () {
+	  const uploadInput = document.getElementById("profile-upload");
+	  const editBtn = document.getElementById("imgEditBtn");
+	  const profileImg = document.getElementById("proficleImg");
+	  const noImageDiv = document.getElementById("no-image");
+	  
+	  // 프로필 사진이 이미 있다면 프로필 사진 표시, 없으면 No Image 표시
+	  if (profileImg.src && profileImg.src !== "" && !profileImg.src.endsWith("/null")) {
+	    profileImg.classList.add("h-27", "w-27");
+	    profileImg.classList.remove("hidden");
+	  } else {
+	    noImageDiv.classList.remove("hidden");
+	  }
+	
+	  if (!uploadInput || !editBtn || !profileImg || !noImageDiv) {
+	    console.warn("★★★필요한 요소 중 일부를 찾지 못했습니다.");
+	    return;
+	  }
+	
+	  // 수정 버튼 누르면 input[type="file"] 클릭 트리거
+	  editBtn.addEventListener("click", () => {
+	    uploadInput.click();
+	  });
+	
+	  // 파일 선택 시 업로드
+	  uploadInput.addEventListener("change", async function () {
+	    const file = this.files[0];
+	    if (!file) return;
+	
+	    const formData = new FormData();
+	    formData.append("file", file);  // 컨트롤러의 @RequestParam("file")과 일치
+	
+	    try {
+	      // 서버에 이미지 파일 전송 및 DB 업데이트 (단일 요청으로 처리)
+	      const res = await fetch("/web/myPage/updateImg", {
+	        method: "POST",
+	        body: formData
+	      });
+	
+	      const result = await res.text();
+	      console.log("✅ 서버 응답:", result);
+	
+	      if (result === "success") {
+	        // 업로드 성공시 이미지 미리보기 업데이트
+	        // 이미지 URL을 알 수 없으므로 페이지 새로고침 또는 이미지 재요청
+	        
+	        // 방법 1: 페이지 새로고침
+	        location.reload();
+	        
+	        alert("프로필 이미지가 성공적으로 업데이트되었습니다!");
+	      } else {
+	        alert("이미지 업로드에 실패했습니다.");
+	      }
+	
+	    } catch (err) {
+	      console.error("이미지 업로드 에러:", err);
+	      alert("이미지 업로드 중 오류가 발생했습니다.");
+	    }
+	  });
+	});
 </script>
 </head>
 
@@ -199,12 +261,13 @@
                     <tr>
                       <td class="px-8 py-5 flex items-center space-x-10">
                         <div class="relative w-27 h-27 bg-blue-100 rounded-full flex items-center justify-center">
-                          <!-- 프로필 이미지(임시) -->
-                          <svg class="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0H4z" />
-                          </svg>
+                          <!-- 프로필 이미지 -->
+                          <img id="proficleImg" src="${user.userImg}" class="hidden rounded-full object-cover rounded mx-auto"/>
+                          <div id="no-image" class="hidden h-27 w-27 rounded-full mx-auto"><p class="text-gray-500 text-xs">No image</p></div>
+                          <input id="profile-upload" type="file" accept=".jpg,.jpeg,.png,.webp" class="hidden" />
                           <!-- 수정 버튼 -->
-                          <button class="cursor-pointer absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full p-1 shadow">
+                          <!-- 수정 버튼 -->
+                          <button id="imgEditBtn" class="cursor-pointer absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full p-1 shadow">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-zinc-600 absolute top-1.5 right-1.5">
                               <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                             </svg>
@@ -377,7 +440,7 @@
 
                <!-- 탈퇴 페이지로 가는 버튼 -->
               <div class="flex justify-end mr-8">
-                <button onclick="location.href='/web/delete'" type="button" class="btn edit-btn mx-0 w-40 bg-zinc-300 cursor-pointer">
+                <button onclick="location.href='/web/check'" type="button" class="btn edit-btn mx-0 w-40 bg-zinc-300 cursor-pointer">
 				  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4.5 h-4.5 text-zinc-700">
 					<path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
 				  </svg>
