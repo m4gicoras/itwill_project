@@ -36,7 +36,7 @@
 
 <body style="font-family: 'Noto Sans KR', sans-serif;">
 	<!-- 페이지 전체 레이아웃 -->
-    <div class="flex h-full w-full bg-white select-none">
+    <div class="flex h-screen w-full bg-white select-none">
    	<!-- 사이드바 div (고정 위치) -->
 		<div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
 			<!-- 사이드바 내부 디자인 -->
@@ -225,7 +225,7 @@
         </div>
         
         <!-- 상단 바 -->
-        <nav class="fixed top-3 right-3 z-[0] flex w-[calc(100vw_-_6%)] flex-row items-center justify-between rounded-lg bg-white/30 py-2 backdrop-blur-xl transition-all md:top-4 md:right-[30px] md:w-[calc(100vw_-_8%)] md:p-2 lg:w-[calc(100vw_-_6%)] xl:top-[20px] xl:w-[calc(100vw_-_365px)] 2xl:w-[calc(100vw_-_380px)]">
+        <nav class="fixed top-3 right-3 z-[999] flex w-[calc(100vw_-_6%)] flex-row items-center justify-between rounded-lg bg-white/30 py-2 backdrop-blur-xl transition-all md:top-4 md:right-[30px] md:w-[calc(100vw_-_8%)] md:p-2 lg:w-[calc(100vw_-_6%)] xl:top-[20px] xl:w-[calc(100vw_-_365px)] 2xl:w-[calc(100vw_-_380px)]">
             <!-- 페이지명 -->
             <div class="ml-[6px]">
                 <p class="text-md shrink text-zinc-950 capitalize md:text-3xl">
@@ -291,10 +291,10 @@
         <div class="mt-24 mr-4 mb-5 ml-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px] xl:flex-row">
             <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm ">
                 <!-- 여기에 내용을 추가하세요 -->
-                <div class="overflow-hidden rounded bg-white shadow">
+                <div class="h-[calc(100vh-6rem-4rem)] overflow-auto rounded bg-white shadow">
                     <table class="min-w-full text-gray-700">
-                      <thead class="border-b border-gray-300 bg-gray-200">
-                        <tr>
+                      <thead class="bg-gray-200">
+                        <tr class="sticky top-0 bg-gray-200 z-10">
                           <th class="p-4 text-left"><input type="checkbox" /></th>
                           <th class="p-4 text-center">상품코드</th>
                           <th class="p-4 text-center">이미지</th>

@@ -35,7 +35,7 @@
 </head>
 
 <body style="font-family: 'Noto Sans KR', sans-serif;">
-	<div class="flex h-full w-full bg-white select-none">
+	<div class="flex h-screen w-full bg-white select-none">
     <!-- 사이드바 div (고정 위치) -->
 		<div class="fixed !z-[99] min-h-full w-[300px] -translate-x-[120%] transition-all md:!z-[99] lg:!z-99 xl:!z-0 xl:block xl:translate-x-[unset]">
 			<!-- 사이드바 내부 디자인 -->
@@ -284,10 +284,10 @@
     <div class="mt-24 mr-4 mb-5 ml-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px] xl:flex-row">
         <div class="bg-card text-card-foreground w-full rounded-lg border border-zinc-200 p-6 shadow-sm ">
             <!-- 여기에 내용을 추가하세요 -->
-            <div class="overflow-hidden rounded bg-white shadow">
+            <div class="h-[calc(100vh-6rem-4rem)] overflow-auto rounded bg-white shadow">
                 <table class="min-w-full text-gray-700">
-                    <thead class="border-b border-gray-300 bg-gray-200">
-                    <tr>
+                    <thead class="bg-gray-200">
+                     <tr class="sticky top-0 bg-gray-200 z-20">
                         <th class="p-4 text-left"><input type="checkbox" /></th>
                         <th class="p-4 text-center">주문번호</th>
                         <th class="p-4 text-center">상품명</th>
@@ -322,7 +322,7 @@
                                         <!-- 출고 진행 버튼 (hover 시 등장) -->
                                         <form method="post"
                                               action="${pageContext.request.contextPath}/outbound/start"
-                                              class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                                              class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                                             <input type="hidden" name="orderId" value="${order.orderId}" />
                                             <button type="submit"
                                                     onclick="return confirm('출고 진행 처리하시겠습니까?');"

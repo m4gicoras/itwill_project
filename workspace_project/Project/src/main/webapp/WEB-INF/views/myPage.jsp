@@ -46,12 +46,12 @@
              }
          }).open();
      }
-     
+
      // 버튼 상태에 따라 다른 함수 실행
      window.addEventListener('DOMContentLoaded', function () {
 	  document.querySelector('.edit-btn').addEventListener('click', function () {
 	    const btnText = document.querySelector('.btn-text');
-	
+
 	    if (btnText.textContent === '정보 수정') {
 	      infoChange();
 	    } else if (btnText.textContent === '저장하기') {
@@ -59,56 +59,56 @@
 	    }
 	  });
 	});
-	
-	// 정보 수정 버튼 클릭 시 
+
+	// 정보 수정 버튼 클릭 시
 	function infoChange() {
 		const editBtn = document.querySelector('.edit-btn');
 		const btnText = document.querySelector('.btn-text');
-		
+
 		if (btnText.textContent === '정보 수정') {
 			btnText.textContent = '저장하기';
-		    
+
 		    // 각 항목의 span과 input을 토글하여 수정 가능하도록 변경
 		    document.querySelectorAll('.user-info').forEach(function(element) {
 		        element.classList.toggle('hidden');
 		    });
-		
+
 		    document.querySelectorAll('.user-input').forEach(function(element) {
 		        element.classList.toggle('hidden');
 		    });
-		    
+
 		    // 기본과 기업 전화번호가 value값에 들어오도록
 		    const UserPhone = '${user.phone}';
 		    const [Upart1, Upart2, Upart3] = UserPhone.split('-');
-	
+
 		    document.getElementById('userPhone1').value = Upart1;
 		    document.getElementById('userPhone2').value = Upart2;
 		    document.getElementById('userPhone3').value = Upart3;
 		  } else {
 			  btnText.textContent = '정보 수정'
-			  
+
 			document.querySelectorAll('.user-info').forEach(function(element) {
 			      element.classList.toggle('hidden');
 			});
-			
+
 			document.querySelectorAll('.user-input').forEach(function(element) {
 			    element.classList.toggle('hidden');
 			});
 		  }
     }
-     
+
      // DB에 정보 수정
 	 function updateUserInfo() {
 		 const btnText = document.querySelector('.btn-text');
-		 
+
 		 if (btnText.textContent === '저장하기') {
 	        const form = document.getElementById('updateForm');
-	        
+
 	        if (!form.checkValidity()) {
 	            form.reportValidity();
 	            return;
 	        }
-		        
+
 			// input 넣기 전에 조합하기
 	        const email = document.getElementById('email').value;
 	        const phone = document.getElementById('userPhone1').value + '-' +
@@ -136,6 +136,7 @@
 	            if (result === 'success') {
 	                openModal('UpdateSuccessModal');
 	                infoChange();
+	                location.reload();
 	            } else {
 	                openModal('UpdateFailModal');
 	            }
@@ -146,7 +147,7 @@
 	        });
 	    }
      }
-	    
+
  	// 숫자만 입력 가능 + 입력한 칸이 다 차면 다음 input으로 이동
     function validateAndMove(current, nextId, maxLength) {
         current.value = current.value.replace(/[^0-9]/g, '');
@@ -167,7 +168,6 @@
 		const modal = document.getElementById(modalId);
 		if (modal) {
 			modal.classList.add("hidden");
-			location.reload();
 		}
 	}
 </script>
@@ -199,7 +199,7 @@
                     <tr>
                       <td class="px-8 py-5 flex items-center space-x-10">
                         <div class="relative w-27 h-27 bg-blue-100 rounded-full flex items-center justify-center">
-                          <!-- 프로필 이미지(임시) -->  
+                          <!-- 프로필 이미지(임시) -->
                           <svg class="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0H4z" />
                           </svg>
@@ -252,7 +252,7 @@
 	                      <td class="px-8 py-3 select-none">연락처</td>
 	                      <td class="select-none">
 		                      <span class="user-info">${user.phone}</span>
-		                      <div class="hidden user-input flex w-100 items-center gap-1.5">
+		                      <div class="hidden user-input flex w-100 items-center gap-1.5 pr-8">
 					            <input type="text" name="userPhone1" id="userPhone1" maxlength="3" required="" oninput="validateAndMove(this, 'userPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" value="010-3322-3333">
 					            <span class="text-gray-500">-</span>
 					            <input type="text" name="userPhone2" id="userPhone2" maxlength="4" required="" oninput="validateAndMove(this, 'userPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
@@ -264,7 +264,7 @@
 	                  </tbody>
 	                </table>
 	              </div>
-	
+
 	              <!-- 기업 정보 섹션 -->
 	              <div class="w-full rounded-md overflow-hidden border-2 border-zinc-200">
 	                <table class="w-full">
@@ -312,7 +312,7 @@
 	              </div>
               </form>
 
-              <!-- 정보 수정 버튼 --> 
+              <!-- 정보 수정 버튼 -->
               <div class="flex justify-end mr-8">
                 <button type="button" class="btn edit-btn mx-0 w-40">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5 text-white">
@@ -361,17 +361,17 @@
                   </tbody>
                 </table>
               </div>
-              
-               <!-- 탈퇴 페이지로 가는 버튼 --> 
+
+               <!-- 탈퇴 페이지로 가는 버튼 -->
               <div class="flex justify-end mr-8">
                 <button onclick="location.href='/web/delete'" type="button" class="btn edit-btn mx-0 w-40 bg-zinc-300 cursor-pointer">
 				  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4.5 h-4.5 text-zinc-700">
 					<path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-				  </svg>  
+				  </svg>
                   	<span class="btn-text text-zinc-700">회원 탈퇴</span>
                 </button>
               </div>
-              
+
               <!-- 수정 완료 모달창 -->
               <div id="UpdateSuccessModal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
 	              <div role="dialog" aria-modal="true" class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
@@ -405,8 +405,8 @@
 	                </div>
 	              </div>
 	            </div>
-              
-              
+
+
             </div>
         </div>
       </div>
