@@ -216,7 +216,7 @@
                                         </a>
                                         <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
                                             <p
-                                                class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950 ">
+                                                class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950">
                                                 m4gi</p>
                                         </a>
                                         <form action="<%=request.getContextPath()%>/logout" method="post"
@@ -303,7 +303,7 @@
                                         d="M224 0c-17.7 0-32 14.3-32 32v19.2C119 66 64 130.6 64 208v25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416h400c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112v25.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V208c0-61.9 50.1-112 112-112zm64 352h-128c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7 33.3-6.7 45.3-18.7S288 465 288 448z" />
                                 </svg>
                                 <span
-                                    class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white leading-none">3</span>
+                                    class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white leading-none notification-badge">0</span>
                             </a>
                             <button
                                 class="ring-offset-background focus-visible:ring-ring bg-background hover:bg-accent hover:text-accent-foreground flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-full border border-zinc-200 p-0 text-xl font-medium whitespace-nowrap text-zinc-950 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:min-h-10 md:min-w-10 ">
