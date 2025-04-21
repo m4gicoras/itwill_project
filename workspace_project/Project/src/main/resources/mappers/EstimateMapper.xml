@@ -102,8 +102,20 @@
         WHERE e.res_comp_id = #{companyId}
           AND e.status = 1
     </select>
+
     <select id="selectAcceptedEstimatesByReceiver" parameterType="int" resultType="com.m4gi.dto.EstimateDTO">
-        SELECT e.*, p.product_name
+        SELECT
+            e.estimate_id AS estimateId,
+            e.req_comp_id AS reqCompId,
+            e.res_comp_id AS resCompId,
+            e.product_id AS productId,
+            e.estimate_qtty AS estimateQtty,
+            e.req_cost AS reqCost,
+            e.offer_cost AS offerCost,
+            e.status,
+            e.created_at AS createdAt,
+            e.updated_at AS updatedAt,
+            p.product_name AS productName
         FROM estimates e
                  JOIN products p ON e.product_id = p.product_id
         WHERE e.res_comp_id = #{companyId}
