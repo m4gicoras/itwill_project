@@ -6,34 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const placeholderIcon = document.getElementById('placeholderIcon');
     const deleteBtn = document.getElementById('deleteImageBtn');
 
-    fetch(contextPath + "/me")
-        .then(res => {
-            if (!res.ok) throw new Error("유저 정보 조회 실패");
-            return res.json();
-        })
-        .then(user => {
-            // 모든 .profile 스팬을 가져와서 각자 처리
-            document.querySelectorAll(".profile").forEach(profile => {
-                if (user && user.userImg) {
-                    profile.innerHTML = `
-                  <img
-                    src="${user.userImg}"
-                    alt="프로필"
-                    class="aspect-square h-full w-full rounded-full"
-                  />
-                `;
-                } else {
-                    profile.classList.add("no-profile");
-                }
-            });
-        })
-        .catch(err => {
-            console.error("프로필 로딩 중 오류:", err);
-            document.querySelectorAll(".profile").forEach(profile => {
-                profile.classList.add("no-profile");
-            });
-        });
-
     if (uploadBox && imageInput && previewImg && placeholderIcon && deleteBtn) {
         uploadBox.addEventListener('click', (e) => {
             // input 자체 클릭 시 중복 트리거 방지
