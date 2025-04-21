@@ -415,9 +415,10 @@
                             <h2 class="text-lg font-bold mb-4">알림 상세</h2>
 
                             <!-- 알림 내용 네모 박스 -->
-                            <div class="border border-gray-300 rounded-md p-4 text-sm whitespace-pre-wrap bg-gray-50 mb-6"
+                            <div class="border border-gray-300 rounded-md p-4 text-sm bg-gray-50 mb-6"
                                 id="popupBox">
-                                내용: <span id="popupContent"></span><br>
+                                내용: <span id="popupContent"></span>
+                                <br><br>
                                 발송 일시: <span id="popupDate"></span>
                             </div>
 
