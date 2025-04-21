@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.UserMapper">
+    <select id="showProductList" resultType="com.m4gi.domain.Products" parameterType="com.m4gi.domain.User">
+        SELECT
+        product_id      AS productId,
+        company_id      AS companyId,
+        product_name    AS productName,
+        product_desc    AS productDesc,
+        product_img     AS productImg,
+        product_qtty    AS productQtty,
+        category,
+        price,
+        status,
+        created_at      AS createdAt,
+        updated_at      AS updatedAt
+        FROM products
+        WHERE company_id = #{userId}
+    </select>
+
+    <insert id="insertProduct" parameterType="com.m4gi.domain.Products"
+            useGeneratedKeys="true" keyProperty="productId">
+        INSERT INTO products
+        (company_id, product_name, product_desc, product_img,
+        product_qtty, category, price, status, created_at, updated_at)
+        VALUES
+        (#{companyId}, #{productName}, #{productDesc}, #{productImg},
+        #{productQtty}, #{category}, #{price}, #{status}, NOW(), NOW())
+    </insert>
+</mapper>

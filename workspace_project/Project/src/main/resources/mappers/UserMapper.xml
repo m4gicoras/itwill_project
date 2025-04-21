@@ -10,13 +10,16 @@
         username, user_pw, nickname, user_img, email, phone,
         breg_num, company_name, master_name, company_addr, company_phone, product_category
         ) VALUES (
-        #{username}, #{user_pw}, #{nickname}, #{user_img}, #{email}, #{phone},
-        #{breg_num}, #{company_name}, #{master_name}, #{company_addr}, #{company_phone}, #{product_category}
+        #{username}, #{userPw}, #{nickname}, #{userImg}, #{email}, #{phone},
+        #{bregNum}, #{companyName}, #{masterName}, #{companyAddr}, #{companyPhone}, #{productCategory}
         )
     </insert>
 
     <select id="checkUsername" parameterType="string" resultType="com.m4gi.domain.User">
-        SELECT username, user_pw
+        SELECT
+        user_id AS userId,
+        username,
+        user_pw AS userPw
         FROM users
         WHERE username = #{username}
     </select>
@@ -26,5 +29,50 @@
 	    FROM users
 	    WHERE username = #{username}
 	</select>
+
+    <select id="findByEmail" resultType="com.m4gi.domain.User">
+        SELECT username
+        FROM users
+        WHERE email = #{email}
+    </select>
+
+    <select id="isExistEmail" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        WHERE email = #{email}
+    </select>
+    
+    <select id="getUserById" resultType="com.m4gi.domain.User">
+    	SELECT 
+    	user_id AS userId,
+    	username AS username,
+    	nickname AS nickname,
+    	user_img AS userImg,
+    	email AS email,
+    	phone AS phone,
+    	breg_num AS bregNum,
+    	company_name AS companyName,
+    	master_name AS masterName,
+    	company_addr AS companyAddr,
+    	company_phone AS companyPhone,
+    	product_category AS productCategory
+    	FROM users
+    	WHERE user_id = #{user_id}
+    </select>
+    
+    <update id="updateUserInfo" parameterType="com.m4gi.domain.User">
+    	UPDATE users
+    	SET 
+    	email = #{email},
+    	phone = #{phone},
+    	product_category = #{productCategory}
+    	WHERE user_id = #{userId}
+    </update>
+
+    <update id="updatePassword" parameterType="map">
+        UPDATE users
+        SET user_pw = #{newPassword}
+        WHERE username = #{username}
+    </update>
 
 </mapper>

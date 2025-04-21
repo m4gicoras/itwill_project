@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m4gi.mapper.EstimateMapper">
+
+    <!-- 내가 보낸 견적 목록 -->
+    <select id="selectSentEstimates" parameterType="int" resultType="com.m4gi.dto.EstimateDTO">
+        SELECT
+            e.estimate_id AS estimateId,
+            e.req_comp_id AS reqCompId,
+            e.res_comp_id AS resCompId,
+            e.product_id AS productId,
+            e.estimate_qtty AS estimateQtty,
+            e.req_cost AS reqCost,
+            e.offer_cost AS offerCost,
+            e.status,
+            e.created_at AS createdAt,
+            e.updated_at AS updatedAt,
+            p.product_name AS productName,
+            u.company_name AS resCompanyName
+        FROM estimates e
+                 JOIN products p ON e.product_id = p.product_id
+                 JOIN users u ON e.res_comp_id = u.user_id
+        WHERE e.req_comp_id = #{companyId}
+        ORDER BY e.created_at DESC
+    </select>
+
+    <!-- 내가 받은 견적 목록 -->
+    <select id="selectReceivedEstimates" parameterType="int" resultType="com.m4gi.dto.EstimateDTO">
+        SELECT
+            e.estimate_id AS estimateId,
+            e.req_comp_id AS reqCompId,
+            e.res_comp_id AS resCompId,
+            e.product_id AS productId,
+            e.estimate_qtty AS estimateQtty,
+            e.req_cost AS reqCost,
+            e.offer_cost AS offerCost,
+            e.status,
+            e.created_at AS createdAt,
+            e.updated_at AS updatedAt,
+            p.product_name AS productName,
+            u.company_name AS reqCompanyName
+        FROM estimates e
+                 JOIN products p ON e.product_id = p.product_id
+                 JOIN users u ON e.req_comp_id = u.user_id
+        WHERE e.res_comp_id = #{companyId}
+        ORDER BY e.created_at DESC
+    </select>
+    <!-- 견적 요청 insert -->
+    <insert id="insertEstimate" parameterType="com.m4gi.dto.EstimateDTO">
+        INSERT INTO estimates (
+            req_comp_id,
+            res_comp_id,
+            product_id,
+            estimate_qtty,
+            req_cost,
+            status,
+            created_at,
+            updated_at
+        )
+        VALUES (
+                   #{reqCompId},
+                   #{resCompId},
+                   #{productId},
+                   #{estimateQtty},
+                   #{reqCost},
+                   0, -- 상태는 요청중(0)으로 고정
+                   NOW(),
+                   NOW()
+               )
+    </insert>
+
+
+
+</mapper>
