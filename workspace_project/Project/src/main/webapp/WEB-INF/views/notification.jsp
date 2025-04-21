@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 
@@ -314,7 +315,14 @@
           </thead>
           <tbody>
           <c:forEach var="noti" items="${notificationList}">
-            <tr class="border-b hover:bg-gray-50">
+            <c:set var="formattedDate">
+              <fmt:formatDate value="${noti.createdAt}" pattern="yyyy-MM-dd a hh:mm" />
+            </c:set>
+            <tr class="border-b hover:bg-gray-50 cursor-pointer"
+                data-id="${noti.notificationId}"
+                data-content="${fn:escapeXml(noti.content)}"
+                data-date="${formattedDate}"
+                onclick="handleRowClick(this)">
               <td class="p-4 text-center">
                 <c:choose>
                   <c:when test="${noti.read}">
@@ -326,16 +334,10 @@
                 </c:choose>
               </td>
               <td class="p-4 text-left">${noti.content}</td>
-              <td class="p-4 text-center">
-                <c:choose>
-                  <c:when test="${not empty noti.createdAt}">
-                    <fmt:formatDate value="${noti.createdAt}" pattern="yyyy-MM-dd a hh:mm" />
-                  </c:when>
-                  <c:otherwise>-</c:otherwise>
-                </c:choose>
-              </td>
+              <td class="p-4 text-center">${formattedDate}</td>
             </tr>
           </c:forEach>
+
 
           </tbody>
         </table>
@@ -344,6 +346,35 @@
     </div>
   </div>
 </div>
+<!-- 전체 팝업 배경 + 중앙 팝업 -->
+<div id="notificationOverlay"
+     class="hidden fixed inset-0 z-50 bg-black/20 backdrop-blur-sm flex items-center justify-center">
+  <!-- 알림 팝업 박스 -->
+  <div class="bg-white w-[440px] rounded-lg shadow-lg p-6 relative">
+
+    <!-- 닫기 버튼 (오른쪽 상단) -->
+    <button onclick="closePopup()" class="absolute top-2 right-3 text-gray-400 hover:text-black text-xl">
+      ✖
+    </button>
+
+    <h2 class="text-lg font-bold mb-4">알림 상세</h2>
+
+    <!-- 알림 내용 네모 박스 -->
+    <div class="border border-gray-300 rounded-md p-4 text-sm whitespace-pre-wrap bg-gray-50 mb-6" id="popupBox">
+      내용: <span id="popupContent"></span><br>
+      발송 일시: <span id="popupDate"></span>
+    </div>
+
+    <!-- 하단 닫기 버튼 (가운데) -->
+    <div class="flex justify-center">
+      <button onclick="closePopup()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded">
+        닫기
+      </button>
+    </div>
+
+  </div>
+</div>
+
 </body>
 
 <script>
@@ -410,6 +441,37 @@
       }
     });
   });
+  // 팝업창
+  function showPopup(content, date) {
+    document.getElementById("popupContent").innerText = content;
+    document.getElementById("popupDate").innerText = date;
+    document.getElementById("notificationOverlay").classList.remove("hidden");
+  }
+
+  function closePopup() {
+    document.getElementById("notificationOverlay").classList.add("hidden");
+  }
+  function handleRowClick(row) {
+    const content = row.dataset.content;
+    const date = row.dataset.date;
+    const company = row.dataset.company;
+    const notificationId = row.dataset.id; // ✅ 이걸 추가해야 하니까 아래에서 설명할게
+
+    showPopup(content, date, company);
+
+    // 읽음 처리 Ajax 호출
+    fetch("<%=request.getContextPath()%>/notification/read", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "notificationId=" + encodeURIComponent(notificationId),
+    }).then(() => {
+      // 새로고침 또는 클래스 변경 등 선택 가능
+      row.querySelector("span").innerText = "읽음";
+      row.querySelector("span").className = "inline-block rounded-md px-2 py-1 text-xs font-medium bg-gray-200 text-gray-600";
+    });
+  }
 </script>
 
 </html>

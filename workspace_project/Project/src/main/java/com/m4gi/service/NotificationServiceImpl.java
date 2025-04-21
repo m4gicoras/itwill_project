@@ -33,4 +33,8 @@ public class NotificationServiceImpl implements NotificationService {
         notificationMapper.insertNotification(noti);
         notificationMapper.insertRecipient(noti.getNotificationId(), recipientId);
     }
+    @Override
+    public void markAsRead(int notificationId, int userId) {
+        notificationMapper.markAsRead(notificationId, userId);
+    }
 }
