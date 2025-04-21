@@ -112,6 +112,11 @@ public class UserServiceImpl implements UserService{
     public boolean updateUserInfo(User user) {
         return userMapper.updateUserInfo(user) > 0;
     }
+    
+    @Override
+    public boolean updateUserImage(int userId, String userImg) {
+    	return userMapper.updateUserImage(userId, userImg) > 0;
+    }
 
     @Override
     public List<Products> getProductsByUser(User user) {

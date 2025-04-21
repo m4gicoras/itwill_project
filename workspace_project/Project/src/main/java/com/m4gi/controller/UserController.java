@@ -81,6 +81,48 @@ public class UserController {
             return "fail";
         }
     }
+    
+    @PostMapping("/myPage/updateImg")
+    @ResponseBody
+    public String updateUserImg(@RequestParam("file") MultipartFile file, HttpSession session) {
+        // 1) 세션에서 로그인한 사용자 ID 가져오기
+        Integer userId = (Integer) session.getAttribute("userId");
+        
+        System.out.println("★★★ [프로필 이미지 업데이트 요청] ★★★");
+        System.out.println("userId: " + userId);
+        
+        if (userId == null) {
+            System.out.println("⚠️ userId가 세션에 없습니다.");
+            return "fail";
+        }
+        
+        if (file.isEmpty()) {
+            System.out.println("⚠️ 파일이 비어 있습니다.");
+            return "fail";
+        }
+        
+        try {
+            // 2) 파일 업로드 처리
+            String originalFilename = file.getOriginalFilename();
+            String storedFilename = System.currentTimeMillis() + "_" + originalFilename;
+            
+            // GCS에 업로드하고 URL 받기
+            String imageUrl = gcsUploadService.uploadFile(file, storedFilename);
+            
+            System.out.println("✅ 업로드된 이미지 URL: " + imageUrl);
+            
+            // 3) DB에 이미지 URL 업데이트
+            boolean result = userService.updateUserImage(userId, imageUrl);
+            
+            System.out.println("DB 업데이트 결과: " + (result ? "성공" : "실패"));
+            return result ? "success" : "fail";
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("⚠️ 파일 업로드 중 오류 발생: " + e.getMessage());
+            return "fail";
+        }
+    }
 
     @GetMapping("/delete")
     public String showDeleteForm() {

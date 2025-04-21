@@ -32,6 +32,7 @@ public interface UserMapper {
 
     // 마이페이지에서 사용자 정보 수정하기
     int updateUserInfo(User user);
+    int updateUserImage(@Param("userId") int userId, @Param("imageUrl") String imageUrl);
 
     int updatePassword(@Param("username") String username, @Param("newPassword") String newPassword);
 
