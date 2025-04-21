@@ -313,7 +313,7 @@
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                            	<td class="selectAllCheckbox p-4"><input type="checkbox" id="checkbox-${product.productId}"></td>
+                            	<th class="selectAllCheckbox p-4"><input type="checkbox" id="checkbox-${product.productId}"></th>
                                 <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center select-none">
                                     	물품번호
                                     <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -335,7 +335,7 @@
                                 <c:when test="${not empty productList}">
                                     <c:forEach var="product" items="${productList}">
                                         <tr class="hover:bg-blue-50 cursor-pointer border-b">
-                                        	<td class="row-checkbox p-4 text-sm border-b border-gray-100"><input type="checkbox"></td>
+                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox"></td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productId}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
@@ -462,6 +462,10 @@
             return;
         }
         
+        // header는 행 클릭해도 체크박스 체크 안되도록
+        const tbody = document.querySelector('.product-list tbody');
+        if (!tbody.contains(event.target)) return;
+        
         const row = event.target.closest('tr');
         if (!row) {
         	return;
@@ -477,8 +481,8 @@
     });
     
     // 체크박스 일괄 체크
-    const headerCheckboxTd = document.querySelector('td.selectAllCheckbox');
-    const headerCheckbox = headerCheckboxTd ? headerCheckboxTd.querySelector('input[type="checkbox"]') : null;
+    const headerCheckboxTh = document.querySelector('th.selectAllCheckbox');
+    const headerCheckbox = headerCheckboxTh ? headerCheckboxTh.querySelector('input[type="checkbox"]') : null;
     
     if (headerCheckbox) {
         headerCheckbox.addEventListener('change', function() {
