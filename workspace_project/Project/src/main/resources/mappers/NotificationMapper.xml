@@ -37,4 +37,12 @@
         VALUES (#{notificationId}, #{recipientId}, FALSE)
     </insert>
 
+    <!-- 읽음 처리-->
+    <update id="markAsRead">
+        UPDATE recipients
+        SET is_read = TRUE
+        WHERE notification_id = #{notificationId}
+          AND recipient_id = #{userId}
+    </update>
+
 </mapper>

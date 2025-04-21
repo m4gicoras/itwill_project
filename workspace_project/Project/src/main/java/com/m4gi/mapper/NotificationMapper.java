@@ -10,4 +10,6 @@ public interface NotificationMapper {
     int countUnreadNotifications(int userId);
     void insertNotification(NotificationDTO notification);
     void insertRecipient(@Param("notificationId") int notificationId, @Param("recipientId") int recipientId);
+    void markAsRead(@Param("notificationId") int notificationId, @Param("userId") int userId);
+
 }

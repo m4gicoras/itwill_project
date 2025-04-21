@@ -5,8 +5,7 @@ import com.m4gi.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -24,5 +23,11 @@ public class NotificationController {
         List<NotificationDTO> list = notificationService.getNotifications(userId);
         model.addAttribute("notificationList", list);
         return "notification"; // notification.jsp
+    }
+    @PostMapping("/read")
+    @ResponseBody
+    public void markNotificationAsRead(@RequestParam("notificationId") int notificationId, HttpSession session) {
+        int userId = (int) session.getAttribute("userId");
+        notificationService.markAsRead(notificationId, userId);
     }
 }
