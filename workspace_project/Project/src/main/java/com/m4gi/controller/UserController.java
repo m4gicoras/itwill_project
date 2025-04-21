@@ -3,6 +3,7 @@ package com.m4gi.controller;
 import com.m4gi.domain.Products;
 import com.m4gi.domain.User;
 import com.m4gi.dto.SiteUser;
+import com.m4gi.service.GCSUploadService;
 import com.m4gi.service.UserService;
 
 import java.io.File;
@@ -25,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GCSUploadService gcsUploadService;
 
     // 회원가입 폼 페이지
     @GetMapping("/signup")
@@ -214,17 +218,12 @@ public class UserController {
         // 3) 파일 저장
         if (!imageFile.isEmpty()) {
 
-            String uploadDir = request.getServletContext().getRealPath("/resources/uploads");
-            File dir = new File(uploadDir);
-            if (!dir.exists()) dir.mkdirs();
-
             String originalFilename = imageFile.getOriginalFilename();
             String storedFilename = System.currentTimeMillis() + "_" + originalFilename;
-            File dest = new File(dir, storedFilename);
-            imageFile.transferTo(dest);
-
-            // DB에는 웹에서 접근 가능한 URL을 저장
-            product.setProductImg(request.getContextPath() + "/resources/uploads/" + storedFilename);
+            // 2) GCS에 업로드하고 URL 리턴
+            String fileUrl = gcsUploadService.uploadFile(imageFile, storedFilename);
+            // 3) Products에 URL 세팅
+            product.setProductImg(fileUrl);
         }
 
         // 4) 서비스 호출하여 DB에 insert
