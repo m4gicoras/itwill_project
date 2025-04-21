@@ -131,11 +131,6 @@ public class UserController {
         return "finish_pw";
     }
 
-    @GetMapping("/myPage")
-    public String showMyPage() {
-        return "myPage";
-    }
-
     @GetMapping("/finish_id")
     public String showFinishID2Form() {
         return "finish_id";
