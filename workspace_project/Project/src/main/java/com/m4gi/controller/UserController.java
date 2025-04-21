@@ -65,6 +65,7 @@ public class UserController {
     	
     	User user = userService.getUserById(user_id);
     	model.addAttribute("user", user);
+
     	return "myPage";
     }
     
@@ -211,6 +212,16 @@ public class UserController {
         // 로그로 확인
         System.out.println("중복 확인 요청: " + username + ", count: " + count);
         return String.valueOf(count);
+    }
+
+    @GetMapping("/me")
+    @ResponseBody
+    public User getCurrentUser(HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return null;
+        }
+        return userService.getUserById(userId);
     }
 
     @PostMapping("/dashboard/product/upload")

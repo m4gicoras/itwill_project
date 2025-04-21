@@ -264,4 +264,24 @@
     .no-image>p {
         @apply text-xl text-gray-500;
     }
+
+    .no-profile {
+        @apply relative flex items-center justify-center rounded-full bg-blue-100 text-blue-600;
+    }
+
+    .no-profile::before {
+        content: "";
+        @apply inline-block h-6 w-6 align-middle;
+        /* mask 로 SVG 모양만 남기고 background-color 를 currentColor 로 채웁니다 */
+        mask: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>\
+<path d='M10 10a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0H4z'/>\
+</svg>") no-repeat center/contain;
+        -webkit-mask: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>\
+<path d='M10 10a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0H4z'/>\
+</svg>") no-repeat center/contain;
+
+        background-color: currentColor;
+    }
 }
