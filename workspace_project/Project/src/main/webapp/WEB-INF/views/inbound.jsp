@@ -9,6 +9,10 @@
 <html>
 
 <head>
+    <script>
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- TailwindCSS 4.0 -->
@@ -138,20 +142,25 @@
                                           </div>
 	                                   	</a>
 									</div>
-                                    <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
-                                        <a href="<%=request.getContextPath()%>/estimates" style="border-radius: 0px; width: 100%;">
-                                            <div class="w-full items-center justify-center">
-                                                <div class="flex w-full items-center justify-center">
-                                                    <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
-                                                        <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"></path>
-                                                        </svg>
-                                                    </div>
-                                                    <p class="mr-auto text-sm font-medium text-zinc-950">견적 현황</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
+									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium">
+	                                       <a href="/web/estimates" style="border-radius: 0px; width: 100%;">
+	                                           <div class="w-full items-center justify-center">
+	                                               <div class="flex w-full items-center justify-center">
+	                                                   <div class="svg-item text mt-1.5 mr-3 text-zinc-950 ">
+	                                                       <svg stroke="currentColor" fill="none" stroke-width="1.5"
+		                                                        viewBox="0 0 24 24" aria-hidden="true"
+		                                                        class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em"
+		                                                        width="1em" xmlns="http://www.w3.org/2000/svg">
+		                                                        <path stroke-linecap="round" stroke-linejoin="round"
+		                                                            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z">
+		                                                        </path>
+                                                    		</svg>
+	                                                   </div>
+	                                                   <p class="mr-auto text-sm font-medium text-zinc-950 ">견적 현황</p>
+	                                               </div>
+	                                           </div>
+	                                       </a>
+									</div>
 									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ">
 										<a href="<%=request.getContextPath()%>/settlementStatus" style="border-radius: 0px; width: 100%;">
 										<div class="w-full items-center justify-center">
@@ -256,7 +265,7 @@
                              class="h-6 w-6 stroke-2 text-zinc-950">
                             <path d="M224 0c-17.7 0-32 14.3-32 32v19.2C119 66 64 130.6 64 208v25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416h400c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112v25.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V208c0-61.9 50.1-112 112-112zm64 352h-128c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7 33.3-6.7 45.3-18.7S288 465 288 448z"/>
                         </svg>
-                        <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white leading-none">3</span>
+                        <span class="notification-badge absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white leading-none hidden">0</span>
                     </a>
                     <button
                             class="ring-offset-background focus-visible:ring-ring bg-background hover:bg-accent hover:text-accent-foreground flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-full border border-zinc-200 p-0 text-xl font-medium whitespace-nowrap text-zinc-950 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:min-h-10 md:min-w-10 ">
@@ -420,5 +429,5 @@
         });
     });
 </script>
-
+<script src="<%= request.getContextPath() %>/resources/js/alarm.js"></script>
 </html>

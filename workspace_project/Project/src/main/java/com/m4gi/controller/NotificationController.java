@@ -30,4 +30,11 @@ public class NotificationController {
         int userId = (int) session.getAttribute("userId");
         notificationService.markAsRead(notificationId, userId);
     }
+
+    @GetMapping("/unreadCount")
+    @ResponseBody
+    public int getUnreadCount(HttpSession session) {
+        int userId = (int) session.getAttribute("userId");
+        return notificationService.getUnreadCount(userId);
+    }
 }

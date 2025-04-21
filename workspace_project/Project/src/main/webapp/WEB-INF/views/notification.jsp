@@ -11,6 +11,10 @@
 <html>
 
 <head>
+  <script>
+    var contextPath = '<%= request.getContextPath() %>';
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- TailwindCSS 4.0 -->
@@ -227,8 +231,7 @@
       </div>
     </div>
   </div>
-  <nav
-          class="fixed top-3 right-3 z-[0] flex w-[calc(100vw_-_6%)] flex-row items-center justify-between rounded-lg bg-white/30 py-2 backdrop-blur-xl transition-all md:top-4 md:right-[30px] md:w-[calc(100vw_-_8%)] md:p-2 lg:w-[calc(100vw_-_6%)] xl:top-[20px] xl:w-[calc(100vw_-_365px)] 2xl:w-[calc(100vw_-_380px)]">
+  <nav class="fixed top-3 right-3 z-[0] flex w-[calc(100vw_-_6%)] flex-row items-center justify-between rounded-lg bg-white/30 py-2 backdrop-blur-xl transition-all md:top-4 md:right-[30px] md:w-[calc(100vw_-_8%)] md:p-2 lg:w-[calc(100vw_-_6%)] xl:top-[20px] xl:w-[calc(100vw_-_365px)] 2xl:w-[calc(100vw_-_380px)]">
     <div class="ml-[6px]">
       <p class="text-md shrink text-zinc-950 capitalize md:text-3xl"><a
               class="font-bold capitalize hover:text-zinc-950" href="#" style="border-radius: 0px;">알림</a></p>
@@ -266,7 +269,8 @@
                  class="h-6 w-6 stroke-2 text-zinc-950">
               <path d="M224 0c-17.7 0-32 14.3-32 32v19.2C119 66 64 130.6 64 208v25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416h400c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112v25.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V208c0-61.9 50.1-112 112-112zm64 352h-128c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7 33.3-6.7 45.3-18.7S288 465 288 448z"/>
             </svg>
-            <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white leading-none">3</span>
+            <span id="noti-badge"
+                  class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white leading-none"></span>
           </a>
           <button
                   class="ring-offset-background focus-visible:ring-ring bg-background hover:bg-accent hover:text-accent-foreground flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-full border border-zinc-200 p-0 text-xl font-medium whitespace-nowrap text-zinc-950 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:min-h-10 md:min-w-10 ">
@@ -367,69 +371,60 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    // 알림 뱃지 숫자 표시
+    fetch("<%=request.getContextPath()%>/notification/unreadCount")
+            .then(res => res.text())
+            .then(count => {
+              const badge = document.getElementById("noti-badge");
+              if (badge && parseInt(count) > 0) {
+                badge.innerText = count;
+                badge.classList.remove("hidden");
+              } else if (badge) {
+                badge.classList.add("hidden");
+              }
+            });
+
+    // 메뉴 hover 효과
     const menuItems = document.querySelectorAll('.menu-item');
     menuItems.forEach(item => {
       item.addEventListener('mouseenter', function () {
-        // 부모 요소 클래스 변경 (hover 상태)
         this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-zinc-950 font-semibold text-white";
-        // 하위 p 태그 클래스 변경
         const pElement = this.querySelector('p');
-        if (pElement) {
-          pElement.className = "mr-auto text-sm font-semibold text-white";
-        }
-        // 하위 svg-item 클래스 요소 변경
+        if (pElement) pElement.className = "mr-auto text-sm font-semibold text-white";
         const svgElement = this.querySelector('.svg-item');
-        if (svgElement) {
-          svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-white";
-        }
+        if (svgElement) svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-white";
       });
       item.addEventListener('mouseleave', function () {
-        // 부모 요소 클래스 원복 (hover 상태 해제)
         this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ";
-        // 하위 p 태그 클래스 원복
         const pElement = this.querySelector('p');
-        if (pElement) {
-          pElement.className = "mr-auto text-sm font-medium text-zinc-950 ";
-        }
-        // 하위 svg-item 클래스 요소 원복
+        if (pElement) pElement.className = "mr-auto text-sm font-medium text-zinc-950 ";
         const svgElement = this.querySelector('.svg-item');
-        if (svgElement) {
-          svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950 ";
-        }
+        if (svgElement) svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950 ";
       });
     });
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    // search-container 요소 선택 (id 대신 클래스 선택 가능)
+
+    // search-box 클릭/닫기
     const searchContainer = document.querySelector('.search-container');
-    if (!searchContainer) return console.error("search-container 요소를 찾을 수 없습니다.");
-
-    // 클릭 시 active 클래스 토글
-    searchContainer.addEventListener('click', function (e) {
-      // 만약 클릭 대상이 입력창인 경우 active 토글을 하지 않음
-      if (e.target.closest('.search-input')) return;
-      e.stopPropagation();
-      this.classList.toggle('active');
-      // 활성화(active)된 경우 입력창에 포커스
-      if (this.classList.contains('active')) {
-        const input = this.querySelector('.search-input');
-        if (input) {
-          // 트랜지션 완료 후 포커스 (300ms 이상 지연)
-          setTimeout(() => {
-            input.focus();
-          }, 300);
+    if (searchContainer) {
+      searchContainer.addEventListener('click', function (e) {
+        if (e.target.closest('.search-input')) return;
+        e.stopPropagation();
+        this.classList.toggle('active');
+        if (this.classList.contains('active')) {
+          const input = this.querySelector('.search-input');
+          if (input) setTimeout(() => input.focus(), 300);
         }
-      }
-    });
+      });
 
-    // 문서의 다른 부분 클릭 시 active 클래스 제거
-    document.addEventListener('click', function (e) {
-      if (!searchContainer.contains(e.target)) {
-        searchContainer.classList.remove('active');
-      }
-    });
+      document.addEventListener('click', function (e) {
+        if (!searchContainer.contains(e.target)) {
+          searchContainer.classList.remove('active');
+        }
+      });
+    }
   });
-  // 팝업창
+
+  // 팝업 관련 (클릭시 알림 읽음 처리)
   function showPopup(content, date) {
     document.getElementById("popupContent").innerText = content;
     document.getElementById("popupDate").innerText = date;
@@ -439,15 +434,15 @@
   function closePopup() {
     document.getElementById("notificationOverlay").classList.add("hidden");
   }
+
   function handleRowClick(row) {
     const content = row.dataset.content;
     const date = row.dataset.date;
-    const company = row.dataset.company;
-    const notificationId = row.dataset.id; // ✅ 이걸 추가해야 하니까 아래에서 설명할게
+    const notificationId = row.dataset.id;
 
-    showPopup(content, date, company);
+    showPopup(content, date);
 
-    // 읽음 처리 Ajax 호출
+    // 읽음 처리 Ajax
     fetch("<%=request.getContextPath()%>/notification/read", {
       method: "POST",
       headers: {
@@ -455,11 +450,32 @@
       },
       body: "notificationId=" + encodeURIComponent(notificationId),
     }).then(() => {
-      // 새로고침 또는 클래스 변경 등 선택 가능
+      // 상태 UI 변경
       row.querySelector("span").innerText = "읽음";
-      row.querySelector("span").className = "inline-block rounded-md px-2 py-1 text-xs font-medium bg-gray-200 text-gray-600";
+      row.querySelector("span").className =
+              "inline-block rounded-md px-2 py-1 text-xs font-medium bg-gray-200 text-gray-600";
+
+      // 알림 배지 숫자 갱신
+      updateNotificationBadge();
     });
   }
+
+  // 알림 배지 숫자 갱신 함수
+  function updateNotificationBadge() {
+    fetch("<%=request.getContextPath()%>/notification/unreadCount")
+            .then(res => res.text())
+            .then(count => {
+              const badge = document.getElementById("noti-badge");
+              const num = parseInt(count);
+              if (num > 0) {
+                badge.innerText = num;
+                badge.classList.remove("hidden");
+              } else {
+                badge.classList.add("hidden");
+              }
+            });
+  }
 </script>
+
 
 </html>
