@@ -455,6 +455,27 @@
         });
     });
     
+ 	// 행 클릭 시 체크 박스 체크 (체크박스 자체 클릭 제외)
+    document.querySelector('.product-list').addEventListener('click', function(event) {
+        // 체크박스를 직접 클릭한 경우
+        if (event.target.type === 'checkbox') {
+            return;
+        }
+        
+        const row = event.target.closest('tr');
+        if (!row) {
+        	return;
+        }
+        
+        const checkbox = row.querySelector('input[type="checkbox"]');
+        if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+            
+            // 다른 이벤트 처리기에게 알림 (전체 선택 상태 업데이트 용)
+            checkbox.dispatchEvent(new Event('change'));
+        }
+    });
+    
     // 체크박스 일괄 체크
     const headerCheckboxTd = document.querySelector('td.selectAllCheckbox');
     const headerCheckbox = headerCheckboxTd ? headerCheckboxTd.querySelector('input[type="checkbox"]') : null;
