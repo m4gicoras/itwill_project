@@ -1,4 +1,7 @@
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!doctype html>
 <html>
   <head>
@@ -254,8 +257,12 @@
               </svg>
               <p class="text-lg">총 수입</p>
               <div class="mr-4 flex-1 flex-col justify-end text-right">
-                <p class="text-lg text-green-700"><span>600,000</span>원</p>
-                <p class="text-sm text-zinc-500">예상 <span>800,000</span>원</p>
+                <p class="text-lg text-green-700">
+                  <span><fmt:formatNumber value="${totalIncome}" type="number" /></span>원
+                </p>
+                <p class="text-sm text-zinc-500">
+                  예상 <span><fmt:formatNumber value="${totalIncome}" type="number" /></span>원
+                </p>
               </div>
             </div>
             <div class="flex flex-1 items-center gap-6 rounded-md bg-red-600/7 p-2.5 pl-5">
@@ -264,8 +271,12 @@
               </svg>
               <p class="text-lg">총 지출</p>
               <div class="mr-4 flex-1 flex-col justify-end text-right">
-                <p class="text-lg text-red-600"><span>600,000</span>원</p>
-                <p class="text-sm text-zinc-500">예상 <span>800,000</span>원</p>
+                <p class="text-lg text-red-600">
+                  <span><fmt:formatNumber value="${totalExpenditure}" type="number" /></span>원
+                </p>
+                <p class="text-sm text-zinc-500">
+                  예상 <span><fmt:formatNumber value="${totalExpenditure}" type="number" /></span>원
+                </p>
               </div>
             </div>
           </div>
@@ -283,9 +294,31 @@
                   <th class="p-4 text-left">정산상태</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- 테이블 내용 추가 예정-->
-              </tbody>
+              <c:forEach var="est" items="${estimateList}">
+                <tr class="border-b border-gray-200">
+                  <td class="p-4 text-left"><input type="checkbox" /></td>
+                  <td class="p-4 text-center">${est.productName}</td>
+                  <td class="p-4 text-center"><fmt:formatNumber value="${est.reqCost}" type="number" /></td>
+                  <td class="p-4 text-center">${est.estimateQtty}</td>
+                  <td class="p-4 text-center"><fmt:formatDate value="${est.createdAt}" pattern="yyyy-MM-dd" /></td>
+                  <td class="p-4 text-center">-</td>
+                  <td class="p-4 text-left">
+                    <c:choose>
+                      <c:when test="${est.status == 1}">
+                        <span class="text-green-600 font-semibold">수락됨</span>
+                      </c:when>
+                      <c:when test="${est.status == 0}">
+                        <span class="text-gray-500">대기중</span>
+                      </c:when>
+                      <c:otherwise>
+                        <span class="text-red-600 font-semibold">거절됨</span>
+                      </c:otherwise>
+                    </c:choose>
+                  </td>
+                </tr>
+              </c:forEach>
+
+
             </table>
           </div>
         </div>

@@ -183,11 +183,6 @@ public class UserController {
     public String showAddProductForm() {
         return "add_product";
     }
-    
-    @GetMapping("/settlementStatus")
-    public String showSettlementStatusForm() {
-        return "settlementStatus";
-    }
 
     @PostMapping("/checkEmail")
     @ResponseBody
