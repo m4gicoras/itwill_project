@@ -148,7 +148,8 @@
                   <div class="flex justify-center"></div>
                   <div class="mt-5 flex w-full items-center rounded-lg border border-zinc-200 p-4">
                     <a href="/shadcn-nextjs-boilerplate/dashboard/dashboard/settings">
-                      <span class="relative flex h-10 min-h-10 w-10 min-w-10 shrink-0 overflow-hidden rounded-full"> <img class="aspect-square h-full w-full" src="" /></span>
+                      <span class="relative flex h-10 min-h-10 w-10 min-w-10 shrink-0 overflow-hidden rounded-full profile">
+                      </span>
                     </a>
                     <a href="/shadcn-nextjs-boilerplate/dashboard/settings">
                       <p class="mr-3 ml-2 flex items-center text-sm leading-none font-semibold text-zinc-950">m4gi</p>
@@ -220,9 +221,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"></path>
                 </svg>
               </button>
-              <a class="w-full" href="/shadcn-nextjs-boilerplate/dashboard/settings">
-                <span class="relative flex h-9 w-10 min-w-9 shrink-0 overflow-hidden rounded-full md:min-h-10 md:min-w-10">
-                  <img class="aspect-square h-full w-full" src="https://lh3.googleusercontent.com/a/ACg8ocKu6HSZ3T2vl0KJnwiB5ZSGFdkZ01mz_MtheLzmVRqoIjHhdFs=s96-c" />
+              <a class="w-full" href="<%=request.getContextPath()%>/myPage">
+                <span class="relative flex h-9 w-10 min-w-9 shrink-0 overflow-hidden rounded-full md:min-h-10 md:min-w-10 profile">
                 </span>
               </a>
             </div>
