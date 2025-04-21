@@ -69,4 +69,10 @@
     	WHERE user_id = #{userId}
     </update>
 
+    <update id="updatePassword" parameterType="map">
+        UPDATE users
+        SET user_pw = #{newPassword}
+        WHERE username = #{username}
+    </update>
+
 </mapper>

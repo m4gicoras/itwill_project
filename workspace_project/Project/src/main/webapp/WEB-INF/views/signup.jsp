@@ -76,13 +76,13 @@
   	
   	<!-- 화면 상단 바 -->
   	<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-[0_8px_10px_rgba(0,123,255,0.1)] h-20 flex items-center px-8">
-    	<a href="${pageContext.request.contextPath}/main" class="text-2xl logo-font text-black select-none">Sellity</a>
+    	<a href="${pageContext.request.contextPath}/main" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   	</header>
   	
   	<main class="mt-30">
 	    <!-- 회원가입 폼 컨테이너 -->
-	    <div class="mx-auto my-10 w-full max-w-xl rounded-xl bg-white px-[80px] py-[90px] shadow-[0_10px_20px_rgba(0,123,255,0.2)]">
-	      <div class="mb-8 flex items-center justify-center">
+	    <div class="mx-auto my-10 mt-10 w-full max-w-xl select-none rounded-xl bg-white px-[80px] py-[90px] shadow-[0_10px_20px_rgba(0,123,255,0.2)]">
+	      <div class="mb-10 flex items-center justify-center">
 	        <span class="h-0.5 flex-1 bg-blue-400 opacity-50"></span>
 	        <h2 class="logo-font mx-3 text-[30px] font-bold text-blue-500">Sign up</h2>
 	        <span class="h-0.5 flex-1 bg-blue-400 opacity-50"></span>
@@ -97,9 +97,12 @@
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">아이디<span class="ml-1 text-sm text-red-500">*</span></label>
 	          <div class="flex items-center gap-2.5">
-	            <input type="text" name="username" id="username" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="username" id="username" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	            <div class="w-3xs">
-	              <button type="button" class="btn mb-0 h-9" onclick="checkUsername()">
+	              <button
+	              type="button"
+	              class="mb-0 h-9 font-semibold text-sm cursor-pointer bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition"
+	              onclick="checkUsername()">
 	                <span class="btn-text">중복 확인</span>
 	              </button>
 	            </div>
@@ -111,39 +114,39 @@
 	        <!-- 비밀번호 입력 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">비밀번호<span class="ml-1 text-sm text-red-500">*</span></label>
-	          <input type="password" name="password" id="password" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	          <input type="password" name="password" id="password" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	          <div id="pwTooltip" class="mt-2 hidden pl-1 text-[13px] text-red-500">8~20자, 특수문자 1개 이상 포함해주세요.</div>
 	        </div>
 	
 	        <!-- 비밀번호 확인 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">비밀번호 확인<span class="ml-1 text-sm text-red-500">*</span></label>
-	          <input type="password" name="passwordCheck" id="passwordCheck" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	          <input type="password" name="passwordCheck" id="passwordCheck" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	          <div id="pwMatchMessage" class="mt-1 hidden pl-1 text-[13px] text-red-500">비밀번호가 일치하지 않습니다.</div>
 	        </div>
 	
 	        <!-- 닉네임 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">닉네임</label>
-	          <input type="text" name="nickname" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	          <input type="text" name="nickname" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	        </div>
 	
 	        <!-- 연락처: 세 칸 분할 입력 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">연락처<span class="ml-1 text-sm text-red-500">*</span></label>
 	          <div class="flex items-center gap-1.5">
-	            <input type="text" name="phone1" maxlength="3" required oninput="validateAndMove(this, 'phone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="phone1" maxlength="3" required oninput="validateAndMove(this, 'phone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	            <span class="text-gray-500">-</span>
-	            <input type="text" name="phone2" id="phone2" maxlength="4" required oninput="validateAndMove(this, 'phone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="phone2" id="phone2" maxlength="4" required oninput="validateAndMove(this, 'phone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	            <span class="text-gray-500">-</span>
-	            <input type="text" name="phone3" id="phone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="phone3" id="phone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	          </div>
 	        </div>
 	
 	        <!-- 이메일 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">이메일<span class="ml-1 text-sm text-red-500">*</span></label>
-	          <input type="email" name="email" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	          <input type="email" name="email" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	        </div>
 	
 	        <!-- 사업자 정보 입력 구역 -->
@@ -151,34 +154,34 @@
 	
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">상호/법인명<span class="ml-1 text-sm text-red-500">*</span></label>
-	          <input type="text" name="companyName" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	          <input type="text" name="companyName" required class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	        </div>
 	
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">대표자명</label>
-	          <input type="text" name="ceoName" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	          <input type="text" name="ceoName" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	        </div>
 	
 	        <!-- 사업자등록번호 3단 입력 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">사업자등록번호<span class="ml-1 text-sm text-red-500">*</span></label>
 	          <div class="flex items-center gap-1.5">
-	            <input type="text" name="bizNum1" maxlength="3" required oninput="validateAndMove(this, 'bizNum2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="bizNum1" maxlength="3" required oninput="validateAndMove(this, 'bizNum2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	            <span class="text-gray-500">-</span>
-	            <input type="text" name="bizNum2" id="bizNum2" maxlength="2" required oninput="validateAndMove(this, 'bizNum3', 2)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="bizNum2" id="bizNum2" maxlength="2" required oninput="validateAndMove(this, 'bizNum3', 2)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300e" />
 	            <span class="text-gray-500">-</span>
-	            <input type="text" name="bizNum3" id="bizNum3" maxlength="5" required oninput="validateAndMove(this, null, 5)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="bizNum3" id="bizNum3" maxlength="5" required oninput="validateAndMove(this, null, 5)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	          </div>
 	        </div>
 	
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">대표 전화<span class="ml-1 text-sm text-red-500">*</span></label>
 	          <div class="flex items-center gap-1.5">
-	            <input type="text" name="companyPhone1" maxlength="3" required oninput="validateAndMove(this, 'companyPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="companyPhone1" maxlength="3" required oninput="validateAndMove(this, 'companyPhone2', 3)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	            <span class="text-gray-500">-</span>
-	            <input type="text" name="companyPhone2" id="companyPhone2" maxlength="4" required oninput="validateAndMove(this, 'companyPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="companyPhone2" id="companyPhone2" maxlength="4" required oninput="validateAndMove(this, 'companyPhone3', 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	            <span class="text-gray-500">-</span>
-	            <input type="text" name="companyPhone3" id="companyPhone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" name="companyPhone3" id="companyPhone3" maxlength="4" required oninput="validateAndMove(this, null, 4)" class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	          </div>
 	        </div>
 	
@@ -186,20 +189,20 @@
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">주소<span class="ml-1 text-sm text-red-500">*</span></label>
 	          <div class="flex items-center gap-2.5">
-	            <input type="text" id="address" name="address" placeholder="기본 주소" required readonly class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	            <input type="text" id="address" name="address" placeholder="기본 주소" required readonly class="h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	            <div class="w-3xs">
-	              <button type="button" class="btn mb-0 h-9" onclick="execDaumPostcode()">
+	              <button type="button" class="mb-0 h-9 font-semibold text-sm cursor-pointer bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition" onclick="execDaumPostcode()">
 	                <span class="btn-text">주소 검색</span>
 	              </button>
 	            </div>
 	          </div>
-	          <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="mt-3 h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+	          <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소 (예: 3층, 301호)" class="mt-3 h-9 w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
 	        </div>
 	
 	        <!-- 취급 카테고리 선택 -->
 	        <div class="mb-4">
 	          <label class="mt-3 mb-1.5 block text-sm font-medium">취급상품 카테고리</label>
-	          <select name="category" class="h-9 w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+	          <select name="category" class="h-9 w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:outline-none">
 	            <option value="">카테고리 선택</option>
 	            <option value="digital">가전/디지털</option>
 	            <option value="fashion">패션</option>
@@ -262,8 +265,8 @@
 	          <div role="dialog" aria-modal="true" class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
 	            <h2 id="modalTitle" class="mb-4 text-lg font-semibold">서비스 이용 약관</h2>
 	            <p id="modalContent" class="mb-4 max-h-60 overflow-y-auto rounded-md border border-gray-300 px-2.5 py-1.5 text-sm text-gray-500">이용 약관 예시 입니다.</p>
-	            <div class="flex justify-end">
-	              <button type="button" class="btn mx-0 mb-0 h-9 w-40" onclick="closeModal('termsModal')">
+	            <div class="flex justify-center">
+	              <button type="button" class="btn mx-0 mb-0 h-9 w-30" onclick="closeModal('termsModal')">
 	                <span class="btn-text">확인</span>
 	              </button>
 	            </div>

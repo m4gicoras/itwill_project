@@ -30,6 +30,11 @@
       .logo-font {
         font-family: 'KIMM_Bold', sans-serif;
       }
+
+      .kimm-bold {
+         font-family: 'KIMM_Bold', sans-serif !important;
+      }
+
     </style>
 
 </head>
@@ -39,12 +44,12 @@
 
   <!-- ✅ Header -->
   <header class="bg-white h-20 flex items-center px-8 shadow-[0_8px_16px_rgba(0,123,255,0.12)]">
-    <a href="/" class="text-2xl logo-font text-black select-none">Sellity</a>
+    <a href="main" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   </header>
 
   <!-- ✅ Main -->
   <main class="flex-grow flex items-center justify-center px-8 py-20">
-  <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] py-16 px-6 select-none rounded-xl w-full max-w-2xl flex flex-col items-center">
+  <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] mt-10 py-16 px-6 select-none rounded-xl w-full max-w-2xl flex flex-col items-center">
   <img src="${pageContext.request.contextPath}/resources/images/finish_pw_image.png" alt="emoji" class="w-32 h-28 mb-6" />
 
   <!-- 텍스트 -->
@@ -59,7 +64,7 @@
       <!-- 버튼 영역 -->
       <div class="flex flex-col space-y-4 mt-10">
         <!-- 메인페이지 이동 -->
-        <a href="${pageContext.request.contextPath}/mainTest"
+        <a href="${pageContext.request.contextPath}/main"
            class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition text-center">
           로그인하러 가기
         </a>

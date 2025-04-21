@@ -39,28 +39,36 @@
     </style>
 
 </head>
-<body>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
   <!-- ✅ Header -->
   <header class="bg-white h-20 flex items-center px-8 shadow-[0_8px_16px_rgba(0,123,255,0.12)]">
-    <a href="/" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
+    <a href="main" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   </header>
 
   <!-- ✅ Main -->
   <main class="flex-grow flex items-center justify-center px-8 py-20">
 
-    <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] select-none py-16 px-6 rounded-xl w-full max-w-2xl flex flex-col items-center">
+    <div class="bg-white shadow-[0_10px_20px_rgba(0,123,255,0.2)] mt-10 select-none py-16 px-6 rounded-xl w-full max-w-2xl flex flex-col items-center">
      <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
      <span class="kimm-bold text-blue-500">비밀번호 재설정</span></h1>
-      <form action="http://localhost:8080/web/finish_pw" method="post" id="resetPwForm" class="flex flex-col items-center">
+
+     <form action="${pageContext.request.contextPath}/resetPassword"
+            method="post"
+            class="flex flex-col items-center">
+
+    <%  // 세션에서 가져오기
+        String userId = (String) session.getAttribute("resetUsername");
+    %>
+
       <!-- 새로운 비밀번호 -->
        <div class="w-[300px] flex flex-col items-center space-y-2 mt-6 mb-4">
        <label class="w-[300px] block font-semibold text-left text-base text-gray-700">새 비밀번호</label>
         <input
            id="newPassword"
-           type="text"
+           name="newPassword"
+           type="password"
            class="w-[300px] px-4 py-2 border border-gray-300 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
            placeholder="특수문자를 1개 이상 포함한 8~20자리"
         />
@@ -69,7 +77,6 @@
             <div id="pwFormatError" class="hidden text-red-500 text-sm text-center w-[300px]">
               비밀번호를 다시 입력해주세요.
             </div>
-
       </div>
 
       <!-- 새로운 비밀번호 재입력 -->
@@ -77,7 +84,8 @@
       <label class="w-[300px] block font-semibold text-left text-base text-gray-700">새 비밀번호 확인</label>
         <input
           id="confirmPassword"
-          type="text"
+          name="confirmPassword"
+          type="password"
           class="w-[300px] px-4 py-2 border border-gray-300 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           placeholder="비밀번호를 다시 입력해 주세요"
         />
@@ -91,55 +99,15 @@
 
       <!-- 비밀번호 변경하기 버튼 -->
       <button
-       type="button"
-       onclick="validatePassword()"
+       type="submit"
        class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
        >
          변경하기
        </button>
       </form>
-
     </div>
-
    </div>
-
   </main>
-
-<script>
-  function validatePassword() {
-    const pw = document.getElementById("newPassword").value.trim();
-    const confirmPw = document.getElementById("confirmPassword").value.trim();
-    const pwFormatError = document.getElementById("pwFormatError");
-    const pwMatchError = document.getElementById("pwMatchError");
-
-    const pwRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,20}$/;
-
-    let valid = true;
-
-    // 비밀번호 형식 검사
-    if (!pwRegex.test(pw)) {
-      pwFormatError.classList.remove("hidden");
-      valid = false;
-    } else {
-      pwFormatError.classList.add("hidden");
-    }
-
-    // 비밀번호 일치 여부 검사
-    if (pw !== confirmPw) {
-      pwMatchError.classList.remove("hidden");
-      alert("비밀번호가 일치하지 않습니다.");
-      valid = false;
-    } else {
-      pwMatchError.classList.add("hidden");
-    }
-
-    if (valid) {
-      document.getElementById("resetPwForm").submit();
-    }
-  }
-</script>
-
-
 
 </body>
 </html>

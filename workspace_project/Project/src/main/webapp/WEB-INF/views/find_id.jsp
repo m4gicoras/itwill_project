@@ -45,50 +45,50 @@
 
   <!-- ✅ Header -->
   <header class="bg-white h-20 flex items-center px-8 shadow-[0_8px_16px_rgba(0,123,255,0.12)]">
-    <a href="/" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
+    <a href="main" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
   </header>
 
   <!-- ✅ Main -->
   <main class="flex-grow flex items-center justify-center px-8 py-20">
 
-    <div class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-xl flex flex-col items-center">
+    <div class="bg-white mt-10 py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-xl flex flex-col items-center">
     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10">
          <span class="kimm-bold text-blue-500">아이디 찾기</span></h1>
 
       <!-- 이메일 + 전송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mb-4 relative">
+      <div class="w-[400px] flex items-center gap-2 mt-4 mb-4 relative">
         <input
           id="emailInput"
           type="email"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="이메일"
+          placeholder="Email"
         />
         <button
           type="button"
-          class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+          class="w-[70px] font-semibold text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition"
           onclick="validateInputs()"
         >
           전송
         </button>
 
       <!-- 이메일 입력값이 비었을 때 오류 메시지 -->
-      <div id="noInfoMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-16 w-[300px]">
+      <div id="noInfoMsg" class="text-red-500 text-sm hidden mt-1 absolute top-full left-20 w-[300px]">
        회원정보가 존재하지 않습니다.
       </div>
 
     </div>
 
       <!-- 인증번호 + 재발송 버튼 -->
-      <div class="w-[400px] flex items-center gap-2 mt-6 mb-6 relative">
+      <div class="w-[400px] flex items-center gap-2 mt-4 mb-6 relative">
         <input
           id="verifyInput"
           type="text"
           class="w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="인증번호를 입력해주세요."
+          placeholder="인증번호를 입력해주세요"
         />
         <button
           type="button"
-          class="w-[70px] font-semibold text-sm border-2 border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full shadow-sm transition"
+          class="w-[70px] font-semibold text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition"
           onclick="checkVerificationCode()"
         >
           확인
@@ -102,7 +102,7 @@
       <!-- 아이디 찾기 버튼 -->
       <button
         type="submit"
-        class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
+        class="bg-blue-500 mt-8 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
         onclick="checkId()"
       >
         아이디 찾기

@@ -6,8 +6,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/m4gi.css">
+        <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"> -->
+        <!-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/m4gi.css"> -->
+        <!-- TailwindCSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
 
         <title>비밀번호 찾기</title>
 
@@ -45,14 +47,14 @@
 
             <!-- ✅ Header -->
             <header class="bg-white h-20 flex items-center px-8 shadow-[0_8px_16px_rgba(0,123,255,0.12)]">
-                <a href="/" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
+                <a href="main" class="text-2xl logo-font text-blue-900 select-none">Sellity</a>
             </header>
 
             <!-- ✅ Main -->
             <main class="flex-grow flex items-center justify-center px-8 py-20">
 
                 <div
-                    class="bg-white py-16 px-6 rounded-xl select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-2xl flex flex-col items-center">
+                    class="bg-white py-16 px-6 rounded-xl mt-10 select-none shadow-[0_10px_20px_rgba(0,123,255,0.2)] w-full max-w-2xl flex flex-col items-center">
                     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10"><span
                             class="kimm-bold text-blue-500">비밀번호 찾기</span></h1>
 
@@ -60,36 +62,36 @@
                         class="flex flex-col items-center">
                         <!-- 아이디 -->
                         <div class="w-[400px] flex justify-left mt-4 mb-4">
-                            <input id="userId" name="userId" type="text"
+                            <input id="username" name="username" type="text"
                                 class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                placeholder="아이디" />
+                                placeholder="ID" />
 
                         </div>
 
 
                         <!-- 이메일 입력창 + 버튼을 가로로 배치 -->
-                        <div class="w-[400px] flex items-center mb-4">
+                        <div class="w-[400px] flex items-center gap-2 mb-4">
                             <input id="emailInput" type="email"
                                 class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                placeholder="이메일" />
+                                placeholder="Email" />
                             <!-- 오른쪽 버튼 -->
                             <button type="button"
-                                                                class="ml-4 btn"
-                                                                onclick="validateInputs()"
-                                                                style="margin-bottom: revert; width: revert;">
-                                                          <span class="btn-text">전송</span>
-                                                        </button>
+                               class="w-[70px] font-semibold text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition"
+                               onclick="validateInputs()">
+                               <!-- style="margin-bottom: revert; width: revert;" -->
+                               <span class="btn-text">전송</span>
+                            </button>
                         </div>
 
-                        <div class="w-[400px] flex items-center mb-4">
+                        <div class="w-[400px] flex items-center gap-2 mb-4">
                             <input id="verifyInput" type="text"
                                 class="w-[300px] px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                placeholder="인증번호를 입력해주세요." />
+                                placeholder="인증번호를 입력해주세요" />
                             <!-- 오른쪽 버튼 -->
                             <button type="button"
-                                    class="ml-4 btn"
-                                    onclick="checkVerificationCode()"
-                                    style="margin-bottom: revert; width: revert;">
+                                class="w-[70px] font-semibold text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full shadow-md transition"
+                                onclick="checkVerificationCode()">
+                                <!-- style="margin-bottom: revert; width: revert;" -->
                               <span class="btn-text">확인</span>
                             </button>
                         </div>
@@ -100,8 +102,8 @@
                         </div>
 
                         <!-- 비밀번호 찾기 버튼 -->
-                        <button type="button"
-                            class="bg-blue-500 mt-10 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
+                        <button type="button" id="pwFindButton" onclick="checkPwFind()"
+                            class="bg-blue-500 mt-10 cursor-pointer text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 transition">
                             비밀번호 찾기
                         </button>
                     </form>

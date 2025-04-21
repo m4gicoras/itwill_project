@@ -43,135 +43,32 @@
             }
         }
 		
-    	// 테이블의 상품번호 정렬 방식 변경
-        let sortDirection = {};
-        let currentSortedTh = null;
+     	// 기업명 혹은 내용으로 찾기위한 input 전환
+        document.addEventListener("DOMContentLoaded", function() {
+            const optionSelect = document.getElementById("searchOption");
+            const companyInput = document.getElementById("companyInput");
+            const contentInput = document.getElementById("contentInput");
 
-        function sortTable(colIndex, thElement) {
-			const dataColIndex = colIndex + 1;
-        	
-            const table = document.querySelector(".product-list");
-            const tbody = table.tBodies[0];
-            const rows = Array.from(tbody.rows);
-            
-            // 데이터 행이 없거나 메시지만 있는 경우
-            if (rows.length === 0 || rows[0].cells.length <= 1) {
-                return; 
-            }
-
-            sortDirection[colIndex] = !sortDirection[colIndex];
-            const direction = sortDirection[colIndex];
-            
-            let firstDataRow = rows.find(row => row.cells.length > dataColIndex);
-            let isNumeric = false;
-            
-            if (firstDataRow) {
-                const cellText = firstDataRow.cells[dataColIndex].innerText.trim();
-                isNumeric = !isNaN(parseFloat(cellText)) && isFinite(cellText);
-            }
-
-            rows.sort((a, b) => {
-            	let valA = a.cells[dataColIndex].innerText.trim();
-                let valB = b.cells[dataColIndex].innerText.trim();
-                if (isNumeric) {
-                    valA = parseFloat(valA);
-                    valB = parseFloat(valB);
+            function updateInputVisibility() {
+                const selected = optionSelect.value;
+                
+                if (selected === "companyName") {
+                    companyInput.style.display = "block";
+                    contentInput.style.display = "none";
+                } else if (selected === "content") {
+                    companyInput.style.display = "none";
+                    contentInput.style.display = "block";
+                } else {
+                    companyInput.style.display = "block";
+                    contentInput.style.display = "block";
                 }
-                if (valA < valB) return direction ? -1 : 1;
-                if (valA > valB) return direction ? 1 : -1;
-                return 0;
-            });
-
-            rows.forEach(row => tbody.appendChild(row));
-
-            const updateArrows = (element, show) => {
-                const upArrow = element.querySelector(".sort-up");
-                const downArrow = element.querySelector(".sort-down");
-
-                if (upArrow && downArrow) {
-                    if (show) {
-                        // 정렬 방향에 따라 화살표 표시
-                        upArrow.style.display = direction ? "inline-block" : "none";
-                        downArrow.style.display = direction ? "none" : "inline-block";
-                    } else {
-                        // 모든 화살표 숨기기
-                        upArrow.style.display = "none";
-                        downArrow.style.display = "none";
-                    }
-                }
-            };
-
-            if (currentSortedTh && currentSortedTh !== thElement) {
-                updateArrows(currentSortedTh, false);
             }
 
-            updateArrows(thElement, true);
-            currentSortedTh = thElement;
-        }
+            updateInputVisibility(); // 처음 로드될 때 한 번 실행
 
-        window.onload = function() {
-            sortTable(0, document.getElementById("defaultSort"));
-        }
-        
-      // 수량 더블 클릭 -> 물품 개수 수정
-      function activateQtyEdit(productId, btn) {
-		    const displayId = "qtyDisplay-" + productId;
-		    const inputId = "qtyInput-" + productId;
-		    
-		    const display = document.getElementById(displayId);
-		    const input = document.getElementById(inputId);
-		    
-		    if (display && input) {
-		        display.classList.add("hidden");
-		        input.classList.remove("hidden");
-		        input.focus();
-		        input.select();
-		    } else {
-		        console.error("요소를 찾을 수 없습니다:", displayId, inputId);
-		    }
-		}
-      // 수량 변경 후 ENTER 누르면 => 서버에 AJAX 요청 보내는 방식
-      function updateQtyOnEnter(event, productId) {
-    	  if (event.key === "Enter") {
-  	        const inputId = "qtyInput-" + productId;
-  	        const displayId = "qtyDisplay-" + productId;
+            optionSelect.addEventListener("change", updateInputVisibility); // 변경될 때마다 실행
+        });
 
-  	        const input = document.getElementById(inputId);
-  	        const display = document.getElementById(displayId);
-
-  	        if (input && display) {
-  	            const newQtty = input.value;
-
-  	            // 서버에 AJAX 요청 보내기
-  	            fetch("/web/admin/product/updateQtty", {
-  	                method: "POST",
-  	                headers: {
-  	                    "Content-Type": "application/x-www-form-urlencoded"
-  	                },
-  	                body: new URLSearchParams({
-  	                    productId: productId,
-  	                    ProductQtty: newQtty
-  	                })
-  	            })
-  	            .then(res => res.text())
-  	            .then(data => {
-  	                if (data === "success") {
-  	                    console.log("수정 성공!");
-		    	            // UI 변경
-		    	            display.textContent = newQtty;
-		    	            input.classList.add("hidden");
-		    	            display.classList.remove("hidden");
-  	                } else {
-  	                    alert("수정 실패");
-  	                }
-  	            })
-  	            .catch(error => {
-  	                console.error("에러 발생:", error);
-  	                alert("서버 오류로 수정 실패");
-  	            });
-  	        }
-  	    }
-  	}
     </script>
 </head>
 
@@ -286,19 +183,19 @@
         <div class="mx-5 my-4 flex w-full flex-col gap-5 xl:mr-4 xl:ml-[332px]">
 			
             <!-- 검색창 -->
-            <form action="${pageContext.request.contextPath}/admin/product" method="get">
+            <form action="${pageContext.request.contextPath}/admin/notificationTable" method="get">
                 <div class="flex items-center justify-center gap-3 bg-blue-300/30 bg-search-bg rounded-lg py-3 px-4 w-full max-w-3xl mx-auto">
                     <button class="ml-3 mr-4 bg-transparent border-0 cursor-pointer text-reset-btn" onclick="resetInput()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
                         </svg>
                     </button>
-                    <input type="text" name="productName" placeholder="상품명 입력" value="${productName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
-                    <input type="text" name="companyName" placeholder="기업명 입력" value="${companyName}" class="border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
-                    <select name="sort" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
-                        <option value="recent" ${sort == 'recent' ? 'selected' : ''}>최신순</option>
-                        <option value="oldest" ${sort == 'oldest' ? 'selected' : ''}>오래된순</option>
+                    <select id="searchOption" name="option" class="w-35 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none">
+                        <option value="companyName">기업명</option>
+                        <option value="content">내용</option>
                     </select>
+                    <input type="text" id="companyInput" name="companyName" placeholder="기업명 입력" value="${companyName}" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
+                    <input type="text" id="contentInput" name="content" placeholder="알림 내용 입력" value="${content}" class="flex-1 border-none bg-white py-2.5 px-3.5 rounded-md focus:outline-none" onkeydown="submitFormOnEnter(event)">
                     <button type="submit" class="text-xl ml-4 mr-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path>
@@ -313,107 +210,73 @@
                     <table class="product-list min-w-full text-gray-700">
                         <thead class="border-b border-gray-300 bg-blue-300/30">
                             <tr>
-                            	<th class="selectAllCheckbox p-4"><input type="checkbox" id="checkbox-${product.productId}"></th>
-                                <th id="defaultSort" onclick="sortTable(0, this)" class="p-4 text-center select-none">
-                                    	물품번호
-                                    <svg class="sort-up size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" d="M18.425 10.271C19.499 8.967 18.57 7 16.88 7H7.12c-1.69 0-2.618 1.967-1.544 3.271l4.881 5.927a2 2 0 0 0 3.088 0l4.88-5.927Z" clip-rule="evenodd" />
-                                    </svg>
-                                    <svg class="sort-down size-7 inline-block w-4 text-xs ml-1 text-blue-600 text-left" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" d="M5.575 13.729C4.501 15.033 5.43 17 7.12 17h9.762c1.69 0 2.618-1.967 1.544-3.271l-4.881-5.927a2 2 0 0 0-3.088 0l-4.88 5.927Z" clip-rule="evenodd" />
-                                    </svg>
-                                </th>
+                                <th class="p-4 text-center select-none">알림번호</th>
                                 <th class="p-4 text-center select-none">기업명</th>
-                                <th class="p-4 text-center select-none">상품명</th>
-                                <th class="p-4 text-center select-none">수량</th>
-                                <th class="p-4 text-center select-none">등록일</th>
-                                <th class="p-4 text-center select-none">상태</th>
+                                <th class="p-4 text-center select-none">알림내용</th>
+                                <th class="p-4 text-center select-none">알림일</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:choose>
-                                <c:when test="${not empty productList}">
-                                    <c:forEach var="product" items="${productList}">
+                                <c:when test="${not empty notificationList}">
+                                    <c:forEach var="noti" items="${notificationList}">
                                         <tr class="hover:bg-blue-50 cursor-pointer border-b">
-                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox"></td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${product.productId}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">${noti.notification_id}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">
-											    <span id="qtyDisplay-${product.productId}" ondblclick="activateQtyEdit('${product.productId}', null)">
-											        ${product.productQty}
-											    </span>
-											    <input 
-											        id="qtyInput-${product.productId}" 
-											        type="number" 
-											        class="hidden w-16 px-1 py-0.5 border border-gray-300 rounded text-center text-sm"
-											        value="${product.productQty}" 
-											        onkeydown="updateQtyOnEnter(event, '${product.productId}')"
-                                    				onblur="updateQtyOnEnter({key:'Enter'}, '${product.productId}')"
-											    />
-											</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100"><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd"/></td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">
-                                                <c:choose>
-                                                    <c:when test="${product.status == 0}">
-														<span class="transform translate-x-4 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700 inset-ring">
-													                    정상
-													    </span>
-													</c:when>
-                                                    <c:when test="${product.status == 1}">
-                                                    	<span class="transform translate-x-4 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700 inset-ring">
-	                                                    	소진 임박
-													    </span>
-                                                    </c:when>
-                                                    <c:when test="${product.status == 2}">
-                                                    	<span class="transform translate-x-4 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700 inset-ring">
-	                                                    	거래 불가
-													    </span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                    	<span class="transform translate-x-4 rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 inset-ring">
-	                                                   		 알 수 없음
-													    </span>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                            	<c:forEach var="name" items="${noti.company_names}" varStatus="status">
+											        <c:if test="${status.index < 3}">
+											            <span>㈜ ${name}<c:if test="${status.index < 2 && status.index + 1 < fn:length(noti.company_names)}">, </c:if></span>
+											        </c:if>
+											    </c:forEach>
+											    <c:if test="${fn:length(noti.company_names) > 3}">
+											        ...
+											    </c:if>
                                             </td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100">
+                                            	<c:choose>
+											        <c:when test="${fn:length(noti.content) > 30}">
+											            ${fn:substring(noti.content, 0, 30)}...
+											        </c:when>
+											        <c:otherwise>
+											            ${noti.content}
+											        </c:otherwise>
+											    </c:choose>
+                                            </td>
+                                            <td class="p-4 text-center text-sm border-b border-gray-100"><fmt:formatDate value="${noti.created_at}" pattern="yyyy-MM-dd"/></td>
                                         </tr>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
                                     <tr>
-                                        <td colspan="6" class="py-3 px-2 text-sm border-b border-gray-100 text-center">등록된 물품 정보가 없습니다.</td>
+                                        <td colspan="6" class="py-3 px-2 text-sm border-b border-gray-100 text-center">보낸 알림이 없습니다.</td>
                                     </tr>
                                 </c:otherwise>
                             </c:choose>
                         </tbody>
                     </table>
                 </div>
-				
-				<!-- 테이블 하단 -->
+
+	            <!-- pagination -->
 	            <div class="mt-5 text-center">
-	            	<!-- 수정, 단종 변경 버튼 -->
-                   	<div class="flex justify-end gap-2">
-	            		<!-- <div>
-		                  <button type="button" id="editButton" class="btn mx-0 mb-0 h-9 w-20">
-		                    <span class="btn-text">수정</span>
-		                  </button>
-		                </div> 보류 -->
-	            		<div>
-		                  <button type="button" id="discontinueButton" class="btn mx-0 mb-0 h-9 w-45">
-		                    <span class="btn-text">거래 불가로 변경</span>
-		                  </button>
-		                </div>
-            		</div>
-		            <!-- pagination -->
 	                <c:forEach var="i" begin="1" end="${totalPages}">
-	                    <a href="?page=${i}&productName=${param.productName}&companyName=${param.companyName}&sort=${param.sort}"
+	                    <a href="?page=${i}&companyName=${param.companyName}&content=${param.content}&sort=${param.sort}"
 	                       class="mx-1 px-2 py-1 text-sm ${currentPage == i ? 'font-bold text-blue-600' : 'text-gray-700'}">
 	                       ${i}
 	                    </a>
 	                </c:forEach>
 	            </div>
+	            
+	            <!-- 알림 보내기 페이지로 -->
+	            <div class="flex justify-end">
+	              <button onclick="location.href='/web/admin/notification'"  type="button" class="btn mx-0 mb-0 h-9 w-45">
+	              	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-white">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+					</svg>            
+	                <span class="btn-text">알림 보내기</span>
+	              </button>
+	            </div>
             </div> <!-- 테이블 -->
+            
             
         </div> <!-- 메인 -->
     </div>
@@ -454,94 +317,6 @@
             });
         });
     });
-    
- 	// 행 클릭 시 체크 박스 체크 (체크박스 자체 클릭 제외)
-    document.querySelector('.product-list').addEventListener('click', function(event) {
-        // 체크박스를 직접 클릭한 경우
-        if (event.target.type === 'checkbox') {
-            return;
-        }
-        
-        // header는 행 클릭해도 체크박스 체크 안되도록
-        const tbody = document.querySelector('.product-list tbody');
-        if (!tbody.contains(event.target)) return;
-        
-        const row = event.target.closest('tr');
-        if (!row) {
-        	return;
-        }
-        
-        const checkbox = row.querySelector('input[type="checkbox"]');
-        if (checkbox) {
-            checkbox.checked = !checkbox.checked;
-            
-            // 다른 이벤트 처리기에게 알림 (전체 선택 상태 업데이트 용)
-            checkbox.dispatchEvent(new Event('change'));
-        }
-    });
-    
-    // 체크박스 일괄 체크
-    const headerCheckboxTh = document.querySelector('th.selectAllCheckbox');
-    const headerCheckbox = headerCheckboxTh ? headerCheckboxTh.querySelector('input[type="checkbox"]') : null;
-    
-    if (headerCheckbox) {
-        headerCheckbox.addEventListener('change', function() {
-            const rowCheckboxTds = document.querySelectorAll('td.row-checkbox');
-            const rowCheckboxes = [];
-            
-            rowCheckboxTds.forEach(function(td) {
-                const checkbox = td.querySelector('input[type="checkbox"]');
-                if (checkbox) {
-                    rowCheckboxes.push(checkbox);
-                }
-            });
-            
-            // 헤더 체크박스의 상태에 따라 모든 행 체크박스 상태 변경
-            rowCheckboxes.forEach(function(checkbox) {
-                checkbox.checked = headerCheckbox.checked;
-            });
-        });
-        
-        // 개별 체크박스의 상태 변경을 감지하여 전체 선택 상태 업데이트
-        const updateHeaderCheckbox = function() {
-            const rowCheckboxTds = document.querySelectorAll('td.row-checkbox');
-            const rowCheckboxes = [];
-            let checkedCount = 0;
-            
-            // 각 td 안의 input 요소를 배열에 저장하고 체크된 것 카운트
-            rowCheckboxTds.forEach(function(td) {
-                const checkbox = td.querySelector('input[type="checkbox"]');
-                if (checkbox) {
-                    rowCheckboxes.push(checkbox);
-                    if (checkbox.checked) {
-                        checkedCount++;
-                    }
-                }
-            });
-            
-            // 체크박스가 모두 체크되었는지 확인
-            if (rowCheckboxes.length > 0 && checkedCount === rowCheckboxes.length) {
-                headerCheckbox.checked = true;
-                headerCheckbox.indeterminate = false;
-            } 
-            // 일부만 체크되었을 때
-            else if (checkedCount > 0) {
-                headerCheckbox.checked = false;
-            } 
-            // 하나도 체크되지 않았을 때
-            else {
-                headerCheckbox.checked = false;
-            }
-        };
-        
-        // 각 행의 체크박스에 이벤트 리스너 추가
-        document.querySelectorAll('td.row-checkbox').forEach(function(td) {
-            const checkbox = td.querySelector('input[type="checkbox"]');
-            if (checkbox) {
-                checkbox.addEventListener('change', updateHeaderCheckbox);
-            }
-        });
-    }
 </script>
 
 </html>

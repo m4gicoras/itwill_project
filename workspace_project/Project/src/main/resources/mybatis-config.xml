@@ -15,6 +15,8 @@
       <mapper resource="mappers/Products.xml"/>
       <mapper resource="mappers/OrderMapper.xml"/>
       <mapper resource="mappers/NotificationMapper.xml"/>
+      <mapper resource="mappers/ShopProductMapper.xml"/>
+      <mapper resource="mappers/EstimateMapper.xml"/>
     </mappers>
   </configuration>
 
