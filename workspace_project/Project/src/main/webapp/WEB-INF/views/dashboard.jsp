@@ -61,8 +61,10 @@
                                                 clip-rule="evenodd"></path>
                                         </svg></span>
                                     <div class="mt-8 flex items-center justify-center">
+                                    <a href="<%=request.getContextPath()%>/shop"
                                         <h5 class="kimm-bold text-center text-4xl font-extrabold select-none">Sellity
                                         </h5>
+                                    </a>
                                     </div>
                                     <div class="mt-8 mb-8 h-px bg-zinc-200 "></div>
                                     <!-- 메뉴 -->
