@@ -57,23 +57,23 @@ public class UserController {
 
         return "dashboard";
     }
-    
-    // 대시보드 -> 마이페이지 
+
+    // 대시보드 -> 마이페이지
     @GetMapping("/myPage")
     public String showMyPage(Model model, HttpSession session) {
     	Integer user_id = (Integer) session.getAttribute("userId");
-    	
+
     	User user = userService.getUserById(user_id);
     	model.addAttribute("user", user);
 
     	return "myPage";
     }
-    
+
     @PostMapping("/myPage/update")
     @ResponseBody
     public String updateUserInfo(@RequestBody User user, HttpSession session) {
     	Integer userId = (Integer) session.getAttribute("userId");
-        
+
         if (userId != null) {
             user.setUserId(userId);
             return userService.updateUserInfo(user) ? "success" : "fail";
@@ -182,6 +182,11 @@ public class UserController {
     @GetMapping("/add_product")
     public String showAddProductForm() {
         return "add_product";
+    }
+
+    @GetMapping("/settlementStatus")
+    public String showSettlementStatusForm() {
+        return "settlementStatus";
     }
 
     @PostMapping("/checkEmail")
