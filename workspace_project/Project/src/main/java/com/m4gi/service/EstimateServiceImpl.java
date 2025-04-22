@@ -28,4 +28,26 @@ public class EstimateServiceImpl implements EstimateService {
         estimateMapper.insertEstimate(estimate);
     }
 
+    @Override
+    public void updateStatus(int estimateId, int status) {
+        estimateMapper.updateEstimateStatus(estimateId, status);
+    }
+
+    @Override
+    public EstimateDTO getEstimateById(int estimateId) {
+        return estimateMapper.getEstimateById(estimateId);
+    }
+    @Override
+    public List<EstimateDTO> getAcceptedEstimatesByCompany(int companyId) {
+        return estimateMapper.selectAcceptedEstimatesByCompany(companyId);
+    }
+    @Override
+    public List<EstimateDTO> getAcceptedEstimatesByReceiver(int companyId) {
+        return estimateMapper.selectAcceptedEstimatesByReceiver(companyId);
+    }
+    @Override
+    public List<EstimateDTO> getAcceptedEstimatesBySender(int companyId) {
+        return estimateMapper.selectAcceptedEstimatesBySender(companyId);
+    }
+
 }
