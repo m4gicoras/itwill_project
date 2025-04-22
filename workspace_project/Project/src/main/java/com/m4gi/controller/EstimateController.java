@@ -1,17 +1,16 @@
 package com.m4gi.controller;
 
 import com.m4gi.dto.EstimateDTO;
+import com.m4gi.dto.PaymentDTO;
 import com.m4gi.dto.ShopProductDTO;
 import com.m4gi.service.EstimateService;
 import com.m4gi.service.NotificationService;
+import com.m4gi.service.PaymentService;
 import com.m4gi.service.ShopProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -25,6 +24,9 @@ public class EstimateController {
     private NotificationService notificationService;
     @Autowired
     private ShopProductService shopProductService;
+    @Autowired
+    private PaymentService paymentService;
+
 
 
 
@@ -68,6 +70,12 @@ public class EstimateController {
         return "estimateSendSuccess";
     }
 
+    @PostMapping("/estimates/updateStatus")
+    public String updateEstimateStatus(@RequestParam("estimateId") int estimateId,
+                                       @RequestParam("status") int status) {
+        estimateService.updateStatus(estimateId, status);
+        return "redirect:/estimates"; // 또는 다시 목록 페이지로
+    }
 
 
 

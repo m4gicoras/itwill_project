@@ -7,5 +7,9 @@ public interface EstimateService {
     List<EstimateDTO> getSentEstimates(Integer companyId);
     List<EstimateDTO> getReceivedEstimates(Integer companyId);
     void insertEstimate(EstimateDTO estimate);
-
+    void updateStatus(int estimateId, int status);
+    EstimateDTO getEstimateById(int estimateId);
+    List<EstimateDTO> getAcceptedEstimatesByCompany(int companyId);
+    List<EstimateDTO> getAcceptedEstimatesByReceiver(int companyId);
+    List<EstimateDTO> getAcceptedEstimatesBySender(int companyId);
 }

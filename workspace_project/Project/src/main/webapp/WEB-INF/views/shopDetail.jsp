@@ -49,6 +49,9 @@
         <!-- 상품 정보 -->
                 <div class="w-1/2 flex flex-col justify-between">
                     <form id="estimateForm" method="post" action="${pageContext.request.contextPath}/estimate/send">
+                        <input type="hidden" name="productId" value="${product.productId}" />
+                        <input type="hidden" name="resCompanyId" value="${product.companyId}" />
+
                         <div class="space-y-4">
                                 <!-- 상품명 -->
                                 <div class="flex items-center gap-6">
@@ -56,12 +59,15 @@
                                     <span class="text-gray-800 text-2xl">${product.productName}</span>
                                 </div>
 
-                                <!-- 단가 -->
-                                <div class="flex items-center gap-4">
-                                    <span class="text-blue-500 font-semibold text-xl">단가</span>
-                                    <span class="text-blue-500 font-semibold text-xl">₩<fmt:formatNumber value="${product.price}" type="number"/></span>
-                                </div>
-                                <hr class="mb-2 border-gray-300">
+                            <!-- 단가 입력 -->
+                            <div class="flex items-center gap-4">
+                                <span class="text-blue-500 font-semibold text-xl">요청 단가</span>
+                                <input type="number" name="reqCost" id="reqCost"
+                                       value="${product.price}" min="0"
+                                       class="w-32 text-end border border-gray-300 focus:outline-none rounded-md px-2 py-1 text-sm"
+                                       required />
+                                <span class="text-blue-500 font-semibold text-xl">₩</span>
+                            </div>
 
                                 <!-- 기업명 -->
                                 <div class="flex items-center gap-4">
