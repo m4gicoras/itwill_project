@@ -98,7 +98,7 @@
 
                             <!-- 견적 수량 입력 -->
                                 <div class>
-                                    <label class="block text-base text-gray-800 font-semibold mb-2">견적 수량 :</label>
+                                    <label class="block text-base text-gray-800 font-semibold mb-2">수량 :</label>
                                     <div class="inline-flex items-center space-y-4">
                                         <input type="number" name="estimateQtty" id="estimateQtty"
                                                value="1" min="1"

@@ -45,7 +45,6 @@ public class EstimateController {
         return "estimate";
     }
     @PostMapping("/estimate/send")
-    @ResponseBody
     public String sendEstimate(@RequestParam int productId,
                                @RequestParam int resCompanyId,
                                @RequestParam int reqCost,
