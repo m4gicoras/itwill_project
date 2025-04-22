@@ -1,0 +1,68 @@
+name: CI/CD Deploy to GCP Tomcat
+ 
+ on:
+   push:
+     branches: ["main"]
+ 
+ jobs:
+   build-and-deploy:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout source
+         uses: actions/checkout@v3
+ 
+       - name: Set up Java
+         uses: actions/setup-java@v3
+         with:
+           distribution: 'temurin'
+           java-version: '11'
+ 
+       - name: Build with Maven
+         run: mvn clean package -DskipTests
+         working-directory: workspace_project/Project
+ 
+       - name: SSH 연결 테스트
+         uses: appleboy/ssh-action@v0.1.7
+         with:
+           host: ${{ secrets.SSH_HOST }}
+           username: ${{ secrets.SSH_USER }}
+           password: ${{ secrets.SSH_PASSWORD }}
+           script: echo "SSH 연결 성공"
+ 
+       # ⚠️ 중요: SCP 실행 전 기존 파일 모두 삭제하기 (먼저 해야 함)
+       - name: Cleanup ALL existing WAR files (BEFORE SCP)
+         uses: appleboy/ssh-action@v0.1.7
+         with:
+           host: ${{ secrets.SSH_HOST }}
+           username: ${{ secrets.SSH_USER }}
+           password: ${{ secrets.SSH_PASSWORD }}
+           script: |
+             sudo systemctl stop tomcat9
+             sudo rm -rf /var/lib/tomcat9/webapps/web /var/lib/tomcat9/webapps/web.war
+             rm -rf /home/kitsune950907/web.war
+ 
+       # 그 다음 WAR 파일을 서버로 복사 (충돌 발생 불가능)
+       - name: Copy WAR to Server via SCP
+         uses: appleboy/scp-action@v0.1.7
+         with:
+           host: ${{ secrets.SSH_HOST }}
+           username: ${{ secrets.SSH_USER }}
+           password: ${{ secrets.SSH_PASSWORD }}
+           port: 22
+           source: "workspace_project/Project/target/web.war"
+           target: "/home/kitsune950907/"
+           overwrite: true
+           debug: true
+           strip_components: 3
+         
+       # WAR파일을 Tomcat 경로로 이동하고 Tomcat 재시작
+       - name: Deploy WAR on Tomcat
+         uses: appleboy/ssh-action@v0.1.7
+         with:
+           host: ${{ secrets.SSH_HOST }}
+           username: ${{ secrets.SSH_USER }}
+           password: ${{ secrets.SSH_PASSWORD }}
+           script: |
+             sudo mv /home/kitsune950907/web.war /var/lib/tomcat9/webapps/web.war
+             sudo chown tomcat:tomcat /var/lib/tomcat9/webapps/web.war
+             sudo systemctl start tomcat9
