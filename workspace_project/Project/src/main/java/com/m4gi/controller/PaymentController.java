@@ -54,7 +54,6 @@ public class PaymentController {
         model.addAttribute("totalExpenditure", totalExpenditure);
         model.addAttribute("loginUserId", companyId);
 
-
         return "settlementStatus";
     }
 }
