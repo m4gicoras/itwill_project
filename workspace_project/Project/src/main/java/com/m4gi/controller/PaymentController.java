@@ -57,11 +57,4 @@ public class PaymentController {
 
         return "settlementStatus";
     }
-
-
-
-
-
-
-
 }
