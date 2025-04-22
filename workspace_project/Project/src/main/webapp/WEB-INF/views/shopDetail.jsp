@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <title>상품 상세</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/m4gi.css">
 
     <!-- 커스텀 폰트 -->
     <style>
@@ -41,9 +42,19 @@
     <div class="flex gap-6">
         <!-- 이미지 영역 -->
         <div class="w-1/2">
-            <img src="${product.productImg != null ? product.productImg : 'https://via.placeholder.com/300'}"
-                 alt="상품 이미지"
-                 class="w-full h-auto rounded" />
+            <c:choose>
+                <c:when test="${not empty product.productImg}">
+                    <img src="${product.productImg}"
+                         alt="상품 이미지"
+                         class="w-full h-auto rounded"/>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="no-image w-full h-60 rounded flex items-center justify-center">
+                        <span class="text-gray-500 text-sm">No image</span>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <!-- 상품 정보 -->
