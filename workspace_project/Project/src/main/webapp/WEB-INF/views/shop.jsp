@@ -12,6 +12,7 @@
      <!-- 웹폰트 -->
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/m4gi.css">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet"/>
 
         <!-- 커스텀 폰트 -->
@@ -130,12 +131,22 @@
                 <tbody>
                 <c:forEach var="product" items="${productList}">
                     <tr class="border-t hover:bg-blue-50
-            <c:if test='${product.status == 3}'> bg-gray-50 text-gray-400</c:if>">
+                <c:if test='${product.status == 3}'> bg-gray-50 text-gray-400</c:if>">
                         <td class="px-4 py-2">${product.productId}</td>
                         <td class="px-4 py-2">
-                            <img src="${product.productImg != null ? product.productImg : 'https://via.placeholder.com/50'}"
-                                 alt="이미지"
-                                 class="w-12 h-12 object-cover rounded" />
+                            <c:choose>
+                                <c:when test="${not empty product.productImg}">
+                                    <img src="${product.productImg}"
+                                         alt="상품 이미지"
+                                         class="w-16 h-16 object-cover rounded mx-auto"/>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <div class="no-image h-16 w-16 rounded mx-auto">
+                                        <span class="text-gray-500 text-xs block text-center">No image</span>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                         <td class="px-4 py-2">
                             <c:choose>
@@ -190,7 +201,6 @@
         }
     }
 </script>
-
 
 </body>
 </html>
