@@ -191,16 +191,16 @@
                                 <div class="mt-8 mb-8 h-px bg-zinc-200 "></div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
-									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
+									<div class="menu-item active flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800">
 									    <a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/product">
 									        <div class="w-full items-center justify-center">
 									            <div class="flex w-full items-center justify-center">
-									                <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
+									                <div class="svg-item text mr-3 mt-1.5 font-semibold text-blue-800">
 									                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em" width="1em">
 									                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
 									                    </svg>
 									                </div>
-									                <p class="mr-auto text-sm font-medium text-zinc-950">물품 관리</p>
+									                <p class="mr-auto text-sm font-semibold text-blue-800">물품 관리</p>
 									            </div>
 									        </div>
 									    </a>
@@ -422,34 +422,34 @@
 <!-- 사이드 바 마우스 효과 -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const menuItems = document.querySelectorAll('.menu-item');
+    	const menuItems = document.querySelectorAll('.menu-item');
+
         menuItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                // 부모 요소 클래스 변경 (hover 상태)
-                this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800";
-                // 하위 p 태그 클래스 변경
-                const pElement = this.querySelector('p');
-                if (pElement) {
-                    pElement.className = "mr-auto text-sm font-semibold text-blue-800";
-                }
-                // 하위 svg-item 클래스 요소 변경
-                const svgElement = this.querySelector('.svg-item');
-                if (svgElement) {
-                    svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-blue-800";
+            item.addEventListener('mouseenter', function () {
+                if (!this.classList.contains('active')) {
+                    this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800";
+                    const pElement = this.querySelector('p');
+                    if (pElement) {
+                        pElement.className = "mr-auto text-sm font-semibold text-blue-800";
+                    }
+                    const svgElement = this.querySelector('.svg-item');
+                    if (svgElement) {
+                        svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-blue-800";
+                    }
                 }
             });
-            item.addEventListener('mouseleave', function() {
-                // 부모 요소 클래스 원복 (hover 상태 해제)
-                this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950";
-                // 하위 p 태그 클래스 원복
-                const pElement = this.querySelector('p');
-                if (pElement) {
-                    pElement.className = "mr-auto text-sm font-medium text-zinc-950";
-                }
-                // 하위 svg-item 클래스 요소 원복
-                const svgElement = this.querySelector('.svg-item');
-                if (svgElement) {
-                    svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950";
+
+            item.addEventListener('mouseleave', function () {
+                if (!this.classList.contains('active')) {
+                    this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ";
+                    const pElement = this.querySelector('p');
+                    if (pElement) {
+                        pElement.className = "mr-auto text-sm font-medium text-zinc-950 ";
+                    }
+                    const svgElement = this.querySelector('.svg-item');
+                    if (svgElement) {
+                        svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950 ";
+                    }
                 }
             });
         });
