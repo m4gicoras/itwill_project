@@ -335,7 +335,7 @@
                                 <c:when test="${not empty productList}">
                                     <c:forEach var="product" items="${productList}">
                                         <tr class="hover:bg-blue-50 cursor-pointer border-b">
-                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox"></td>
+                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox" class="product-checkbox" value="${product.productId}"></td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productId}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
@@ -400,7 +400,7 @@
 		                  </button>
 		                </div> 보류 -->
 	            		<div>
-		                  <button type="button" id="discontinueButton" class="btn mx-0 mb-0 h-9 w-45">
+		                  <button type="button" id="discontinueButton" onclick="changeStatus()" class="btn mx-0 mb-0 h-9 w-45">
 		                    <span class="btn-text">거래 불가로 변경</span>
 		                  </button>
 		                </div>
@@ -413,6 +413,52 @@
 	                    </a>
 	                </c:forEach>
 	            </div>
+	            
+            <!-- 변경 결과 모달창 -->
+            <!-- 성공 -->
+            <div id="UpdateSuccessModal"
+                class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+                <div role="dialog" aria-modal="true"
+                    class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-blue-500">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                    </svg>
+                    <p class="mb-2 text-center text-lg font-semibold">회원님의 정보가 정상적으로 변경되었습니다.</p>
+                    <div class="align-center mt-8 flex gap-6">
+                        <div>
+                            <button onclick="closeModal('UpdateSuccessModal')" type="button"
+                                class="btn mx-0 mb-0 h-9 w-35">
+                                <span class="btn-text">확인</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 실패 (오류) -->
+            <div id="UpdateFailModal"
+                class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+                <div role="dialog" aria-modal="true"
+                    class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                    </svg>
+                    <p id="FailModalMessage" class="mb-2 text-center text-lg font-semibold">정보 변경에 실패했습니다. 잠시 후 다시 시도해 주세요.</p>
+                    <div class="align-center mt-8 flex gap-6">
+                        <div>
+                            <button onclick="closeModal('UpdateFailModal')" type="button"
+                                class="btn mx-0 mb-0 h-9 w-35">
+                                <span class="btn-text">확인</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             </div> <!-- 테이블 -->
             
         </div> <!-- 메인 -->
@@ -542,6 +588,37 @@
             }
         });
     }
+	
+ 	// 체크박스 체크된 행 클릭 후 -> 단종으로 변경
+    function changeStatus() {
+    	// 체크박스 행의 id로 이루어진 Array
+    	const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked')).map(cb => cb.value);
+    	
+    	// 선택된 행이 없다면
+    	if(selectedIds.length === 0){
+    		alert("선택된 항목이 없습니다.");
+    		return;
+    	}
+    	
+    	fetch('/web/admin/product/updateStatus', {
+    		method: 'POST',
+    		headers: {
+    			'Content-type' : 'application/json'
+    		},
+    		body: JSON.stringify({
+    			productIds: selectedIds,
+    			newStatus: 2 // 단종
+    		})
+    	}).then(response => {
+    		if(response.ok) {
+    			alert("상태가 변경되었습니다.");
+    			location.reload();
+    		}
+    		else {
+    			alert("상태 변경 실패!");
+    		}
+    	})
+    	}
 </script>
 
 </html>

@@ -10,6 +10,8 @@ public interface AdminProductService {
 
     AdminProductPageDTO getPagedProductList(int page);
     AdminProductPageDTO getProductList(AdminProductSearchCondition condition, int page);
-
+    
+    // 물품 상태 변경
+    void updateProductStatus(List<Integer> productIds, int newStatus);
 }
 
