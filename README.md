@@ -96,9 +96,9 @@
             <code>Tomcat 9</code>
           </td>
 <td align="center" style="text-align:center; margin: 0 auto;">
-            <a href="https://styled-components.com/" target="_blank"><img style="margin: 10px" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1603423163/noticon/az0cvs28lm7gxoowlsva.png" alt="서버" height="50" /></a>
+            <a href="https://styled-components.com/" target="_blank"><img style="margin: 10px" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1603423163/noticon/az0cvs28lm7gxoowlsva.png" alt="MySQL" height="50" /></a>
             <br>
-            <code>Tomcat 9</code>
+            <code>MySQL</code>
           </td>
 </table>
 
