@@ -82,8 +82,6 @@ public class APIController {
             // 5. 이메일 전송 (userId 값은 "me" 사용)
             Message sentMessage = GmailService.sendMessage(service, "me", emailMessage);
             result.put("success", true);
-            result.put("messageId", sentMessage.getId());
-            result.put("verificationCode", verificationCode);
             return ResponseEntity.ok(result);
         } catch (GeneralSecurityException | IOException | MessagingException e) {
             e.printStackTrace();
