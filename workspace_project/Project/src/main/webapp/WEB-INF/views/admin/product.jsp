@@ -424,7 +424,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
                     </svg>
-                    <p class="text-lg font-semibold">'<span id="updateResultModalProductName" class="mb-2 text-center text-lg font-semibold"></span>' 상품의</p>
                     <p id="updateResultModalMessage" class="mb-2 text-center text-lg font-semibold"></p>
                     <div class="align-center mt-8 flex gap-6">
                         <div>
@@ -577,10 +576,13 @@
     function changeStatus() {
     	// 체크박스 행의 id로 이루어진 Array
     	const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked')).map(cb => cb.value);
+        const modal = document.getElementById('updateResultModal');
+        const msg = document.getElementById('updateResultModalMessage');
     	
     	// 선택된 행이 없다면
     	if(selectedIds.length === 0){
-    		alert("선택된 항목이 없습니다.");
+    		msg.innerText = "선택된 물품이 없습니다.상태를 변경할 물품을 선택해주세요.";
+			modal.classList.remove('hidden');
     		return;
     	}
     	
@@ -595,14 +597,9 @@
     		})
     	}).then(async response => {
     		const message = await response.text(); // 서버에서 보낸 메시지
-            const modal = document.getElementById('updateResultModal');
-            const msg = document.getElementById('updateResultModalMessage');
-            const productName = document.getElementById('productName');
-            const modalProductName = document.getElementById('updateResultModalProductName');
-    		
+            
     		if(response.ok) {
     			msg.innerText = message;
-    			modalProductName.innerText = productName.innerText;
     			modal.classList.remove('hidden');
     		}
     		else {

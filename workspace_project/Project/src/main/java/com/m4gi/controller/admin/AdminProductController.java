@@ -76,7 +76,7 @@ public class AdminProductController {
     	
     	try {
     		adminProductService.updateProductStatus(productIds, newStatus);
-    		return ResponseEntity.ok("상태를 '거래 불가'로 변경하였습니다.");
+    		return ResponseEntity.ok("물품의 상태를 '거래 불가'로 변경하였습니다.");
     	} catch (Exception e) {
     		return ResponseEntity.status(500).body("서버 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
     	}
