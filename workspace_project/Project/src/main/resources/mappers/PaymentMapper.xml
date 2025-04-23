@@ -11,12 +11,11 @@
     </insert>
 
 
-    <select id="getPaymentsByCompanyId" parameterType="int" resultType="com.m4gi.dto.PaymentDTO">
-        SELECT * FROM payments p
-        JOIN estimates e ON p.estimate_id = e.estimate_id
-        WHERE e.res_comp_id = #{companyId}
-    </select>
 
-
+    <update id="updateSettlementStatusToPaid" parameterType="int">
+        UPDATE settlements
+        SET status = 1, settlements_date = NOW()
+        WHERE settlements_id = #{value}
+    </update>
 
 </mapper>

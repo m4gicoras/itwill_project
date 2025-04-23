@@ -1,6 +1,17 @@
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+  String loginUserName = (String) session.getAttribute("loginUserName");
+  String loginUserEmail = (String) session.getAttribute("loginUserEmail");
+%>
+
+<script>
+  const buyerName = '<%= loginUserName != null ? loginUserName : "비회원" %>';
+  const buyerEmail = '<%= loginUserEmail != null ? loginUserEmail : "noemail@unknown.com" %>';
+</script>
+
+
 
 <!doctype html>
 <html>
@@ -350,31 +361,32 @@
                   <td class="p-4 text-center">-</td>
                   <td class="p-4 text-left">
                     <c:choose>
+                      <c:when test="${est.settlement != null and est.settlement.status == 1}">
+                        <span class="text-blue-600 font-semibold">결제 완료</span>
+                      </c:when>
                       <c:when test="${est.settlement != null && est.settlement.status == 0 && est.reqCompId == loginUserId}">
                         <div class="pay-hover">
-                          <a href="${pageContext.request.contextPath}/payment/ready?settlementsId=${est.settlement.settlementsId}">
-                            <span class="default">결제 대기</span>
-                            <span class="hover">결제하기</span>
-                          </a>
+                          <span class="default">결제 대기</span>
+                          <button
+                                  onclick="requestPay('${est.settlement.settlementsId}', '${est.productName}', ${est.reqCost * est.estimateQtty}, ${est.estimateId})"
+                                  class="hover absolute left-0 top-0 w-full text-blue-600 underline"> 결제하기
+                          </button>
+
                         </div>
                       </c:when>
-
-
                       <c:when test="${est.settlement != null && est.settlement.status == 0 && est.resCompId == loginUserId}">
                         <span class="text-green-600 font-semibold">결제 대기</span>
                       </c:when>
-
                       <c:when test="${est.settlement == null}">
                         <span class="text-gray-500">정산 정보 없음</span>
                       </c:when>
-
                       <c:otherwise>
                         <span class="text-red-600 font-semibold">거절됨</span>
                       </c:otherwise>
                     </c:choose>
 
-
                   </td>
+
 
                 </tr>
               </c:forEach>
@@ -386,6 +398,54 @@
       </div>
     </div>
   </body>
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+  <script>
+    var IMP = window.IMP;
+    IMP.init("imp27844412");
+
+    function requestPay(settlementId, productName, amount) {
+      const uid = "IMP" + new Date().getTime(); // 유니크 UID 생성
+
+      IMP.request_pay({
+        pg: "kakaopay.TC0ONETIME",
+        pay_method: "card",
+        merchant_uid: uid,
+        name: productName,
+        amount: amount,
+        buyer_email: "${loginUser.email}",     // 실제 로그인된 사용자 email
+        buyer_name: "${loginUser.nickname}",   // 로그인된 사용자 이름 or 회사명
+        buyer_tel: "${loginUser.phone}",       // 전화번호
+        buyer_addr: "${loginUser.companyAddr}",// 회사 주소
+        buyer_postcode: "00000"                // 우편번호 없으면 생략 가능
+      }, function (rsp) {
+        if (rsp.success) {
+          $.ajax({
+            url: "<%=request.getContextPath()%>/payment/verify",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+              impUid: rsp.imp_uid,
+              merchantUid: rsp.merchant_uid,
+              amount: rsp.paid_amount,
+              productName: productName,
+              settlementsId: settlementId,
+              estimateId: estimateId
+            }),
+            success: function (res) {
+              if (res.result === "ok") {
+                alert("결제 및 저장 완료!");
+                location.href = contextPath + "/settlementStatus";
+            } else {
+                alert("DB 저장 실패");
+              }
+            }
+          });
+        } else {
+          alert("결제 실패: " + rsp.error_msg);
+        }
+      });
+    }
+  </script>
 
   <script src="<%= request.getContextPath() %>/resources/js/dashboard.js"></script>
   <script src="<%= request.getContextPath() %>/resources/js/alarm.js"></script>

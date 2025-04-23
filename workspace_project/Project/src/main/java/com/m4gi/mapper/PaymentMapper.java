@@ -1,4 +1,3 @@
-/*
 package com.m4gi.mapper;
 
 import com.m4gi.dto.PaymentDTO;
@@ -7,8 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
+// PaymentMapper.java
 public interface PaymentMapper {
-    void insertPayment(PaymentDTO payment);
-    List<PaymentDTO> getPaymentsByCompanyId(int companyId); // 이거 OK!
+    int updateSettlementStatusToPaid(int settlementsId);
+    int insertPayment(PaymentDTO payment);
+
 }
-*/
+
