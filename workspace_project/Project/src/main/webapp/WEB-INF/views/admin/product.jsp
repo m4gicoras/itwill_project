@@ -335,10 +335,10 @@
                                 <c:when test="${not empty productList}">
                                     <c:forEach var="product" items="${productList}">
                                         <tr class="hover:bg-blue-50 cursor-pointer border-b">
-                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox"></td>
+                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox" class="product-checkbox" value="${product.productId}"></td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productId}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
+                                            <td id="productName" class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">
 											    <span id="qtyDisplay-${product.productId}" ondblclick="activateQtyEdit('${product.productId}', null)">
 											        ${product.productQty}
@@ -400,7 +400,7 @@
 		                  </button>
 		                </div> 보류 -->
 	            		<div>
-		                  <button type="button" id="discontinueButton" class="btn mx-0 mb-0 h-9 w-45">
+		                  <button type="button" id="discontinueButton" onclick="changeStatus()" class="btn mx-0 mb-0 h-9 w-45">
 		                    <span class="btn-text">거래 불가로 변경</span>
 		                  </button>
 		                </div>
@@ -413,6 +413,29 @@
 	                    </a>
 	                </c:forEach>
 	            </div>
+	            
+            <!-- 변경 결과 모달창 -->
+            <div id="updateResultModal"
+                class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+                <div role="dialog" aria-modal="true"
+                    class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-blue-500">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                    </svg>
+                    <p id="updateResultModalMessage" class="mb-2 text-center text-lg font-semibold"></p>
+                    <div class="align-center mt-8 flex gap-6">
+                        <div>
+                            <button onclick="closeModal('UpdateResultModal')" type="button"
+                                class="btn mx-0 mb-0 h-9 w-35">
+                                <span class="btn-text">확인</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             </div> <!-- 테이블 -->
             
         </div> <!-- 메인 -->
@@ -542,6 +565,53 @@
             }
         });
     }
+    
+ 	// 모달 닫기
+    function closeModal(id) {
+        document.getElementById(id)?.classList.add("hidden");
+        location.reload();
+    }
+	
+ 	// 체크박스 체크된 행 클릭 후 -> 단종으로 변경
+    function changeStatus() {
+    	// 체크박스 행의 id로 이루어진 Array
+    	const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked')).map(cb => cb.value);
+        const modal = document.getElementById('updateResultModal');
+        const msg = document.getElementById('updateResultModalMessage');
+    	
+    	// 선택된 행이 없다면
+    	if(selectedIds.length === 0){
+    		msg.innerText = "선택된 물품이 없습니다.상태를 변경할 물품을 선택해주세요.";
+			modal.classList.remove('hidden');
+    		return;
+    	}
+    	
+    	fetch('/web/admin/product/updateStatus', {
+    		method: 'POST',
+    		headers: {
+    			'Content-type' : 'application/json'
+    		},
+    		body: JSON.stringify({
+    			productIds: selectedIds,
+    			newStatus: 2 // 단종
+    		})
+    	}).then(async response => {
+    		const message = await response.text(); // 서버에서 보낸 메시지
+            
+    		if(response.ok) {
+    			msg.innerText = message;
+    			modal.classList.remove('hidden');
+    		}
+    		else {
+    			msg.innerText = message;
+    			modal.classList.remove('hidden');
+    		}
+    	})
+    	.catch(error => {
+    		document.getElementById('updateResultModalMessage').innerText = `오류가 발생하였습니다. 잠시 후 다시 시도 해주세요. ${error}`;
+    		document.getElementById('updateResultModal').classList.remove('hidden');
+    	})
+   	}
 </script>
 
 </html>

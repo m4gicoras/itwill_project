@@ -80,5 +80,11 @@
     <select id="getProductCount" resultType="int">
         SELECT COUNT(*) FROM products
     </select>
+    
+    <update id="updateProductStatus">
+    	UPDATE products
+    	SET status = #{status}
+    	WHERE product_id IN <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </update>
 
 </mapper>

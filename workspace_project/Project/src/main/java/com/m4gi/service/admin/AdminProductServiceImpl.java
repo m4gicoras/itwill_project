@@ -43,6 +43,12 @@ public class AdminProductServiceImpl implements AdminProductService {
 
         return new AdminProductPageDTO(list, totalPages);
     }
+    
+    // 물품 상태 변경
+    @Override
+    public void updateProductStatus(List<Integer> productIds, int newStatus) {
+    	adminProductMapper.updateProductStatus(productIds, newStatus);
+    }
 }
 
 

@@ -17,7 +17,9 @@ public interface AdminProductMapper {
 
     int getProductCount();
     List<AdminProductListDTO> getProductList(@Param("limit") int limit, @Param("offset") int offset);
-
+    
+    // 물품 상태 수정
+    void updateProductStatus(@Param("list") List<Integer> productIds, @Param("status") int status);
 }
 
 
