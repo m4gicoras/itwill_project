@@ -86,7 +86,7 @@ function infoChange() {
         .forEach(el => el.classList.toggle('hidden'));
 
     if (btnText.textContent === '저장하기') {
-        const UserPhone = '${user.phone}';
+        // const UserPhone = '${user.phone}';
         const [p1, p2, p3] = UserPhone.split('-');
         document.getElementById('userPhone1').value = p1;
         document.getElementById('userPhone2').value = p2;
@@ -102,7 +102,7 @@ function updateUserInfo() {
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     const data = {
-        userId: document.getElementById('userId').textContent,
+        // userId: document.getElementById('userId').textContent,
         email: document.getElementById('email').value,
         phone: [1, 2, 3].map(i => document.getElementById(`userPhone${i}`).value).join('-'),
         productCategory: document.getElementById('category').value

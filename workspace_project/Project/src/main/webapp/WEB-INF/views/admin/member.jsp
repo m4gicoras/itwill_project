@@ -155,16 +155,16 @@
 									        </div>
 									    </a>
 									</div>
-                                    <div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
+                                    <div class="menu-item active flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800">
 	                                    <a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/member">
 	                                        <div class="w-full items-center justify-center">
 	                                            <div class="flex w-full items-center justify-center">
-	                                                <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
+	                                                <div class="svg-item text mr-3 mt-1.5 font-semibold text-blue-800">
 	                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em" width="1em">
 	                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
 	                                                    </svg>
 	                                                </div>
-	                                                <p class="mr-auto text-sm font-medium text-zinc-950">회원 관리</p>
+	                                                <p class="mr-auto text-sm font-semibold text-blue-800">회원 관리</p>
 	                                            </div>
 	                                        </div>
 	                                    </a>
@@ -362,34 +362,34 @@
 <!-- 사이드 바 마우스 효과 -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const menuItems = document.querySelectorAll('.menu-item');
+    	const menuItems = document.querySelectorAll('.menu-item');
+
         menuItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                // 부모 요소 클래스 변경 (hover 상태)
-                this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800";
-                // 하위 p 태그 클래스 변경
-                const pElement = this.querySelector('p');
-                if (pElement) {
-                    pElement.className = "mr-auto text-sm font-semibold text-blue-800";
-                }
-                // 하위 svg-item 클래스 요소 변경
-                const svgElement = this.querySelector('.svg-item');
-                if (svgElement) {
-                    svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-blue-800";
+            item.addEventListener('mouseenter', function () {
+                if (!this.classList.contains('active')) {
+                    this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800";
+                    const pElement = this.querySelector('p');
+                    if (pElement) {
+                        pElement.className = "mr-auto text-sm font-semibold text-blue-800";
+                    }
+                    const svgElement = this.querySelector('.svg-item');
+                    if (svgElement) {
+                        svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-blue-800";
+                    }
                 }
             });
-            item.addEventListener('mouseleave', function() {
-                // 부모 요소 클래스 원복 (hover 상태 해제)
-                this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950";
-                // 하위 p 태그 클래스 원복
-                const pElement = this.querySelector('p');
-                if (pElement) {
-                    pElement.className = "mr-auto text-sm font-medium text-zinc-950";
-                }
-                // 하위 svg-item 클래스 요소 원복
-                const svgElement = this.querySelector('.svg-item');
-                if (svgElement) {
-                    svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950";
+
+            item.addEventListener('mouseleave', function () {
+                if (!this.classList.contains('active')) {
+                    this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ";
+                    const pElement = this.querySelector('p');
+                    if (pElement) {
+                        pElement.className = "mr-auto text-sm font-medium text-zinc-950 ";
+                    }
+                    const svgElement = this.querySelector('.svg-item');
+                    if (svgElement) {
+                        svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950 ";
+                    }
                 }
             });
         });

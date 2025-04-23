@@ -186,7 +186,7 @@
                                                 <select name="category" id="category"
                                                     class="hidden user-input h-9 w-100 pr-8 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
                                                     <option value="" ${empty user.productCategory ? 'selected' : '' }>
-                                                        카테고리 선택</option>
+                                                       	카테고리 선택</option>
                                                     <option value="digital" ${user.productCategory=='가전/디지털'
                                                         ? 'selected' : '' }>가전/디지털</option>
                                                     <option value="fashion" ${user.productCategory=='패션' ? 'selected'
@@ -344,7 +344,11 @@
             </div>
         </main>
     </body>
-
+	
+	
+	<script>
+		const UserPhone = '${user.phone}';
+	</script>
     <script src="<%= request.getContextPath() %>/resources/js/mypage.js"></script>
     <script src="<%= request.getContextPath() %>/resources/js/alarm.js"></script>
 

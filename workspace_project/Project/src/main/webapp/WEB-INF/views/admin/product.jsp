@@ -191,16 +191,16 @@
                                 <div class="mt-8 mb-8 h-px bg-zinc-200 "></div>
                                 <!-- 사이드 바 리스트 -->
                                 <ul>
-									<div class="menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950">
+									<div class="menu-item active flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800">
 									    <a class="undefined rounded-none w-full select-none" href="${pageContext.request.contextPath}/admin/product">
 									        <div class="w-full items-center justify-center">
 									            <div class="flex w-full items-center justify-center">
-									                <div class="svg-item text mt-1.5 mr-3 text-zinc-950">
+									                <div class="svg-item text mr-3 mt-1.5 font-semibold text-blue-800">
 									                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mt-[7px] h-4 w-4 stroke-2 text-inherit" height="1em" width="1em">
 									                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
 									                    </svg>
 									                </div>
-									                <p class="mr-auto text-sm font-medium text-zinc-950">물품 관리</p>
+									                <p class="mr-auto text-sm font-semibold text-blue-800">물품 관리</p>
 									            </div>
 									        </div>
 									    </a>
@@ -335,10 +335,10 @@
                                 <c:when test="${not empty productList}">
                                     <c:forEach var="product" items="${productList}">
                                         <tr class="hover:bg-blue-50 cursor-pointer border-b">
-                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox"></td>
+                                        	<td class="row-checkbox p-4 text-center text-sm border-b border-gray-100"><input type="checkbox" class="product-checkbox" value="${product.productId}"></td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">${product.productId}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">㈜ ${product.companyName}</td>
-                                            <td class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
+                                            <td id="productName" class="p-4 text-center text-sm border-b border-gray-100">${product.productName}</td>
                                             <td class="p-4 text-center text-sm border-b border-gray-100">
 											    <span id="qtyDisplay-${product.productId}" ondblclick="activateQtyEdit('${product.productId}', null)">
 											        ${product.productQty}
@@ -394,13 +394,19 @@
 	            <div class="mt-5 text-center">
 	            	<!-- 수정, 단종 변경 버튼 -->
                    	<div class="flex justify-end gap-2">
-	            		<!-- <div>
-		                  <button type="button" id="editButton" class="btn mx-0 mb-0 h-9 w-20">
-		                    <span class="btn-text">수정</span>
-		                  </button>
-		                </div> 보류 -->
 	            		<div>
-		                  <button type="button" id="discontinueButton" class="btn mx-0 mb-0 h-9 w-45">
+		                  <button type="button" id="setNormalButton" onclick="changeStatus(0)" class="btn mx-0 mb-4 h-9 w-45">
+		                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white size-6">
+							  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+							</svg>
+		                    <span class="btn-text">정상으로 변경</span>
+		                  </button>
+		                </div>
+	            		<div>
+		                  <button type="button" id="discontinueButton" onclick="changeStatus(2)" class="btn bg-zinc-400 mx-0 mb-4 h-9 w-50">
+		                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white size-6">
+							  <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+							</svg>
 		                    <span class="btn-text">거래 불가로 변경</span>
 		                  </button>
 		                </div>
@@ -413,6 +419,31 @@
 	                    </a>
 	                </c:forEach>
 	            </div>
+	            
+            <!-- 변경 결과 모달창 -->
+            <div id="updateResultModal"
+                class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+                <div role="dialog" aria-modal="true"
+                    class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
+                    <div id="updateResultModalIcon">
+	                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+	                        stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-blue-500">
+	                        <path stroke-linecap="round" stroke-linejoin="round"
+	                            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+	                    </svg>
+                    </div>
+                    <p id="updateResultModalMessage" class="mb-2 text-center text-lg font-semibold"></p>
+                    <div class="align-center mt-8 flex gap-6">
+                        <div>
+                            <button onclick="closeModal('UpdateResultModal')" type="button"
+                                class="btn mx-0 mb-0 h-9 w-35">
+                                <span class="btn-text">확인</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             </div> <!-- 테이블 -->
             
         </div> <!-- 메인 -->
@@ -422,34 +453,34 @@
 <!-- 사이드 바 마우스 효과 -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const menuItems = document.querySelectorAll('.menu-item');
+    	const menuItems = document.querySelectorAll('.menu-item');
+
         menuItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                // 부모 요소 클래스 변경 (hover 상태)
-                this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800";
-                // 하위 p 태그 클래스 변경
-                const pElement = this.querySelector('p');
-                if (pElement) {
-                    pElement.className = "mr-auto text-sm font-semibold text-blue-800";
-                }
-                // 하위 svg-item 클래스 요소 변경
-                const svgElement = this.querySelector('.svg-item');
-                if (svgElement) {
-                    svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-blue-800";
+            item.addEventListener('mouseenter', function () {
+                if (!this.classList.contains('active')) {
+                    this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 bg-blue-300/30 font-semibold text-blue-800";
+                    const pElement = this.querySelector('p');
+                    if (pElement) {
+                        pElement.className = "mr-auto text-sm font-semibold text-blue-800";
+                    }
+                    const svgElement = this.querySelector('.svg-item');
+                    if (svgElement) {
+                        svgElement.className = "svg-item text mr-3 mt-1.5 font-semibold text-blue-800";
+                    }
                 }
             });
-            item.addEventListener('mouseleave', function() {
-                // 부모 요소 클래스 원복 (hover 상태 해제)
-                this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950";
-                // 하위 p 태그 클래스 원복
-                const pElement = this.querySelector('p');
-                if (pElement) {
-                    pElement.className = "mr-auto text-sm font-medium text-zinc-950";
-                }
-                // 하위 svg-item 클래스 요소 원복
-                const svgElement = this.querySelector('.svg-item');
-                if (svgElement) {
-                    svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950";
+
+            item.addEventListener('mouseleave', function () {
+                if (!this.classList.contains('active')) {
+                    this.className = "menu-item flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 font-medium text-zinc-950 ";
+                    const pElement = this.querySelector('p');
+                    if (pElement) {
+                        pElement.className = "mr-auto text-sm font-medium text-zinc-950 ";
+                    }
+                    const svgElement = this.querySelector('.svg-item');
+                    if (svgElement) {
+                        svgElement.className = "svg-item text mr-3 mt-1.5 text-zinc-950 ";
+                    }
                 }
             });
         });
@@ -542,6 +573,73 @@
             }
         });
     }
+    
+ 	// 모달 닫기
+    function closeModal(id) {
+        document.getElementById(id)?.classList.add("hidden");
+        location.reload();
+    }
+	
+ 	// 체크박스 체크된 행 클릭 후 -> 단종으로 변경
+    function changeStatus(newStatus) {
+    	// 체크박스 행의 id로 이루어진 Array
+    	const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked')).map(cb => cb.value);
+        const modal = document.getElementById('updateResultModal');
+        const msg = document.getElementById('updateResultModalMessage');
+        const icon = document.getElementById('updateResultModalIcon');
+        
+    	// 선택된 행이 없다면
+    	if(selectedIds.length === 0){
+    		msg.innerText = "선택된 물품이 없습니다.상태를 변경할 물품을 선택해주세요.";
+    		icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            </svg>`;
+			modal.classList.remove('hidden');
+    		return;
+    	}
+    	
+    	fetch('/web/admin/product/updateStatus', {
+    		method: 'POST',
+    		headers: {
+    			'Content-type' : 'application/json'
+    		},
+    		body: JSON.stringify({
+    			productIds: selectedIds,
+    			newStatus: newStatus // 단종
+    		})
+    	}).then(async response => {
+    		const message = await response.text(); // 서버에서 보낸 메시지
+            
+    		if(response.ok) {
+    			const statusMessage = newStatus === 0 ? "물품의 상태를 '정상'으로 변경하였습니다." : "물품의 상태를 '거래 불가'로 변경하였습니다.";
+    			msg.innerText = statusMessage;
+    			icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-blue-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                	</svg>`;
+    			modal.classList.remove('hidden');
+    		}
+    		else {
+    			msg.innerText = message;
+    			icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>`;
+    			modal.classList.remove('hidden');
+    		}
+    	})
+    	.catch(error => {
+    		document.getElementById('updateResultModalMessage').innerText = `오류가 발생하였습니다. 잠시 후 다시 시도 해주세요. ${error}`;
+    		icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            </svg>`;
+    		document.getElementById('updateResultModal').classList.remove('hidden');
+    	})
+   	}
 </script>
 
 </html>
