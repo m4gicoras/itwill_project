@@ -58,7 +58,7 @@
                     <h1 class="flex flex-col items-center justify-center text-4xl font-semibold mb-10"><span
                             class="kimm-bold text-blue-500">비밀번호 찾기</span></h1>
 
-                    <form id="pwFindForm" action="http://localhost:8080/web/find_pw2" method="post"
+                    <form id="pwFindForm" action="<%= request.getContextPath() %>/find_pw2" method="post"
                         class="flex flex-col items-center">
                         <!-- 아이디 -->
                         <div class="w-[400px] flex justify-left mt-4 mb-4">
