@@ -1,3 +1,4 @@
+/*
 package com.m4gi.mapper;
 
 import com.m4gi.dto.PaymentDTO;
@@ -7,8 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface PaymentMapper {
-
     void insertPayment(PaymentDTO payment);
-
-    List<PaymentDTO> getPaymentsByCompanyId(int companyId);
+    List<PaymentDTO> getPaymentsByCompanyId(int companyId); // 이거 OK!
 }
+*/

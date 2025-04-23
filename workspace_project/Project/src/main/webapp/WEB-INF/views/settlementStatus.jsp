@@ -31,6 +31,52 @@
       .kimm-bold {
           font-family: 'KIMM_Bold', sans-serif !important;
       }
+      .pay-hover {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .pay-hover a {
+        text-decoration: none;
+        color: #dc2626; /* 기본: 빨강 */
+      }
+
+      .pay-hover .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        color: #2563eb; /* 파랑 */
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+      }
+
+      .pay-hover:hover .default {
+        opacity: 0;
+      }
+
+      .pay-hover:hover .hover {
+        opacity: 1;
+      }
+
+
+      /* hover 텍스트는 겹쳐서 위치 + 기본은 숨김 */
+      .pay-hover .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        color: #2563eb;
+        font-weight: 500;
+      }
+
+
     </style>
   </head>
 
@@ -304,26 +350,30 @@
                   <td class="p-4 text-center">-</td>
                   <td class="p-4 text-left">
                     <c:choose>
-                      <c:when test="${est.status == 1}">
-                        <c:choose>
-                          <c:when test="${est.resCompId == loginUserId}">
-                            <span class="text-green-600 font-semibold">결제 대기</span>
-                          </c:when>
-                          <c:when test="${est.reqCompId == loginUserId}">
-                            <span class="text-red-600 font-semibold">결제 대기</span>
-                          </c:when>
-                          <c:otherwise>
-                            <span class="text-gray-600">수락됨</span>
-                          </c:otherwise>
-                        </c:choose>
+                      <c:when test="${est.settlement != null && est.settlement.status == 0 && est.reqCompId == loginUserId}">
+                        <div class="pay-hover">
+                          <a href="${pageContext.request.contextPath}/payment/ready?settlementsId=${est.settlement.settlementsId}">
+                            <span class="default">결제 대기</span>
+                            <span class="hover">결제하기</span>
+                          </a>
+                        </div>
                       </c:when>
-                      <c:when test="${est.status == 0}">
-                        <span class="text-gray-500">대기중</span>
+
+
+                      <c:when test="${est.settlement != null && est.settlement.status == 0 && est.resCompId == loginUserId}">
+                        <span class="text-green-600 font-semibold">결제 대기</span>
                       </c:when>
+
+                      <c:when test="${est.settlement == null}">
+                        <span class="text-gray-500">정산 정보 없음</span>
+                      </c:when>
+
                       <c:otherwise>
                         <span class="text-red-600 font-semibold">거절됨</span>
                       </c:otherwise>
                     </c:choose>
+
+
                   </td>
 
                 </tr>
