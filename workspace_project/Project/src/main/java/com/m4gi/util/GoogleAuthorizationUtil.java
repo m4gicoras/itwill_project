@@ -14,6 +14,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class GoogleAuthorizationUtil {
             Collections.singletonList("https://www.googleapis.com/auth/gmail.send");
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String TOKENS_DIR = "tokens";
+
+
 
     public static Credential getCredential(NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // 1) GCS 클라이언트 생성
