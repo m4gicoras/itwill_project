@@ -36,19 +36,43 @@
 - MyBatis를 이용한 DB 상호작용 구현
 - 프로젝트 내 파일 업로드 시스템 구현 (GCS API 사용)
 - 프로필 이미지 변경 시스템 구현 (GCS API 사용)
-- 상품 목록 페이지 제작
-- 상품 등록 페이지 - 상품 등록 로직 구현
+- 상품 목록 페이지 제작 및 로직 구현
+- 상품 등록 페이지 로직 구현
 - 배포 서버 연동 (CI/CD)
 - 프로젝트 총괄
 
 ### 김수빈
 
+- 관리자 페이지 UI 구성 및 템플릿 구조 정리(물품 관리, 회원 관리, 알림 전송/리스트 페이지 등)
+- 관리자 페이지 물품 관리 기능 구현(수량 수정, 상태 변경 등 JSON 기반 기능 포함)
+- 기업 상세 정보 모달창 UI 및 DB 연동 구현
+- 회원가입 페이지 UI 및 JavaScript 유효성 검사 로직 구현
+- 마이페이지 UI 및 사용자 정보 출력 기능 구현
+- 마이페이지 정보 및 프로필 사진 수정 기능 구현 (Google Cloud Storage 연동 포함)
+- 정산 현황 페이지 UI 제작
+- 메인페이지 사이드바 메뉴 네비게이션 구현
 
 ### 남정민
 
+- 관리자 페이지 기능 및 로직 구현
+- 카카오 결제 기능 구현 (Kakao API 사용)
+- 입고 현황 페이지 로직 구현
+- 출고 현황 페이지 로직 구현
+- 견적 현황 페이지 로직 구현
+- 정산 현황 페이지 로직 구현
+- 알림 페이지 기능 및 로직 구현
+- 상점 페이지 기능 및 로직 구현
 
 ### 오예림
 
+- JavaScript, JSP, Tailwind CSS를 기반으로 UI를 구현
+- 메인 로그인 화면, 회원가입, 아이디/비밀번호 찾기, 회원탈퇴, Shop 페이지 등 주요 UI 화면을 설계 및 제작
+- AJAX 기반 이메일 인증 로직을 구현하여 사용자 아이디 조회 기능 완성
+- 프로젝트 전반의 프론트엔드 UI 통일
+- 일관된 사용자 경험(UX) 제공
+- 상품 등록을 위한 전용 UI 화면을 기획 및 제작
+- 메인 및 로그인 화면 중심으로 핵심 사용자 진입 동선 설계 및 UI 구현
+- 브랜드 아이덴티티를 반영하여 색상, 폰트, 로고, 레이아웃 등의 시각 요소를 통일성 있게 설계
 
 <br>
 
@@ -111,9 +135,11 @@
 3. 기능 구현 단위로 commit을 진행합니다.
 4. 작업 도중 완료된 부분에 대해 **PR(Pull Request)** 을 생성합니다.
 - Commit, PR, Issues가 발생하면 다른 팀원들이 확인할 수 있도록 디스코드 봇이 관련 채널로 메시지를 보내게 하여 팀원이 모두 알 수 있게 했습니다.
+<img style="margin: 10px" width=60% src="./images/discord.png" alt="디스코드 깃허브 알람"/>
+
 5. 팀장이 해당 PR에 대해 확인하고 충돌이 나는 부분이 있는지, 없다면 dev 브랜치에 병합하여 작업을 반영합니다.
 6. 작업이 끝난 부분에 대해 main 브랜치에 병합하여 외부 서버에서 정상 작동 유무를 확인합니다.
-    <img style="margin: 10px" width=60% src="./preview/discord.png" alt="디스코드 깃허브 알람"/>
+    
 
 ## 🔀 브랜치 전략
 
@@ -158,10 +184,153 @@
 
 <tr align="center">
     <td valign="top" width="100%">
-    메인 페이지
+      <img style="margin: 10px" width=60% src="./images/main.png" alt="main"/>
     </td>
 </tr>
+</table>
 
+<table>
+  <tr>
+    <th colspan="2">아이디 찾기 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/find_id.png"
+           alt="아이디 찾기"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/finish_id.png"
+           alt="아이디 찾기 - 결과"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="2">비밀번호 찾기 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/find_pw2.png"
+           alt="비밀번호 찾기"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/finish_pw.png"
+           alt="비밀번호 찾기 - 결과"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="1">회원가입 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:100%;">
+      <img src="./images/signup.png"
+           alt="회원가입"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="2">상품 목록/등록 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/dashboard.png"
+           alt="상품목록"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/add_product.png"
+           alt="상품등록"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="2">입고/출고 현황 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/inbound.png"
+           alt="입고 현황"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/outbound.png"
+           alt="출고 현황"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="3">견적/정산 현황, 결제 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:40%;">
+      <img src="./images/estimates.png"
+           alt="견적 현황"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:40%;">
+      <img src="./images/settlementStatus.png"
+           alt="정산 현황"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:20%;">
+      <img src="./images/settle_kakao.png"
+           alt="카카오결제"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="2">알림 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/notfi.png"
+           alt="알림"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/notfi_detail.png"
+           alt="알림 상세"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="2">상점 페이지</th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/shop.png"
+           alt="상점"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+    <td style="vertical-align:top; width:50%;">
+      <img src="./images/shopdetail.png"
+           alt="상점 상세"
+           style="margin:10px; width:100%; height:auto;">
+    </td>
+  </tr>
 </table>
 
 <br>
