@@ -1,11 +1,9 @@
 package com.m4gi.controller;
 
 import com.m4gi.dto.EstimateDTO;
-import com.m4gi.dto.PaymentDTO;
 import com.m4gi.dto.ShopProductDTO;
 import com.m4gi.service.EstimateService;
 import com.m4gi.service.NotificationService;
-import com.m4gi.service.PaymentService;
 import com.m4gi.service.ShopProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +22,6 @@ public class EstimateController {
     private NotificationService notificationService;
     @Autowired
     private ShopProductService shopProductService;
-    @Autowired
-    private PaymentService paymentService;
 
 
 
