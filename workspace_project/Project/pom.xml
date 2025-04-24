@@ -196,6 +196,19 @@
             <artifactId>spring-web</artifactId>
             <version>4.3.8.RELEASE</version> <!-- 너가 사용하는 스프링 버전과 맞춰줘 -->
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version> <!-- 최신 안정 버전 -->
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+
+
         <!--  외부 라이브러리 추가 끝  -->
     </dependencies>
     <build>

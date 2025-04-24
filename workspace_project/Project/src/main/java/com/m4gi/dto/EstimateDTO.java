@@ -24,4 +24,6 @@ public class EstimateDTO {
     private String productName;
     private String requesterCompanyName;
     private String responderCompanyName;
+
+    private SettlementDTO settlement;
 }

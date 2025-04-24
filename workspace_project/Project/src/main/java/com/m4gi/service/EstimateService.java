@@ -12,4 +12,6 @@ public interface EstimateService {
     List<EstimateDTO> getAcceptedEstimatesByCompany(int companyId);
     List<EstimateDTO> getAcceptedEstimatesByReceiver(int companyId);
     List<EstimateDTO> getAcceptedEstimatesBySender(int companyId);
+
+
 }

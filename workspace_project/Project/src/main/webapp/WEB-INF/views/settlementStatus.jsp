@@ -1,6 +1,19 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<!-- 세션에서 로그인 사용자 정보 가져오기 -->
+<%
+  String loginUserName = (String) session.getAttribute("loginUserName");
+  String loginUserEmail = (String) session.getAttribute("loginUserEmail");
+%>
+
+<script>
+  const buyerName = '<%= loginUserName != null ? loginUserName : "비회원" %>';
+  const buyerEmail = '<%= loginUserEmail != null ? loginUserEmail : "noemail@unknown.com" %>';
+</script>
+
 
 <!doctype html>
 <html>
@@ -19,17 +32,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/m4gi.css" />
     <style>
-      /* KIMM_Bold 폰트를 적용하는 부분 */
-
       @font-face {
-          font-family: 'KIMM_Bold';
-          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
-          font-weight: 700;
-          font-style: normal;
+        font-family: 'KIMM_Bold';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
       }
 
       .kimm-bold {
-          font-family: 'KIMM_Bold', sans-serif !important;
+        font-family: 'KIMM_Bold', sans-serif !important;
+      }
+
+      .pay-hover {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .pay-hover a {
+        text-decoration: none;
+        color: #dc2626;
+      }
+
+      .pay-hover .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        color: #2563eb;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+      }
+
+      .pay-hover:hover .default {
+        opacity: 0;
+      }
+
+      .pay-hover:hover .hover {
+        opacity: 1;
       }
     </style>
   </head>
@@ -304,27 +348,32 @@
                   <td class="p-4 text-center">-</td>
                   <td class="p-4 text-left">
                     <c:choose>
-                      <c:when test="${est.status == 1}">
-                        <c:choose>
-                          <c:when test="${est.resCompId == loginUserId}">
-                            <span class="text-green-600 font-semibold">결제 대기</span>
-                          </c:when>
-                          <c:when test="${est.reqCompId == loginUserId}">
-                            <span class="text-red-600 font-semibold">결제 대기</span>
-                          </c:when>
-                          <c:otherwise>
-                            <span class="text-gray-600">수락됨</span>
-                          </c:otherwise>
-                        </c:choose>
+                      <c:when test="${est.settlement != null and est.settlement.status == 1}">
+                        <span class="text-blue-600 font-semibold">결제 완료</span>
                       </c:when>
-                      <c:when test="${est.status == 0}">
-                        <span class="text-gray-500">대기중</span>
+                      <c:when test="${est.settlement != null && est.settlement.status == 0 && est.reqCompId == loginUserId}">
+                        <div class="pay-hover">
+                          <span class="default">결제 대기</span>
+                          <button
+                                  onclick="requestPay('${est.settlement.settlementsId}', '${est.productName}', ${est.reqCost * est.estimateQtty}, ${est.estimateId})"
+                                  class="hover absolute left-0 top-0 w-full text-blue-600 underline"> 결제하기
+                          </button>
+
+                        </div>
+                      </c:when>
+                      <c:when test="${est.settlement != null && est.settlement.status == 0 && est.resCompId == loginUserId}">
+                        <span class="text-green-600 font-semibold">결제 대기</span>
+                      </c:when>
+                      <c:when test="${est.settlement == null}">
+                        <span class="text-gray-500">정산 정보 없음</span>
                       </c:when>
                       <c:otherwise>
                         <span class="text-red-600 font-semibold">거절됨</span>
                       </c:otherwise>
                     </c:choose>
+
                   </td>
+
 
                 </tr>
               </c:forEach>
@@ -336,6 +385,55 @@
       </div>
     </div>
   </body>
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+  <script>
+    var IMP = window.IMP;
+    IMP.init("imp27844412");
+
+    function requestPay(settlementId, productName, amount, estimateId) {
+      console.log("📦 settlementId: ", settlementId);
+      console.log("📦 estimateId: ", estimateId);
+      const uid = "IMP" + new Date().getTime();
+      IMP.request_pay({
+        pg: "kakaopay.TC0ONETIME",
+        pay_method: "card",
+        merchant_uid: uid,
+        name: productName,
+        amount: amount,
+        buyer_email: buyerEmail,
+        buyer_name: buyerName,
+        buyer_tel: "010-0000-0000",
+        buyer_addr: "서울시 강남구",
+        buyer_postcode: "00000"
+      }, function (rsp) {
+        if (rsp.success) {
+          $.ajax({
+            url: contextPath + "/payment/verify",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+              impUid: rsp.imp_uid,
+              merchantUid: rsp.merchant_uid,
+              amount: rsp.paid_amount,
+              productName: productName,
+              settlementsId: settlementsId,
+              estimateId: estimateId
+            }),
+            success: function (res) {
+              if (res.result === "ok") {
+                alert("결제 및 저장 완료!");
+                location.href = contextPath + "/settlementStatus";
+              } else {
+                alert("DB 저장 실패");
+              }
+            }
+          });
+        } else {
+          alert("결제 실패: " + rsp.error_msg);
+        }
+      });
+    }
+  </script>
 
   <script src="<%= request.getContextPath() %>/resources/js/dashboard.js"></script>
   <script src="<%= request.getContextPath() %>/resources/js/alarm.js"></script>
