@@ -1,11 +1,7 @@
 package com.m4gi.service;
 
-import com.m4gi.dto.PaymentDTO;
-
-import java.util.List;
+import com.m4gi.dto.PaymentVerifyDTO;
 
 public interface PaymentService {
-    void insertPayment(PaymentDTO payment);
-    List<PaymentDTO> getPaymentsByCompany(int companyId);
-    List<PaymentDTO> getPaymentsByCompanyId(int companyId);
+    boolean verifyAndSave(PaymentVerifyDTO dto);
 }

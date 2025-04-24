@@ -2,26 +2,27 @@ package com.m4gi.controller;
 
 import com.m4gi.domain.User;
 import com.m4gi.dto.EstimateDTO;
-import com.m4gi.dto.PaymentDTO;
+import com.m4gi.dto.PaymentVerifyDTO;
+import com.m4gi.dto.SettlementDTO;
 import com.m4gi.service.EstimateService;
 import com.m4gi.service.PaymentService;
+import com.m4gi.service.SettlementService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class PaymentController {
 
     @Autowired
-    private PaymentService paymentService;
-    @Autowired
     private EstimateService estimateService;
 
+    @Autowired
+    private SettlementService settlementService;
 
     @GetMapping("/settlementStatus")
     public String settlementStatus(Model model, HttpSession session) {
@@ -32,22 +33,29 @@ public class PaymentController {
 
         int companyId = userId;
 
-        // ✅ 받은 견적 = 수입
         List<EstimateDTO> received = estimateService.getAcceptedEstimatesByReceiver(companyId);
         int totalIncome = received.stream()
-                .mapToInt(e -> e.getReqCost() * e.getEstimateQtty()) // 요청한 단가 * 수량
+                .mapToInt(e -> e.getReqCost() * e.getEstimateQtty())
                 .sum();
 
-        // ✅ 보낸 견적 = 지출
         List<EstimateDTO> sent = estimateService.getAcceptedEstimatesBySender(companyId);
         int totalExpenditure = sent.stream()
-                .mapToInt(e -> e.getReqCost() * e.getEstimateQtty()) // 요청한 단가 * 수량
+                .mapToInt(e -> e.getReqCost() * e.getEstimateQtty())
                 .sum();
 
-        // 합쳐서 하나의 테이블에 보여주기 위해 리스트 합치기
         List<EstimateDTO> all = new ArrayList<>();
         all.addAll(received);
         all.addAll(sent);
+
+        for (EstimateDTO est : all) {
+            List<SettlementDTO> settlements = settlementService.getSettlementByEstimateId(est.getEstimateId());
+            for (SettlementDTO s : settlements) {
+                if (s.getCompanyId() == companyId) {
+                    est.setSettlement(s);
+                    break;
+                }
+            }
+        }
 
         model.addAttribute("estimateList", all);
         model.addAttribute("totalIncome", totalIncome);
@@ -55,5 +63,22 @@ public class PaymentController {
         model.addAttribute("loginUserId", companyId);
 
         return "settlementStatus";
+    }
+}
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/payment")
+class PaymentApiController {
+
+    private final PaymentService paymentService;
+
+    @PostMapping("/verify")
+    @ResponseBody
+    public Map<String, String> verifyPayment(@RequestBody PaymentVerifyDTO paymentDTO) {
+        boolean result = paymentService.verifyAndSave(paymentDTO);
+        Map<String, String> response = new HashMap<>();
+        response.put("result", result ? "ok" : "fail");
+        return response;
     }
 }
