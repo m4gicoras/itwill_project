@@ -37,4 +37,13 @@
         WHERE settlements_id = #{settlementId}
     </select>
 
+    <update id="updateSettlementStatusById" parameterType="java.lang.Integer">
+        UPDATE settlements
+        SET status = 1,
+            settlements_date = NOW()
+        WHERE settlements_id = #{settlementId}
+    </update>
+
+
+
 </mapper>

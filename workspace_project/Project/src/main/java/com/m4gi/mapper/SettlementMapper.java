@@ -10,5 +10,5 @@ public interface SettlementMapper {
     void insertSettlement(SettlementDTO settlement);
     List<SettlementDTO> getSettlementByEstimateId(int estimateId);
     SettlementDTO getSettlementById(int settlementsId);
-
+    int updateSettlementStatusById(int settlementsId);
 }

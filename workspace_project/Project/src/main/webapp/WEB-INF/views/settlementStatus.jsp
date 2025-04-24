@@ -1,6 +1,9 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<!-- 세션에서 로그인 사용자 정보 가져오기 -->
 <%
   String loginUserName = (String) session.getAttribute("loginUserName");
   String loginUserEmail = (String) session.getAttribute("loginUserEmail");
@@ -10,7 +13,6 @@
   const buyerName = '<%= loginUserName != null ? loginUserName : "비회원" %>';
   const buyerEmail = '<%= loginUserEmail != null ? loginUserEmail : "noemail@unknown.com" %>';
 </script>
-
 
 
 <!doctype html>
@@ -30,18 +32,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/m4gi.css" />
     <style>
-      /* KIMM_Bold 폰트를 적용하는 부분 */
-
       @font-face {
-          font-family: 'KIMM_Bold';
-          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
-          font-weight: 700;
-          font-style: normal;
+        font-family: 'KIMM_Bold';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
       }
 
       .kimm-bold {
-          font-family: 'KIMM_Bold', sans-serif !important;
+        font-family: 'KIMM_Bold', sans-serif !important;
       }
+
       .pay-hover {
         display: inline-block;
         position: relative;
@@ -53,7 +54,7 @@
 
       .pay-hover a {
         text-decoration: none;
-        color: #dc2626; /* 기본: 빨강 */
+        color: #dc2626;
       }
 
       .pay-hover .hover {
@@ -62,7 +63,7 @@
         left: 0;
         width: 100%;
         opacity: 0;
-        color: #2563eb; /* 파랑 */
+        color: #2563eb;
         font-weight: 500;
         transition: opacity 0.2s ease;
       }
@@ -74,20 +75,6 @@
       .pay-hover:hover .hover {
         opacity: 1;
       }
-
-
-      /* hover 텍스트는 겹쳐서 위치 + 기본은 숨김 */
-      .pay-hover .hover {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        opacity: 0;
-        color: #2563eb;
-        font-weight: 500;
-      }
-
-
     </style>
   </head>
 
@@ -403,24 +390,25 @@
     var IMP = window.IMP;
     IMP.init("imp27844412");
 
-    function requestPay(settlementId, productName, amount) {
-      const uid = "IMP" + new Date().getTime(); // 유니크 UID 생성
-
+    function requestPay(settlementId, productName, amount, estimateId) {
+      console.log("📦 settlementId: ", settlementId);
+      console.log("📦 estimateId: ", estimateId);
+      const uid = "IMP" + new Date().getTime();
       IMP.request_pay({
         pg: "kakaopay.TC0ONETIME",
         pay_method: "card",
         merchant_uid: uid,
         name: productName,
         amount: amount,
-        buyer_email: "${loginUser.email}",     // 실제 로그인된 사용자 email
-        buyer_name: "${loginUser.nickname}",   // 로그인된 사용자 이름 or 회사명
-        buyer_tel: "${loginUser.phone}",       // 전화번호
-        buyer_addr: "${loginUser.companyAddr}",// 회사 주소
-        buyer_postcode: "00000"                // 우편번호 없으면 생략 가능
+        buyer_email: buyerEmail,
+        buyer_name: buyerName,
+        buyer_tel: "010-0000-0000",
+        buyer_addr: "서울시 강남구",
+        buyer_postcode: "00000"
       }, function (rsp) {
         if (rsp.success) {
           $.ajax({
-            url: "<%=request.getContextPath()%>/payment/verify",
+            url: contextPath + "/payment/verify",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -428,14 +416,14 @@
               merchantUid: rsp.merchant_uid,
               amount: rsp.paid_amount,
               productName: productName,
-              settlementsId: settlementId,
+              settlementsId: settlementsId,
               estimateId: estimateId
             }),
             success: function (res) {
               if (res.result === "ok") {
                 alert("결제 및 저장 완료!");
                 location.href = contextPath + "/settlementStatus";
-            } else {
+              } else {
                 alert("DB 저장 실패");
               }
             }

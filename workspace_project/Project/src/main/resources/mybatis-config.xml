@@ -17,7 +17,6 @@
       <mapper resource="mappers/NotificationMapper.xml"/>
       <mapper resource="mappers/ShopProductMapper.xml"/>
       <mapper resource="mappers/EstimateMapper.xml"/>
-      <mapper resource="mappers/PaymentMapper.xml"/>
       <mapper resource="mappers/SettlementMapper.xml"/>
     </mappers>
   </configuration>
