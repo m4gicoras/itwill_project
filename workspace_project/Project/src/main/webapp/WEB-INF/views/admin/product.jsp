@@ -394,13 +394,19 @@
 	            <div class="mt-5 text-center">
 	            	<!-- 수정, 단종 변경 버튼 -->
                    	<div class="flex justify-end gap-2">
-	            		<!-- <div>
-		                  <button type="button" id="editButton" class="btn mx-0 mb-0 h-9 w-20">
-		                    <span class="btn-text">수정</span>
-		                  </button>
-		                </div> 보류 -->
 	            		<div>
-		                  <button type="button" id="discontinueButton" onclick="changeStatus()" class="btn mx-0 mb-0 h-9 w-45">
+		                  <button type="button" id="setNormalButton" onclick="changeStatus(0)" class="btn mx-0 mb-4 h-9 w-45">
+		                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white size-6">
+							  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+							</svg>
+		                    <span class="btn-text">정상으로 변경</span>
+		                  </button>
+		                </div>
+	            		<div>
+		                  <button type="button" id="discontinueButton" onclick="changeStatus(2)" class="btn bg-zinc-400 mx-0 mb-4 h-9 w-50">
+		                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white size-6">
+							  <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+							</svg>
 		                    <span class="btn-text">거래 불가로 변경</span>
 		                  </button>
 		                </div>
@@ -419,11 +425,13 @@
                 class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
                 <div role="dialog" aria-modal="true"
                     class="flex w-full max-w-lg flex-col items-center rounded-xl bg-white p-8 shadow-xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-blue-500">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                    </svg>
+                    <div id="updateResultModalIcon">
+	                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+	                        stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-blue-500">
+	                        <path stroke-linecap="round" stroke-linejoin="round"
+	                            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+	                    </svg>
+                    </div>
                     <p id="updateResultModalMessage" class="mb-2 text-center text-lg font-semibold"></p>
                     <div class="align-center mt-8 flex gap-6">
                         <div>
@@ -573,15 +581,20 @@
     }
 	
  	// 체크박스 체크된 행 클릭 후 -> 단종으로 변경
-    function changeStatus() {
+    function changeStatus(newStatus) {
     	// 체크박스 행의 id로 이루어진 Array
     	const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked')).map(cb => cb.value);
         const modal = document.getElementById('updateResultModal');
         const msg = document.getElementById('updateResultModalMessage');
-    	
+        const icon = document.getElementById('updateResultModalIcon');
+        
     	// 선택된 행이 없다면
     	if(selectedIds.length === 0){
     		msg.innerText = "선택된 물품이 없습니다.상태를 변경할 물품을 선택해주세요.";
+    		icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            </svg>`;
 			modal.classList.remove('hidden');
     		return;
     	}
@@ -593,22 +606,37 @@
     		},
     		body: JSON.stringify({
     			productIds: selectedIds,
-    			newStatus: 2 // 단종
+    			newStatus: newStatus // 단종
     		})
     	}).then(async response => {
     		const message = await response.text(); // 서버에서 보낸 메시지
             
     		if(response.ok) {
-    			msg.innerText = message;
+    			const statusMessage = newStatus === 0 ? "물품의 상태를 '정상'으로 변경하였습니다." : "물품의 상태를 '거래 불가'로 변경하였습니다.";
+    			msg.innerText = statusMessage;
+    			icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-blue-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                	</svg>`;
     			modal.classList.remove('hidden');
     		}
     		else {
     			msg.innerText = message;
+    			icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>`;
     			modal.classList.remove('hidden');
     		}
     	})
     	.catch(error => {
     		document.getElementById('updateResultModalMessage').innerText = `오류가 발생하였습니다. 잠시 후 다시 시도 해주세요. ${error}`;
+    		icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="mb-8 size-11 text-red-500">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            </svg>`;
     		document.getElementById('updateResultModal').classList.remove('hidden');
     	})
    	}

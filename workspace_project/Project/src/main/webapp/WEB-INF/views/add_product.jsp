@@ -426,5 +426,4 @@
 	<script src="<%= request.getContextPath() %>/resources/js/dashboard.js"></script>
 	<script src="<%= request.getContextPath() %>/resources/js/alarm.js"></script>
 
-
     </html>

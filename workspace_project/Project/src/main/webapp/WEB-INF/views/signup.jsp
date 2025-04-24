@@ -242,6 +242,7 @@
 	              </div>
 	            </label>
 	            <span class="ml-2.5">개인정보 수집 및 이용 동의</span>
+	            <span class="ml-1 text-sm text-red-500">*</span>
 	            <svg id="togglefromBtn2" onclick="openModal('termsModal', 'privacy')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-1 size-4 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
 	          </div>
 	
@@ -256,6 +257,7 @@
 	              </div>
 	            </label>
 	            <span class="ml-2.5">정보 수신 동의</span>
+	            <span class="ml-1 text-sm text-red-500">*</span>
 	            <svg id="togglefromBtn3" onclick="openModal('termsModal', 'marketing')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-1 size-4 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
 	          </div>
 	        </div>
